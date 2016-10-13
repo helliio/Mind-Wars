@@ -117,4 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="PicStartButton_PvPHTTP.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAN4AAAApCAYAAABa8JcWAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAAX1JREFUeF7t3bFNA0EQhlFnJBTiUmjBHdCHS0L0QDsExGZ+aawLsC0wdxoJ3pMm
+        2L0z2afDIN3uAOB/e/k4PdYcal5r3mtOxphvTZpJO4+d0/f0h/ID3mqea/Y1D30ZuKJbSTNpJw0d+tJt
+        deOxP/DcW8Ad0lC3dOyty+qG85PuqbeAX0hL3dTlJ19dyHc6TzpYWZrqtr5+56vNPO3eegmsKG2lsV4u
+        ajN/ifG0gw2krTTWy0Vt5l8G+14CK0pbaayXi9rM76D+ZQAbSFtprJeLi5vAaoQHA4QHA4QHA4QHA4QH
+        A4QHA4QHA4QHA4QHA4QHA4QHA4QHA4QHA4QHA4QHA4QHA4QHA4QHA66GV+OdK7CBtHUtPG8Zg42krTTW
+        y0Vteq8mbCRtpbFeLmrTm6RhI2krjfVyUZvOToANpKlu6/J5eXXBaUGworTUTd0+J69ucD4erCANdUu3
+        z8c7qxudCAt36FbSzM9OhD2rDzgD3Zj75r4z0AHgj9ntPgEbzJ6qFgfYaQAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="PicStartButton_Tutorial.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAN4AAAApCAYAAABa8JcWAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAAX1JREFUeF7t3bFNA0EQhlFnJBTiUmjBHdCHS0L0QDsExGZ+aawLsC0wdxoJ3pMm
+        2L0z2afDIN3uAOB/e/k4PdYcal5r3mtOxphvTZpJO4+d0/f0h/ID3mqea/Y1D30ZuKJbSTNpJw0d+tJt
+        deOxP/DcW8Ad0lC3dOyty+qG85PuqbeAX0hL3dTlJ19dyHc6TzpYWZrqtr5+56vNPO3eegmsKG2lsV4u
+        ajN/ifG0gw2krTTWy0Vt5l8G+14CK0pbaayXi9rM76D+ZQAbSFtprJeLi5vAaoQHA4QHA4QHA4QHA4QH
+        A4QHA4QHA4QHA4QHA4QHA4QHA4QHA4QHA4QHA4QHA4QHA4QHA4QHA66GV+OdK7CBtHUtPG8Zg42krTTW
+        y0Vteq8mbCRtpbFeLmrTm6RhI2krjfVyUZvOToANpKlu6/J5eXXBaUGworTUTd0+J69ucD4erCANdUu3
+        z8c7qxudCAt36FbSzM9OhD2rDzgD3Zj75r4z0AHgj9ntPgEbzJ6qFgfYaQAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <metadata name="GUITimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>
