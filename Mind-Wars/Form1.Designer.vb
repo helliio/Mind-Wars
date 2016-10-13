@@ -30,10 +30,17 @@ Partial Class StartScreen
         Me.PicStartButton_PvPLan = New System.Windows.Forms.PictureBox()
         Me.LabPvPHTTP = New System.Windows.Forms.Label()
         Me.PicStartButton_PvPHTTP = New System.Windows.Forms.PictureBox()
+        Me.LabTutorial = New System.Windows.Forms.Label()
+        Me.PicStartButton_Tutorial = New System.Windows.Forms.PictureBox()
+        Me.PanelSettings = New System.Windows.Forms.Panel()
+        Me.PicCloseSettings = New System.Windows.Forms.PictureBox()
         CType(Me.PicStartButton_Settings, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvE, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvPLan, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvPHTTP, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicStartButton_Tutorial, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PanelSettings.SuspendLayout()
+        CType(Me.PicCloseSettings, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PicStartButton_Settings
@@ -116,6 +123,45 @@ Partial Class StartScreen
         Me.PicStartButton_PvPHTTP.TabIndex = 6
         Me.PicStartButton_PvPHTTP.TabStop = False
         '
+        'LabTutorial
+        '
+        Me.LabTutorial.BackColor = System.Drawing.Color.Transparent
+        Me.LabTutorial.Location = New System.Drawing.Point(11, 213)
+        Me.LabTutorial.Name = "LabTutorial"
+        Me.LabTutorial.Size = New System.Drawing.Size(222, 28)
+        Me.LabTutorial.TabIndex = 4
+        Me.LabTutorial.Text = "Tutorial"
+        Me.LabTutorial.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'PicStartButton_Tutorial
+        '
+        Me.PicStartButton_Tutorial.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.PicStartButton_Tutorial.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.PicStartButton_Tutorial.Location = New System.Drawing.Point(11, 200)
+        Me.PicStartButton_Tutorial.Name = "PicStartButton_Tutorial"
+        Me.PicStartButton_Tutorial.Size = New System.Drawing.Size(222, 41)
+        Me.PicStartButton_Tutorial.TabIndex = 8
+        Me.PicStartButton_Tutorial.TabStop = False
+        '
+        'PanelSettings
+        '
+        Me.PanelSettings.Controls.Add(Me.PicCloseSettings)
+        Me.PanelSettings.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PanelSettings.Location = New System.Drawing.Point(10, 10)
+        Me.PanelSettings.Name = "PanelSettings"
+        Me.PanelSettings.Size = New System.Drawing.Size(226, 259)
+        Me.PanelSettings.TabIndex = 9
+        Me.PanelSettings.Visible = False
+        '
+        'PicCloseSettings
+        '
+        Me.PicCloseSettings.BackColor = System.Drawing.Color.DarkRed
+        Me.PicCloseSettings.Location = New System.Drawing.Point(207, 3)
+        Me.PicCloseSettings.Name = "PicCloseSettings"
+        Me.PicCloseSettings.Size = New System.Drawing.Size(16, 16)
+        Me.PicCloseSettings.TabIndex = 0
+        Me.PicCloseSettings.TabStop = False
+        '
         'StartScreen
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -123,7 +169,10 @@ Partial Class StartScreen
         Me.AutoSize = True
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(246, 208)
+        Me.ClientSize = New System.Drawing.Size(246, 279)
+        Me.Controls.Add(Me.PanelSettings)
+        Me.Controls.Add(Me.LabTutorial)
+        Me.Controls.Add(Me.PicStartButton_Tutorial)
         Me.Controls.Add(Me.LabPvPHTTP)
         Me.Controls.Add(Me.PicStartButton_PvPHTTP)
         Me.Controls.Add(Me.LabPvPLan)
@@ -142,6 +191,9 @@ Partial Class StartScreen
         CType(Me.PicStartButton_PvE, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicStartButton_PvPLan, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicStartButton_PvPHTTP, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicStartButton_Tutorial, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PanelSettings.ResumeLayout(False)
+        CType(Me.PicCloseSettings, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -154,4 +206,8 @@ Partial Class StartScreen
     Friend WithEvents PicStartButton_PvPLan As PictureBox
     Friend WithEvents LabPvPHTTP As Label
     Friend WithEvents PicStartButton_PvPHTTP As PictureBox
+    Friend WithEvents LabTutorial As Label
+    Friend WithEvents PicStartButton_Tutorial As PictureBox
+    Friend WithEvents PanelSettings As Panel
+    Friend WithEvents PicCloseSettings As PictureBox
 End Class

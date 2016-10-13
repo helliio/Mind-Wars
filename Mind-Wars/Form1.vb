@@ -8,9 +8,15 @@
     ' We need a list in order to refer to each button using numbers instead of control names, which is necessary for reasonably
     ' simple code when navigating up and down with the arrow keys.
     Dim ButtonLabList As New List(Of Label)
+
     ' We need to be able to keep track of which button is selected. We're counting from the top, and 0 is the first button from
     ' the top. The upmost button ('Settings') will be selected initially, so we set the value of this variable to 0.
     Dim SelectedButtonListIndex As Integer = 0
+
+    ' We need to know whether or not one of the panels shown by clicking a button is already open, so we can ignore the key
+    ' events for the main buttons if it is. I've made this an integer instead of a boolean (we treat 0 as 'no panel is open')
+    ' so we can determine which panel should be affected by the key events.
+    Dim VisiblePanel As Integer = 0
 
     Private Sub StartScreen_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' If we simply placed a Label control in front of a PictureBox control, the PictureBox would be obscured. We could try
@@ -32,28 +38,35 @@
         With LabSettings
             .Parent = PicStartButton_Settings
             .Parent.BackColor = Color.DarkGreen
-            .Height = PicStartButton_Settings.Height
+            .Height = .Parent.Height
             .Left = 0
             .Top = 0
         End With
         With LabPvE
             .Parent = PicStartButton_PvE
             .Parent.BackColor = Color.DarkGreen
-            .Height = PicStartButton_PvE.Height
+            .Height = .Parent.Height
             .Left = 0
             .Top = 0
         End With
         With LabPvPLan
             .Parent = PicStartButton_PvPLan
             .Parent.BackColor = Color.DarkGreen
-            .Height = PicStartButton_PvE.Height
+            .Height = .Parent.Height
             .Left = 0
             .Top = 0
         End With
         With LabPvPHTTP
             .Parent = PicStartButton_PvPHTTP
             .Parent.BackColor = Color.DarkGreen
-            .Height = PicStartButton_PvE.Height
+            .Height = .Parent.Height
+            .Left = 0
+            .Top = 0
+        End With
+        With LabTutorial
+            .Parent = PicStartButton_Tutorial
+            .Parent.BackColor = Color.DarkGreen
+            .Height = .Parent.Height
             .Left = 0
             .Top = 0
         End With
@@ -64,6 +77,7 @@
             .Add(LabPvE)
             .Add(LabPvPLan)
             .Add(LabPvPHTTP)
+            .Add(LabTutorial)
         End With
 
     End Sub
@@ -103,31 +117,62 @@
         End If
     End Sub
 
-
-
     Private Sub StartScreen_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         ' Here, e contains information about which key was pressed.
-        Select Case e.KeyCode
-            ' If the 'up' key was pressed...
-            Case Keys.Up
-                ' If we're not already at the top of the list (we cannot select the button at the list index of -1, as it
-                ' does not exist)...
-                If Not SelectedButtonListIndex = 0 Then
-                    Call SelectButton(True)
-                    SelectedButtonListIndex -= 1
-                    Call SelectButton(False)
-                End If
-            ' If the 'down' key was pressed...
-            Case Keys.Down
-                ' As with Keys.Up, we check if the last button is already selected.
-                If Not SelectedButtonListIndex = ButtonLabList.Count - 1 Then
-                    Call SelectButton(True)
-                    SelectedButtonListIndex += 1
-                    Call SelectButton(False)
-                End If
-            Case Keys.Space, Keys.Enter
-                ' If the space/enter key was pressed, we proceed.
-                Call EnterSelected()
+
+        ' First, we check if the escape key was pressed.
+        If e.KeyCode = Keys.Escape Then
+            If Not VisiblePanel = 0 Then
+                PanelSettings.Visible = False
+                VisiblePanel = 0
+            Else
+                ' We should avoid the need to use End() here, in case we implement a closing method in the future.
+                Close()
+            End If
+        End If
+
+        ' We determine which panel is open. I found it cleaner to check here.
+
+        Select Case VisiblePanel
+            Case 0
+                ' If there is no panel open...
+                Select Case e.KeyCode
+                    ' If the 'up' key was pressed...
+                    Case Keys.Up
+                        ' If we're not already at the top of the list (we cannot select the button at the list index of -1, as it
+                        ' does not exist)...
+                        If Not SelectedButtonListIndex = 0 Then
+                            Call SelectButton(True)
+                            SelectedButtonListIndex -= 1
+                            Call SelectButton(False)
+                        End If
+
+                    ' If the 'down' key was pressed...
+                    Case Keys.Down
+                        ' As with Keys.Up, we check if the last button is already selected.
+                        If Not SelectedButtonListIndex = ButtonLabList.Count - 1 Then
+                            Call SelectButton(True)
+                            SelectedButtonListIndex += 1
+                            Call SelectButton(False)
+                        End If
+                    Case Keys.Tab
+                        ' With the tab key, we want to select the first button if the last button is selected.
+                        ' The currently selected button will be deselected no matter the condition.
+                        Call SelectButton(True)
+                        If Not SelectedButtonListIndex = ButtonLabList.Count - 1 Then
+                            ' Does what Keys.Down would do:
+                            SelectedButtonListIndex += 1
+                        Else
+                            ' Doesn't stop at the bottom, skips to the top:
+                            SelectedButtonListIndex = 0
+                        End If
+                        Call SelectButton(False)
+                    Case Keys.Space, Keys.Enter
+                        ' If the space/enter key was pressed, we proceed.
+                        Call EnterSelected()
+                End Select
+            Case 1
+
         End Select
         e.Handled = True
     End Sub
@@ -137,7 +182,8 @@
         Select Case SelectedButtonListIndex
             Case 0
                 ' Do something
-                MsgBox("The first button was clicked.")
+                VisiblePanel = 1
+                PanelSettings.Show()
             Case 1
                 ' Do something
                 MsgBox("The second button was clicked.")
@@ -153,5 +199,10 @@
     Private Sub ButtonClick(sender As Object, e As EventArgs) Handles LabSettings.Click, LabPvE.Click, LabPvPLan.Click, LabPvPHTTP.Click
         ' It does not matter which button is clicked per se. SelectedButtonListIndex was changed upon MouseEnter.
         Call EnterSelected()
+    End Sub
+
+    Private Sub PicCloseSettings_Click(sender As Object, e As EventArgs) Handles PicCloseSettings.Click
+        VisiblePanel = 0
+        PanelSettings.Hide()
     End Sub
 End Class
