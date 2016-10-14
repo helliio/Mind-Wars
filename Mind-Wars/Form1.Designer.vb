@@ -35,8 +35,13 @@ Partial Class StartScreen
         Me.LabTutorial = New System.Windows.Forms.Label()
         Me.PicStartButton_Tutorial = New System.Windows.Forms.PictureBox()
         Me.PicSettingsButton2 = New System.Windows.Forms.Panel()
+        Me.PanelTheme = New System.Windows.Forms.Panel()
+        Me.PicTheme3 = New System.Windows.Forms.PictureBox()
+        Me.PicTheme2 = New System.Windows.Forms.PictureBox()
+        Me.PicTheme1 = New System.Windows.Forms.PictureBox()
+        Me.LabSettingsTheme = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.PicSettingsButton1 = New System.Windows.Forms.PictureBox()
+        Me.PicSettingsTheme = New System.Windows.Forms.PictureBox()
         Me.PicCloseSettings = New System.Windows.Forms.PictureBox()
         Me.PanelPvE = New System.Windows.Forms.Panel()
         Me.PvEDifficultyPanel = New System.Windows.Forms.Panel()
@@ -55,14 +60,24 @@ Partial Class StartScreen
         Me.PicMinimizeForm = New System.Windows.Forms.PictureBox()
         Me.PicCloseForm = New System.Windows.Forms.PictureBox()
         Me.GUITimer = New System.Windows.Forms.Timer(Me.components)
+        Me.PicSettingSound = New System.Windows.Forms.PictureBox()
+        Me.LabSettingsSound = New System.Windows.Forms.Label()
+        Me.PanelSound = New System.Windows.Forms.Panel()
+        Me.PicSound3 = New System.Windows.Forms.PictureBox()
+        Me.PicSound2 = New System.Windows.Forms.PictureBox()
+        Me.PicSound1 = New System.Windows.Forms.PictureBox()
         CType(Me.PicStartButton_Settings, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvE, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvPLan, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvPHTTP, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_Tutorial, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PicSettingsButton2.SuspendLayout()
+        Me.PanelTheme.SuspendLayout()
+        CType(Me.PicTheme3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicTheme2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicTheme1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PicSettingsButton1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicSettingsTheme, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicCloseSettings, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelPvE.SuspendLayout()
         Me.PvEDifficultyPanel.SuspendLayout()
@@ -80,6 +95,11 @@ Partial Class StartScreen
         Me.ButtonsPanel.SuspendLayout()
         CType(Me.PicMinimizeForm, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicCloseForm, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicSettingSound, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PanelSound.SuspendLayout()
+        CType(Me.PicSound3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicSound2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicSound1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PicStartButton_Settings
@@ -205,8 +225,13 @@ Partial Class StartScreen
         'PicSettingsButton2
         '
         Me.PicSettingsButton2.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.StartScreenBG
+        Me.PicSettingsButton2.Controls.Add(Me.PanelSound)
+        Me.PicSettingsButton2.Controls.Add(Me.LabSettingsSound)
+        Me.PicSettingsButton2.Controls.Add(Me.PicSettingSound)
+        Me.PicSettingsButton2.Controls.Add(Me.PanelTheme)
+        Me.PicSettingsButton2.Controls.Add(Me.LabSettingsTheme)
         Me.PicSettingsButton2.Controls.Add(Me.PictureBox1)
-        Me.PicSettingsButton2.Controls.Add(Me.PicSettingsButton1)
+        Me.PicSettingsButton2.Controls.Add(Me.PicSettingsTheme)
         Me.PicSettingsButton2.Controls.Add(Me.PicCloseSettings)
         Me.PicSettingsButton2.Location = New System.Drawing.Point(262, 57)
         Me.PicSettingsButton2.Name = "PicSettingsButton2"
@@ -214,31 +239,85 @@ Partial Class StartScreen
         Me.PicSettingsButton2.TabIndex = 9
         Me.PicSettingsButton2.Visible = False
         '
+        'PanelTheme
+        '
+        Me.PanelTheme.BackColor = System.Drawing.Color.Transparent
+        Me.PanelTheme.Controls.Add(Me.PicTheme3)
+        Me.PanelTheme.Controls.Add(Me.PicTheme2)
+        Me.PanelTheme.Controls.Add(Me.PicTheme1)
+        Me.PanelTheme.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PanelTheme.Location = New System.Drawing.Point(0, 93)
+        Me.PanelTheme.Margin = New System.Windows.Forms.Padding(0)
+        Me.PanelTheme.Name = "PanelTheme"
+        Me.PanelTheme.Size = New System.Drawing.Size(226, 32)
+        Me.PanelTheme.TabIndex = 10
+        '
+        'PicTheme3
+        '
+        Me.PicTheme3.BackColor = System.Drawing.Color.Transparent
+        Me.PicTheme3.Location = New System.Drawing.Point(143, 0)
+        Me.PicTheme3.Name = "PicTheme3"
+        Me.PicTheme3.Size = New System.Drawing.Size(32, 32)
+        Me.PicTheme3.TabIndex = 21
+        Me.PicTheme3.TabStop = False
+        '
+        'PicTheme2
+        '
+        Me.PicTheme2.BackColor = System.Drawing.Color.Transparent
+        Me.PicTheme2.Location = New System.Drawing.Point(98, 0)
+        Me.PicTheme2.Margin = New System.Windows.Forms.Padding(10, 3, 10, 3)
+        Me.PicTheme2.Name = "PicTheme2"
+        Me.PicTheme2.Size = New System.Drawing.Size(32, 32)
+        Me.PicTheme2.TabIndex = 20
+        Me.PicTheme2.TabStop = False
+        Me.PicTheme2.Tag = "test"
+        '
+        'PicTheme1
+        '
+        Me.PicTheme1.BackColor = System.Drawing.Color.Transparent
+        Me.PicTheme1.Location = New System.Drawing.Point(53, 0)
+        Me.PicTheme1.Name = "PicTheme1"
+        Me.PicTheme1.Size = New System.Drawing.Size(32, 32)
+        Me.PicTheme1.TabIndex = 19
+        Me.PicTheme1.TabStop = False
+        '
+        'LabSettingsTheme
+        '
+        Me.LabSettingsTheme.BackColor = System.Drawing.Color.Transparent
+        Me.LabSettingsTheme.ForeColor = System.Drawing.Color.LightCyan
+        Me.LabSettingsTheme.Location = New System.Drawing.Point(4, 65)
+        Me.LabSettingsTheme.Margin = New System.Windows.Forms.Padding(0)
+        Me.LabSettingsTheme.Name = "LabSettingsTheme"
+        Me.LabSettingsTheme.Size = New System.Drawing.Size(222, 28)
+        Me.LabSettingsTheme.TabIndex = 9
+        Me.LabSettingsTheme.Text = "Theme"
+        Me.LabSettingsTheme.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'PictureBox1
         '
         Me.PictureBox1.BackColor = System.Drawing.Color.Transparent
         Me.PictureBox1.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.PictureBox1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PictureBox1.Location = New System.Drawing.Point(0, 93)
+        Me.PictureBox1.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.PictureBox1.Location = New System.Drawing.Point(0, 220)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(226, 40)
         Me.PictureBox1.TabIndex = 3
         Me.PictureBox1.TabStop = False
         Me.PictureBox1.Tag = "0"
         '
-        'PicSettingsButton1
+        'PicSettingsTheme
         '
-        Me.PicSettingsButton1.BackColor = System.Drawing.Color.Transparent
-        Me.PicSettingsButton1.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
-        Me.PicSettingsButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.PicSettingsButton1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PicSettingsButton1.Location = New System.Drawing.Point(0, 53)
-        Me.PicSettingsButton1.Name = "PicSettingsButton1"
-        Me.PicSettingsButton1.Size = New System.Drawing.Size(226, 40)
-        Me.PicSettingsButton1.TabIndex = 2
-        Me.PicSettingsButton1.TabStop = False
-        Me.PicSettingsButton1.Tag = "0"
+        Me.PicSettingsTheme.BackColor = System.Drawing.Color.Transparent
+        Me.PicSettingsTheme.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
+        Me.PicSettingsTheme.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.PicSettingsTheme.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PicSettingsTheme.Location = New System.Drawing.Point(0, 53)
+        Me.PicSettingsTheme.Name = "PicSettingsTheme"
+        Me.PicSettingsTheme.Size = New System.Drawing.Size(226, 40)
+        Me.PicSettingsTheme.TabIndex = 2
+        Me.PicSettingsTheme.TabStop = False
+        Me.PicSettingsTheme.Tag = "0"
         '
         'PicCloseSettings
         '
@@ -436,6 +515,73 @@ Partial Class StartScreen
         Me.GUITimer.Enabled = True
         Me.GUITimer.Interval = 40
         '
+        'PicSettingSound
+        '
+        Me.PicSettingSound.BackColor = System.Drawing.Color.Transparent
+        Me.PicSettingSound.BackgroundImage = CType(resources.GetObject("PicSettingSound.BackgroundImage"), System.Drawing.Image)
+        Me.PicSettingSound.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.PicSettingSound.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PicSettingSound.Location = New System.Drawing.Point(0, 125)
+        Me.PicSettingSound.Name = "PicSettingSound"
+        Me.PicSettingSound.Size = New System.Drawing.Size(226, 40)
+        Me.PicSettingSound.TabIndex = 11
+        Me.PicSettingSound.TabStop = False
+        Me.PicSettingSound.Tag = "0"
+        '
+        'LabSettingsSound
+        '
+        Me.LabSettingsSound.BackColor = System.Drawing.Color.Transparent
+        Me.LabSettingsSound.ForeColor = System.Drawing.Color.LightCyan
+        Me.LabSettingsSound.Location = New System.Drawing.Point(0, 137)
+        Me.LabSettingsSound.Margin = New System.Windows.Forms.Padding(0)
+        Me.LabSettingsSound.Name = "LabSettingsSound"
+        Me.LabSettingsSound.Size = New System.Drawing.Size(222, 28)
+        Me.LabSettingsSound.TabIndex = 12
+        Me.LabSettingsSound.Text = "Sound"
+        Me.LabSettingsSound.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'PanelSound
+        '
+        Me.PanelSound.BackColor = System.Drawing.Color.Transparent
+        Me.PanelSound.Controls.Add(Me.PicSound3)
+        Me.PanelSound.Controls.Add(Me.PicSound2)
+        Me.PanelSound.Controls.Add(Me.PicSound1)
+        Me.PanelSound.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PanelSound.Location = New System.Drawing.Point(0, 165)
+        Me.PanelSound.Margin = New System.Windows.Forms.Padding(0)
+        Me.PanelSound.Name = "PanelSound"
+        Me.PanelSound.Size = New System.Drawing.Size(226, 32)
+        Me.PanelSound.TabIndex = 13
+        '
+        'PicSound3
+        '
+        Me.PicSound3.BackColor = System.Drawing.Color.Transparent
+        Me.PicSound3.Location = New System.Drawing.Point(143, 0)
+        Me.PicSound3.Name = "PicSound3"
+        Me.PicSound3.Size = New System.Drawing.Size(32, 32)
+        Me.PicSound3.TabIndex = 21
+        Me.PicSound3.TabStop = False
+        '
+        'PicSound2
+        '
+        Me.PicSound2.BackColor = System.Drawing.Color.Transparent
+        Me.PicSound2.Location = New System.Drawing.Point(98, 0)
+        Me.PicSound2.Margin = New System.Windows.Forms.Padding(10, 3, 10, 3)
+        Me.PicSound2.Name = "PicSound2"
+        Me.PicSound2.Size = New System.Drawing.Size(32, 32)
+        Me.PicSound2.TabIndex = 20
+        Me.PicSound2.TabStop = False
+        Me.PicSound2.Tag = "test"
+        '
+        'PicSound1
+        '
+        Me.PicSound1.BackColor = System.Drawing.Color.Transparent
+        Me.PicSound1.Location = New System.Drawing.Point(53, 0)
+        Me.PicSound1.Name = "PicSound1"
+        Me.PicSound1.Size = New System.Drawing.Size(32, 32)
+        Me.PicSound1.TabIndex = 19
+        Me.PicSound1.TabStop = False
+        '
         'StartScreen
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -470,8 +616,12 @@ Partial Class StartScreen
         CType(Me.PicStartButton_PvPHTTP, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicStartButton_Tutorial, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PicSettingsButton2.ResumeLayout(False)
+        Me.PanelTheme.ResumeLayout(False)
+        CType(Me.PicTheme3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicTheme2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicTheme1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PicSettingsButton1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicSettingsTheme, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicCloseSettings, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelPvE.ResumeLayout(False)
         Me.PvEDifficultyPanel.ResumeLayout(False)
@@ -489,6 +639,11 @@ Partial Class StartScreen
         Me.ButtonsPanel.ResumeLayout(False)
         CType(Me.PicMinimizeForm, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicCloseForm, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicSettingSound, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PanelSound.ResumeLayout(False)
+        CType(Me.PicSound3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicSound2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicSound1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -523,6 +678,17 @@ Partial Class StartScreen
     Friend WithEvents PicDifficulty3 As PictureBox
     Friend WithEvents PicDifficulty2 As PictureBox
     Friend WithEvents PicDifficulty1 As PictureBox
-    Friend WithEvents PicSettingsButton1 As PictureBox
+    Friend WithEvents PicSettingsTheme As PictureBox
     Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents LabSettingsTheme As Label
+    Friend WithEvents PanelTheme As Panel
+    Friend WithEvents PicTheme3 As PictureBox
+    Friend WithEvents PicTheme2 As PictureBox
+    Friend WithEvents PicTheme1 As PictureBox
+    Friend WithEvents LabSettingsSound As Label
+    Friend WithEvents PicSettingSound As PictureBox
+    Friend WithEvents PanelSound As Panel
+    Friend WithEvents PicSound3 As PictureBox
+    Friend WithEvents PicSound2 As PictureBox
+    Friend WithEvents PicSound1 As PictureBox
 End Class
