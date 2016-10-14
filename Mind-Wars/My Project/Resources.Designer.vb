@@ -203,6 +203,36 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property NumberSettings00() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("NumberSettings00", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property NumberSettings10() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("NumberSettings10", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property NumberSettings11() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("NumberSettings11", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property SettingsButtonActive() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("SettingsButtonActive", resourceCulture)

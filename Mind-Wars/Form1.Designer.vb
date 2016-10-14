@@ -39,6 +39,17 @@ Partial Class StartScreen
         Me.PicSettingsButton1 = New System.Windows.Forms.PictureBox()
         Me.PicCloseSettings = New System.Windows.Forms.PictureBox()
         Me.PanelPvE = New System.Windows.Forms.Panel()
+        Me.PicPvEChooseHoles = New System.Windows.Forms.PictureBox()
+        Me.PanelPvEColors = New System.Windows.Forms.Panel()
+        Me.PicPvEColor8 = New System.Windows.Forms.PictureBox()
+        Me.PicPvEColor7 = New System.Windows.Forms.PictureBox()
+        Me.PicPvEColor6 = New System.Windows.Forms.PictureBox()
+        Me.PicPvEColor5 = New System.Windows.Forms.PictureBox()
+        Me.PicPvEColor4 = New System.Windows.Forms.PictureBox()
+        Me.PicPvEColor3 = New System.Windows.Forms.PictureBox()
+        Me.PicPvEColor2 = New System.Windows.Forms.PictureBox()
+        Me.PicPvEColor1 = New System.Windows.Forms.PictureBox()
+        Me.PicPvEChooseColors = New System.Windows.Forms.PictureBox()
         Me.PvEDifficultyPanel = New System.Windows.Forms.Panel()
         Me.PicDifficulty3 = New System.Windows.Forms.PictureBox()
         Me.PicDifficulty2 = New System.Windows.Forms.PictureBox()
@@ -55,6 +66,16 @@ Partial Class StartScreen
         Me.PicMinimizeForm = New System.Windows.Forms.PictureBox()
         Me.PicCloseForm = New System.Windows.Forms.PictureBox()
         Me.GUITimer = New System.Windows.Forms.Timer(Me.components)
+        Me.PicPvEChooseAttempts = New System.Windows.Forms.PictureBox()
+        Me.LabPvENumberOfHolesButton = New System.Windows.Forms.Label()
+        Me.LabPvENumberOfHoles = New System.Windows.Forms.Label()
+        Me.LabPvENumberOfAttemptsButton = New System.Windows.Forms.Label()
+        Me.LabPvENumberOfAttempts = New System.Windows.Forms.Label()
+        Me.LabPvEColors = New System.Windows.Forms.Label()
+        Me.PicPvEStartGame = New System.Windows.Forms.PictureBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
         CType(Me.PicStartButton_Settings, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvE, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvPLan, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -65,6 +86,17 @@ Partial Class StartScreen
         CType(Me.PicSettingsButton1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicCloseSettings, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelPvE.SuspendLayout()
+        CType(Me.PicPvEChooseHoles, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PanelPvEColors.SuspendLayout()
+        CType(Me.PicPvEColor8, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicPvEColor7, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicPvEColor6, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicPvEColor5, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicPvEColor4, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicPvEColor3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicPvEColor2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicPvEColor1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicPvEChooseColors, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PvEDifficultyPanel.SuspendLayout()
         CType(Me.PicDifficulty3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicDifficulty2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -80,6 +112,8 @@ Partial Class StartScreen
         Me.ButtonsPanel.SuspendLayout()
         CType(Me.PicMinimizeForm, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicCloseForm, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicPvEChooseAttempts, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicPvEStartGame, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PicStartButton_Settings
@@ -220,7 +254,7 @@ Partial Class StartScreen
         Me.PictureBox1.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.PictureBox1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PictureBox1.Location = New System.Drawing.Point(0, 93)
+        Me.PictureBox1.Location = New System.Drawing.Point(0, 80)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(226, 40)
         Me.PictureBox1.TabIndex = 3
@@ -233,7 +267,7 @@ Partial Class StartScreen
         Me.PicSettingsButton1.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
         Me.PicSettingsButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.PicSettingsButton1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PicSettingsButton1.Location = New System.Drawing.Point(0, 53)
+        Me.PicSettingsButton1.Location = New System.Drawing.Point(0, 40)
         Me.PicSettingsButton1.Name = "PicSettingsButton1"
         Me.PicSettingsButton1.Size = New System.Drawing.Size(226, 40)
         Me.PicSettingsButton1.TabIndex = 2
@@ -248,7 +282,7 @@ Partial Class StartScreen
         Me.PicCloseSettings.Dock = System.Windows.Forms.DockStyle.Top
         Me.PicCloseSettings.Location = New System.Drawing.Point(0, 0)
         Me.PicCloseSettings.Name = "PicCloseSettings"
-        Me.PicCloseSettings.Size = New System.Drawing.Size(226, 53)
+        Me.PicCloseSettings.Size = New System.Drawing.Size(226, 40)
         Me.PicCloseSettings.TabIndex = 1
         Me.PicCloseSettings.TabStop = False
         Me.PicCloseSettings.Tag = "0"
@@ -256,6 +290,16 @@ Partial Class StartScreen
         'PanelPvE
         '
         Me.PanelPvE.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.StartScreenBG
+        Me.PanelPvE.Controls.Add(Me.PicPvEStartGame)
+        Me.PanelPvE.Controls.Add(Me.LabPvEColors)
+        Me.PanelPvE.Controls.Add(Me.LabPvENumberOfAttempts)
+        Me.PanelPvE.Controls.Add(Me.LabPvENumberOfAttemptsButton)
+        Me.PanelPvE.Controls.Add(Me.LabPvENumberOfHoles)
+        Me.PanelPvE.Controls.Add(Me.LabPvENumberOfHolesButton)
+        Me.PanelPvE.Controls.Add(Me.PicPvEChooseAttempts)
+        Me.PanelPvE.Controls.Add(Me.PicPvEChooseHoles)
+        Me.PanelPvE.Controls.Add(Me.PanelPvEColors)
+        Me.PanelPvE.Controls.Add(Me.PicPvEChooseColors)
         Me.PanelPvE.Controls.Add(Me.PvEDifficultyPanel)
         Me.PanelPvE.Controls.Add(Me.PicClosePvE)
         Me.PanelPvE.Location = New System.Drawing.Point(491, 57)
@@ -265,14 +309,149 @@ Partial Class StartScreen
         Me.PanelPvE.TabIndex = 10
         Me.PanelPvE.Visible = False
         '
+        'PicPvEChooseHoles
+        '
+        Me.PicPvEChooseHoles.BackColor = System.Drawing.Color.Transparent
+        Me.PicPvEChooseHoles.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.NumberSettings00
+        Me.PicPvEChooseHoles.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.PicPvEChooseHoles.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PicPvEChooseHoles.Location = New System.Drawing.Point(0, 139)
+        Me.PicPvEChooseHoles.Name = "PicPvEChooseHoles"
+        Me.PicPvEChooseHoles.Size = New System.Drawing.Size(226, 40)
+        Me.PicPvEChooseHoles.TabIndex = 4
+        Me.PicPvEChooseHoles.TabStop = False
+        Me.PicPvEChooseHoles.Tag = "0"
+        '
+        'PanelPvEColors
+        '
+        Me.PanelPvEColors.BackColor = System.Drawing.Color.Transparent
+        Me.PanelPvEColors.Controls.Add(Me.PicPvEColor8)
+        Me.PanelPvEColors.Controls.Add(Me.PicPvEColor7)
+        Me.PanelPvEColors.Controls.Add(Me.PicPvEColor6)
+        Me.PanelPvEColors.Controls.Add(Me.PicPvEColor5)
+        Me.PanelPvEColors.Controls.Add(Me.PicPvEColor4)
+        Me.PanelPvEColors.Controls.Add(Me.PicPvEColor3)
+        Me.PanelPvEColors.Controls.Add(Me.PicPvEColor2)
+        Me.PanelPvEColors.Controls.Add(Me.PicPvEColor1)
+        Me.PanelPvEColors.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PanelPvEColors.Location = New System.Drawing.Point(0, 112)
+        Me.PanelPvEColors.Margin = New System.Windows.Forms.Padding(0)
+        Me.PanelPvEColors.Name = "PanelPvEColors"
+        Me.PanelPvEColors.Size = New System.Drawing.Size(226, 27)
+        Me.PanelPvEColors.TabIndex = 3
+        '
+        'PicPvEColor8
+        '
+        Me.PicPvEColor8.BackColor = System.Drawing.Color.Transparent
+        Me.PicPvEColor8.Location = New System.Drawing.Point(194, 3)
+        Me.PicPvEColor8.Margin = New System.Windows.Forms.Padding(3, 0, 3, 0)
+        Me.PicPvEColor8.Name = "PicPvEColor8"
+        Me.PicPvEColor8.Size = New System.Drawing.Size(20, 20)
+        Me.PicPvEColor8.TabIndex = 26
+        Me.PicPvEColor8.TabStop = False
+        Me.PicPvEColor8.Tag = "2"
+        '
+        'PicPvEColor7
+        '
+        Me.PicPvEColor7.BackColor = System.Drawing.Color.Transparent
+        Me.PicPvEColor7.Location = New System.Drawing.Point(168, 3)
+        Me.PicPvEColor7.Margin = New System.Windows.Forms.Padding(3, 0, 3, 0)
+        Me.PicPvEColor7.Name = "PicPvEColor7"
+        Me.PicPvEColor7.Size = New System.Drawing.Size(20, 20)
+        Me.PicPvEColor7.TabIndex = 25
+        Me.PicPvEColor7.TabStop = False
+        Me.PicPvEColor7.Tag = "2"
+        '
+        'PicPvEColor6
+        '
+        Me.PicPvEColor6.BackColor = System.Drawing.Color.Transparent
+        Me.PicPvEColor6.Location = New System.Drawing.Point(142, 3)
+        Me.PicPvEColor6.Margin = New System.Windows.Forms.Padding(3, 0, 3, 0)
+        Me.PicPvEColor6.Name = "PicPvEColor6"
+        Me.PicPvEColor6.Size = New System.Drawing.Size(20, 20)
+        Me.PicPvEColor6.TabIndex = 24
+        Me.PicPvEColor6.TabStop = False
+        Me.PicPvEColor6.Tag = "2"
+        '
+        'PicPvEColor5
+        '
+        Me.PicPvEColor5.BackColor = System.Drawing.Color.Transparent
+        Me.PicPvEColor5.Location = New System.Drawing.Point(116, 3)
+        Me.PicPvEColor5.Margin = New System.Windows.Forms.Padding(3, 0, 3, 0)
+        Me.PicPvEColor5.Name = "PicPvEColor5"
+        Me.PicPvEColor5.Size = New System.Drawing.Size(20, 20)
+        Me.PicPvEColor5.TabIndex = 23
+        Me.PicPvEColor5.TabStop = False
+        Me.PicPvEColor5.Tag = "2"
+        '
+        'PicPvEColor4
+        '
+        Me.PicPvEColor4.BackColor = System.Drawing.Color.Transparent
+        Me.PicPvEColor4.Location = New System.Drawing.Point(90, 3)
+        Me.PicPvEColor4.Margin = New System.Windows.Forms.Padding(3, 0, 3, 0)
+        Me.PicPvEColor4.Name = "PicPvEColor4"
+        Me.PicPvEColor4.Size = New System.Drawing.Size(20, 20)
+        Me.PicPvEColor4.TabIndex = 22
+        Me.PicPvEColor4.TabStop = False
+        Me.PicPvEColor4.Tag = "2"
+        '
+        'PicPvEColor3
+        '
+        Me.PicPvEColor3.BackColor = System.Drawing.Color.Transparent
+        Me.PicPvEColor3.Location = New System.Drawing.Point(64, 3)
+        Me.PicPvEColor3.Margin = New System.Windows.Forms.Padding(3, 0, 3, 0)
+        Me.PicPvEColor3.Name = "PicPvEColor3"
+        Me.PicPvEColor3.Size = New System.Drawing.Size(20, 20)
+        Me.PicPvEColor3.TabIndex = 21
+        Me.PicPvEColor3.TabStop = False
+        Me.PicPvEColor3.Tag = "2"
+        '
+        'PicPvEColor2
+        '
+        Me.PicPvEColor2.BackColor = System.Drawing.Color.Transparent
+        Me.PicPvEColor2.Location = New System.Drawing.Point(38, 3)
+        Me.PicPvEColor2.Margin = New System.Windows.Forms.Padding(3, 0, 3, 0)
+        Me.PicPvEColor2.Name = "PicPvEColor2"
+        Me.PicPvEColor2.Size = New System.Drawing.Size(20, 20)
+        Me.PicPvEColor2.TabIndex = 20
+        Me.PicPvEColor2.TabStop = False
+        Me.PicPvEColor2.Tag = "2"
+        '
+        'PicPvEColor1
+        '
+        Me.PicPvEColor1.BackColor = System.Drawing.Color.Transparent
+        Me.PicPvEColor1.Location = New System.Drawing.Point(12, 3)
+        Me.PicPvEColor1.Margin = New System.Windows.Forms.Padding(0, 0, 3, 0)
+        Me.PicPvEColor1.Name = "PicPvEColor1"
+        Me.PicPvEColor1.Size = New System.Drawing.Size(20, 20)
+        Me.PicPvEColor1.TabIndex = 19
+        Me.PicPvEColor1.TabStop = False
+        Me.PicPvEColor1.Tag = "1"
+        '
+        'PicPvEChooseColors
+        '
+        Me.PicPvEChooseColors.BackColor = System.Drawing.Color.Transparent
+        Me.PicPvEChooseColors.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
+        Me.PicPvEChooseColors.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.PicPvEChooseColors.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PicPvEChooseColors.Location = New System.Drawing.Point(0, 72)
+        Me.PicPvEChooseColors.Name = "PicPvEChooseColors"
+        Me.PicPvEChooseColors.Size = New System.Drawing.Size(226, 40)
+        Me.PicPvEChooseColors.TabIndex = 3
+        Me.PicPvEChooseColors.TabStop = False
+        Me.PicPvEChooseColors.Tag = "0"
+        '
         'PvEDifficultyPanel
         '
         Me.PvEDifficultyPanel.BackColor = System.Drawing.Color.Transparent
+        Me.PvEDifficultyPanel.Controls.Add(Me.Label3)
+        Me.PvEDifficultyPanel.Controls.Add(Me.Label2)
+        Me.PvEDifficultyPanel.Controls.Add(Me.Label1)
         Me.PvEDifficultyPanel.Controls.Add(Me.PicDifficulty3)
         Me.PvEDifficultyPanel.Controls.Add(Me.PicDifficulty2)
         Me.PvEDifficultyPanel.Controls.Add(Me.PicDifficulty1)
         Me.PvEDifficultyPanel.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PvEDifficultyPanel.Location = New System.Drawing.Point(0, 53)
+        Me.PvEDifficultyPanel.Location = New System.Drawing.Point(0, 40)
         Me.PvEDifficultyPanel.Margin = New System.Windows.Forms.Padding(0)
         Me.PvEDifficultyPanel.Name = "PvEDifficultyPanel"
         Me.PvEDifficultyPanel.Size = New System.Drawing.Size(226, 32)
@@ -281,31 +460,35 @@ Partial Class StartScreen
         'PicDifficulty3
         '
         Me.PicDifficulty3.BackColor = System.Drawing.Color.Transparent
-        Me.PicDifficulty3.Location = New System.Drawing.Point(143, 0)
+        Me.PicDifficulty3.Location = New System.Drawing.Point(153, 6)
+        Me.PicDifficulty3.Margin = New System.Windows.Forms.Padding(0)
         Me.PicDifficulty3.Name = "PicDifficulty3"
-        Me.PicDifficulty3.Size = New System.Drawing.Size(32, 32)
+        Me.PicDifficulty3.Size = New System.Drawing.Size(70, 20)
         Me.PicDifficulty3.TabIndex = 21
         Me.PicDifficulty3.TabStop = False
+        Me.PicDifficulty3.Tag = "3"
         '
         'PicDifficulty2
         '
         Me.PicDifficulty2.BackColor = System.Drawing.Color.Transparent
-        Me.PicDifficulty2.Location = New System.Drawing.Point(98, 0)
-        Me.PicDifficulty2.Margin = New System.Windows.Forms.Padding(10, 3, 10, 3)
+        Me.PicDifficulty2.Location = New System.Drawing.Point(78, 6)
+        Me.PicDifficulty2.Margin = New System.Windows.Forms.Padding(0)
         Me.PicDifficulty2.Name = "PicDifficulty2"
-        Me.PicDifficulty2.Size = New System.Drawing.Size(32, 32)
+        Me.PicDifficulty2.Size = New System.Drawing.Size(70, 20)
         Me.PicDifficulty2.TabIndex = 20
         Me.PicDifficulty2.TabStop = False
-        Me.PicDifficulty2.Tag = "test"
+        Me.PicDifficulty2.Tag = "2"
         '
         'PicDifficulty1
         '
         Me.PicDifficulty1.BackColor = System.Drawing.Color.Transparent
-        Me.PicDifficulty1.Location = New System.Drawing.Point(53, 0)
+        Me.PicDifficulty1.Location = New System.Drawing.Point(3, 6)
+        Me.PicDifficulty1.Margin = New System.Windows.Forms.Padding(0)
         Me.PicDifficulty1.Name = "PicDifficulty1"
-        Me.PicDifficulty1.Size = New System.Drawing.Size(32, 32)
+        Me.PicDifficulty1.Size = New System.Drawing.Size(70, 20)
         Me.PicDifficulty1.TabIndex = 19
         Me.PicDifficulty1.TabStop = False
+        Me.PicDifficulty1.Tag = "1"
         '
         'PicClosePvE
         '
@@ -315,9 +498,10 @@ Partial Class StartScreen
         Me.PicClosePvE.Dock = System.Windows.Forms.DockStyle.Top
         Me.PicClosePvE.Location = New System.Drawing.Point(0, 0)
         Me.PicClosePvE.Name = "PicClosePvE"
-        Me.PicClosePvE.Size = New System.Drawing.Size(226, 53)
+        Me.PicClosePvE.Size = New System.Drawing.Size(226, 40)
         Me.PicClosePvE.TabIndex = 0
         Me.PicClosePvE.TabStop = False
+        Me.PicClosePvE.Tag = "0"
         '
         'PanelPvPLan
         '
@@ -436,6 +620,128 @@ Partial Class StartScreen
         Me.GUITimer.Enabled = True
         Me.GUITimer.Interval = 40
         '
+        'PicPvEChooseAttempts
+        '
+        Me.PicPvEChooseAttempts.BackColor = System.Drawing.Color.Transparent
+        Me.PicPvEChooseAttempts.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.NumberSettings00
+        Me.PicPvEChooseAttempts.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.PicPvEChooseAttempts.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PicPvEChooseAttempts.Location = New System.Drawing.Point(0, 179)
+        Me.PicPvEChooseAttempts.Name = "PicPvEChooseAttempts"
+        Me.PicPvEChooseAttempts.Size = New System.Drawing.Size(226, 40)
+        Me.PicPvEChooseAttempts.TabIndex = 5
+        Me.PicPvEChooseAttempts.TabStop = False
+        Me.PicPvEChooseAttempts.Tag = "0"
+        '
+        'LabPvENumberOfHolesButton
+        '
+        Me.LabPvENumberOfHolesButton.BackColor = System.Drawing.Color.Transparent
+        Me.LabPvENumberOfHolesButton.ForeColor = System.Drawing.Color.SteelBlue
+        Me.LabPvENumberOfHolesButton.Location = New System.Drawing.Point(0, 145)
+        Me.LabPvENumberOfHolesButton.Margin = New System.Windows.Forms.Padding(0)
+        Me.LabPvENumberOfHolesButton.Name = "LabPvENumberOfHolesButton"
+        Me.LabPvENumberOfHolesButton.Size = New System.Drawing.Size(175, 26)
+        Me.LabPvENumberOfHolesButton.TabIndex = 6
+        Me.LabPvENumberOfHolesButton.Text = "Number of holes"
+        Me.LabPvENumberOfHolesButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'LabPvENumberOfHoles
+        '
+        Me.LabPvENumberOfHoles.BackColor = System.Drawing.Color.Transparent
+        Me.LabPvENumberOfHoles.ForeColor = System.Drawing.Color.SteelBlue
+        Me.LabPvENumberOfHoles.Location = New System.Drawing.Point(175, 146)
+        Me.LabPvENumberOfHoles.Margin = New System.Windows.Forms.Padding(0)
+        Me.LabPvENumberOfHoles.Name = "LabPvENumberOfHoles"
+        Me.LabPvENumberOfHoles.Size = New System.Drawing.Size(48, 26)
+        Me.LabPvENumberOfHoles.TabIndex = 7
+        Me.LabPvENumberOfHoles.Text = "4"
+        Me.LabPvENumberOfHoles.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'LabPvENumberOfAttemptsButton
+        '
+        Me.LabPvENumberOfAttemptsButton.BackColor = System.Drawing.Color.Transparent
+        Me.LabPvENumberOfAttemptsButton.ForeColor = System.Drawing.Color.SteelBlue
+        Me.LabPvENumberOfAttemptsButton.Location = New System.Drawing.Point(0, 185)
+        Me.LabPvENumberOfAttemptsButton.Margin = New System.Windows.Forms.Padding(0)
+        Me.LabPvENumberOfAttemptsButton.Name = "LabPvENumberOfAttemptsButton"
+        Me.LabPvENumberOfAttemptsButton.Size = New System.Drawing.Size(175, 26)
+        Me.LabPvENumberOfAttemptsButton.TabIndex = 8
+        Me.LabPvENumberOfAttemptsButton.Text = "Attempts per round"
+        Me.LabPvENumberOfAttemptsButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'LabPvENumberOfAttempts
+        '
+        Me.LabPvENumberOfAttempts.BackColor = System.Drawing.Color.Transparent
+        Me.LabPvENumberOfAttempts.ForeColor = System.Drawing.Color.SteelBlue
+        Me.LabPvENumberOfAttempts.Location = New System.Drawing.Point(175, 186)
+        Me.LabPvENumberOfAttempts.Margin = New System.Windows.Forms.Padding(0)
+        Me.LabPvENumberOfAttempts.Name = "LabPvENumberOfAttempts"
+        Me.LabPvENumberOfAttempts.Size = New System.Drawing.Size(48, 26)
+        Me.LabPvENumberOfAttempts.TabIndex = 9
+        Me.LabPvENumberOfAttempts.Text = "10"
+        Me.LabPvENumberOfAttempts.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'LabPvEColors
+        '
+        Me.LabPvEColors.BackColor = System.Drawing.Color.Transparent
+        Me.LabPvEColors.ForeColor = System.Drawing.Color.SteelBlue
+        Me.LabPvEColors.Location = New System.Drawing.Point(0, 80)
+        Me.LabPvEColors.Margin = New System.Windows.Forms.Padding(0)
+        Me.LabPvEColors.Name = "LabPvEColors"
+        Me.LabPvEColors.Size = New System.Drawing.Size(226, 21)
+        Me.LabPvEColors.TabIndex = 10
+        Me.LabPvEColors.Text = "Colors"
+        Me.LabPvEColors.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'PicPvEStartGame
+        '
+        Me.PicPvEStartGame.BackColor = System.Drawing.Color.Transparent
+        Me.PicPvEStartGame.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
+        Me.PicPvEStartGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.PicPvEStartGame.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PicPvEStartGame.Location = New System.Drawing.Point(0, 219)
+        Me.PicPvEStartGame.Name = "PicPvEStartGame"
+        Me.PicPvEStartGame.Size = New System.Drawing.Size(226, 40)
+        Me.PicPvEStartGame.TabIndex = 11
+        Me.PicPvEStartGame.TabStop = False
+        Me.PicPvEStartGame.Tag = "0"
+        '
+        'Label1
+        '
+        Me.Label1.BackColor = System.Drawing.Color.Transparent
+        Me.Label1.ForeColor = System.Drawing.Color.SteelBlue
+        Me.Label1.Location = New System.Drawing.Point(5, 7)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(67, 18)
+        Me.Label1.TabIndex = 12
+        Me.Label1.Text = "Easy"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label2
+        '
+        Me.Label2.BackColor = System.Drawing.Color.Transparent
+        Me.Label2.ForeColor = System.Drawing.Color.SteelBlue
+        Me.Label2.Location = New System.Drawing.Point(80, 7)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(67, 18)
+        Me.Label2.TabIndex = 22
+        Me.Label2.Text = "Hard"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label3
+        '
+        Me.Label3.BackColor = System.Drawing.Color.Transparent
+        Me.Label3.ForeColor = System.Drawing.Color.SteelBlue
+        Me.Label3.Location = New System.Drawing.Point(155, 7)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(67, 18)
+        Me.Label3.TabIndex = 23
+        Me.Label3.Text = "Impossible"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'StartScreen
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -474,6 +780,17 @@ Partial Class StartScreen
         CType(Me.PicSettingsButton1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicCloseSettings, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelPvE.ResumeLayout(False)
+        CType(Me.PicPvEChooseHoles, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PanelPvEColors.ResumeLayout(False)
+        CType(Me.PicPvEColor8, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicPvEColor7, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicPvEColor6, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicPvEColor5, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicPvEColor4, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicPvEColor3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicPvEColor2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicPvEColor1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicPvEChooseColors, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PvEDifficultyPanel.ResumeLayout(False)
         CType(Me.PicDifficulty3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicDifficulty2, System.ComponentModel.ISupportInitialize).EndInit()
@@ -489,6 +806,8 @@ Partial Class StartScreen
         Me.ButtonsPanel.ResumeLayout(False)
         CType(Me.PicMinimizeForm, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicCloseForm, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicPvEChooseAttempts, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicPvEStartGame, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -525,4 +844,25 @@ Partial Class StartScreen
     Friend WithEvents PicDifficulty1 As PictureBox
     Friend WithEvents PicSettingsButton1 As PictureBox
     Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents PicPvEChooseHoles As PictureBox
+    Friend WithEvents PanelPvEColors As Panel
+    Friend WithEvents PicPvEColor8 As PictureBox
+    Friend WithEvents PicPvEColor7 As PictureBox
+    Friend WithEvents PicPvEColor6 As PictureBox
+    Friend WithEvents PicPvEColor5 As PictureBox
+    Friend WithEvents PicPvEColor4 As PictureBox
+    Friend WithEvents PicPvEColor3 As PictureBox
+    Friend WithEvents PicPvEColor2 As PictureBox
+    Friend WithEvents PicPvEColor1 As PictureBox
+    Friend WithEvents PicPvEChooseColors As PictureBox
+    Friend WithEvents LabPvENumberOfAttempts As Label
+    Friend WithEvents LabPvENumberOfAttemptsButton As Label
+    Friend WithEvents LabPvENumberOfHoles As Label
+    Friend WithEvents LabPvENumberOfHolesButton As Label
+    Friend WithEvents PicPvEChooseAttempts As PictureBox
+    Friend WithEvents LabPvEColors As Label
+    Friend WithEvents PicPvEStartGame As PictureBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label1 As Label
 End Class
