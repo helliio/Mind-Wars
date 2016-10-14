@@ -94,6 +94,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="PvE.Designer.vb">
+      <DependentUpon>PvE.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PvE.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form1.resx">
@@ -104,6 +110,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PvE.resx">
+      <DependentUpon>PvE.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
