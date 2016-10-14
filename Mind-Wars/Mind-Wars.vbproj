@@ -163,6 +163,15 @@
   <ItemGroup>
     <None Include="Resources\SettingsButtonActive.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NumberSettings00.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NumberSettings10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NumberSettings11.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
