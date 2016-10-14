@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AIModule.vb" />
+    <Compile Include="EasterEgg.vb" />
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
     </Compile>
