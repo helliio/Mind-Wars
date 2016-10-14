@@ -74,6 +74,8 @@
   <ItemGroup>
     <Compile Include="AnalysisModule.vb" />
     <Compile Include="DrawingModule.vb" />
+    <Compile Include="AIModule.vb" />
+    <Compile Include="EasterEgg.vb" />
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +98,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="SystemModule.vb" />
+    <Compile Include="VerifyModule.vb" />
     <Compile Include="PvE.Designer.vb">
       <DependentUpon>PvE.vb</DependentUpon>
     </Compile>
