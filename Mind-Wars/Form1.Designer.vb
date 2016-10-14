@@ -69,11 +69,9 @@ Partial Class StartScreen
         Me.PicPvEColor1 = New System.Windows.Forms.PictureBox()
         Me.PicPvEChooseColors = New System.Windows.Forms.PictureBox()
         Me.PvEDifficultyPanel = New System.Windows.Forms.Panel()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.LabPvEImpossible = New System.Windows.Forms.Label()
+        Me.LabPvEEasy = New System.Windows.Forms.Label()
         Me.PicDifficulty3 = New System.Windows.Forms.PictureBox()
-        Me.PicDifficulty2 = New System.Windows.Forms.PictureBox()
         Me.PicDifficulty1 = New System.Windows.Forms.PictureBox()
         Me.PicClosePvE = New System.Windows.Forms.PictureBox()
         Me.PanelPvPLan = New System.Windows.Forms.Panel()
@@ -87,6 +85,8 @@ Partial Class StartScreen
         Me.PicMinimizeForm = New System.Windows.Forms.PictureBox()
         Me.PicCloseForm = New System.Windows.Forms.PictureBox()
         Me.GUITimer = New System.Windows.Forms.Timer(Me.components)
+        Me.LabPvEHard = New System.Windows.Forms.Label()
+        Me.PicDifficulty2 = New System.Windows.Forms.PictureBox()
         CType(Me.PicStartButton_Settings, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvE, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvPLan, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -121,7 +121,6 @@ Partial Class StartScreen
         CType(Me.PicPvEChooseColors, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PvEDifficultyPanel.SuspendLayout()
         CType(Me.PicDifficulty3, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PicDifficulty2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicDifficulty1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicClosePvE, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelPvPLan.SuspendLayout()
@@ -134,6 +133,7 @@ Partial Class StartScreen
         Me.ButtonsPanel.SuspendLayout()
         CType(Me.PicMinimizeForm, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicCloseForm, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicDifficulty2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PicStartButton_Settings
@@ -676,11 +676,11 @@ Partial Class StartScreen
         'PvEDifficultyPanel
         '
         Me.PvEDifficultyPanel.BackColor = System.Drawing.Color.Transparent
-        Me.PvEDifficultyPanel.Controls.Add(Me.Label3)
-        Me.PvEDifficultyPanel.Controls.Add(Me.Label2)
-        Me.PvEDifficultyPanel.Controls.Add(Me.Label1)
-        Me.PvEDifficultyPanel.Controls.Add(Me.PicDifficulty3)
+        Me.PvEDifficultyPanel.Controls.Add(Me.LabPvEHard)
         Me.PvEDifficultyPanel.Controls.Add(Me.PicDifficulty2)
+        Me.PvEDifficultyPanel.Controls.Add(Me.LabPvEImpossible)
+        Me.PvEDifficultyPanel.Controls.Add(Me.LabPvEEasy)
+        Me.PvEDifficultyPanel.Controls.Add(Me.PicDifficulty3)
         Me.PvEDifficultyPanel.Controls.Add(Me.PicDifficulty1)
         Me.PvEDifficultyPanel.Dock = System.Windows.Forms.DockStyle.Top
         Me.PvEDifficultyPanel.Location = New System.Drawing.Point(0, 40)
@@ -689,41 +689,29 @@ Partial Class StartScreen
         Me.PvEDifficultyPanel.Size = New System.Drawing.Size(226, 32)
         Me.PvEDifficultyPanel.TabIndex = 1
         '
-        'Label3
+        'LabPvEImpossible
         '
-        Me.Label3.BackColor = System.Drawing.Color.Transparent
-        Me.Label3.ForeColor = System.Drawing.Color.SteelBlue
-        Me.Label3.Location = New System.Drawing.Point(155, 7)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(59, 18)
-        Me.Label3.TabIndex = 23
-        Me.Label3.Text = "Impossible"
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.LabPvEImpossible.BackColor = System.Drawing.Color.Transparent
+        Me.LabPvEImpossible.ForeColor = System.Drawing.Color.SteelBlue
+        Me.LabPvEImpossible.Location = New System.Drawing.Point(155, 7)
+        Me.LabPvEImpossible.Margin = New System.Windows.Forms.Padding(0)
+        Me.LabPvEImpossible.Name = "LabPvEImpossible"
+        Me.LabPvEImpossible.Size = New System.Drawing.Size(59, 18)
+        Me.LabPvEImpossible.TabIndex = 23
+        Me.LabPvEImpossible.Text = "Impossible"
+        Me.LabPvEImpossible.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Label2
+        'LabPvEEasy
         '
-        Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.ForeColor = System.Drawing.Color.SteelBlue
-        Me.Label2.Location = New System.Drawing.Point(80, 6)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(67, 18)
-        Me.Label2.TabIndex = 22
-        Me.Label2.Text = "Hard"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label1
-        '
-        Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.ForeColor = System.Drawing.Color.SteelBlue
-        Me.Label1.Location = New System.Drawing.Point(12, 7)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(60, 18)
-        Me.Label1.TabIndex = 12
-        Me.Label1.Text = "Easy"
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.LabPvEEasy.BackColor = System.Drawing.Color.Transparent
+        Me.LabPvEEasy.ForeColor = System.Drawing.Color.SteelBlue
+        Me.LabPvEEasy.Location = New System.Drawing.Point(10, 5)
+        Me.LabPvEEasy.Margin = New System.Windows.Forms.Padding(0)
+        Me.LabPvEEasy.Name = "LabPvEEasy"
+        Me.LabPvEEasy.Size = New System.Drawing.Size(60, 16)
+        Me.LabPvEEasy.TabIndex = 12
+        Me.LabPvEEasy.Text = "Easy"
+        Me.LabPvEEasy.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'PicDifficulty3
         '
@@ -736,21 +724,10 @@ Partial Class StartScreen
         Me.PicDifficulty3.TabStop = False
         Me.PicDifficulty3.Tag = "3"
         '
-        'PicDifficulty2
-        '
-        Me.PicDifficulty2.BackColor = System.Drawing.Color.Transparent
-        Me.PicDifficulty2.Location = New System.Drawing.Point(78, 6)
-        Me.PicDifficulty2.Margin = New System.Windows.Forms.Padding(0)
-        Me.PicDifficulty2.Name = "PicDifficulty2"
-        Me.PicDifficulty2.Size = New System.Drawing.Size(70, 20)
-        Me.PicDifficulty2.TabIndex = 20
-        Me.PicDifficulty2.TabStop = False
-        Me.PicDifficulty2.Tag = "2"
-        '
         'PicDifficulty1
         '
         Me.PicDifficulty1.BackColor = System.Drawing.Color.Transparent
-        Me.PicDifficulty1.Location = New System.Drawing.Point(3, 6)
+        Me.PicDifficulty1.Location = New System.Drawing.Point(6, 3)
         Me.PicDifficulty1.Margin = New System.Windows.Forms.Padding(0)
         Me.PicDifficulty1.Name = "PicDifficulty1"
         Me.PicDifficulty1.Size = New System.Drawing.Size(70, 20)
@@ -888,6 +865,29 @@ Partial Class StartScreen
         Me.GUITimer.Enabled = True
         Me.GUITimer.Interval = 40
         '
+        'LabPvEHard
+        '
+        Me.LabPvEHard.BackColor = System.Drawing.Color.Transparent
+        Me.LabPvEHard.ForeColor = System.Drawing.Color.SteelBlue
+        Me.LabPvEHard.Location = New System.Drawing.Point(83, 6)
+        Me.LabPvEHard.Margin = New System.Windows.Forms.Padding(0)
+        Me.LabPvEHard.Name = "LabPvEHard"
+        Me.LabPvEHard.Size = New System.Drawing.Size(60, 16)
+        Me.LabPvEHard.TabIndex = 24
+        Me.LabPvEHard.Text = "Hard"
+        Me.LabPvEHard.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'PicDifficulty2
+        '
+        Me.PicDifficulty2.BackColor = System.Drawing.Color.Transparent
+        Me.PicDifficulty2.Location = New System.Drawing.Point(78, 3)
+        Me.PicDifficulty2.Margin = New System.Windows.Forms.Padding(0)
+        Me.PicDifficulty2.Name = "PicDifficulty2"
+        Me.PicDifficulty2.Size = New System.Drawing.Size(70, 20)
+        Me.PicDifficulty2.TabIndex = 25
+        Me.PicDifficulty2.TabStop = False
+        Me.PicDifficulty2.Tag = "1"
+        '
         'StartScreen
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -950,7 +950,6 @@ Partial Class StartScreen
         CType(Me.PicPvEChooseColors, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PvEDifficultyPanel.ResumeLayout(False)
         CType(Me.PicDifficulty3, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PicDifficulty2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicDifficulty1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicClosePvE, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelPvPLan.ResumeLayout(False)
@@ -963,6 +962,7 @@ Partial Class StartScreen
         Me.ButtonsPanel.ResumeLayout(False)
         CType(Me.PicMinimizeForm, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicCloseForm, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicDifficulty2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -995,7 +995,6 @@ Partial Class StartScreen
     Friend WithEvents PicCloseSettings As PictureBox
     Friend WithEvents PvEDifficultyPanel As Panel
     Friend WithEvents PicDifficulty3 As PictureBox
-    Friend WithEvents PicDifficulty2 As PictureBox
     Friend WithEvents PicDifficulty1 As PictureBox
     Friend WithEvents PicSettingsTheme As PictureBox
     Friend WithEvents PictureBox1 As PictureBox
@@ -1017,9 +1016,8 @@ Partial Class StartScreen
     Friend WithEvents PicPvEChooseAttempts As PictureBox
     Friend WithEvents LabPvEColors As Label
     Friend WithEvents PicPvEStartGame As PictureBox
-    Friend WithEvents Label3 As Label
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Label1 As Label
+    Friend WithEvents LabPvEImpossible As Label
+    Friend WithEvents LabPvEEasy As Label
     Friend WithEvents LabSettingsTheme As Label
     Friend WithEvents PanelTheme As Panel
     Friend WithEvents PicTheme3 As PictureBox
@@ -1031,4 +1029,6 @@ Partial Class StartScreen
     Friend WithEvents PicSound3 As PictureBox
     Friend WithEvents PicSound2 As PictureBox
     Friend WithEvents PicSound1 As PictureBox
+    Friend WithEvents LabPvEHard As Label
+    Friend WithEvents PicDifficulty2 As PictureBox
 End Class

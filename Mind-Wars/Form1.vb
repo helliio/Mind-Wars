@@ -119,6 +119,20 @@
             .Height = .Parent.Height
         End With
 
+        With LabPvEEasy
+            .Parent = PicDifficulty1
+            .TextAlign = ContentAlignment.MiddleCenter
+        End With
+        With LabPvEHard
+            .Parent = PicDifficulty2
+            .AutoSize = False
+        End With
+        With LabPvEImpossible
+            .Parent = PicDifficulty3
+            .BringToFront()
+        End With
+
+
         With ButtonPvEList
             .Add(PicClosePvE)
             .Add(PicDifficulty1)
@@ -501,7 +515,7 @@
 
     End Sub
 
-    Private Sub PicDifficulty1_Paint(sender As Object, e As PaintEventArgs) Handles PicDifficulty1.Paint, PicDifficulty2.Paint, PicDifficulty3.Paint
+    Private Sub PicDifficulty1_Paint(sender As Object, e As PaintEventArgs) Handles PicDifficulty1.Paint, PicDifficulty3.Paint
         DifficultyDrawRect = sender.DisplayRectangle
         DifficultyDrawRect.Inflate(-1, -1)
         e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
