@@ -1,7 +1,9 @@
 ﻿Public Class StartScreen
 
     Dim ButtonLabList As New List(Of Label)
+
     Dim ButtonSettingsList As New List(Of PictureBox)
+    Dim ButtonPvEList As New List(Of PictureBox)
 
     Dim SelectedButtonListIndex As Integer = 0
     Dim SelectedSettingsListIndex As Integer = 0
@@ -19,7 +21,8 @@
     Dim ThemeDrawRect As New Rectangle
     Dim SoundDrawRect As New Rectangle
 
-    Dim PvESettingsOpen_Difficulty As Boolean = False
+    Dim PvEFocusedCategory As Integer = 0
+    Dim SelectedPvEListIndex As Integer = 0
 
     Private Sub StartScreen_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Call InitializeGUI()
@@ -87,6 +90,37 @@
         With ButtonSettingsList
             .Add(PicCloseSettings)
         End With
+
+        With LabPvEColors
+            .Parent = PicPvEChooseColors
+            .Height = .Parent.Height
+            .Width = .Parent.Width
+        End With
+        With LabPvENumberOfHolesButton
+            .Parent = PicPvEChooseHoles
+            .Height = .Parent.Height
+        End With
+        With LabPvENumberOfHoles
+            .Parent = PicPvEChooseHoles
+            .Height = .Parent.Height
+        End With
+        With LabPvENumberOfAttemptsButton
+            .Parent = PicPvEChooseAttempts
+            .Height = .Parent.Height
+        End With
+        With LabPvENumberOfAttempts
+            .Parent = PicPvEChooseAttempts
+            .Height = .Parent.Height
+        End With
+
+        With ButtonPvEList
+            .Add(PicClosePvE)
+            .Add(PicD
+            .Add(PicPvEChooseColors)
+            .Add(PicPvEChooseHoles)
+            .Add(PicPvEChooseAttempts)
+        End With
+
 
         With PicCloseForm
             .Parent = PicFormHeader
@@ -179,33 +213,44 @@
                 Close()
             End If
         End If
-        If VisiblePanel = 0 Then
-            Select Case e.KeyCode
-                Case Keys.Up
-                    If Not SelectedButtonListIndex = 0 Then
-                        Call SelectButton(True)
-                        SelectedButtonListIndex -= 1
-                        Call SelectButton(False)
-                    End If
+        Select Case VisiblePanel
+            Case 0
+                Select Case e.KeyCode
+                    Case Keys.Up
+                        If Not SelectedButtonListIndex = 0 Then
+                            Call SelectButton(True)
+                            SelectedButtonListIndex -= 1
+                            Call SelectButton(False)
+                        End If
 
-                Case Keys.Down
-                    If Not SelectedButtonListIndex = ButtonLabList.Count - 1 Then
+                    Case Keys.Down
+                        If Not SelectedButtonListIndex = ButtonLabList.Count - 1 Then
+                            Call SelectButton(True)
+                            SelectedButtonListIndex += 1
+                            Call SelectButton(False)
+                        End If
+                    Case Keys.Tab
                         Call SelectButton(True)
-                        SelectedButtonListIndex += 1
+                        If Not SelectedButtonListIndex = ButtonLabList.Count - 1 Then
+                            SelectedButtonListIndex += 1
+                        Else
+                            SelectedButtonListIndex = 0
+                        End If
                         Call SelectButton(False)
-                    End If
-                Case Keys.Tab
-                    Call SelectButton(True)
-                    If Not SelectedButtonListIndex = ButtonLabList.Count - 1 Then
-                        SelectedButtonListIndex += 1
-                    Else
-                        SelectedButtonListIndex = 0
-                    End If
-                    Call SelectButton(False)
-                Case Keys.Space, Keys.Enter
-                    Call EnterSelected()
-            End Select
-        End If
+                    Case Keys.Space, Keys.Enter
+                        Call EnterSelected()
+                End Select
+            Case 1
+            Case 2
+                Select Case e.KeyCode
+                    Case Keys.Down
+                        If Not SelectedPvEListIndex = ButtonPvEList.Count Then
+                            Call SelectButton(True)
+                            SelectedPvEListIndex += 1
+                            Call SelectButton(True)
+                        End If
+                End Select
+        End Select
     End Sub
 
 
