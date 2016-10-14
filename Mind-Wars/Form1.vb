@@ -18,6 +18,8 @@
     Dim FocusedLabel As Label
 
     Dim DifficultyDrawRect As New Rectangle
+    Dim ThemeDrawRect As New Rectangle
+    Dim SoundDrawRect As New Rectangle
 
     Dim PvEFocusedCategory As Integer = 0
     Dim SelectedPvEListIndex As Integer = 0
@@ -32,30 +34,49 @@
         With LabSettings
             .Parent = PicStartButton_Settings
             .Height = .Parent.Height
+            .Width = .Parent.Width
             .Left = 0
             .Top = 0
         End With
         With LabPvE
             .Parent = PicStartButton_PvE
             .Height = .Parent.Height
+            .Width = .Parent.Width
             .Left = 0
             .Top = 0
         End With
         With LabPvPLan
             .Parent = PicStartButton_PvPLan
             .Height = .Parent.Height
+            .Width = .Parent.Width
             .Left = 0
             .Top = 0
         End With
         With LabPvPHTTP
             .Parent = PicStartButton_PvPHTTP
             .Height = .Parent.Height
+            .Width = .Parent.Width
             .Left = 0
             .Top = 0
         End With
         With LabTutorial
             .Parent = PicStartButton_Tutorial
             .Height = .Parent.Height
+            .Width = .Parent.Width
+            .Left = 0
+            .Top = 0
+        End With
+        With LabSettingsTheme
+            .Parent = PicSettingsTheme
+            .Height = .Parent.Height
+            .Width = .Parent.Width
+            .Left = 0
+            .Top = 0
+        End With
+        With LabSettingsSound
+            .Parent = PicSettingSound
+            .Height = .Parent.Height
+            .Width = .Parent.Width
             .Left = 0
             .Top = 0
         End With
@@ -350,6 +371,28 @@
             e.Graphics.DrawEllipse(Pens.Red, DifficultyDrawRect)
         Else
             e.Graphics.DrawEllipse(Pens.LightCyan, DifficultyDrawRect)
+        End If
+    End Sub
+
+    Private Sub PicTheme_Paint(sender As Object, e As PaintEventArgs) Handles PicTheme1.Paint, PicTheme2.Paint, PicTheme3.Paint
+        ThemeDrawRect = sender.DisplayRectangle
+        ThemeDrawRect.Inflate(-1, -1)
+        e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+        If sender.Tag = "test" Then
+            e.Graphics.DrawEllipse(Pens.Red, ThemeDrawRect)
+        Else
+            e.Graphics.DrawEllipse(Pens.LightCyan, ThemeDrawRect)
+        End If
+    End Sub
+
+    Private Sub PicSound_Paint(sender As Object, e As PaintEventArgs) Handles PicSound1.Paint, PicSound2.Paint, PicSound3.Paint
+        SoundDrawRect = sender.DisplayRectangle
+        SoundDrawRect.Inflate(-1, -1)
+        e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+        If sender.Tag = "test" Then
+            e.Graphics.DrawEllipse(Pens.Red, SoundDrawRect)
+        Else
+            e.Graphics.DrawEllipse(Pens.LightCyan, SoundDrawRect)
         End If
     End Sub
 

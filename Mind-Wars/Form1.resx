@@ -142,6 +142,19 @@
         z8c7qxudCAt36FbSzM9OhD2rDzgD3Zj75r4z0AHgj9ntPgEbzJ6qFgfYaQAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="PicSettingSound.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAN4AAAAhCAYAAAC2oxV7AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAAYNJREFUeF7t3dFJA0EYReFFEF9SSEqxhXSQPlKSiJaQNizBB5/Xe+UuA7pZYpzJ
+        sOZ88IMzm/h2WKNmMgDAl7dxvMuXwG15+hg3mp3mWfOuGa81r5qXb3sMs6JxM25nk5zOkyf5Gxw1e81W
+        85DLzemOd+/JEliNtOJm3I4b2uXSMj3wkCfsswXgAm4oLR2yNU8PmO50j9kC8AduKU3N3/l0wa/puNMB
+        lbmptPXzNZ82fbc7ZgmgIrflxrIstOnfxHC3AxpwW24sy0Kb/pPBNksAFbktN5ZloU3/DHq1PxkAt8Rt
+        ubEsi9lNANUQHtAB4QEdEB7QAeEBHRAe0AHhAR0QHtAB4QEdEB7QAeEBHZwMT8P/agINuK1T4fHuBKAR
+        t+XGsiy0yfvxgEbclhvLstAm70AHGnFbbizLQpucuQI04KbS1vw5m7rAKWNARW4pTS2fr6kHcK4mUIEb
+        SkvL52pO9MCuJ0kDa5VW3MzvTpKe6AndPjuBYVY+l312AgAA/8wwfAIcn2z87kQkXwAAAABJRU5ErkJg
+        gg==
+</value>
+  </data>
   <metadata name="GUITimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
