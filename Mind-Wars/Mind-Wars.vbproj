@@ -118,6 +118,51 @@
     </None>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ButtonBorderSelected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ButtonBorderInactive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ButtonBorderActive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ButtonBorderActive1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ButtonBackActive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ButtonBackInactive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\StartScreenBG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FormHeader.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Minimize1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ButtonBackActive1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MinimizeHover1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ExitHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SettingsButtonInactive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SettingsButtonActive.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

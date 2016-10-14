@@ -1,77 +1,82 @@
 ﻿Public Class StartScreen
-    ' Remarks:
-    ' - When using the word 'button' in this code and these comments, I do not mean the common Windows form control Button.
-    ' Button controls are not used in this project. By 'button', I mean 'a clickable element from the user's point of view'.
-    ' The ButtonLabList, as you'll see, is a list of all the labels on this form, which, together with the PictureBox controls
-    ' behind them, form a "button."
 
-    ' We need a list in order to refer to each button using numbers instead of control names, which is necessary for reasonably
-    ' simple code when navigating up and down with the arrow keys.
     Dim ButtonLabList As New List(Of Label)
+    Dim ButtonSettingsList As New List(Of PictureBox)
 
-    ' We need to be able to keep track of which button is selected. We're counting from the top, and 0 is the first button from
-    ' the top. The upmost button ('Settings') will be selected initially, so we set the value of this variable to 0.
     Dim SelectedButtonListIndex As Integer = 0
+    Dim SelectedSettingsListIndex As Integer = 0
 
-    ' We need to know whether or not one of the panels shown by clicking a button is already open, so we can ignore the key
-    ' events for the main buttons if it is. I've made this an integer instead of a boolean (we treat 0 as 'no panel is open')
-    ' so we can determine which panel should be affected by the key events.
     Dim VisiblePanel As Integer = 0
 
+    Dim CursorX As Integer, CursorY As Integer
+    Dim DragForm As Boolean = False
+
+    Dim FocusedLabelAddColor As Integer = 0
+    Dim FocusedLabelColorIncreasing As Boolean = True
+    Dim FocusedLabel As Label
+
+    Dim DifficultyDrawRect As New Rectangle
+    Dim ThemeDrawRect As New Rectangle
+    Dim SoundDrawRect As New Rectangle
+
+    Dim PvESettingsOpen_Difficulty As Boolean = False
+
     Private Sub StartScreen_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' If we simply placed a Label control in front of a PictureBox control, the PictureBox would be obscured. We could try
-        ' to set the Label's BackColor property to 'Transparent', but this would show the Label's parent control instead of
-        ' whatever control is behind it. Right now, that parent is the form. Therefore, we need to specify that each Label's
-        ' parent is the PictureBox that it's placed in front of. For easy access to the PictureBox controls in the designer,
-        ' the Labels are moved slightly, so we need to specify their locations and sizes at runtime. Might as well set every
-        ' other non -default property value here as well. This is done within the sub procedure called below.
-        ' This is where the labels are added to ButtonLabList.
-        Call InitializeButtonsGUI()
-        ' Next, we need to actually select the first button from the top. SelectedButtonListIndex is already 0 (zero-based,
-        ' meaning the first button is button #0), and no other button is selected, so we call the SelectButton sub procedure
-        ' without deselecting any other button first. Notice the '(ByVal deselect as Boolean)' for the SelectButton sub.
-        ' If we wanted to deselect a button, we'd set this to 'True', but in this case we'll be setting it to 'False'.
+        Call InitializeGUI()
         Call SelectButton(False)
     End Sub
 
-    Private Sub InitializeButtonsGUI()
+    Private Sub InitializeGUI()
+
         With LabSettings
             .Parent = PicStartButton_Settings
-            .Parent.BackColor = Color.DarkGreen
             .Height = .Parent.Height
+            .Width = .Parent.Width
             .Left = 0
             .Top = 0
         End With
         With LabPvE
             .Parent = PicStartButton_PvE
-            .Parent.BackColor = Color.DarkGreen
             .Height = .Parent.Height
+            .Width = .Parent.Width
             .Left = 0
             .Top = 0
         End With
         With LabPvPLan
             .Parent = PicStartButton_PvPLan
-            .Parent.BackColor = Color.DarkGreen
             .Height = .Parent.Height
+            .Width = .Parent.Width
             .Left = 0
             .Top = 0
         End With
         With LabPvPHTTP
             .Parent = PicStartButton_PvPHTTP
-            .Parent.BackColor = Color.DarkGreen
             .Height = .Parent.Height
+            .Width = .Parent.Width
             .Left = 0
             .Top = 0
         End With
         With LabTutorial
             .Parent = PicStartButton_Tutorial
-            .Parent.BackColor = Color.DarkGreen
             .Height = .Parent.Height
+            .Width = .Parent.Width
             .Left = 0
             .Top = 0
         End With
-
-        ' Adds the labels to the list, so that they can be accessed without knowing their names.
+        With LabSettingsTheme
+            .Parent = PicSettingsTheme
+            .Height = .Parent.Height
+            .Width = .Parent.Width
+            .Left = 0
+            .Top = 0
+        End With
+        With LabSettingsSound
+            .Parent = PicSettingSound
+            .Height = .Parent.Height
+            .Width = .Parent.Width
+            .Left = 0
+            .Top = 0
+        End With
         With ButtonLabList
             .Add(LabSettings)
             .Add(LabPvE)
@@ -79,130 +84,274 @@
             .Add(LabPvPHTTP)
             .Add(LabTutorial)
         End With
+        With ButtonSettingsList
+            .Add(PicCloseSettings)
+        End With
+
+        With PicCloseForm
+            .Parent = PicFormHeader
+        End With
+        With PicMinimizeForm
+            .Parent = PicFormHeader
+        End With
+
+        PicSettingsButton2.Dock = DockStyle.Fill
+        PicSettingsButton2.BringToFront()
+        PanelPvE.Dock = DockStyle.Fill
+        PanelPvE.BringToFront()
+        PanelPvPLan.Dock = DockStyle.Fill
+        PanelPvPLan.BringToFront()
+        PanelPvPHTTP.Dock = DockStyle.Fill
+        PanelPvPHTTP.BringToFront()
+        PanelTutorial.Dock = DockStyle.Fill
+        PanelTutorial.BringToFront()
+        PicFormHeader.Dock = DockStyle.Top
+        ButtonsPanel.SendToBack()
 
     End Sub
 
     Sub SelectButton(ByVal deselect As Boolean)
-        ' If deselect is true, then we want to deselect the currently selected button (which we need to do before
-        ' selecting a new one). If it set to true, we're selecting a new button. When changing the selection, we
-        ' first need to deselect the currently selected button, change the value of SelectedButtonListIndex, then
-        ' select the button whose index in the list of buttons is equal to the new value.
-
-        Dim Selection As Label = ButtonLabList.Item(SelectedButtonListIndex)
-        If deselect = True Then
-            With Selection
-                .Parent.BackColor = Color.DarkGreen
-            End With
-        Else
-            With Selection
-                .Parent.BackColor = Color.LimeGreen
-            End With
-        End If
+        Select Case VisiblePanel
+            Case 0
+                Dim Selection As Label = ButtonLabList.Item(SelectedButtonListIndex)
+                If deselect = True Then
+                    With Selection
+                        .Parent.BackgroundImage = My.Resources.ButtonBorderInactive
+                        .ForeColor = Color.SteelBlue
+                    End With
+                Else
+                    With Selection
+                        .Parent.BackgroundImage = My.Resources.ButtonBorderActive1
+                        .ForeColor = Color.LightCyan
+                    End With
+                End If
+            Case 1
+                Dim Selection As PictureBox = ButtonSettingsList.Item(SelectedSettingsListIndex)
+                If deselect = True Then
+                    With Selection
+                        If SelectedSettingsListIndex = 0 Then
+                            .BackgroundImage = My.Resources.ButtonBackInactive
+                        Else
+                            .BackgroundImage = My.Resources.ButtonBorderInactive
+                            .ForeColor = Color.SteelBlue
+                        End If
+                    End With
+                Else
+                    With Selection
+                        If SelectedSettingsListIndex = 0 Then
+                            .BackgroundImage = My.Resources.ButtonBackActive
+                        Else
+                            .ForeColor = Color.LightCyan
+                        End If
+                    End With
+                End If
+        End Select
     End Sub
 
-    Sub ButtonMouseEnter(sender As Object, e As EventArgs) Handles LabSettings.MouseEnter, LabPvE.MouseEnter, LabPvPLan.MouseEnter, LabPvPHTTP.MouseEnter
-        ' Handles the MouseEnter event of all the buttons on the form; no need to handle them separately, as 'sender' will be the hovered object.
-        ' Because we are combining the use of the keyboard with the pointing of the cursor for selection of buttons, we should make sure that the
-        ' hovered button is not already the selected one before we needlessly deselect it (with the SelectButton sub). Notice the importance of the TabIndex.
-        ' In order for this to work, each label's TabIndex must correspond to its place on the form (from the top). We could use the Tag property
-        ' instead, but setting the correct TabIndex is preferable anyway. If the label's TabIndex is not already equal to the SelectedButtonListIndex,
-        ' we deselect the old selection (by setting the 'deselect' value of the SelectButton sub to 'True'), then select the hovered label. Notice also
-        ' that this sub procedure handles the MouseEnter event for all labels on the form. There is no need to handle the MouseLeave event, as a
-        ' button remains selected once selected, until explicitly deselected, when using the keyboard to navigate, and this should be consistent with that.
-
-        If Not sender.TabIndex = SelectedButtonListIndex Then
-            Call SelectButton(True)
-            SelectedButtonListIndex = sender.TabIndex
-            Call SelectButton(False)
-        End If
+    Sub ButtonMouseEnter(sender As Object, e As EventArgs) Handles LabSettings.MouseEnter, LabPvE.MouseEnter, LabPvPLan.MouseEnter, LabPvPHTTP.MouseEnter, PicCloseSettings.MouseEnter
+        Select Case VisiblePanel
+            Case 0
+                If Not sender.TabIndex = SelectedButtonListIndex Then
+                    Call SelectButton(True)
+                    SelectedButtonListIndex = sender.TabIndex
+                    Call SelectButton(False)
+                End If
+            Case 1
+                If Not sender.Tag = SelectedSettingsListIndex Then
+                    Call SelectButton(True)
+                    SelectedSettingsListIndex = sender.Tag
+                    Call SelectButton(False)
+                End If
+        End Select
     End Sub
 
     Private Sub StartScreen_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
-        ' Here, e contains information about which key was pressed.
-
-        ' First, we check if the escape key was pressed.
         If e.KeyCode = Keys.Escape Then
             If Not VisiblePanel = 0 Then
-                PanelSettings.Visible = False
+                PicSettingsButton2.Hide()
+                PanelPvE.Hide()
+                PanelPvPLan.Hide()
+                PanelPvPHTTP.Hide()
+                PanelTutorial.Hide()
                 VisiblePanel = 0
+                e.Handled = True
             Else
-                ' We should avoid the need to use End() here, in case we implement a closing method in the future.
                 Close()
             End If
         End If
-
-        ' We determine which panel is open. I found it cleaner to check here.
-
-        Select Case VisiblePanel
-            Case 0
-                ' If there is no panel open...
-                Select Case e.KeyCode
-                    ' If the 'up' key was pressed...
-                    Case Keys.Up
-                        ' If we're not already at the top of the list (we cannot select the button at the list index of -1, as it
-                        ' does not exist)...
-                        If Not SelectedButtonListIndex = 0 Then
-                            Call SelectButton(True)
-                            SelectedButtonListIndex -= 1
-                            Call SelectButton(False)
-                        End If
-
-                    ' If the 'down' key was pressed...
-                    Case Keys.Down
-                        ' As with Keys.Up, we check if the last button is already selected.
-                        If Not SelectedButtonListIndex = ButtonLabList.Count - 1 Then
-                            Call SelectButton(True)
-                            SelectedButtonListIndex += 1
-                            Call SelectButton(False)
-                        End If
-                    Case Keys.Tab
-                        ' With the tab key, we want to select the first button if the last button is selected.
-                        ' The currently selected button will be deselected no matter the condition.
+        If VisiblePanel = 0 Then
+            Select Case e.KeyCode
+                Case Keys.Up
+                    If Not SelectedButtonListIndex = 0 Then
                         Call SelectButton(True)
-                        If Not SelectedButtonListIndex = ButtonLabList.Count - 1 Then
-                            ' Does what Keys.Down would do:
-                            SelectedButtonListIndex += 1
-                        Else
-                            ' Doesn't stop at the bottom, skips to the top:
-                            SelectedButtonListIndex = 0
-                        End If
+                        SelectedButtonListIndex -= 1
                         Call SelectButton(False)
-                    Case Keys.Space, Keys.Enter
-                        ' If the space/enter key was pressed, we proceed.
-                        Call EnterSelected()
-                End Select
-            Case 1
+                    End If
 
-        End Select
-        e.Handled = True
+                Case Keys.Down
+                    If Not SelectedButtonListIndex = ButtonLabList.Count - 1 Then
+                        Call SelectButton(True)
+                        SelectedButtonListIndex += 1
+                        Call SelectButton(False)
+                    End If
+                Case Keys.Tab
+                    Call SelectButton(True)
+                    If Not SelectedButtonListIndex = ButtonLabList.Count - 1 Then
+                        SelectedButtonListIndex += 1
+                    Else
+                        SelectedButtonListIndex = 0
+                    End If
+                    Call SelectButton(False)
+                Case Keys.Space, Keys.Enter
+                    Call EnterSelected()
+            End Select
+        End If
     End Sub
 
+
+
     Sub EnterSelected()
-        ' What we want to do next depends on which button is selected when space/enter is pressed or a button is clicked.
-        Select Case SelectedButtonListIndex
+        Select Case VisiblePanel
             Case 0
-                ' Do something
-                VisiblePanel = 1
-                PanelSettings.Show()
+                Select Case SelectedButtonListIndex
+                    Case 0
+                        VisiblePanel = 1
+                        PicSettingsButton2.Show()
+                    Case 1
+                        VisiblePanel = 2
+                        PanelPvE.Show()
+                    Case 2
+                        VisiblePanel = 3
+                        PanelPvPLan.Show()
+                    Case 3
+                        VisiblePanel = 4
+                        PanelPvPHTTP.Show()
+                    Case 4
+                        VisiblePanel = 5
+                        PanelTutorial.Show()
+                End Select
             Case 1
-                ' Do something
-                MsgBox("The second button was clicked.")
-            Case 2
-                ' Do something
-                MsgBox("The third button was clicked.")
-            Case 3
-                ' Do something
-                MsgBox("The fourth button was clicked.")
+                Select Case SelectedSettingsListIndex
+                    Case 0
+                        PicSettingsButton2.Hide()
+                        VisiblePanel = 0
+                End Select
         End Select
     End Sub
 
     Private Sub ButtonClick(sender As Object, e As EventArgs) Handles LabSettings.Click, LabPvE.Click, LabPvPLan.Click, LabPvPHTTP.Click
-        ' It does not matter which button is clicked per se. SelectedButtonListIndex was changed upon MouseEnter.
         Call EnterSelected()
     End Sub
 
-    Private Sub PicCloseSettings_Click(sender As Object, e As EventArgs) Handles PicCloseSettings.Click
+    Private Sub ClosePanel(sender As Object, e As EventArgs) Handles PicClosePvE.Click, PicClosePvPLAN.Click, PicClosePvPHTTP.Click, PicCloseTutorial.Click
         VisiblePanel = 0
-        PanelSettings.Hide()
+        sender.Parent.Hide()
+    End Sub
+
+    Private Sub PicFormHeader_MouseDown(sender As Object, e As MouseEventArgs) Handles PicFormHeader.MouseDown
+        If e.Button = MouseButtons.Left Then
+            DragForm = True
+            CursorX = Cursor.Position.X - Me.Left
+            CursorY = Cursor.Position.Y - Me.Top
+        End If
+    End Sub
+
+    Private Sub PicFormHeader_MouseMove(sender As Object, e As MouseEventArgs) Handles PicFormHeader.MouseMove
+        If DragForm = True Then
+            Me.Left = Cursor.Position.X - CursorX
+            Me.Top = Cursor.Position.Y - CursorY
+        End If
+    End Sub
+
+    Private Sub GUITimer_Tick(sender As Object, e As EventArgs) Handles GUITimer.Tick
+        FocusedLabel = ButtonLabList.Item(SelectedButtonListIndex)
+        FocusedLabel.ForeColor = Color.FromArgb(255, 150 + (FocusedLabelAddColor / 1.5), 230 + (FocusedLabelAddColor / 4), 255)
+        If FocusedLabelColorIncreasing = True Then
+            If FocusedLabelAddColor >= 100 Then
+                FocusedLabelColorIncreasing = False
+            Else
+                FocusedLabelAddColor += 5
+            End If
+        Else
+            If FocusedLabelAddColor <= 0 Then
+                FocusedLabelAddColor = 0
+                FocusedLabelColorIncreasing = True
+            Else
+                FocusedLabelAddColor -= 5
+            End If
+        End If
+    End Sub
+
+    Private Sub PicCloseForm_Click(sender As Object, e As EventArgs) Handles PicCloseForm.Click
+        Me.Close()
+    End Sub
+
+    Private Sub PicFormHeader_MouseUp(sender As Object, e As MouseEventArgs) Handles PicFormHeader.MouseUp
+        DragForm = False
+    End Sub
+
+    Private Sub PicMinimizeForm_MouseEnter(sender As Object, e As EventArgs) Handles PicMinimizeForm.MouseEnter
+        PicMinimizeForm.BackgroundImage = My.Resources.MinimizeHover
+    End Sub
+
+    Private Sub PicMinimizeForm_MouseLeave(sender As Object, e As EventArgs) Handles PicMinimizeForm.MouseLeave
+        PicMinimizeForm.BackgroundImage = My.Resources.Minimize
+    End Sub
+
+    Private Sub PicCloseForm_MouseEnter(sender As Object, e As EventArgs) Handles PicCloseForm.MouseEnter
+        PicCloseForm.BackgroundImage = My.Resources.ExitHover
+    End Sub
+
+    Private Sub PicDifficulty1_Click(sender As Object, e As EventArgs) Handles PicDifficulty1.Click
+        MsgBox(PicDifficulty1.ClientRectangle.Width)
+    End Sub
+
+    Private Sub PicCloseForm_MouseLeave(sender As Object, e As EventArgs) Handles PicCloseForm.MouseLeave
+        PicCloseForm.BackgroundImage = My.Resources.Exit1
+    End Sub
+
+    Private Sub PanelPvE_Paint(sender As Object, e As PaintEventArgs) Handles PanelPvE.Paint
+
+    End Sub
+
+    Private Sub PanelSettings_Paint(sender As Object, e As PaintEventArgs) Handles PicSettingsButton2.Paint
+
+    End Sub
+
+    Private Sub PicDifficulty1_Paint(sender As Object, e As PaintEventArgs) Handles PicDifficulty1.Paint, PicDifficulty2.Paint, PicDifficulty3.Paint
+        DifficultyDrawRect = sender.DisplayRectangle
+        DifficultyDrawRect.Inflate(-1, -1)
+        e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+        If sender.Tag = "test" Then
+            e.Graphics.DrawEllipse(Pens.Red, DifficultyDrawRect)
+        Else
+            e.Graphics.DrawEllipse(Pens.LightCyan, DifficultyDrawRect)
+        End If
+    End Sub
+
+    Private Sub PicTheme_Paint(sender As Object, e As PaintEventArgs) Handles PicTheme1.Paint, PicTheme2.Paint, PicTheme3.Paint
+        ThemeDrawRect = sender.DisplayRectangle
+        ThemeDrawRect.Inflate(-1, -1)
+        e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+        If sender.Tag = "test" Then
+            e.Graphics.DrawEllipse(Pens.Red, ThemeDrawRect)
+        Else
+            e.Graphics.DrawEllipse(Pens.LightCyan, ThemeDrawRect)
+        End If
+    End Sub
+
+    Private Sub PicSound_Paint(sender As Object, e As PaintEventArgs) Handles PicSound1.Paint, PicSound2.Paint, PicSound3.Paint
+        SoundDrawRect = sender.DisplayRectangle
+        SoundDrawRect.Inflate(-1, -1)
+        e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+        If sender.Tag = "test" Then
+            e.Graphics.DrawEllipse(Pens.Red, SoundDrawRect)
+        Else
+            e.Graphics.DrawEllipse(Pens.LightCyan, SoundDrawRect)
+        End If
+    End Sub
+
+    Private Sub PanelPvE_KeyDown(sender As Object, e As KeyEventArgs) Handles PanelPvE.KeyDown
+        MsgBox("Test")
     End Sub
 End Class
