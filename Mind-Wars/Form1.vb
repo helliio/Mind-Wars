@@ -17,6 +17,8 @@
 
     Dim DifficultyDrawRect As New Rectangle
 
+    Dim PvESettingsOpen_Difficulty As Boolean = False
+
     Private Sub StartScreen_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Call InitializeGUI()
         Call SelectButton(False)
@@ -72,8 +74,8 @@
             .Parent = PicFormHeader
         End With
 
-        PanelSettings.Dock = DockStyle.Fill
-        PanelSettings.BringToFront()
+        PicSettingsButton2.Dock = DockStyle.Fill
+        PicSettingsButton2.BringToFront()
         PanelPvE.Dock = DockStyle.Fill
         PanelPvE.BringToFront()
         PanelPvPLan.Dock = DockStyle.Fill
@@ -145,7 +147,7 @@
     Private Sub StartScreen_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If e.KeyCode = Keys.Escape Then
             If Not VisiblePanel = 0 Then
-                PanelSettings.Hide()
+                PicSettingsButton2.Hide()
                 PanelPvE.Hide()
                 PanelPvPLan.Hide()
                 PanelPvPHTTP.Hide()
@@ -156,40 +158,36 @@
                 Close()
             End If
         End If
-        Select Case VisiblePanel
-            Case 0
-                Select Case e.KeyCode
-                    Case Keys.Up
-                        If Not SelectedButtonListIndex = 0 Then
-                            Call SelectButton(True)
-                            SelectedButtonListIndex -= 1
-                            Call SelectButton(False)
-                        End If
-
-                    Case Keys.Down
-                        If Not SelectedButtonListIndex = ButtonLabList.Count - 1 Then
-                            Call SelectButton(True)
-                            SelectedButtonListIndex += 1
-                            Call SelectButton(False)
-                        End If
-                    Case Keys.Tab
+        If VisiblePanel = 0 Then
+            Select Case e.KeyCode
+                Case Keys.Up
+                    If Not SelectedButtonListIndex = 0 Then
                         Call SelectButton(True)
-                        If Not SelectedButtonListIndex = ButtonLabList.Count - 1 Then
-                            SelectedButtonListIndex += 1
-                        Else
-                            SelectedButtonListIndex = 0
-                        End If
+                        SelectedButtonListIndex -= 1
                         Call SelectButton(False)
-                    Case Keys.Space, Keys.Enter
-                        Call EnterSelected()
-                End Select
-            Case 1
-                Select Case e.KeyCode
-                    Case Keys.Space, Keys.Enter
-                        Call EnterSelected()
-                End Select
-        End Select
+                    End If
+
+                Case Keys.Down
+                    If Not SelectedButtonListIndex = ButtonLabList.Count - 1 Then
+                        Call SelectButton(True)
+                        SelectedButtonListIndex += 1
+                        Call SelectButton(False)
+                    End If
+                Case Keys.Tab
+                    Call SelectButton(True)
+                    If Not SelectedButtonListIndex = ButtonLabList.Count - 1 Then
+                        SelectedButtonListIndex += 1
+                    Else
+                        SelectedButtonListIndex = 0
+                    End If
+                    Call SelectButton(False)
+                Case Keys.Space, Keys.Enter
+                    Call EnterSelected()
+            End Select
+        End If
     End Sub
+
+
 
     Sub EnterSelected()
         Select Case VisiblePanel
@@ -197,7 +195,7 @@
                 Select Case SelectedButtonListIndex
                     Case 0
                         VisiblePanel = 1
-                        PanelSettings.Show()
+                        PicSettingsButton2.Show()
                     Case 1
                         VisiblePanel = 2
                         PanelPvE.Show()
@@ -214,7 +212,7 @@
             Case 1
                 Select Case SelectedSettingsListIndex
                     Case 0
-                        PanelSettings.Hide()
+                        PicSettingsButton2.Hide()
                         VisiblePanel = 0
                 End Select
         End Select
@@ -291,6 +289,14 @@
         PicCloseForm.BackgroundImage = My.Resources.Exit1
     End Sub
 
+    Private Sub PanelPvE_Paint(sender As Object, e As PaintEventArgs) Handles PanelPvE.Paint
+
+    End Sub
+
+    Private Sub PanelSettings_Paint(sender As Object, e As PaintEventArgs) Handles PicSettingsButton2.Paint
+
+    End Sub
+
     Private Sub PicDifficulty1_Paint(sender As Object, e As PaintEventArgs) Handles PicDifficulty1.Paint, PicDifficulty2.Paint, PicDifficulty3.Paint
         DifficultyDrawRect = sender.DisplayRectangle
         DifficultyDrawRect.Inflate(-1, -1)
@@ -300,5 +306,9 @@
         Else
             e.Graphics.DrawEllipse(Pens.LightCyan, DifficultyDrawRect)
         End If
+    End Sub
+
+    Private Sub PanelPvE_KeyDown(sender As Object, e As KeyEventArgs) Handles PanelPvE.KeyDown
+        MsgBox("Test")
     End Sub
 End Class
