@@ -35,7 +35,7 @@ Partial Class StartScreen
         Me.LabTutorial = New System.Windows.Forms.Label()
         Me.PicStartButton_Tutorial = New System.Windows.Forms.PictureBox()
         Me.PicSettingsButton2 = New System.Windows.Forms.Panel()
-        Me.PictureBoxTest = New System.Windows.Forms.PictureBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.PicSettingsButton1 = New System.Windows.Forms.PictureBox()
         Me.PicCloseSettings = New System.Windows.Forms.PictureBox()
         Me.PanelPvE = New System.Windows.Forms.Panel()
@@ -82,7 +82,7 @@ Partial Class StartScreen
         CType(Me.PicStartButton_PvPHTTP, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_Tutorial, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PicSettingsButton2.SuspendLayout()
-        CType(Me.PictureBoxTest, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicSettingsButton1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicCloseSettings, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelPvE.SuspendLayout()
@@ -239,7 +239,7 @@ Partial Class StartScreen
         'PicSettingsButton2
         '
         Me.PicSettingsButton2.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.StartScreenBG
-        Me.PicSettingsButton2.Controls.Add(Me.PictureBoxTest)
+        Me.PicSettingsButton2.Controls.Add(Me.PictureBox1)
         Me.PicSettingsButton2.Controls.Add(Me.PicSettingsButton1)
         Me.PicSettingsButton2.Controls.Add(Me.PicCloseSettings)
         Me.PicSettingsButton2.Location = New System.Drawing.Point(262, 57)
@@ -248,18 +248,18 @@ Partial Class StartScreen
         Me.PicSettingsButton2.TabIndex = 9
         Me.PicSettingsButton2.Visible = False
         '
-        'PictureBoxTest
+        'PictureBox1
         '
-        Me.PictureBoxTest.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBoxTest.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
-        Me.PictureBoxTest.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.PictureBoxTest.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PictureBoxTest.Location = New System.Drawing.Point(0, 80)
-        Me.PictureBoxTest.Name = "PictureBoxTest"
-        Me.PictureBoxTest.Size = New System.Drawing.Size(226, 40)
-        Me.PictureBoxTest.TabIndex = 3
-        Me.PictureBoxTest.TabStop = False
-        Me.PictureBoxTest.Tag = "0"
+        Me.PictureBox1.BackColor = System.Drawing.Color.Transparent
+        Me.PictureBox1.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
+        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.PictureBox1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PictureBox1.Location = New System.Drawing.Point(0, 80)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(226, 40)
+        Me.PictureBox1.TabIndex = 3
+        Me.PictureBox1.TabStop = False
+        Me.PictureBox1.Tag = "0"
         '
         'PicSettingsButton1
         '
@@ -776,7 +776,7 @@ Partial Class StartScreen
         CType(Me.PicStartButton_PvPHTTP, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicStartButton_Tutorial, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PicSettingsButton2.ResumeLayout(False)
-        CType(Me.PictureBoxTest, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicSettingsButton1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicCloseSettings, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelPvE.ResumeLayout(False)
@@ -843,7 +843,7 @@ Partial Class StartScreen
     Friend WithEvents PicDifficulty2 As PictureBox
     Friend WithEvents PicDifficulty1 As PictureBox
     Friend WithEvents PicSettingsButton1 As PictureBox
-    Friend WithEvents PictureBoxTest As PictureBox
+    Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents PicPvEChooseHoles As PictureBox
     Friend WithEvents PanelPvEColors As Panel
     Friend WithEvents PicPvEColor8 As PictureBox

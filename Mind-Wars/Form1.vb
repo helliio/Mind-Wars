@@ -94,13 +94,10 @@
 
         With ButtonPvEList
             .Add(PicClosePvE)
-            .Add(PicDifficulty1)
-            .Add(PicDifficulty2)
-            .Add(PicDifficulty3)
+            .Add(PicD
             .Add(PicPvEChooseColors)
             .Add(PicPvEChooseHoles)
             .Add(PicPvEChooseAttempts)
-            .Add(PicPvEStartGame)
         End With
 
 
@@ -227,13 +224,9 @@
                 Select Case e.KeyCode
                     Case Keys.Down
                         If Not SelectedPvEListIndex = ButtonPvEList.Count Then
-                            If PvEFocusedCategory = 0 Then
-                                Call SelectButton(True)
-                                SelectedPvEListIndex += 1
-                                Call SelectButton(False)
-                            End If
-                        Else
-
+                            Call SelectButton(True)
+                            SelectedPvEListIndex += 1
+                            Call SelectButton(True)
                         End If
                 End Select
         End Select
