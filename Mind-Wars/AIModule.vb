@@ -1,7 +1,7 @@
 ﻿Module AIModule
     Dim rdm As New Random()
     'Returns an array of random integers of colours for each hole(array element)
-    Function generate()
+    Function GenerateSolution()
         Dim ret(SystemModule.holes - 1) As Integer
         For n As Integer = 0 To SystemModule.holes - 1
             ret(n) = rdm.Next(1, SystemModule.colours)
