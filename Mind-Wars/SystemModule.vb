@@ -1,5 +1,5 @@
 ﻿Module SystemModule
-    Public holes As Integer = 4 '!!!!!!TEST
+    Public holes As Integer
     Public colours As Integer
     Public tries As Integer
     Public solution() As Integer
