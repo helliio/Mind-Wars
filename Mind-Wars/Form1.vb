@@ -4,6 +4,7 @@
     Dim ButtonSettingsList As New List(Of PictureBox)
     Dim ButtonPvEList As New List(Of PictureBox)
     Dim PvEColorList As New List(Of PictureBox)
+    Dim PvEDifficultyList As New List(Of Label)
 
     Dim PvEHoles As Integer = 4
     Dim PvEColors As Integer = 6
@@ -21,9 +22,7 @@
     Dim FocusedLabelColorIncreasing As Boolean = True
     Dim FocusedLabel As Label
 
-    Dim DifficultyDrawRect As New Rectangle
-    Dim ThemeDrawRect As New Rectangle
-    Dim SoundDrawRect As New Rectangle
+    Dim ChosenDifficulty As Integer = 1
 
     Dim PvEFocusedCategory As Integer = 0
     Dim SelectedPvEListIndex As Integer = 0
@@ -119,19 +118,6 @@
             .Height = .Parent.Height
         End With
 
-        With LabPvEEasy
-            .Parent = PicDifficulty1
-            .TextAlign = ContentAlignment.MiddleCenter
-        End With
-        With LabPvEHard
-            .Parent = PicDifficulty2
-            .AutoSize = False
-        End With
-        With LabPvEImpossible
-            .Parent = PicDifficulty3
-            .BringToFront()
-        End With
-
 
         With ButtonPvEList
             .Add(PicClosePvE)
@@ -144,6 +130,11 @@
             .Add(PicPvEStartGame)
         End With
 
+        With PvEDifficultyList
+            .Add(LabPvEEasy)
+            .Add(LabPvEHard)
+            .Add(LabPvEImpossible)
+        End With
 
         With PicCloseForm
             .Parent = PicFormHeader
@@ -176,6 +167,36 @@
             .Add(PicPvEColor8)
         End With
 
+        PicDifficulty1.BringToFront()
+        PicDifficulty1.Parent = PvEDifficultyPanel
+
+        PicDifficulty2.BringToFront()
+        PicDifficulty2.Parent = PvEDifficultyPanel
+
+        PicDifficulty3.BringToFront()
+        PicDifficulty3.Parent = PvEDifficultyPanel
+
+        With LabPvEEasy
+            .Parent = PicDifficulty1
+            .BringToFront()
+            .Location = PicDifficulty1.Location
+            .TextAlign = ContentAlignment.MiddleCenter
+            .Dock = DockStyle.Fill
+        End With
+        With LabPvEHard
+            .Parent = PicDifficulty2
+            .BringToFront()
+            .Location = PicDifficulty1.Location
+            .TextAlign = ContentAlignment.MiddleCenter
+            .Dock = DockStyle.Fill
+        End With
+        With LabPvEImpossible
+            .Parent = PicDifficulty3
+            .BringToFront()
+            .Location = PicDifficulty1.Location
+            .TextAlign = ContentAlignment.MiddleCenter
+            .Dock = DockStyle.Fill
+        End With
     End Sub
 
     Sub SelectButton(ByVal deselect As Boolean)
@@ -213,17 +234,10 @@
                         End If
                     End With
                 End If
-            Case 1
             Case 2
                 Dim Selection As PictureBox = ButtonPvEList.Item(SelectedPvEListIndex)
-                If SelectedPvEListIndex = 1 OrElse SelectedPvEListIndex = 2 OrElse SelectedPvEListIndex = 3 Then
-                    If deselect = True Then
-                        Selection.Invalidate()
-                        'Selection.BackColor = Color.Red
-                    Else
-                        Selection.Invalidate()
-                        'Selection.BackColor = Color.Green
-                    End If
+                If SelectedPvEListIndex = 1 Or SelectedPvEListIndex = 2 Or SelectedPvEListIndex = 3 Then
+                    Selection.Invalidate()
                 ElseIf SelectedPvEListIndex = 0 Then
                     If deselect = True Then
                         Selection.BackgroundImage = My.Resources.ButtonBackInactive
@@ -372,28 +386,32 @@
                                 Call SelectColor(False)
                             End If
                         ElseIf SelectedPvEListIndex = 2 OrElse SelectedPvEListIndex = 3 Then
-                            If SelectedPvEDifficulty > 1 Then
-                                Call SelectButton(True)
-                                SelectedPvEDifficulty -= 1
-                                SelectedPvEListIndex -= 1
-                                Call SelectButton(False)
-                            End If
+                            Call SelectButton(True)
+                            SelectedPvEDifficulty -= 1
+                            SelectedPvEListIndex -= 1
+                            Call SelectButton(False)
                         End If
                     Case Keys.Right
                         If PvEFocusedCategory = 1 Then
-                            If FocusedPvEColorListIndex < 8 Then
+                            If FocusedPvEColorListIndex < 7 Then
                                 Call SelectColor(True)
                                 FocusedPvEColorListIndex += 1
                                 Call SelectColor(False)
                             End If
-                        ElseIf SelectedPvEListIndex = 1 OrElse SelectedPvEListIndex = 2 Then
-                            If SelectedPvEDifficulty < 3 Then
-                                Call SelectButton(True)
-                                SelectedPvEDifficulty += 1
-                                SelectedPvEListIndex += 1
-                                Call SelectButton(False)
-                            End If
+                        ElseIf SelectedPvEListIndex = 1 Or SelectedPvEListIndex = 2 Then
+                            Call SelectButton(True)
+                            SelectedPvEDifficulty += 1
+                            SelectedPvEListIndex += 1
+                            Call SelectButton(False)
                         End If
+                    Case Keys.Space, Keys.Enter
+                        Select Case PvEFocusedCategory
+                            Case 0
+                                Call EnterSelected()
+                                Debug.Print("Enter selected " & SelectedPvEListIndex)
+                            Case 1
+
+                        End Select
                 End Select
         End Select
     End Sub
@@ -433,6 +451,26 @@
                         PicSettingsButton2.Hide()
                         VisiblePanel = 0
                 End Select
+            Case 2
+                Select Case SelectedPvEListIndex
+                    Case 0
+                        PanelPvE.Hide()
+                        VisiblePanel = 0
+                    Case 1, 2, 3
+                        Dim ChosenDifficultyLab As Label = PvEDifficultyList.Item(ChosenDifficulty - 1)
+                        ChosenDifficultyLab.ForeColor = Color.SteelBlue
+                        ChosenDifficulty = SelectedPvEDifficulty
+                        ChosenDifficultyLab = PvEDifficultyList.Item(ChosenDifficulty - 1)
+                        ChosenDifficultyLab.ForeColor = Color.White
+                        PicDifficulty1.Invalidate()
+                        PicDifficulty2.Invalidate()
+                        PicDifficulty3.Invalidate()
+                    Case 4
+                        If Not PvEFocusedCategory = 1 Then
+                            PvEFocusedCategory = 1
+                        End If
+                End Select
+
         End Select
     End Sub
 
@@ -499,31 +537,40 @@
         PicCloseForm.BackgroundImage = My.Resources.ExitHover
     End Sub
 
-    Private Sub PicDifficulty1_Click(sender As Object, e As EventArgs) Handles PicDifficulty1.Click
-        MsgBox(PicDifficulty1.ClientRectangle.Width)
-    End Sub
-
     Private Sub PicCloseForm_MouseLeave(sender As Object, e As EventArgs) Handles PicCloseForm.MouseLeave
         PicCloseForm.BackgroundImage = My.Resources.Exit1
     End Sub
 
-    Private Sub PanelPvE_Paint(sender As Object, e As PaintEventArgs) Handles PanelPvE.Paint
+    Private Sub PicDifficulty_Paint(sender As Object, e As PaintEventArgs) Handles PicDifficulty1.Paint, PicDifficulty2.Paint, PicDifficulty3.Paint
 
-    End Sub
-
-    Private Sub PanelSettings_Paint(sender As Object, e As PaintEventArgs) Handles PicSettingsButton2.Paint
-
-    End Sub
-
-    Private Sub PicDifficulty1_Paint(sender As Object, e As PaintEventArgs) Handles PicDifficulty1.Paint, PicDifficulty3.Paint
         DifficultyDrawRect = sender.DisplayRectangle
         DifficultyDrawRect.Inflate(-1, -1)
         e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
-        If sender.Tag = SelectedPvEDifficulty Then
-            e.Graphics.DrawRectangle(Pens.LightCyan, DifficultyDrawRect)
-        Else
-            e.Graphics.DrawEllipse(Pens.Cyan, DifficultyDrawRect)
+
+        If sender.Tag = ChosenDifficulty Then
+            Select Case ChosenDifficulty
+                Case 1
+                    e.Graphics.FillRectangle(EasyBrush, DifficultyDrawRect)
+                Case 2
+                    e.Graphics.FillRectangle(HardBrush, DifficultyDrawRect)
+                Case 3
+                    e.Graphics.FillRectangle(ImpossibleBrush, DifficultyDrawRect)
+            End Select
         End If
+
+        If sender.Tag = SelectedPvEDifficulty Then
+            Select Case SelectedPvEDifficulty
+                Case 1
+                    e.Graphics.DrawRectangle(EasyPen, DifficultyDrawRect)
+                Case 2
+                    e.Graphics.DrawRectangle(HardPen, DifficultyDrawRect)
+                Case 3
+                    e.Graphics.DrawRectangle(ImpossiblePen, DifficultyDrawRect)
+            End Select
+        Else
+            e.Graphics.DrawRectangle(Pens.Cyan, DifficultyDrawRect)
+        End If
+
     End Sub
 
     Private Sub PicTheme_Paint(sender As Object, e As PaintEventArgs) Handles PicTheme1.Paint, PicTheme2.Paint, PicTheme3.Paint
@@ -546,9 +593,5 @@
         Else
             e.Graphics.DrawEllipse(Pens.LightCyan, SoundDrawRect)
         End If
-    End Sub
-
-    Private Sub PanelPvE_KeyDown(sender As Object, e As KeyEventArgs) Handles PanelPvE.KeyDown
-        MsgBox("Test")
     End Sub
 End Class
