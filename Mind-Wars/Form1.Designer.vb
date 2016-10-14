@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class StartScreen
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class StartScreen
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(StartScreen))
@@ -35,8 +35,17 @@ Partial Class StartScreen
         Me.LabTutorial = New System.Windows.Forms.Label()
         Me.PicStartButton_Tutorial = New System.Windows.Forms.PictureBox()
         Me.PanelSettings = New System.Windows.Forms.Panel()
+        Me.PictureBox5 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox4 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.PicCloseSettings = New System.Windows.Forms.PictureBox()
         Me.PanelPvE = New System.Windows.Forms.Panel()
+        Me.PvEDifficultyPanel = New System.Windows.Forms.Panel()
+        Me.PicDifficulty3 = New System.Windows.Forms.PictureBox()
+        Me.PicDifficulty2 = New System.Windows.Forms.PictureBox()
+        Me.PicDifficulty1 = New System.Windows.Forms.PictureBox()
         Me.PicClosePvE = New System.Windows.Forms.PictureBox()
         Me.PanelPvPLan = New System.Windows.Forms.Panel()
         Me.PicClosePvPLAN = New System.Windows.Forms.PictureBox()
@@ -55,8 +64,17 @@ Partial Class StartScreen
         CType(Me.PicStartButton_PvPHTTP, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_Tutorial, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelSettings.SuspendLayout()
+        CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicCloseSettings, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelPvE.SuspendLayout()
+        Me.PvEDifficultyPanel.SuspendLayout()
+        CType(Me.PicDifficulty3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicDifficulty2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicDifficulty1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicClosePvE, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelPvPLan.SuspendLayout()
         CType(Me.PicClosePvPLAN, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -193,12 +211,82 @@ Partial Class StartScreen
         'PanelSettings
         '
         Me.PanelSettings.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.StartScreenBG
+        Me.PanelSettings.Controls.Add(Me.PictureBox5)
+        Me.PanelSettings.Controls.Add(Me.PictureBox4)
+        Me.PanelSettings.Controls.Add(Me.PictureBox3)
+        Me.PanelSettings.Controls.Add(Me.PictureBox2)
+        Me.PanelSettings.Controls.Add(Me.PictureBox1)
         Me.PanelSettings.Controls.Add(Me.PicCloseSettings)
         Me.PanelSettings.Location = New System.Drawing.Point(262, 57)
         Me.PanelSettings.Name = "PanelSettings"
         Me.PanelSettings.Size = New System.Drawing.Size(226, 260)
         Me.PanelSettings.TabIndex = 9
         Me.PanelSettings.Visible = False
+        '
+        'PictureBox5
+        '
+        Me.PictureBox5.BackColor = System.Drawing.Color.Transparent
+        Me.PictureBox5.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBackActive1
+        Me.PictureBox5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.PictureBox5.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PictureBox5.Location = New System.Drawing.Point(0, 213)
+        Me.PictureBox5.Name = "PictureBox5"
+        Me.PictureBox5.Size = New System.Drawing.Size(226, 40)
+        Me.PictureBox5.TabIndex = 6
+        Me.PictureBox5.TabStop = False
+        Me.PictureBox5.Tag = "0"
+        '
+        'PictureBox4
+        '
+        Me.PictureBox4.BackColor = System.Drawing.Color.Transparent
+        Me.PictureBox4.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBackActive1
+        Me.PictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.PictureBox4.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PictureBox4.Location = New System.Drawing.Point(0, 173)
+        Me.PictureBox4.Name = "PictureBox4"
+        Me.PictureBox4.Size = New System.Drawing.Size(226, 40)
+        Me.PictureBox4.TabIndex = 5
+        Me.PictureBox4.TabStop = False
+        Me.PictureBox4.Tag = "0"
+        '
+        'PictureBox3
+        '
+        Me.PictureBox3.BackColor = System.Drawing.Color.Transparent
+        Me.PictureBox3.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBackActive1
+        Me.PictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.PictureBox3.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PictureBox3.Location = New System.Drawing.Point(0, 133)
+        Me.PictureBox3.Name = "PictureBox3"
+        Me.PictureBox3.Size = New System.Drawing.Size(226, 40)
+        Me.PictureBox3.TabIndex = 4
+        Me.PictureBox3.TabStop = False
+        Me.PictureBox3.Tag = "0"
+        '
+        'PictureBox2
+        '
+        Me.PictureBox2.BackColor = System.Drawing.Color.Transparent
+        Me.PictureBox2.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBackActive1
+        Me.PictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.PictureBox2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PictureBox2.Location = New System.Drawing.Point(0, 93)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(226, 40)
+        Me.PictureBox2.TabIndex = 3
+        Me.PictureBox2.TabStop = False
+        Me.PictureBox2.Tag = "0"
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.BackColor = System.Drawing.Color.Transparent
+        Me.PictureBox1.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBackActive1
+        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.PictureBox1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PictureBox1.Location = New System.Drawing.Point(0, 53)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(226, 40)
+        Me.PictureBox1.TabIndex = 2
+        Me.PictureBox1.TabStop = False
+        Me.PictureBox1.Tag = "0"
         '
         'PicCloseSettings
         '
@@ -216,13 +304,56 @@ Partial Class StartScreen
         'PanelPvE
         '
         Me.PanelPvE.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.StartScreenBG
+        Me.PanelPvE.Controls.Add(Me.PvEDifficultyPanel)
         Me.PanelPvE.Controls.Add(Me.PicClosePvE)
-        Me.PanelPvE.Location = New System.Drawing.Point(0, 315)
+        Me.PanelPvE.Location = New System.Drawing.Point(491, 57)
         Me.PanelPvE.Margin = New System.Windows.Forms.Padding(0)
         Me.PanelPvE.Name = "PanelPvE"
-        Me.PanelPvE.Size = New System.Drawing.Size(226, 84)
+        Me.PanelPvE.Size = New System.Drawing.Size(226, 260)
         Me.PanelPvE.TabIndex = 10
         Me.PanelPvE.Visible = False
+        '
+        'PvEDifficultyPanel
+        '
+        Me.PvEDifficultyPanel.BackColor = System.Drawing.Color.Transparent
+        Me.PvEDifficultyPanel.Controls.Add(Me.PicDifficulty3)
+        Me.PvEDifficultyPanel.Controls.Add(Me.PicDifficulty2)
+        Me.PvEDifficultyPanel.Controls.Add(Me.PicDifficulty1)
+        Me.PvEDifficultyPanel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PvEDifficultyPanel.Location = New System.Drawing.Point(0, 53)
+        Me.PvEDifficultyPanel.Margin = New System.Windows.Forms.Padding(0)
+        Me.PvEDifficultyPanel.Name = "PvEDifficultyPanel"
+        Me.PvEDifficultyPanel.Size = New System.Drawing.Size(226, 32)
+        Me.PvEDifficultyPanel.TabIndex = 1
+        '
+        'PicDifficulty3
+        '
+        Me.PicDifficulty3.BackColor = System.Drawing.Color.Transparent
+        Me.PicDifficulty3.Location = New System.Drawing.Point(143, 0)
+        Me.PicDifficulty3.Name = "PicDifficulty3"
+        Me.PicDifficulty3.Size = New System.Drawing.Size(32, 32)
+        Me.PicDifficulty3.TabIndex = 21
+        Me.PicDifficulty3.TabStop = False
+        '
+        'PicDifficulty2
+        '
+        Me.PicDifficulty2.BackColor = System.Drawing.Color.Transparent
+        Me.PicDifficulty2.Location = New System.Drawing.Point(98, 0)
+        Me.PicDifficulty2.Margin = New System.Windows.Forms.Padding(10, 3, 10, 3)
+        Me.PicDifficulty2.Name = "PicDifficulty2"
+        Me.PicDifficulty2.Size = New System.Drawing.Size(32, 32)
+        Me.PicDifficulty2.TabIndex = 20
+        Me.PicDifficulty2.TabStop = False
+        Me.PicDifficulty2.Tag = "test"
+        '
+        'PicDifficulty1
+        '
+        Me.PicDifficulty1.BackColor = System.Drawing.Color.Transparent
+        Me.PicDifficulty1.Location = New System.Drawing.Point(53, 0)
+        Me.PicDifficulty1.Name = "PicDifficulty1"
+        Me.PicDifficulty1.Size = New System.Drawing.Size(32, 32)
+        Me.PicDifficulty1.TabIndex = 19
+        Me.PicDifficulty1.TabStop = False
         '
         'PicClosePvE
         '
@@ -341,7 +472,7 @@ Partial Class StartScreen
         'PicCloseForm
         '
         Me.PicCloseForm.BackColor = System.Drawing.Color.Transparent
-        Me.PicCloseForm.BackgroundImage = Global.Mind_Wars.My.Resources.Resources._Exit
+        Me.PicCloseForm.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.Exit1
         Me.PicCloseForm.Location = New System.Drawing.Point(214, 8)
         Me.PicCloseForm.Name = "PicCloseForm"
         Me.PicCloseForm.Size = New System.Drawing.Size(16, 16)
@@ -387,8 +518,17 @@ Partial Class StartScreen
         CType(Me.PicStartButton_PvPHTTP, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicStartButton_Tutorial, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelSettings.ResumeLayout(False)
+        CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicCloseSettings, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelPvE.ResumeLayout(False)
+        Me.PvEDifficultyPanel.ResumeLayout(False)
+        CType(Me.PicDifficulty3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicDifficulty2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicDifficulty1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicClosePvE, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelPvPLan.ResumeLayout(False)
         CType(Me.PicClosePvPLAN, System.ComponentModel.ISupportInitialize).EndInit()
@@ -430,4 +570,13 @@ Partial Class StartScreen
     Friend WithEvents PicCloseForm As PictureBox
     Friend WithEvents GUITimer As Timer
     Friend WithEvents PicCloseSettings As PictureBox
+    Friend WithEvents PictureBox5 As PictureBox
+    Friend WithEvents PictureBox4 As PictureBox
+    Friend WithEvents PictureBox3 As PictureBox
+    Friend WithEvents PictureBox2 As PictureBox
+    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents PvEDifficultyPanel As Panel
+    Friend WithEvents PicDifficulty3 As PictureBox
+    Friend WithEvents PicDifficulty2 As PictureBox
+    Friend WithEvents PicDifficulty1 As PictureBox
 End Class
