@@ -22,7 +22,6 @@
     Dim FocusedLabelColorIncreasing As Boolean = True
     Dim FocusedLabel As Label
 
-    Dim ChosenDifficulty As Integer = 1
 
     Dim PvEFocusedCategory As Integer = 0
     Dim SelectedPvEListIndex As Integer = 0
@@ -31,7 +30,6 @@
 
     Private Sub StartScreen_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Call InitializeGUI()
-        Call SelectButton(False)
     End Sub
 
     Private Sub InitializeGUI()
@@ -92,30 +90,9 @@
             .Add(LabPvPHTTP)
             .Add(LabTutorial)
         End With
+        Debug.Print(ButtonLabList.Count)
         With ButtonSettingsList
             .Add(PicCloseSettings)
-        End With
-
-        With LabPvEColors
-            .Parent = PicPvEChooseColors
-            .Height = .Parent.Height
-            .Width = .Parent.Width
-        End With
-        With LabPvENumberOfHolesButton
-            .Parent = PicPvEChooseHoles
-            .Height = .Parent.Height
-        End With
-        With LabPvENumberOfHoles
-            .Parent = PicPvEChooseHoles
-            .Height = .Parent.Height
-        End With
-        With LabPvENumberOfAttemptsButton
-            .Parent = PicPvEChooseAttempts
-            .Height = .Parent.Height
-        End With
-        With LabPvENumberOfAttempts
-            .Parent = PicPvEChooseAttempts
-            .Height = .Parent.Height
         End With
 
 
@@ -135,6 +112,9 @@
             .Add(LabPvEHard)
             .Add(LabPvEImpossible)
         End With
+        For Each lab As Label In PvEDifficultyList
+            lab.ForeColor = Color.White
+        Next
 
         With PicCloseForm
             .Parent = PicFormHeader
@@ -142,6 +122,22 @@
         With PicMinimizeForm
             .Parent = PicFormHeader
         End With
+
+        With PvEColorList
+            .Add(PicPvEColor1)
+            .Add(PicPvEColor2)
+            .Add(PicPvEColor3)
+            .Add(PicPvEColor4)
+            .Add(PicPvEColor5)
+            .Add(PicPvEColor6)
+            .Add(PicPvEColor7)
+            .Add(PicPvEColor8)
+        End With
+        For Each ColPal As PictureBox In PvEColorList
+            ColPal.Parent = PanelPvEColors
+            ColPal.Invalidate()
+        Next
+
 
         PicSettingsButton2.Dock = DockStyle.Fill
         PicSettingsButton2.BringToFront()
@@ -155,17 +151,6 @@
         PanelTutorial.BringToFront()
         PicFormHeader.Dock = DockStyle.Top
         ButtonsPanel.SendToBack()
-
-        With PvEColorList
-            .Add(PicPvEColor1)
-            .Add(PicPvEColor2)
-            .Add(PicPvEColor3)
-            .Add(PicPvEColor4)
-            .Add(PicPvEColor5)
-            .Add(PicPvEColor6)
-            .Add(PicPvEColor7)
-            .Add(PicPvEColor8)
-        End With
 
         PicDifficulty1.BringToFront()
         PicDifficulty1.Parent = PvEDifficultyPanel
@@ -197,6 +182,48 @@
             .TextAlign = ContentAlignment.MiddleCenter
             .Dock = DockStyle.Fill
         End With
+        With LabPvEColors
+            .Parent = PicPvEChooseColors
+            .BringToFront()
+            .Location = .Parent.Location
+            .TextAlign = ContentAlignment.MiddleCenter
+            .Dock = DockStyle.Fill
+        End With
+        With LabPvENumberOfHolesButton
+            .Parent = PicPvEChooseHoles
+            .BringToFront()
+            .Dock = DockStyle.Left
+            .TextAlign = ContentAlignment.MiddleCenter
+        End With
+        With LabPvENumberOfHoles
+            .Parent = PicPvEChooseHoles
+            .BringToFront()
+            .Dock = DockStyle.Right
+            .TextAlign = ContentAlignment.MiddleCenter
+        End With
+        With LabPvENumberOfAttemptsButton
+            .Parent = PicPvEChooseAttempts
+            .BringToFront()
+            .Dock = DockStyle.Left
+            .TextAlign = ContentAlignment.MiddleCenter
+        End With
+        With LabPvENumberOfAttempts
+            .Parent = PicPvEChooseAttempts
+            .BringToFront()
+            .Dock = DockStyle.Right
+            .TextAlign = ContentAlignment.MiddleCenter
+        End With
+        With LabPvEStart
+            .Parent = PicPvEStartGame
+            .TextAlign = ContentAlignment.MiddleCenter
+            .BringToFront()
+            .Dock = DockStyle.Fill
+        End With
+
+
+
+        Call SelectButton(False)
+        GUITimer.Enabled = True
     End Sub
 
     Sub SelectButton(ByVal deselect As Boolean)
@@ -250,10 +277,20 @@
                     Else
                         Selection.BackgroundImage = My.Resources.SettingsButtonActive
                     End If
-                ElseIf SelectedPvEListIndex = 5 OrElse SelectedPvEListIndex = 6 Then
+                ElseIf SelectedPvEListIndex = 5 Then
                     If deselect = True Then
                         Selection.BackgroundImage = My.Resources.NumberSettings00
+                        LabPvENumberOfHolesButton.ForeColor = Color.LightSkyBlue
                     Else
+                        LabPvENumberOfHolesButton.ForeColor = Color.LightCyan
+                        Selection.BackgroundImage = My.Resources.NumberSettings10
+                    End If
+                ElseIf SelectedPvEListIndex = 6 Then
+                    If deselect = True Then
+                        LabPvENumberOfAttemptsButton.ForeColor = Color.LightSkyBlue
+                        Selection.BackgroundImage = My.Resources.NumberSettings00
+                    Else
+                        LabPvENumberOfAttemptsButton.ForeColor = Color.LightCyan
                         Selection.BackgroundImage = My.Resources.NumberSettings10
                     End If
                 End If
@@ -323,33 +360,38 @@
             Case 2
                 Select Case e.KeyCode
                     Case Keys.Down
-                        If PvEFocusedCategory = 0 Then
-                            If Not SelectedPvEListIndex = ButtonPvEList.Count - 1 Then
-                                Call SelectButton(True)
-                                If SelectedPvEListIndex = 1 Then
-                                    SelectedPvEListIndex += 3
-                                ElseIf SelectedPvEListIndex = 2 Then
-                                    SelectedPvEListIndex += 2
-                                ElseIf SelectedPvEListIndex = 0 Then
-                                    SelectedPvEListIndex = SelectedPvEDifficulty
-                                Else
-                                    SelectedPvEListIndex += 1
+                        Select Case PvEFocusedCategory
+                            Case 0
+
+                                If Not SelectedPvEListIndex = ButtonPvEList.Count - 1 Then
+                                    Call SelectButton(True)
+                                    If SelectedPvEListIndex = 1 Then
+                                        SelectedPvEListIndex += 3
+                                    ElseIf SelectedPvEListIndex = 2 Then
+                                        SelectedPvEListIndex += 2
+                                    ElseIf SelectedPvEListIndex = 0 Then
+                                        SelectedPvEListIndex = SelectedPvEDifficulty
+                                    Else
+                                        SelectedPvEListIndex += 1
+                                    End If
+                                    Call SelectButton(False)
                                 End If
+                            Case 1
+                                Call EnterSelected()
+                                Call SelectButton(True)
+                                SelectedPvEListIndex += 1
                                 Call SelectButton(False)
-                            End If
-                        ElseIf PvEFocusedCategory = 1 Then
-                            ' This category contains the collection of colors. The down key should be ignored.
-                        ElseIf PvEFocusedCategory = 2 Then
-                            If PvEHoles > 3 Then
-                                PvEHoles -= 1
-                                LabPvENumberOfHoles.Text = PvEHoles
-                            End If
-                        ElseIf PvEFocusedCategory = 3 Then
-                            If PvEAttempts > 4 Then
-                                PvEAttempts -= 1
-                                LabPvENumberOfAttempts.Text = PvEAttempts
-                            End If
-                        End If
+                            Case 2
+                                If PvEHoles > 3 Then
+                                    PvEHoles -= 1
+                                    LabPvENumberOfHoles.Text = PvEHoles
+                                End If
+                            Case 3
+                                If PvEAttempts > 4 Then
+                                    PvEAttempts -= 1
+                                    LabPvENumberOfAttempts.Text = PvEAttempts
+                                End If
+                        End Select
                     Case Keys.Up
                         If PvEFocusedCategory = 0 Then
                             If Not SelectedPvEListIndex = 0 Then
@@ -366,7 +408,10 @@
                                 Call SelectButton(False)
                             End If
                         ElseIf PvEFocusedCategory = 1 Then
-                            ' This category contains the collection of colors. The down up should be ignored.
+                            Call EnterSelected()
+                            Call SelectButton(True)
+                            SelectedPvEListIndex = SelectedPvEDifficulty
+                            Call SelectButton(False)
                         ElseIf PvEFocusedCategory = 2 Then
                             If PvEHoles < 8 Then
                                 PvEHoles += 1
@@ -379,50 +424,70 @@
                             End If
                         End If
                     Case Keys.Left
-                        If PvEFocusedCategory = 1 Then
-                            If FocusedPvEColorListIndex > 2 Then
-                                Call SelectColor(True)
-                                FocusedPvEColorListIndex -= 1
-                                Call SelectColor(False)
-                            End If
-                        ElseIf SelectedPvEListIndex = 2 OrElse SelectedPvEListIndex = 3 Then
-                            Call SelectButton(True)
-                            SelectedPvEDifficulty -= 1
-                            SelectedPvEListIndex -= 1
-                            Call SelectButton(False)
-                        End If
-                    Case Keys.Right
-                        If PvEFocusedCategory = 1 Then
-                            If FocusedPvEColorListIndex < 7 Then
-                                Call SelectColor(True)
-                                FocusedPvEColorListIndex += 1
-                                Call SelectColor(False)
-                            End If
-                        ElseIf SelectedPvEListIndex = 1 Or SelectedPvEListIndex = 2 Then
-                            Call SelectButton(True)
-                            SelectedPvEDifficulty += 1
-                            SelectedPvEListIndex += 1
-                            Call SelectButton(False)
-                        End If
-                    Case Keys.Space, Keys.Enter
                         Select Case PvEFocusedCategory
                             Case 0
-                                Call EnterSelected()
-                                Debug.Print("Enter selected " & SelectedPvEListIndex)
+                                Select Case SelectedPvEListIndex
+                                    Case 2, 3
+                                        Call SelectButton(True)
+                                        SelectedPvEDifficulty -= 1
+                                        SelectedPvEListIndex -= 1
+                                        Call SelectButton(False)
+                                    Case 4
+                                        Call EnterSelected()
+                                        If FocusedPvEColorListIndex > 2 Then
+                                            FocusedPvEColorListIndex -= 1
+                                            Call SelectColor()
+                                        End If
+                                End Select
                             Case 1
-
+                                If FocusedPvEColorListIndex > 2 Then
+                                    FocusedPvEColorListIndex -= 1
+                                    Call SelectColor()
+                                End If
+                            Case 2, 3
+                                Call EnterSelected()
+                        End Select
+                    Case Keys.Right
+                        Select Case PvEFocusedCategory
+                            Case 0
+                                Select Case SelectedPvEListIndex
+                                    Case 1, 2
+                                        Call SelectButton(True)
+                                        SelectedPvEDifficulty += 1
+                                        SelectedPvEListIndex += 1
+                                        Call SelectButton(False)
+                                    Case 4
+                                        Call EnterSelected()
+                                        If FocusedPvEColorListIndex < 7 Then
+                                            FocusedPvEColorListIndex += 1
+                                            Call SelectColor()
+                                        End If
+                                    Case 5, 6
+                                        Call EnterSelected()
+                                End Select
+                            Case 1
+                                If FocusedPvEColorListIndex < 7 Then
+                                    FocusedPvEColorListIndex += 1
+                                    Call SelectColor()
+                                End If
+                        End Select
+                            Case Keys.Space, Keys.Enter
+                                Select Case PvEFocusedCategory
+                                    Case 0
+                                        Call EnterSelected()
+                                        Debug.Print("Enter selected " & SelectedPvEListIndex)
+                                    Case 1, 2
+                                        Call EnterSelected()
+                                End Select
                         End Select
                 End Select
-        End Select
     End Sub
 
-    Sub SelectColor(ByVal deselect As Boolean)
-        Dim SelectedColor As PictureBox = PvEColorList.Item(FocusedPvEColorListIndex)
-        If deselect = True Then
-            SelectedColor.BackColor = Color.FromArgb(50, SelectedColor.BackColor)
-        Else
-            SelectedColor.BackColor = Color.FromArgb(255, SelectedColor.BackColor)
-        End If
+    Sub SelectColor()
+        PvEColors = FocusedPvEColorListIndex + 1
+        For Each ColPal As PictureBox In PvEColorList
+            ColPal.Refresh()
+        Next
     End Sub
 
     Sub EnterSelected()
@@ -457,18 +522,51 @@
                         PanelPvE.Hide()
                         VisiblePanel = 0
                     Case 1, 2, 3
-                        Dim ChosenDifficultyLab As Label = PvEDifficultyList.Item(ChosenDifficulty - 1)
-                        ChosenDifficultyLab.ForeColor = Color.SteelBlue
-                        ChosenDifficulty = SelectedPvEDifficulty
-                        ChosenDifficultyLab = PvEDifficultyList.Item(ChosenDifficulty - 1)
-                        ChosenDifficultyLab.ForeColor = Color.White
-                        PicDifficulty1.Invalidate()
-                        PicDifficulty2.Invalidate()
-                        PicDifficulty3.Invalidate()
+                        SelectButton(True)
+                        SelectedPvEListIndex = 7
+                        SelectButton(False)
                     Case 4
                         If Not PvEFocusedCategory = 1 Then
                             PvEFocusedCategory = 1
+                            For Each ColPal As PictureBox In PvEColorList
+                                ColPal.Refresh()
+                            Next
+                        Else
+                            PvEFocusedCategory = 0
+                            For Each ColPal As PictureBox In PvEColorList
+                                ColPal.Refresh()
+                            Next
                         End If
+                    Case 5
+                        If Not PvEFocusedCategory = 2 Then
+                            PvEFocusedCategory = 2
+                            PicPvEChooseHoles.BackgroundImage = My.Resources.NumberSettings11
+                            LabPvENumberOfHolesButton.ForeColor = Color.LightSkyBlue
+                            LabPvENumberOfHoles.ForeColor = Color.LightCyan
+                        Else
+                            PvEFocusedCategory = 0
+                            PicPvEChooseHoles.BackgroundImage = My.Resources.NumberSettings10
+                            LabPvENumberOfHolesButton.ForeColor = Color.LightCyan
+                            LabPvENumberOfHoles.ForeColor = Color.LightSkyBlue
+                        End If
+                    Case 6
+                        If Not PvEFocusedCategory = 3 Then
+                            PvEFocusedCategory = 3
+                            PicPvEChooseAttempts.BackgroundImage = My.Resources.NumberSettings11
+                            LabPvENumberOfAttemptsButton.ForeColor = Color.LightSkyBlue
+                            LabPvENumberOfAttempts.ForeColor = Color.LightCyan
+                        Else
+                            PvEFocusedCategory = 0
+                            PicPvEChooseAttempts.BackgroundImage = My.Resources.NumberSettings10
+                            LabPvENumberOfAttemptsButton.ForeColor = Color.LightCyan
+                            LabPvENumberOfAttempts.ForeColor = Color.LightSkyBlue
+                        End If
+                    Case 7
+                        Call GameSetup(PvEHoles, PvEColors, PvEAttempts)
+                        PvEGame.Show()
+                        Me.Hide()
+                        PanelPvE.Hide()
+                        VisiblePanel = 0
                 End Select
 
         End Select
@@ -547,28 +645,14 @@
         DifficultyDrawRect.Inflate(-1, -1)
         e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
 
-        If sender.Tag = ChosenDifficulty Then
-            Select Case ChosenDifficulty
-                Case 1
-                    e.Graphics.FillRectangle(EasyBrush, DifficultyDrawRect)
-                Case 2
-                    e.Graphics.FillRectangle(HardBrush, DifficultyDrawRect)
-                Case 3
-                    e.Graphics.FillRectangle(ImpossibleBrush, DifficultyDrawRect)
-            End Select
-        End If
-
-        If sender.Tag = SelectedPvEDifficulty Then
-            Select Case SelectedPvEDifficulty
-                Case 1
-                    e.Graphics.DrawRectangle(EasyPen, DifficultyDrawRect)
-                Case 2
-                    e.Graphics.DrawRectangle(HardPen, DifficultyDrawRect)
-                Case 3
-                    e.Graphics.DrawRectangle(ImpossiblePen, DifficultyDrawRect)
-            End Select
-        Else
-            e.Graphics.DrawRectangle(Pens.Cyan, DifficultyDrawRect)
+        If sender.Tag = SelectedPvEListIndex Then
+            EasyBrush.Color = Color.FromArgb(50, Color.Cyan)
+            e.Graphics.FillRectangle(EasyBrush, DifficultyDrawRect)
+        ElseIf sender.Tag = SelectedPvEDifficulty Then
+            EasyBrush.Color = Color.FromArgb(30, Color.Cyan)
+            e.Graphics.FillRectangle(EasyBrush, DifficultyDrawRect)
+            'Else
+            ' e.Graphics.DrawRectangle(Pens.Cyan, DifficultyDrawRect)
         End If
 
     End Sub
@@ -593,5 +677,28 @@
         Else
             e.Graphics.DrawEllipse(Pens.LightCyan, SoundDrawRect)
         End If
+    End Sub
+
+    Private Sub PicPvEColorPalette_Paint(sender As Object, e As PaintEventArgs) Handles PicPvEColor1.Paint, PicPvEColor2.Paint, PicPvEColor3.Paint, PicPvEColor4.Paint, PicPvEColor5.Paint, PicPvEColor6.Paint, PicPvEColor7.Paint, PicPvEColor8.Paint
+        e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+        ColorPaletteRect.Size = sender.DisplayRectangle.Size
+        ColorPaletteRect.Location = sender.DisplayRectangle.Location
+
+
+        If PvEFocusedCategory = 1 AndAlso sender.Tag > FocusedPvEColorListIndex + 1 Then
+            ColorPaletteBrush.Color = Color.FromArgb(150, ColorCodes(sender.Tag))
+            ColorPaletteRect.Inflate(-4, -4)
+        ElseIf PvEFocusedCategory = 1 AndAlso sender.Tag <= FocusedPvEColorListIndex + 1 Then
+            ColorPaletteBrush.Color = ColorCodes(sender.Tag)
+            ColorPaletteRect.Inflate(-1, -1)
+        ElseIf sender.tag > FocusedPvEColorListIndex + 1 Then
+            ColorPaletteBrush.Color = Color.FromArgb(40, ColorCodes(sender.Tag))
+            ColorPaletteRect.Inflate(-4, -4)
+        Else
+            ColorPaletteBrush.Color = Color.FromArgb(170, ColorCodes(sender.Tag))
+            ColorPaletteRect.Inflate(-1, -1)
+        End If
+        e.Graphics.FillEllipse(ColorPaletteBrush, ColorPaletteRect)
+
     End Sub
 End Class
