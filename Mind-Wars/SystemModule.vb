@@ -19,8 +19,8 @@
         End Select
     End Sub
 
-    Public Function IntToArr(ByVal int As Integer)
-        Dim str As String = int
+    Public Function IntToArr(ByVal int As Integer) As Integer()
+        Dim str As String = int.ToString
         Dim arr(str.Length - 1) As Integer
         Dim l As Integer = str.Length - 1
         For i As Integer = 0 To l
@@ -29,7 +29,7 @@
         Return arr
     End Function
 
-    Public Function ArrayToInt(ByVal array() As Integer)
+    Public Function ArrayToInt(ByVal array() As Integer) As Integer
         Dim int As Integer
         Dim l As Integer = array.Length - 1
         For i As Integer = 0 To l
@@ -38,13 +38,14 @@
         Return int
     End Function
 
-    Public Function CheckArrRange(ByVal int As Integer, ByVal min As Integer, ByVal max As Integer)
+    Public Function CheckArrRange(ByVal int As Integer, ByVal min As Integer, ByVal max As Integer) As Boolean
         Dim InRange As Boolean = True
         Dim digits() As Integer = IntToArr(int)
         Dim l As Integer = digits.Length - 1
         For m As Integer = 0 To l
             If digits(m) < min OrElse digits(m) > max Then
                 InRange = False
+                Exit For
             End If
         Next
         Return InRange

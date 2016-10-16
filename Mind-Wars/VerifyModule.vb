@@ -1,13 +1,13 @@
 ﻿Module VerifyModule
     'Returns a Array of {black,white}
-    Function verify(ByVal solution() As Integer, ByVal verifyguess() As Integer)
-        Dim bw(1) As Integer
-        bw = {0, 0}
-        Dim s = solution
+    Function verify(ByVal solution() As Integer, ByVal verifyguess() As Integer) As Integer()
+        Dim BW(1) As Integer
+        BW = {0, 0}
+        Dim s() As Integer = solution
         Dim g() As Integer = verifyguess
         For i As Integer = 0 To SystemModule.holes - 1
             If g(i) = s(i) Then
-                bw(0) += 1
+                BW(0) += 1
                 g(i) = -1
                 s(i) = -1
             End If
@@ -15,18 +15,20 @@
         For i As Integer = 0 To SystemModule.holes - 1
             For j As Integer = 0 To SystemModule.holes - 1
                 If g(j) = s(i) And g(i) <> s(i) And s(i) <> -1 Then
-                    bw(1) += 1
+                    BW(1) += 1
                     g(j) = -1
                     s(i) = -1
                 End If
             Next
         Next
-        Return bw
+        Return BW
     End Function
 
-    Function verifyFixTest(ByVal AgainstSolution() As Integer, ByVal VerifyGuess() As Integer)
-        Dim givenSolution() As Integer = AgainstSolution.Clone
-        Dim checkGuess() As Integer = VerifyGuess.Clone
+    Function verifyFixTest(ByVal AgainstSolution() As Integer, ByVal VerifyGuess() As Integer) As Integer()
+        Dim givenSolution(holes - 1) As Integer
+        AgainstSolution.CopyTo(givenSolution, 0)
+        Dim checkGuess(holes - 1) As Integer
+        VerifyGuess.CopyTo(checkGuess, 0)
         Dim BWPegs() As Integer = {0, 0}
         For i As Integer = 0 To holes - 1
             If checkGuess(i) = givenSolution(i) Then
@@ -49,7 +51,7 @@
 
 
     'Only used for testing purposes.
-    Public Function GetBW(ByVal ail() As Integer, ByVal g() As Integer)
+    Public Function GetBW(ByVal ail() As Integer, ByVal g() As Integer) As Integer()
         Dim whitepegs As Integer
         Dim blackpegs As Integer
         Dim counted(holes - 1) As Integer
