@@ -7,7 +7,7 @@
         Dim g() As Integer = verifyguess.Clone
         For i As Integer = 0 To SystemModule.holes - 1
             If g(i) = s(i) Then
-                bw(0) += 1
+                BW(0) += 1
                 g(i) = -1
                 s(i) = -1
             End If
@@ -15,13 +15,13 @@
         For i As Integer = 0 To SystemModule.holes - 1
             For j As Integer = 0 To SystemModule.holes - 1
                 If g(j) = s(i) And g(i) <> s(i) And s(i) <> -1 Then
-                    bw(1) += 1
+                    BW(1) += 1
                     g(j) = -1
                     s(i) = -1
                 End If
             Next
         Next
-        Return bw
+        Return BW
     End Function
 
     'Function verifyFixTest(ByVal AgainstSolution() As Integer, ByVal VerifyGuess() As Integer)
@@ -49,7 +49,7 @@
 
 
     'Only used for testing purposes.
-    Public Function GetBW(ByVal ail() As Integer, ByVal g() As Integer)
+    Public Function GetBW(ByVal ail() As Integer, ByVal g() As Integer) As Integer()
         Dim whitepegs As Integer
         Dim blackpegs As Integer
         Dim counted(holes - 1) As Integer

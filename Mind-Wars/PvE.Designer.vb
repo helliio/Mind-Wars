@@ -64,7 +64,6 @@ Partial Class PvEGame
         Me.PicInitialLoadProgress.Size = New System.Drawing.Size(80, 80)
         Me.PicInitialLoadProgress.TabIndex = 16
         Me.PicInitialLoadProgress.TabStop = False
-        Me.PicInitialLoadProgress.WaitOnLoad = True
         '
         'InitializeDelay
         '
@@ -99,6 +98,7 @@ Partial Class PvEGame
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.PicInitialLoadProgress)
         Me.Controls.Add(Me.PicFormHeader)
+        Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "PvEGame"
         Me.Text = "PvE"

@@ -7,16 +7,23 @@ Public Class PvEGame
         InitializeGMPRect.Inflate(-2, -2)
     End Sub
     Private Sub InitializeBackgroundWorker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles InitializeBackgroundWorker.DoWork
+        'Dim PopulateListsClass As New ListPopulate
+        'PopulateListsClass.Operation = 1
+        'PopulateListsClass.Sender = InitializeBackgroundWorker
+        'Dim PopulateListsThread As New System.Threading.Thread(AddressOf PopulateListsClass.PopulateLists)
+        'PopulateListsThread.Start()
+        'PopulateListsThread.Join()
         Call PopulateLists(1, InitializeBackgroundWorker)
     End Sub
-
     Private Sub InitializeBackgroundWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles InitializeBackgroundWorker.RunWorkerCompleted
         LoadCompleteTimer.Enabled = True
     End Sub
 
     Private Sub InitializeBackgroundWorker_ProgressChanged(sender As Object, e As ProgressChangedEventArgs) Handles InitializeBackgroundWorker.ProgressChanged
-        InitializeGameModeProgress = Convert.ToSingle(e.ProgressPercentage * 3.6)
-        PicInitialLoadProgress.Refresh()
+        Me.Invoke(Sub()
+                      InitializeGameModeProgress = Convert.ToSingle(e.ProgressPercentage * 3.6)
+                      PicInitialLoadProgress.Invalidate()
+                  End Sub)
     End Sub
 
     Private Sub PicInitialLoadProgress_Click(sender As Object, e As EventArgs) Handles PicInitialLoadProgress.Click
@@ -52,8 +59,9 @@ Public Class PvEGame
     Private Sub AIBackgroundWorker_DoWork(sender As Object, e As DoWorkEventArgs) Handles AIBackgroundWorker.DoWork
         If UseLightMinimax = True Then
             Debug.Print("Using MinimaxLight...")
-            Dim LightMinimax As New MinimaxLight
+            Dim LightMinimax As New MinimaxLight(InitiallyPossibleSolutions, CurrentlyPossibleSolutions)
             Dim LightMinimaxThread As New System.Threading.Thread(AddressOf LightMinimax.FindBestMove)
+            LightMinimaxThread.Priority = Threading.ThreadPriority.Highest
             LightMinimaxThread.Start()
             LightMinimaxThread.Join()
             Dim bestindexlight = FourBestIndices(0)
@@ -73,18 +81,18 @@ Public Class PvEGame
             End If
         Else
             Debug.Print("Starting quadruple thread")
-            Dim Minimax1of4 As New Minimax
-            Dim Minimax2of4 As New Minimax
-            Dim Minimax3of4 As New Minimax
-            Dim Minimax4of4 As New Minimax
+            Dim Minimax1of4 As New Minimax(InitiallyPossibleSolutions, CurrentlyPossibleSolutions, 1)
+            Dim Minimax2of4 As New Minimax(InitiallyPossibleSolutions, CurrentlyPossibleSolutions, 2)
+            Dim Minimax3of4 As New Minimax(InitiallyPossibleSolutions, CurrentlyPossibleSolutions, 3)
+            Dim Minimax4of4 As New Minimax(InitiallyPossibleSolutions, CurrentlyPossibleSolutions, 4)
             Dim MinimaxThread1 As New System.Threading.Thread(AddressOf Minimax1of4.FindBestMove)
+            MinimaxThread1.Priority = Threading.ThreadPriority.Highest
             Dim MinimaxThread2 As New System.Threading.Thread(AddressOf Minimax2of4.FindBestMove)
+            MinimaxThread2.Priority = Threading.ThreadPriority.Highest
             Dim MinimaxThread3 As New System.Threading.Thread(AddressOf Minimax3of4.FindBestMove)
+            MinimaxThread3.Priority = Threading.ThreadPriority.Highest
             Dim MinimaxThread4 As New System.Threading.Thread(AddressOf Minimax4of4.FindBestMove)
-            Minimax1of4.FourthNumber = 1
-            Minimax2of4.FourthNumber = 2
-            Minimax3of4.FourthNumber = 3
-            Minimax4of4.FourthNumber = 4
+            MinimaxThread4.Priority = Threading.ThreadPriority.Highest
             MinimaxThread1.Start()
             MinimaxThread2.Start()
             MinimaxThread3.Start()
@@ -184,7 +192,15 @@ Public Class PvEGame
             Debug.Print("FINISHED IN " & AIAttempts & " MOVES")
             AIAttempts = 0
             'UseLightMinimax = False
-            Call PopulateLists(1)
+            InitializeBackgroundWorker.Dispose()
+            Dim PopulateListsClass As New ListPopulate
+            'InitializeBackgroundWorker = New BackgroundWorker
+            'InitializeBackgroundWorker.WorkerReportsProgress = True
+            PopulateListsClass.Operation = 1
+            'PopulateListsClass.Sender = InitializeBackgroundWorker
+            Dim PopulateListsThread As New System.Threading.Thread(AddressOf PopulateListsClass.PopulateLists)
+            PopulateListsThread.Start()
+            PopulateListsThread.Join()
             Button1.Enabled = True
         Else
             Debug.Print("Error: " & CurrentlyPossibleSolutions.Count & " remaining.")
