@@ -84,6 +84,7 @@
       <DependentUpon>Form1.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="GraphicalThemesModule.vb" />
     <Compile Include="ListPopulate.vb" />
     <Compile Include="Minimax.vb" />
     <Compile Include="MinimaxFunctions.vb" />
