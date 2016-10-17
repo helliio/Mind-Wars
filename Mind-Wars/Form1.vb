@@ -29,7 +29,10 @@
     Dim SelectedPvEDifficulty As Integer = 1
 
     Private Sub StartScreen_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
         Call InitializeGUI()
+
+
     End Sub
 
     Private Sub InitializeGUI()

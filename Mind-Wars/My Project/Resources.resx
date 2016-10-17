@@ -130,8 +130,8 @@
   <data name="ButtonBackActive1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ButtonBackActive1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ButtonBackInactive" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ButtonBackInactive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="NumberSettings00" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NumberSettings00.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ButtonBorderSelected" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ButtonBorderSelected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -148,11 +148,14 @@
   <data name="SettingsButtonInactive" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SettingsButtonInactive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ButtonBorderActive" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ButtonBorderActive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="StartScreenBG1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\StartScreenBG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ButtonBorderActive1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ButtonBorderActive1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EasyBG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EasyBG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ButtonBorder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ButtonBorder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -163,6 +166,9 @@
   <data name="StartScreenBG" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\StartScreenBG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ButtonBackActive" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ButtonBackActive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Exit1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Exit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -172,16 +178,13 @@
   <data name="SettingsButtonActive" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SettingsButtonActive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ButtonBackActive" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ButtonBackActive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ButtonBorderActive" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ButtonBorderActive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="StartScreenBG1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\StartScreenBG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ButtonBackInactive" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ButtonBackInactive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="NumberSettings00" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NumberSettings00.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="EasyBG" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\EasyBG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BGtema1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BGtema1.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

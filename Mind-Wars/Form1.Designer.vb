@@ -50,6 +50,8 @@ Partial Class StartScreen
         Me.PicSettingsTheme = New System.Windows.Forms.PictureBox()
         Me.PicCloseSettings = New System.Windows.Forms.PictureBox()
         Me.PanelPvE = New System.Windows.Forms.Panel()
+        Me.LabPvEStart = New System.Windows.Forms.Label()
+        Me.PicPvEStartGame = New System.Windows.Forms.PictureBox()
         Me.LabPvEColors = New System.Windows.Forms.Label()
         Me.LabPvENumberOfAttempts = New System.Windows.Forms.Label()
         Me.LabPvENumberOfAttemptsButton = New System.Windows.Forms.Label()
@@ -86,8 +88,7 @@ Partial Class StartScreen
         Me.PicMinimizeForm = New System.Windows.Forms.PictureBox()
         Me.PicCloseForm = New System.Windows.Forms.PictureBox()
         Me.GUITimer = New System.Windows.Forms.Timer(Me.components)
-        Me.PicPvEStartGame = New System.Windows.Forms.PictureBox()
-        Me.LabPvEStart = New System.Windows.Forms.Label()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         CType(Me.PicStartButton_Settings, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvE, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvPLan, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -107,6 +108,7 @@ Partial Class StartScreen
         CType(Me.PicSettingsTheme, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicCloseSettings, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelPvE.SuspendLayout()
+        CType(Me.PicPvEStartGame, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicPvEChooseAttempts, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicPvEChooseHoles, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelPvEColors.SuspendLayout()
@@ -134,7 +136,7 @@ Partial Class StartScreen
         Me.ButtonsPanel.SuspendLayout()
         CType(Me.PicMinimizeForm, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicCloseForm, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PicPvEStartGame, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PicStartButton_Settings
@@ -458,6 +460,31 @@ Partial Class StartScreen
         Me.PanelPvE.Size = New System.Drawing.Size(226, 259)
         Me.PanelPvE.TabIndex = 10
         Me.PanelPvE.Visible = False
+        '
+        'LabPvEStart
+        '
+        Me.LabPvEStart.BackColor = System.Drawing.Color.Transparent
+        Me.LabPvEStart.ForeColor = System.Drawing.Color.LightSkyBlue
+        Me.LabPvEStart.Location = New System.Drawing.Point(27, 222)
+        Me.LabPvEStart.Margin = New System.Windows.Forms.Padding(0)
+        Me.LabPvEStart.Name = "LabPvEStart"
+        Me.LabPvEStart.Size = New System.Drawing.Size(175, 26)
+        Me.LabPvEStart.TabIndex = 12
+        Me.LabPvEStart.Text = "Start game"
+        Me.LabPvEStart.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'PicPvEStartGame
+        '
+        Me.PicPvEStartGame.BackColor = System.Drawing.Color.Transparent
+        Me.PicPvEStartGame.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
+        Me.PicPvEStartGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.PicPvEStartGame.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PicPvEStartGame.Location = New System.Drawing.Point(0, 219)
+        Me.PicPvEStartGame.Name = "PicPvEStartGame"
+        Me.PicPvEStartGame.Size = New System.Drawing.Size(226, 40)
+        Me.PicPvEStartGame.TabIndex = 11
+        Me.PicPvEStartGame.TabStop = False
+        Me.PicPvEStartGame.Tag = "4"
         '
         'LabPvEColors
         '
@@ -881,30 +908,14 @@ Partial Class StartScreen
         '
         Me.GUITimer.Interval = 40
         '
-        'PicPvEStartGame
+        'PictureBox2
         '
-        Me.PicPvEStartGame.BackColor = System.Drawing.Color.Transparent
-        Me.PicPvEStartGame.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
-        Me.PicPvEStartGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.PicPvEStartGame.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PicPvEStartGame.Location = New System.Drawing.Point(0, 219)
-        Me.PicPvEStartGame.Name = "PicPvEStartGame"
-        Me.PicPvEStartGame.Size = New System.Drawing.Size(226, 40)
-        Me.PicPvEStartGame.TabIndex = 11
-        Me.PicPvEStartGame.TabStop = False
-        Me.PicPvEStartGame.Tag = "4"
-        '
-        'LabPvEStart
-        '
-        Me.LabPvEStart.BackColor = System.Drawing.Color.Transparent
-        Me.LabPvEStart.ForeColor = System.Drawing.Color.LightSkyBlue
-        Me.LabPvEStart.Location = New System.Drawing.Point(27, 222)
-        Me.LabPvEStart.Margin = New System.Windows.Forms.Padding(0)
-        Me.LabPvEStart.Name = "LabPvEStart"
-        Me.LabPvEStart.Size = New System.Drawing.Size(175, 26)
-        Me.LabPvEStart.TabIndex = 12
-        Me.LabPvEStart.Text = "Start game"
-        Me.LabPvEStart.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.PictureBox2.Image = Global.Mind_Wars.My.Resources.Resources.BGtema1
+        Me.PictureBox2.Location = New System.Drawing.Point(756, 153)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(100, 50)
+        Me.PictureBox2.TabIndex = 19
+        Me.PictureBox2.TabStop = False
         '
         'StartScreen
         '
@@ -916,6 +927,7 @@ Partial Class StartScreen
         Me.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.StartScreenBG
         Me.ClientSize = New System.Drawing.Size(944, 504)
         Me.ControlBox = False
+        Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.PicCloseForm)
         Me.Controls.Add(Me.PicMinimizeForm)
         Me.Controls.Add(Me.ButtonsPanel)
@@ -953,6 +965,7 @@ Partial Class StartScreen
         CType(Me.PicSettingsTheme, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicCloseSettings, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelPvE.ResumeLayout(False)
+        CType(Me.PicPvEStartGame, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicPvEChooseAttempts, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicPvEChooseHoles, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelPvEColors.ResumeLayout(False)
@@ -980,7 +993,7 @@ Partial Class StartScreen
         Me.ButtonsPanel.ResumeLayout(False)
         CType(Me.PicMinimizeForm, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicCloseForm, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PicPvEStartGame, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1050,4 +1063,5 @@ Partial Class StartScreen
     Friend WithEvents PicDifficulty2 As PictureBox
     Friend WithEvents LabPvEStart As Label
     Friend WithEvents PicPvEStartGame As PictureBox
+    Friend WithEvents PictureBox2 As PictureBox
 End Class

@@ -1,4 +1,6 @@
 ﻿Module AIModule
+
+
     Public InitiallyPossibleSolutions As New ArrayList
     Public CurrentlyPossibleSolutions As New ArrayList
 
@@ -11,8 +13,9 @@
     Public FourBestIndices(3) As Integer
 
     Dim rdm As New Random()
+
     'Returns an array of random integers of colours for each hole(array element)
-    Function GenerateSolution()
+    Function GenerateSolution() As Integer()
         Dim ret(SystemModule.holes - 1) As Integer
         For n As Integer = 0 To SystemModule.holes - 1
             ret(n) = rdm.Next(1, SystemModule.colours)
@@ -71,7 +74,7 @@
             Dim CheckBW() As Integer = verifyFixTest(IntToArr(CurrentlyPossibleSolutions.Item(q)), RealGuess)
             If Not CheckBW(1) = RealBW(1) OrElse Not CheckBW(0) = RealBW(0) Then
                 If CurrentlyPossibleSolutions.Item(q) = ArrayToInt(solution) Then
-                    MsgBox("About to remove the actual solution. Solution: " & ArrayToInt(solution) & ", CheckBW = " & ArrayToInt(CheckBW) & ", RealBW = " & ArrayToInt(RealBW) & ", GetBW(" & IntToArr(CurrentlyPossibleSolutions.Item(q)) & ", " & ArrayToInt(RealGuess) & ") returns CheckBW")
+                    MsgBox("About to remove the actual solution. Solution: " & ArrayToInt(solution) & ", CheckBW = " & ArrayToInt(CheckBW) & ", RealBW = " & ArrayToInt(RealBW) & ", GetBW(" & CurrentlyPossibleSolutions.Item(q).ToString & ", " & ArrayToInt(RealGuess) & ") returns CheckBW")
                 End If
                 CurrentlyPossibleSolutions.RemoveAt(q)
             End If
@@ -81,7 +84,7 @@
         Debug.Print("Trimmed list of possible solutions: " & InitiallyPossibleSolutions.Count & " / " & CurrentlyPossibleSolutions.Count)
     End Sub
 
-    Function CalculateEliminated(ByVal B As Integer, ByVal W As Integer, ByVal HypotheticalGuess As Integer)
+    Function CalculateEliminated(ByVal B As Integer, ByVal W As Integer, ByVal HypotheticalGuess As Integer) As Integer
         Dim SolutionsEliminated As Integer = 0
         Dim q As Integer = 0
         Dim ListCount As Integer = CurrentlyPossibleSolutions.Count - 1
