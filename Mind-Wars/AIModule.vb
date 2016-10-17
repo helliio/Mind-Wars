@@ -1,7 +1,5 @@
 ﻿Module AIModule
 
-    Public StartScoreLock As New Object
-
 
     Public InitiallyPossibleSolutions As New ArrayList
     Public CurrentlyPossibleSolutions As New ArrayList
@@ -11,13 +9,10 @@
     Public AI_BW_Check(1) As Integer
     Public AIAttempts As Integer = 0
 
-
     Public FourBestScores(3) As Integer
     Public FourBestIndices(3) As Integer
 
     Dim rdm As New Random()
-
-
 
     'Returns an array of random integers of colours for each hole(array element)
     Function GenerateSolution() As Integer()

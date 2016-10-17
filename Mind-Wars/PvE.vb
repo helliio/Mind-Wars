@@ -88,11 +88,11 @@ Public Class PvEGame
             Dim MinimaxThread1 As New System.Threading.Thread(AddressOf Minimax1of4.FindBestMove)
             MinimaxThread1.Priority = Threading.ThreadPriority.Highest
             Dim MinimaxThread2 As New System.Threading.Thread(AddressOf Minimax2of4.FindBestMove)
-            MinimaxThread2.Priority = Threading.ThreadPriority.AboveNormal
+            MinimaxThread2.Priority = Threading.ThreadPriority.Highest
             Dim MinimaxThread3 As New System.Threading.Thread(AddressOf Minimax3of4.FindBestMove)
-            MinimaxThread3.Priority = Threading.ThreadPriority.AboveNormal
+            MinimaxThread3.Priority = Threading.ThreadPriority.Highest
             Dim MinimaxThread4 As New System.Threading.Thread(AddressOf Minimax4of4.FindBestMove)
-            MinimaxThread4.Priority = Threading.ThreadPriority.AboveNormal
+            MinimaxThread4.Priority = Threading.ThreadPriority.Highest
             MinimaxThread1.Start()
             MinimaxThread2.Start()
             MinimaxThread3.Start()

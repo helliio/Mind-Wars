@@ -15,13 +15,10 @@
     Public Sub FindBestMove()
         Dim SleepCounter As Integer = 0
         Do Until (LocalPossibleList.Count > 20 AndAlso LocalInitialList.Count > 20 AndAlso Not FourthNumber = 0) OrElse SleepCounter >= 100
-            If Threading.Thread.Yield() = False Then
-                Threading.Thread.Sleep(50)
-                SleepCounter += 1
-            End If
+            Threading.Thread.Sleep(50)
+            SleepCounter += 1
             If SleepCounter >= 100 Then
-                MsgBox("Error: Is " & LocalInitialList.Count & " > 20? How about " & LocalPossibleList.Count & "?")
-                Dispose()
+                Debug.Print("!!!!!!!! - Thread #" & FourthNumber & " is stuck.")
             End If
         Loop
 
@@ -79,7 +76,7 @@
         '        End If
 
         '    End Sub)
-
+        Debug.Print("Thread #" & FourthNumber & " starts calculating.")
         Do Until i = iMax
             Dim q As Integer = 0
             Dim score As Integer = Integer.MaxValue
@@ -106,43 +103,26 @@
             i += 1
         Loop
 
+        ' Thread locking didn't work out as expected.
+        FourBestIndices(FourthNumber - 1) = HighestMinScoreIndex
+        FourBestScores(FourthNumber - 1) = ScoreForSolution
 
-
-        Dim LockObject_BestScore As New Object()
-        Threading.Monitor.Enter(LockObject_BestScore)
-        Try
-            FourBestIndices(FourthNumber - 1) = HighestMinScoreIndex
-            FourBestScores(FourthNumber - 1) = ScoreForSolution
-        Catch
-            MsgBox("Nei")
-        Finally
-            Threading.Monitor.Exit(LockObject_BestScore)
-        End Try
-
-        Threading.Thread.Yield()
-
+        Debug.Print("Thread #" & FourthNumber & " finished.")
     End Sub
 
-    Dim LockObject_CalculateEliminated As New Object
     Private Function MiniCalculateEliminated(ByVal B As Integer, ByVal W As Integer, ByVal HypotheticalGuess As Integer) As Integer
-        Threading.Monitor.Enter(LockObject_CalculateEliminated)
-        Try
-            Dim SolutionsEliminated As Integer = 0
-            Dim q As Integer = 0
-            Dim ListCount As Integer = LocalPossibleList.Count - 1
-            Dim IntToArrayGuess() As Integer = MiniIntToArr(HypotheticalGuess)
-            Do Until q = ListCount
-                AI_BW_Check = MiniGetBW(MiniIntToArr(LocalPossibleList.Item(q)), IntToArrayGuess)
-                If Not AI_BW_Check(0) = B OrElse Not AI_BW_Check(1) = W Then
-                    SolutionsEliminated += 1
-                End If
-                q += 1
-            Loop
-            Return SolutionsEliminated
-        Finally
-            Threading.Monitor.Exit(LockObject_CalculateEliminated)
-        End Try
-
+        Dim SolutionsEliminated As Integer = 0
+        Dim q As Integer = 0
+        Dim ListCount As Integer = LocalPossibleList.Count - 1
+        Dim IntToArrayGuess() As Integer = MiniIntToArr(HypotheticalGuess)
+        Do Until q = ListCount
+            AI_BW_Check = MiniGetBW(MiniIntToArr(LocalPossibleList.Item(q)), IntToArrayGuess)
+            If Not AI_BW_Check(0) = B OrElse Not AI_BW_Check(1) = W Then
+                SolutionsEliminated += 1
+            End If
+            q += 1
+        Loop
+        Return SolutionsEliminated
     End Function
 
     Function MiniIntToArr(ByVal int As Integer) As Integer()

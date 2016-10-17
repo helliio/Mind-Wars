@@ -63,14 +63,7 @@
             End If
             i += 1
         Loop
-        FourBestIndices(0) = HighestMinScoreIndex
-        FourBestIndices(1) = HighestMinScoreIndex
-        FourBestIndices(2) = HighestMinScoreIndex
-        FourBestIndices(3) = HighestMinScoreIndex
-        FourBestScores(0) = ScoreForSolution
-        FourBestScores(1) = ScoreForSolution
-        FourBestScores(2) = ScoreForSolution
-        FourBestScores(3) = ScoreForSolution
-
+        FourBestIndices = {HighestMinScoreIndex, HighestMinScoreIndex, HighestMinScoreIndex, HighestMinScoreIndex}
+        FourBestScores = {ScoreForSolution, ScoreForSolution, ScoreForSolution, ScoreForSolution}
     End Sub
 End Class
