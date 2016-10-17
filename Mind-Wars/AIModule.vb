@@ -68,7 +68,7 @@
         Dim CountBefore As Integer = CurrentlyPossibleSolutions.Count
         Dim q As Integer = CurrentlyPossibleSolutions.Count - 1
         Do
-            Dim CheckBW() As Integer = verifyFixTest(IntToArr(CurrentlyPossibleSolutions.Item(q)), RealGuess)
+            Dim CheckBW() As Integer = verify(IntToArr(CurrentlyPossibleSolutions.Item(q)), RealGuess)
             If Not CheckBW(1) = RealBW(1) OrElse Not CheckBW(0) = RealBW(0) Then
                 If CurrentlyPossibleSolutions.Item(q) = ArrayToInt(solution) Then
                     MsgBox("About to remove the actual solution. Solution: " & ArrayToInt(solution) & ", CheckBW = " & ArrayToInt(CheckBW) & ", RealBW = " & ArrayToInt(RealBW) & ", GetBW(" & IntToArr(CurrentlyPossibleSolutions.Item(q)) & ", " & ArrayToInt(RealGuess) & ") returns CheckBW")
@@ -87,7 +87,7 @@
         Dim ListCount As Integer = CurrentlyPossibleSolutions.Count - 1
         Dim IntToArrayGuess() As Integer = IntToArr(HypotheticalGuess)
         Do Until q = ListCount
-            AI_BW_Check = verifyFixTest(IntToArr(CurrentlyPossibleSolutions.Item(q)), IntToArrayGuess)
+            AI_BW_Check = verify(IntToArr(CurrentlyPossibleSolutions.Item(q)), IntToArrayGuess)
             If Not AI_BW_Check(0) = B OrElse Not AI_BW_Check(1) = W Then
                 SolutionsEliminated += 1
             End If

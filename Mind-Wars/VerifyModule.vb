@@ -1,10 +1,10 @@
 ﻿Module VerifyModule
     'Returns a Array of {black,white}
-    Function verify(ByVal solution() As Integer, ByVal verifyguess() As Integer)
+    Function verify(ByVal verifysolution() As Integer, ByVal verifyguess() As Integer) As Integer()
         Dim bw(1) As Integer
         bw = {0, 0}
-        Dim s = solution
-        Dim g() As Integer = verifyguess
+        Dim s() As Integer = verifysolution.Clone
+        Dim g() As Integer = verifyguess.Clone
         For i As Integer = 0 To SystemModule.holes - 1
             If g(i) = s(i) Then
                 bw(0) += 1
@@ -24,28 +24,28 @@
         Return bw
     End Function
 
-    Function verifyFixTest(ByVal AgainstSolution() As Integer, ByVal VerifyGuess() As Integer)
-        Dim givenSolution() As Integer = AgainstSolution.Clone
-        Dim checkGuess() As Integer = VerifyGuess.Clone
-        Dim BWPegs() As Integer = {0, 0}
-        For i As Integer = 0 To holes - 1
-            If checkGuess(i) = givenSolution(i) Then
-                BWPegs(0) += 1
-                checkGuess(i) = -1
-                givenSolution(i) = -1
-            End If
-        Next
-        For i As Integer = 0 To holes - 1
-            For j As Integer = 0 To holes - 1
-                If checkGuess(j) = givenSolution(i) AndAlso checkGuess(i) <> givenSolution(i) AndAlso Not givenSolution(i) = -1 Then
-                    BWPegs(1) += 1
-                    checkGuess(j) = -1
-                    givenSolution(i) = -1
-                End If
-            Next
-        Next
-        Return BWPegs
-    End Function
+    'Function verifyFixTest(ByVal AgainstSolution() As Integer, ByVal VerifyGuess() As Integer)
+    '    Dim givenSolution() As Integer = AgainstSolution.Clone
+    '    Dim checkGuess() As Integer = VerifyGuess.Clone
+    '    Dim BWPegs() As Integer = {0, 0}
+    '    For i As Integer = 0 To holes - 1
+    '        If checkGuess(i) = givenSolution(i) Then
+    '            BWPegs(0) += 1
+    '            checkGuess(i) = -1
+    '            givenSolution(i) = -1
+    '        End If
+    '    Next
+    '    For i As Integer = 0 To holes - 1
+    '        For j As Integer = 0 To holes - 1
+    '            If checkGuess(j) = givenSolution(i) AndAlso checkGuess(i) <> givenSolution(i) AndAlso Not givenSolution(i) = -1 Then
+    '                BWPegs(1) += 1
+    '                checkGuess(j) = -1
+    '                givenSolution(i) = -1
+    '            End If
+    '        Next
+    '    Next
+    '    Return BWPegs
+    'End Function
 
 
     'Only used for testing purposes.

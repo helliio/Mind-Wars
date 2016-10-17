@@ -60,7 +60,7 @@ Public Class PvEGame
             Dim AIGuessLight() As Integer = IntToArr(InitiallyPossibleSolutions.Item(bestindexlight))
             Debug.Print("AI guesses " & ArrayToInt(AIGuessLight))
             AIAttempts += 1
-            CurrentBW = verifyFixTest(solution, AIGuessLight)
+            CurrentBW = verify(solution, AIGuessLight)
             Debug.Print("CurrentBW: " & ArrayToInt(CurrentBW) & ". Should be: " & ArrayToInt(GetBW(solution, AIGuessLight)) & ". Solution is " & ArrayToInt(solution))
             Debug.Print("This returns " & ArrayToInt(CurrentBW))
             Debug.Print("Before elimination: " & CurrentlyPossibleSolutions.Count)
@@ -108,7 +108,7 @@ Public Class PvEGame
             Dim AIGuess() As Integer = IntToArr(InitiallyPossibleSolutions.Item(bestindex))
             Debug.Print("AI guesses " & ArrayToInt(AIGuess))
             AIAttempts += 1
-            CurrentBW = verifyFixTest(solution, AIGuess)
+            CurrentBW = verify(solution, AIGuess)
             Debug.Print("CurrentBW: " & ArrayToInt(CurrentBW) & ". Should be: " & ArrayToInt(GetBW(solution, AIGuess)) & ". Solution is " & ArrayToInt(solution))
             Debug.Print("This returns " & ArrayToInt(CurrentBW))
             Debug.Print("Before elimination: " & CurrentlyPossibleSolutions.Count)
@@ -156,7 +156,7 @@ Public Class PvEGame
         Dim AIGuess() As Integer = GenerateSolution()
         Debug.Print("AI guesses " & ArrayToInt(AIGuess))
         AIAttempts += 1
-        CurrentBW = verifyFixTest(solution, AIGuess)
+        CurrentBW = verify(solution, AIGuess)
         Debug.Print("This returns " & ArrayToInt(CurrentBW))
         Debug.Print("Number of possible solutions before elimination: " & CurrentlyPossibleSolutions.Count)
         Eliminate(AIGuess, CurrentBW)

@@ -32,7 +32,7 @@
             Dim InitialItemi As Integer = InitiallyPossibleSolutions.Item(i)
             Dim InitialItemiArray() As Integer = IntToArr(InitialItemi)
             Do
-                BWCount = verifyFixTest(IntToArr(CurrentlyPossibleSolutions.Item(q)), InitialItemiArray)
+                BWCount = verify(IntToArr(CurrentlyPossibleSolutions.Item(q)), InitialItemiArray)
                 Dim BWint As Integer = BWCount(0) * 10 + BWCount(1)
                 If Not BWList.Contains(BWint) Then
                     Dim tempscore As Integer = (CalculateEliminated(BWCount(0), BWCount(1), InitialItemi))
