@@ -55,7 +55,7 @@ Public Class PvEGame
     Private Sub PvEGame_Closed(sender As Object, e As EventArgs) Handles Me.Closed
         StartScreen.Show()
     End Sub
-
+    'starts the ai
     Private Sub AIBackgroundWorker_DoWork(sender As Object, e As DoWorkEventArgs) Handles AIBackgroundWorker.DoWork
         If UseLightMinimax = True Then
             Debug.Print("Using MinimaxLight...")
