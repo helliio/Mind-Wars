@@ -30,7 +30,6 @@
 
     Private Sub StartScreen_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        Call ChangeTheme(1)
         Call InitializeGUI()
 
 
