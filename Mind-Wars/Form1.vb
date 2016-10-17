@@ -683,6 +683,11 @@
         End If
     End Sub
 
+    Private Sub cmdTestTheme_Click(sender As Object, e As EventArgs) Handles cmdTestTheme.Click
+        Dim themeint As Integer = ThemeComboBox.SelectedValue
+        Call ChangeTheme(0)
+    End Sub
+
     Private Sub PicPvEColorPalette_Paint(sender As Object, e As PaintEventArgs) Handles PicPvEColor1.Paint, PicPvEColor2.Paint, PicPvEColor3.Paint, PicPvEColor4.Paint, PicPvEColor5.Paint, PicPvEColor6.Paint, PicPvEColor7.Paint, PicPvEColor8.Paint
         e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
         ColorPaletteRect.Size = sender.DisplayRectangle.Size
@@ -705,4 +710,5 @@
         e.Graphics.FillEllipse(ColorPaletteBrush, ColorPaletteRect)
 
     End Sub
+
 End Class
