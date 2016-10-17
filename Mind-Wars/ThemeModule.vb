@@ -1,10 +1,10 @@
 ﻿Module ThemeModule
-    Public ThemeResources() As Image
+    Public Theme_FormBackground As Image
     Public Sub ChangeTheme(ByVal Theme As Integer)
 
         Select Case Theme
             Case 0
-
+                Theme_FormBackground = My.Resources.StartScreenBG
             Case 1
                 ThemeResources(0) = My.Resources.BGtema1
             Case 2
