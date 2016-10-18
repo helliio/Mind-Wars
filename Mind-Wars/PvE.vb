@@ -1,7 +1,11 @@
 ﻿Imports System.ComponentModel
 
 Public Class PvEGame
+    Dim CursorX As Integer, CursorY As Integer
+    Dim DragForm As Boolean = False
+
     Private Sub PvE_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Call GenerateBoard(1, GamePanel, BWPanel)
         InitializeDelay.Enabled = True
         InitializeGMPRect = PicInitialLoadProgress.DisplayRectangle
         InitializeGMPRect.Inflate(-2, -2)
@@ -48,6 +52,9 @@ Public Class PvEGame
             PicInitialLoadProgress.Hide()
             InitializeGMPPen.Dispose()
             LoadCompleteTimer.Enabled = False
+            For Each HolePic As PictureBox In HolesList
+                HolePic.Visible = True
+            Next
             Debug.Print("Elements in initial list: " & InitiallyPossibleSolutions.Count & ", current list: " & CurrentlyPossibleSolutions.Count)
         End If
     End Sub
@@ -206,4 +213,26 @@ Public Class PvEGame
             Debug.Print("Error: " & CurrentlyPossibleSolutions.Count & " remaining.")
         End If
     End Sub
+
+    Private Sub PicFormHeader_MouseDown(sender As Object, e As MouseEventArgs) Handles PicFormHeader.MouseDown
+        If e.Button = MouseButtons.Left Then
+            DragForm = True
+            CursorX = Cursor.Position.X - Me.Left
+            CursorY = Cursor.Position.Y - Me.Top
+        End If
+    End Sub
+
+    Private Sub PicFormHeader_MouseUp(sender As Object, e As MouseEventArgs) Handles PicFormHeader.MouseUp
+        DragForm = False
+    End Sub
+
+    Private Sub PicFormHeader_MouseMove(sender As Object, e As MouseEventArgs) Handles PicFormHeader.MouseMove
+        If DragForm = True Then
+            Me.Left = Cursor.Position.X - CursorX
+            Me.Top = Cursor.Position.Y - CursorY
+        End If
+    End Sub
+
+
+
 End Class

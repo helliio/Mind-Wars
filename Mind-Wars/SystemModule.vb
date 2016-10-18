@@ -6,6 +6,9 @@
     Public guess() As Integer
     Public CurrentBW(1) As Integer
 
+    Public HolesList As New List(Of PictureBox)
+    Public BWHolesList As New List(Of PictureBox)
+
     Public Sub GameSetup(ByVal h As Integer, ByVal c As Integer, ByVal t As Integer)
         holes = h
         colours = c
