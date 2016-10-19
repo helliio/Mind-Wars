@@ -1,12 +1,11 @@
 ﻿Public Class MinimaxFunctions
 
-    Function MiniCalculateEliminated(ByVal B As Integer, ByVal W As Integer, ByVal HypotheticalGuess As Integer, ByVal L As ArrayList) As Integer
+    Function MiniCalculateEliminated(ByVal B As Integer, ByVal W As Integer, ByVal HypotheticalGuess() As Integer, ByVal L As ArrayList) As Integer
         Dim SolutionsEliminated As Integer = 0
         Dim q As Integer = 0
         Dim ListCount As Integer = L.Count - 1
-        Dim IntToArrayGuess() As Integer = IntToArr(HypotheticalGuess)
         Do Until q = ListCount
-            AI_BW_Check = MiniGetBW(IntToArr(L.Item(q)), IntToArrayGuess)
+            AI_BW_Check = MiniGetBW(L.Item(q), HypotheticalGuess)
             If Not AI_BW_Check(0) = B OrElse Not AI_BW_Check(1) = W Then
                 SolutionsEliminated += 1
             End If
