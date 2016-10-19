@@ -80,6 +80,7 @@ Partial Class PvEGame
         '
         'TextBox1
         '
+        Me.TextBox1.Enabled = False
         Me.TextBox1.Location = New System.Drawing.Point(12, 363)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(100, 20)
@@ -87,6 +88,7 @@ Partial Class PvEGame
         '
         'Button1
         '
+        Me.Button1.Enabled = False
         Me.Button1.Location = New System.Drawing.Point(12, 389)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(75, 23)
@@ -129,7 +131,7 @@ Partial Class PvEGame
         '
         'ColorTimer
         '
-        Me.ColorTimer.Interval = 90
+        Me.ColorTimer.Interval = 30
         '
         'PvEGame
         '

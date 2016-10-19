@@ -225,16 +225,27 @@ Public Class PvEGame
     End Sub
 
     Private Sub ColorTimer_Tick(sender As Object, e As EventArgs) Handles ColorTimer.Tick
-        If ChoiceRectangleList.Item(2).Width > 16 Then
-            Dim testrect As Rectangle = ChoiceRectangleList.Item(SelectedColor)
-            testrect.Inflate(1, 1)
+        Dim ChangeRect As Rectangle
+
+        If ChoiceRectangleList.Item(SelectedColor).Width > 16 Then
+            ChangeRect = ChoiceRectangleList.Item(SelectedColor)
+            ChangeRect.Inflate(-1, -1)
+            ChoiceRectangleList.Item(SelectedColor) = ChangeRect
             ChoiceList.Item(SelectedColor).Invalidate()
-            Debug.Print(ChoiceRectangleList.Item(SelectedColor).Width)
+            If ChoiceRectangleList.Item(SelectedColor).Width < 20 Then
+                SelectedSpinning = True
+            Else
+                SelectedSpinning = False
+            End If
         End If
-        For Each Choice As PictureBox In ChoiceList
-            If Choice.ClientRectangle.Width < 30 AndAlso Not Choice.Tag = SelectedColor Then
-                Choice.ClientRectangle.Inflate(1, 1)
-                Choice.Invalidate()
+
+        For Each ChoicePic As PictureBox In ChoiceList
+            If ChoiceRectangleList.Item(ChoicePic.Tag).Width < 24 AndAlso Not ChoicePic.Tag = SelectedColor Then
+                Dim GrowRect As Rectangle = ChoiceRectangleList.Item(ChoicePic.Tag)
+                'ChoiceList.Item(ChoiceRectangleList.IndexOf(rect)).Invalidate()
+                GrowRect.Inflate(1, 1)
+                ChoiceRectangleList.Item(ChoicePic.Tag) = GrowRect
+                ChoicePic.Invalidate()
             End If
         Next
     End Sub
@@ -256,6 +267,31 @@ Public Class PvEGame
         End If
     End Sub
 
-
-
+    Private Sub PvEGame_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Left
+                If Not SelectedColor = 0 AndAlso Not SelectedColor = 4 Then
+                    SelectedColor -= 1
+                    SelectedSpinning = False
+                End If
+            Case Keys.Right
+                If Not SelectedColor = 3 AndAlso Not SelectedColor = 7 AndAlso Not SelectedColor = colours - 1 Then
+                    SelectedColor += 1
+                    SelectedSpinning = False
+                End If
+            Case Keys.Down
+                If Not SelectedColor + 4 > colours - 1 Then
+                    SelectedColor += 4
+                    SelectedSpinning = False
+                ElseIf Not SelectedColor >= 4 Then
+                    SelectedColor = colours - 1
+                    SelectedSpinning = False
+                End If
+            Case Keys.Up
+                If Not SelectedColor - 4 < 0 Then
+                    SelectedColor -= 4
+                    SelectedSpinning = False
+                End If
+        End Select
+    End Sub
 End Class
