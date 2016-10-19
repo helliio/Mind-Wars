@@ -34,6 +34,8 @@ Partial Class PvEGame
         Me.GamePanel = New System.Windows.Forms.Panel()
         Me.BWPanel = New System.Windows.Forms.Panel()
         Me.ShowHolesTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.AIBackgroundWorkerEasy = New System.ComponentModel.BackgroundWorker()
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicInitialLoadProgress, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GamePanel.SuspendLayout()
@@ -97,6 +99,7 @@ Partial Class PvEGame
         Me.GamePanel.AutoSize = True
         Me.GamePanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.GamePanel.BackColor = System.Drawing.Color.Transparent
+        Me.GamePanel.Controls.Add(Me.Button2)
         Me.GamePanel.Controls.Add(Me.PicInitialLoadProgress)
         Me.GamePanel.Controls.Add(Me.BWPanel)
         Me.GamePanel.Dock = System.Windows.Forms.DockStyle.Fill
@@ -120,6 +123,18 @@ Partial Class PvEGame
         'ShowHolesTimer
         '
         Me.ShowHolesTimer.Interval = 50
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(93, 389)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(75, 23)
+        Me.Button2.TabIndex = 20
+        Me.Button2.Text = "TestEasy"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'AIBackgroundWorkerEasy
+        '
         '
         'PvEGame
         '
@@ -156,4 +171,6 @@ Partial Class PvEGame
     Friend WithEvents GamePanel As Panel
     Friend WithEvents BWPanel As Panel
     Friend WithEvents ShowHolesTimer As Timer
+    Friend WithEvents Button2 As Button
+    Friend WithEvents AIBackgroundWorkerEasy As System.ComponentModel.BackgroundWorker
 End Class

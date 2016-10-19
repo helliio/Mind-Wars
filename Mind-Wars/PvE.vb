@@ -4,6 +4,7 @@ Public Class PvEGame
     Dim CursorX As Integer, CursorY As Integer
     Dim DragForm As Boolean = False
     Dim ShowHolesCounter As Integer = 0
+    Dim easy As New EasyComputer
 
     Private Sub PvE_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         BWPanel.Visible = True
@@ -142,7 +143,7 @@ Public Class PvEGame
             Eliminate(AIGuess, CurrentBW)
             Debug.Print("After elimination: " & CurrentlyPossibleSolutions.Count)
             If CurrentlyPossibleSolutions.Count = 1 Then
-                Debug.Print("AI's solution: " & InitiallyPossibleSolutions.Item(0) & ", real solution: " & ArrayToInt(solution))
+                Debug.Print("AI's solution: " & ArrayToInt(InitiallyPossibleSolutions.Item(0)) & ", real solution: " & ArrayToInt(solution))
             End If
         End If
     End Sub
@@ -225,6 +226,28 @@ Public Class PvEGame
             Me.Top = Cursor.Position.Y - CursorY
         End If
     End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        If TextBox1.TextLength = holes And IsNumeric(TextBox1.Text) Then
+            Dim Input As Integer = Convert.ToInt32(TextBox1.Text)
+            If CheckArrRange(Input, 1, colours) Then
+                solution = IntToArr(Input)
+                Debug.Print("Solution is " & Input)
+                Button2.Enabled = False
+                AIBackgroundWorkerEasy.RunWorkerAsync()
+            Else
+                MsgBox("Maximum " & colours)
+            End If
+        Else
+            MsgBox(holes & " holes")
+        End If
+    End Sub
+
+    Private Sub AIBackgroundWorkerEasy_DoWork(sender As Object, e As DoWorkEventArgs) Handles AIBackgroundWorkerEasy.DoWork
+        easy.EasyGuess()
+        AIAttempts += 1
+    End Sub
+
     Private Sub ShowHolesTimer_Tick(sender As Object, e As EventArgs) Handles ShowHolesTimer.Tick
         If ShowHolesCounter < HolesList.Count Then
             HolesList.Item(ShowHolesCounter).Visible = True
@@ -242,6 +265,21 @@ Public Class PvEGame
         End If
     End Sub
 
-
-
+    Private Sub AIBackgroundWorkerEasy_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles AIBackgroundWorkerEasy.RunWorkerCompleted
+        If CurrentlyPossibleSolutions.Count > 1 Then
+            AIBackgroundWorkerEasy.RunWorkerAsync()
+        ElseIf CurrentlyPossibleSolutions.Count = 1 Then
+            AIAttempts += 1
+            Debug.Print("FINISHED IN " & AIAttempts & " MOVES")
+            Debug.Print("AI's solution: " & ArrayToInt(InitiallyPossibleSolutions.Item(0)) & ", real solution: " & ArrayToInt(solution))
+            AIAttempts = 0
+            Button2.Enabled = True
+            InitializeBackgroundWorker.Dispose()
+            Dim PopulateListsClass As New ListPopulate
+            PopulateListsClass.Operation = 1
+            Dim PopulateListsThread As New System.Threading.Thread(AddressOf PopulateListsClass.PopulateLists)
+            PopulateListsThread.Start()
+            PopulateListsThread.Join()
+        End If
+    End Sub
 End Class
