@@ -21,7 +21,7 @@
                 For i As Integer = LowestListValue To HighestListValue
                     If CheckArrRange(i, 1, colours) = True Then
                         If CheckArrRange(i, 1, colours) = True Then
-                            CurrentlyPossibleSolutions.Add(i)
+                            CurrentlyPossibleSolutions.Add(IntToArr(i))
                             ReportProgressCounter += 0.2
                         End If
                         If CurrentlyPossibleSolutions.Count < 5000 Then

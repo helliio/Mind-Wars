@@ -1,5 +1,6 @@
-﻿Class Minimax
+﻿Option Explicit On
 
+Class Minimax
     Implements IDisposable
     Private FourthNumber As Integer = 0
     Dim LocalInitialList As New ArrayList
@@ -27,7 +28,7 @@
         Dim ScoreForSolution As Integer = 0
         Dim i As Integer
         Dim iMax As Integer
-        Dim quarter As Integer = Math.Round(LocalInitialList.Count / 4)
+        Dim quarter As Integer = CInt(Math.Round(LocalInitialList.Count / 4))
         Dim SolutionCount As Integer = LocalPossibleList.Count
         Dim InitialCount As Integer = LocalInitialList.Count
         Dim BWList As New ArrayList
@@ -49,44 +50,16 @@
                 MsgBox("You need to set FourthNumber (1 to 4).")
         End Select
 
-        'Parallel.For(0, iMax - 1,
-        '    Sub(index As Integer)
-        '        Dim LocalFunctions As New MinimaxFunctions
-        '        Dim q As Integer = 0
-        '        Dim score As Integer = Integer.MaxValue
-        '        Dim InitialItemi As Integer = LocalInitialList.Item(index)
-        '        Dim InitialItemiArray() As Integer = LocalFunctions.MiniIntToArr(InitialItemi)
-        '        Do
-        '            BWCount = LocalFunctions.MiniGetBW(LocalFunctions.MiniIntToArr(LocalPossibleList.Item(q)), InitialItemiArray)
-        '            Dim BWint As Integer = BWCount(0) * 10 + BWCount(1)
-        '            If Not BWList.Contains(BWint) Then
-        '                Dim tempscore As Integer = LocalFunctions.MiniCalculateEliminated(BWCount(0), BWCount(1), InitialItemi, LocalPossibleList)
-        '                If score > tempscore Then
-        '                    score = tempscore
-        '                End If
-        '                BWList.Add(BWint)
-        '            End If
-        '            q += 1
-        '        Loop Until q = SolutionCount
-        '        BWList.Clear()
-        '        q = 0
-        '        If score > ScoreForSolution AndAlso score < Integer.MaxValue Then
-        '            ScoreForSolution = score
-        '            HighestMinScoreIndex = index
-        '        End If
-
-        '    End Sub)
         Debug.Print("Thread #" & FourthNumber & " starts calculating.")
         Do Until i = iMax
             Dim q As Integer = 0
             Dim score As Integer = Integer.MaxValue
-            Dim InitialItemi As Integer = LocalInitialList.Item(i)
-            Dim InitialItemiArray() As Integer = MiniIntToArr(InitialItemi)
+            Dim InitialItemiArray() As Integer = LocalInitialList.Item(i)
             Do
-                BWCount = MiniGetBW(MiniIntToArr(LocalPossibleList.Item(q)), InitialItemiArray)
+                BWCount = MiniGetBW(LocalPossibleList.Item(q), InitialItemiArray)
                 Dim BWint As Integer = BWCount(0) * 10 + BWCount(1)
                 If Not BWList.Contains(BWint) Then
-                    Dim tempscore As Integer = MiniCalculateEliminated(BWCount(0), BWCount(1), InitialItemi)
+                    Dim tempscore As Integer = MiniCalculateEliminated(BWCount(0), BWCount(1), InitialItemiArray)
                     If score > tempscore Then
                         score = tempscore
                     End If
@@ -110,39 +83,18 @@
         Debug.Print("Thread #" & FourthNumber & " finished.")
     End Sub
 
-    Private Function MiniCalculateEliminated(ByVal B As Integer, ByVal W As Integer, ByVal HypotheticalGuess As Integer) As Integer
+    Private Function MiniCalculateEliminated(ByVal B As Integer, ByVal W As Integer, ByVal HypotheticalGuess() As Integer) As Integer
         Dim SolutionsEliminated As Integer = 0
         Dim q As Integer = 0
         Dim ListCount As Integer = LocalPossibleList.Count - 1
-        Dim IntToArrayGuess() As Integer = MiniIntToArr(HypotheticalGuess)
         Do Until q = ListCount
-            AI_BW_Check = MiniGetBW(MiniIntToArr(LocalPossibleList.Item(q)), IntToArrayGuess)
+            AI_BW_Check = MiniGetBW(LocalPossibleList.Item(q), HypotheticalGuess)
             If Not AI_BW_Check(0) = B OrElse Not AI_BW_Check(1) = W Then
                 SolutionsEliminated += 1
             End If
             q += 1
         Loop
         Return SolutionsEliminated
-    End Function
-
-    Function MiniIntToArr(ByVal int As Integer) As Integer()
-        Dim str As String = int.ToString
-        Dim arr(str.Length - 1) As Integer
-
-        Dim l As Integer = str.Length - 1
-        For i As Integer = 0 To l
-            arr(i) = str.Chars(i).ToString
-        Next
-        Return arr
-    End Function
-
-    Function MiniArrayToInt(ByVal array() As Integer) As Integer
-        Dim int As Integer
-        Dim l As Integer = array.Length - 1
-        For i As Integer = 0 To l
-            int += array(i) * 10 ^ (l - i)
-        Next
-        Return int
     End Function
 
     Public Function MiniGetBW(ByVal ail() As Integer, ByVal g() As Integer) As Integer()

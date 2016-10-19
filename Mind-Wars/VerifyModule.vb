@@ -29,7 +29,7 @@
         AgainstSolution.CopyTo(givenSolution, 0)
         Dim checkGuess(holes - 1) As Integer
         VerifyGuess.CopyTo(checkGuess, 0)
-        Dim BWPegs() As Integer = {0, 0}
+        Dim BWPegs(1) As Integer
         For i As Integer = 0 To holes - 1
             If checkGuess(i) = givenSolution(i) Then
                 BWPegs(0) += 1

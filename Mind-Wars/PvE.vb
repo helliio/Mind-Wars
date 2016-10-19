@@ -3,10 +3,22 @@
 Public Class PvEGame
     Dim CursorX As Integer, CursorY As Integer
     Dim DragForm As Boolean = False
+    Dim ShowHolesCounter As Integer = 0
 
     Private Sub PvE_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        BWPanel.Visible = True
+        GamePanel.Visible = True
+        Me.Width = 60 + 32 * holes
+        Me.Height = 38 * (tries + 1)
         Call GenerateBoard(1, GamePanel, BWPanel)
         InitializeDelay.Enabled = True
+        With PicInitialLoadProgress
+            .Parent = Me
+            .Left = Me.ClientRectangle.Width / 2 - PicInitialLoadProgress.Width / 2
+            .Top = Me.ClientRectangle.Height / 2 - PicInitialLoadProgress.Height / 2
+            .BringToFront()
+        End With
+
         InitializeGMPRect = PicInitialLoadProgress.DisplayRectangle
         InitializeGMPRect.Inflate(-2, -2)
     End Sub
@@ -52,9 +64,9 @@ Public Class PvEGame
             PicInitialLoadProgress.Hide()
             InitializeGMPPen.Dispose()
             LoadCompleteTimer.Enabled = False
-            For Each HolePic As PictureBox In HolesList
-                HolePic.Visible = True
-            Next
+            BWPanel.Visible = True
+            GamePanel.Visible = True
+            ShowHolesTimer.Enabled = True
             Debug.Print("Elements in initial list: " & InitiallyPossibleSolutions.Count & ", current list: " & CurrentlyPossibleSolutions.Count)
         End If
     End Sub
@@ -72,7 +84,7 @@ Public Class PvEGame
             LightMinimaxThread.Start()
             LightMinimaxThread.Join()
             Dim bestindexlight = FourBestIndices(0)
-            Dim AIGuessLight() As Integer = IntToArr(InitiallyPossibleSolutions.Item(bestindexlight))
+            Dim AIGuessLight() As Integer = InitiallyPossibleSolutions.Item(bestindexlight)
             Debug.Print("AI guesses " & ArrayToInt(AIGuessLight))
             AIAttempts += 1
             CurrentBW = verifyFixTest(solution, AIGuessLight)
@@ -82,7 +94,7 @@ Public Class PvEGame
             Eliminate(AIGuessLight, CurrentBW)
             Debug.Print("After elimination: " & CurrentlyPossibleSolutions.Count)
             If CurrentlyPossibleSolutions.Count = 1 Then
-                Debug.Print("AI's solution: " & InitiallyPossibleSolutions.Item(0) & ", real solution: " & ArrayToInt(solution))
+                Debug.Print("AI's solution: " & ArrayToInt(InitiallyPossibleSolutions.Item(0)) & ", real solution: " & ArrayToInt(solution))
             Else
                 Debug.Print("There's " & CurrentlyPossibleSolutions.Count & " items left. Going again.")
             End If
@@ -120,7 +132,7 @@ Public Class PvEGame
             Loop
             Debug.Print("Quadruple thread finished.")
 
-            Dim AIGuess() As Integer = IntToArr(InitiallyPossibleSolutions.Item(bestindex))
+            Dim AIGuess() As Integer = InitiallyPossibleSolutions.Item(bestindex)
             Debug.Print("AI guesses " & ArrayToInt(AIGuess))
             AIAttempts += 1
             CurrentBW = verifyFixTest(solution, AIGuess)
@@ -133,20 +145,6 @@ Public Class PvEGame
                 Debug.Print("AI's solution: " & InitiallyPossibleSolutions.Item(0) & ", real solution: " & ArrayToInt(solution))
             End If
         End If
-
-        'Dim i As Integer = 0
-        'Dim BestScore As Integer = 0
-        'Dim IndexOfBestScore As Integer = 0
-        'Do Until i <= 4
-        'If FireBesteScore(i) > bestescore Then
-        'bestescore = FireBesteScore(i)
-        'besteindex = FireBeste(i)
-        'End If
-        'i += 1
-        'Loop
-
-        'NyesteForsøk = StringTilArray(OrigS.Item(besteindex))
-
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -184,8 +182,6 @@ Public Class PvEGame
         Debug.Print("AI uses Minimax...")
         AIBackgroundWorker.RunWorkerAsync()
     End Sub
-
-
     Private Sub AIBackgroundWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles AIBackgroundWorker.RunWorkerCompleted
         If CurrentlyPossibleSolutions.Count > 40 Then
             Debug.Print("Running again: " & CurrentlyPossibleSolutions.Count & " left.")
@@ -213,7 +209,6 @@ Public Class PvEGame
             Debug.Print("Error: " & CurrentlyPossibleSolutions.Count & " remaining.")
         End If
     End Sub
-
     Private Sub PicFormHeader_MouseDown(sender As Object, e As MouseEventArgs) Handles PicFormHeader.MouseDown
         If e.Button = MouseButtons.Left Then
             DragForm = True
@@ -221,15 +216,29 @@ Public Class PvEGame
             CursorY = Cursor.Position.Y - Me.Top
         End If
     End Sub
-
     Private Sub PicFormHeader_MouseUp(sender As Object, e As MouseEventArgs) Handles PicFormHeader.MouseUp
         DragForm = False
     End Sub
-
     Private Sub PicFormHeader_MouseMove(sender As Object, e As MouseEventArgs) Handles PicFormHeader.MouseMove
         If DragForm = True Then
             Me.Left = Cursor.Position.X - CursorX
             Me.Top = Cursor.Position.Y - CursorY
+        End If
+    End Sub
+    Private Sub ShowHolesTimer_Tick(sender As Object, e As EventArgs) Handles ShowHolesTimer.Tick
+        If ShowHolesCounter < HolesList.Count Then
+            HolesList.Item(ShowHolesCounter).Visible = True
+            ShowHolesCounter += 1
+        ElseIf ShowHolesCounter < HolesList.Count + BWHolesList.Count Then
+            ShowHolesTimer.Interval = 80
+            BWHolesList.Item(ShowHolesCounter - HolesList.Count).Visible = True
+            BWHolesList.Item(ShowHolesCounter + 1 - HolesList.Count).Visible = True
+            BWHolesList.Item(ShowHolesCounter + 2 - HolesList.Count).Visible = True
+            BWHolesList.Item(ShowHolesCounter + 3 - HolesList.Count).Visible = True
+            ShowHolesCounter += 4
+        Else
+            ShowHolesTimer.Enabled = False
+            ShowHolesCounter = 0
         End If
     End Sub
 

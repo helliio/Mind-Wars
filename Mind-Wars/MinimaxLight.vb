@@ -41,13 +41,12 @@
         Do Until i = iMax
             Dim q As Integer = 0
             Dim score As Integer = Integer.MaxValue
-            Dim InitialItemi As Integer = LocalInitialList.Item(i)
-            Dim InitialItemiArray() As Integer = IntToArr(InitialItemi)
+            Dim InitialItemiArray() As Integer = LocalInitialList.Item(i)
             Do
-                BWCount = MiniGetBW(MiniIntToArr(LocalInitialList.Item(q)), InitialItemiArray)
+                BWCount = MiniGetBW(LocalInitialList.Item(q), InitialItemiArray)
                 Dim BWint As Integer = BWCount(0) * 10 + BWCount(1)
                 If Not BWList.Contains(BWint) Then
-                    Dim tempscore As Integer = MiniCalculateEliminated(BWCount(0), BWCount(1), InitialItemi, LocalPossibleList)
+                    Dim tempscore As Integer = MiniCalculateEliminated(BWCount(0), BWCount(1), InitialItemiArray, LocalPossibleList)
                     If score > tempscore Then
                         score = tempscore
                     End If

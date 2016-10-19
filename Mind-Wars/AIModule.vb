@@ -31,6 +31,8 @@
             InitiallyPossibleSolutions = New ArrayList
             InitiallyPossibleSolutions.Clear()
             CurrentlyPossibleSolutions.Clear()
+            InitiallyPossibleSolutions.TrimToSize()
+            CurrentlyPossibleSolutions.TrimToSize()
             Dim q(holes - 1) As Integer
             For i As Integer = 0 To holes - 1
                 q(i) = 1
@@ -43,7 +45,7 @@
             Dim ReportProgressCounter As Integer = 0
             For i As Integer = LowestListValue To HighestListValue
                 If CheckArrRange(i, 1, colours) = True Then
-                    CurrentlyPossibleSolutions.Add(i)
+                    CurrentlyPossibleSolutions.Add(IntToArr(i))
                     ReportProgressCounter += 1
                     If ReportProgressCounter = 10 AndAlso Not IsNothing(sender) Then
                         sender.ReportProgress((CurrentlyPossibleSolutions.Count / ExpectedCount) * 100)
@@ -70,10 +72,11 @@
     Public Sub Eliminate(ByVal RealGuess() As Integer, ByVal RealBW() As Integer)
         Dim CountBefore As Integer = CurrentlyPossibleSolutions.Count
         Dim q As Integer = CurrentlyPossibleSolutions.Count - 1
+
         Do
-            Dim CheckBW() As Integer = verifyFixTest(IntToArr(CurrentlyPossibleSolutions.Item(q)), RealGuess)
+            Dim CheckBW() As Integer = verifyFixTest(CurrentlyPossibleSolutions.Item(q), RealGuess)
             If Not CheckBW(1) = RealBW(1) OrElse Not CheckBW(0) = RealBW(0) Then
-                If CurrentlyPossibleSolutions.Item(q) = ArrayToInt(solution) Then
+                If ArrayToInt(CurrentlyPossibleSolutions.Item(q)) = ArrayToInt(solution) Then
                     MsgBox("About to remove the actual solution. Solution: " & ArrayToInt(solution) & ", CheckBW = " & ArrayToInt(CheckBW) & ", RealBW = " & ArrayToInt(RealBW) & ", GetBW(" & CurrentlyPossibleSolutions.Item(q).ToString & ", " & ArrayToInt(RealGuess) & ") returns CheckBW")
                 End If
                 CurrentlyPossibleSolutions.RemoveAt(q)
@@ -84,13 +87,12 @@
         Debug.Print("Trimmed list of possible solutions: " & InitiallyPossibleSolutions.Count & " / " & CurrentlyPossibleSolutions.Count)
     End Sub
 
-    Function CalculateEliminated(ByVal B As Integer, ByVal W As Integer, ByVal HypotheticalGuess As Integer) As Integer
+    Function CalculateEliminated(ByVal B As Integer, ByVal W As Integer, ByVal HypotheticalGuess() As Integer) As Integer
         Dim SolutionsEliminated As Integer = 0
         Dim q As Integer = 0
         Dim ListCount As Integer = CurrentlyPossibleSolutions.Count - 1
-        Dim IntToArrayGuess() As Integer = IntToArr(HypotheticalGuess)
         Do Until q = ListCount
-            AI_BW_Check = verifyFixTest(IntToArr(CurrentlyPossibleSolutions.Item(q)), IntToArrayGuess)
+            AI_BW_Check = verifyFixTest(CurrentlyPossibleSolutions.Item(q), HypotheticalGuess)
             If Not AI_BW_Check(0) = B OrElse Not AI_BW_Check(1) = W Then
                 SolutionsEliminated += 1
             End If

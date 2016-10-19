@@ -34,7 +34,7 @@
                             For n = 0 To holes - 1
                                 Dim BWPeg As New PictureBox
                                 With BWPeg
-                                    '.Visible = False
+                                    .Visible = False
                                     .Width = 16
                                     .Height = 16
                                     .Name = "BWHole_" & m * holes + n
@@ -70,7 +70,7 @@
                             .BackColor = Color.Transparent
                             .Name = "Hole_" & y * holes + x
                             .Tag = y * holes + x
-                            '.Visible = False
+                            .Visible = False
                         End With
                         AddHandler Hole.Paint, AddressOf PaintHole
                         SenderPanel.Controls.Add(Hole)
@@ -78,14 +78,7 @@
                     Next
                 Next
                 'HolesList.Reverse()
-                HolesList.Item(4).BackColor = Color.Green
-                BWHolesList.Item(4).BackColor = Color.Green
-                BWHolesList.Item(5).BackColor = Color.Green
-
-                MsgBox(HolesList.Item(4).Tag)
         End Select
-        SenderBWPanel.Visible = True
-        SenderPanel.Visible = True
     End Sub
 
     Public Sub PaintHole(sender As PictureBox, e As PaintEventArgs)
