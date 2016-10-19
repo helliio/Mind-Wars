@@ -24,28 +24,30 @@
         Return BW
     End Function
 
-    'Function verifyFixTest(ByVal AgainstSolution() As Integer, ByVal VerifyGuess() As Integer)
-    '    Dim givenSolution() As Integer = AgainstSolution.Clone
-    '    Dim checkGuess() As Integer = VerifyGuess.Clone
-    '    Dim BWPegs() As Integer = {0, 0}
-    '    For i As Integer = 0 To holes - 1
-    '        If checkGuess(i) = givenSolution(i) Then
-    '            BWPegs(0) += 1
-    '            checkGuess(i) = -1
-    '            givenSolution(i) = -1
-    '        End If
-    '    Next
-    '    For i As Integer = 0 To holes - 1
-    '        For j As Integer = 0 To holes - 1
-    '            If checkGuess(j) = givenSolution(i) AndAlso checkGuess(i) <> givenSolution(i) AndAlso Not givenSolution(i) = -1 Then
-    '                BWPegs(1) += 1
-    '                checkGuess(j) = -1
-    '                givenSolution(i) = -1
-    '            End If
-    '        Next
-    '    Next
-    '    Return BWPegs
-    'End Function
+    Function verifyFixTest(ByVal AgainstSolution() As Integer, ByVal VerifyGuess() As Integer) As Integer()
+        Dim givenSolution(holes - 1) As Integer
+        AgainstSolution.CopyTo(givenSolution, 0)
+        Dim checkGuess(holes - 1) As Integer
+        VerifyGuess.CopyTo(checkGuess, 0)
+        Dim BWPegs(1) As Integer
+        For i As Integer = 0 To holes - 1
+            If checkGuess(i) = givenSolution(i) Then
+                BWPegs(0) += 1
+                checkGuess(i) = -1
+                givenSolution(i) = -1
+            End If
+        Next
+        For i As Integer = 0 To holes - 1
+            For j As Integer = 0 To holes - 1
+                If checkGuess(j) = givenSolution(i) AndAlso checkGuess(i) <> givenSolution(i) AndAlso Not givenSolution(i) = -1 Then
+                    BWPegs(1) += 1
+                    checkGuess(j) = -1
+                    givenSolution(i) = -1
+                End If
+            Next
+        Next
+        Return BWPegs
+    End Function
 
 
     'Only used for testing purposes.
