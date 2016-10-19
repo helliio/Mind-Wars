@@ -6,10 +6,12 @@ Public Class PvEGame
     Dim ShowHolesCounter As Integer = 0
 
     Private Sub PvE_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        SelectedColor = 2
+        Me.BackgroundImage = Theme_FormBackground
         BWPanel.Visible = True
         GamePanel.Visible = True
         Me.Width = 60 + 32 * holes
-        Me.Height = 38 * (tries + 1)
+        Me.Height = 38 * (tries + 1) + 74
         Call GenerateBoard(1, GamePanel, BWPanel)
         InitializeDelay.Enabled = True
         With PicInitialLoadProgress
@@ -18,17 +20,10 @@ Public Class PvEGame
             .Top = Me.ClientRectangle.Height / 2 - PicInitialLoadProgress.Height / 2
             .BringToFront()
         End With
-
         InitializeGMPRect = PicInitialLoadProgress.DisplayRectangle
         InitializeGMPRect.Inflate(-2, -2)
     End Sub
     Private Sub InitializeBackgroundWorker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles InitializeBackgroundWorker.DoWork
-        'Dim PopulateListsClass As New ListPopulate
-        'PopulateListsClass.Operation = 1
-        'PopulateListsClass.Sender = InitializeBackgroundWorker
-        'Dim PopulateListsThread As New System.Threading.Thread(AddressOf PopulateListsClass.PopulateLists)
-        'PopulateListsThread.Start()
-        'PopulateListsThread.Join()
         Call PopulateLists(1, InitializeBackgroundWorker)
     End Sub
     Private Sub InitializeBackgroundWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles InitializeBackgroundWorker.RunWorkerCompleted
@@ -40,10 +35,6 @@ Public Class PvEGame
                       InitializeGameModeProgress = Convert.ToSingle(e.ProgressPercentage * 3.6)
                       PicInitialLoadProgress.Invalidate()
                   End Sub)
-    End Sub
-
-    Private Sub PicInitialLoadProgress_Click(sender As Object, e As EventArgs) Handles PicInitialLoadProgress.Click
-
     End Sub
 
     Private Sub PicInitialLoadProgress_Paint(sender As Object, e As PaintEventArgs) Handles PicInitialLoadProgress.Paint
@@ -163,7 +154,6 @@ Public Class PvEGame
         End If
     End Sub
 
-
     Public Sub TestRepeatedly(ByVal code() As Integer)
         solution = code
         Dim AIGuess() As Integer = GenerateSolution()
@@ -225,6 +215,30 @@ Public Class PvEGame
             Me.Top = Cursor.Position.Y - CursorY
         End If
     End Sub
+
+    Private Sub SelectedColorTimer_Tick(sender As Object, e As EventArgs) Handles SelectedColorTimer.Tick
+        SelectedArcRotation += 2
+        ChoiceList.Item(SelectedColor).Invalidate()
+        If SelectedArcRotation = 360 Then
+            SelectedArcRotation = 0
+        End If
+    End Sub
+
+    Private Sub ColorTimer_Tick(sender As Object, e As EventArgs) Handles ColorTimer.Tick
+        If ChoiceRectangleList.Item(2).Width > 16 Then
+            Dim testrect As Rectangle = ChoiceRectangleList.Item(SelectedColor)
+            testrect.Inflate(1, 1)
+            ChoiceList.Item(SelectedColor).Invalidate()
+            Debug.Print(ChoiceRectangleList.Item(SelectedColor).Width)
+        End If
+        For Each Choice As PictureBox In ChoiceList
+            If Choice.ClientRectangle.Width < 30 AndAlso Not Choice.Tag = SelectedColor Then
+                Choice.ClientRectangle.Inflate(1, 1)
+                Choice.Invalidate()
+            End If
+        Next
+    End Sub
+
     Private Sub ShowHolesTimer_Tick(sender As Object, e As EventArgs) Handles ShowHolesTimer.Tick
         If ShowHolesCounter < HolesList.Count Then
             HolesList.Item(ShowHolesCounter).Visible = True

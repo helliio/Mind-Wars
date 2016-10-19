@@ -34,6 +34,8 @@ Partial Class PvEGame
         Me.GamePanel = New System.Windows.Forms.Panel()
         Me.BWPanel = New System.Windows.Forms.Panel()
         Me.ShowHolesTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.SelectedColorTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.ColorTimer = New System.Windows.Forms.Timer(Me.components)
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicInitialLoadProgress, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GamePanel.SuspendLayout()
@@ -121,6 +123,14 @@ Partial Class PvEGame
         '
         Me.ShowHolesTimer.Interval = 50
         '
+        'SelectedColorTimer
+        '
+        Me.SelectedColorTimer.Interval = 40
+        '
+        'ColorTimer
+        '
+        Me.ColorTimer.Interval = 90
+        '
         'PvEGame
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -156,4 +166,6 @@ Partial Class PvEGame
     Friend WithEvents GamePanel As Panel
     Friend WithEvents BWPanel As Panel
     Friend WithEvents ShowHolesTimer As Timer
+    Friend WithEvents SelectedColorTimer As Timer
+    Friend WithEvents ColorTimer As Timer
 End Class
