@@ -32,9 +32,12 @@ Partial Class PvEGame
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.GamePanel = New System.Windows.Forms.Panel()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.BWPanel = New System.Windows.Forms.Panel()
         Me.ShowHolesTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.SelectedColorTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.ColorTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.HoleGraphicsTimer = New System.Windows.Forms.Timer(Me.components)
         Me.AIBackgroundWorkerEasy = New System.ComponentModel.BackgroundWorker()
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicInitialLoadProgress, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -80,27 +83,33 @@ Partial Class PvEGame
         '
         'TextBox1
         '
-        Me.TextBox1.Location = New System.Drawing.Point(12, 363)
+        Me.TextBox1.Enabled = False
+        Me.TextBox1.Location = New System.Drawing.Point(12, 401)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(100, 20)
         Me.TextBox1.TabIndex = 17
+        Me.TextBox1.Visible = False
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(12, 389)
+        Me.Button1.Enabled = False
+        Me.Button1.Location = New System.Drawing.Point(12, 427)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(75, 23)
         Me.Button1.TabIndex = 18
         Me.Button1.Text = "Test"
         Me.Button1.UseVisualStyleBackColor = True
+        Me.Button1.Visible = False
         '
         'GamePanel
         '
         Me.GamePanel.AutoSize = True
         Me.GamePanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.GamePanel.BackColor = System.Drawing.Color.Transparent
+        Me.GamePanel.Controls.Add(Me.Button1)
         Me.GamePanel.Controls.Add(Me.Button2)
         Me.GamePanel.Controls.Add(Me.PicInitialLoadProgress)
+        Me.GamePanel.Controls.Add(Me.TextBox1)
         Me.GamePanel.Controls.Add(Me.BWPanel)
         Me.GamePanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GamePanel.Location = New System.Drawing.Point(0, 0)
@@ -109,6 +118,16 @@ Partial Class PvEGame
         Me.GamePanel.Size = New System.Drawing.Size(251, 712)
         Me.GamePanel.TabIndex = 19
         Me.GamePanel.Visible = False
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(93, 427)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(75, 23)
+        Me.Button2.TabIndex = 20
+        Me.Button2.Text = "TestEasy"
+        Me.Button2.UseVisualStyleBackColor = True
+        Me.Button2.Visible = False
         '
         'BWPanel
         '
@@ -124,14 +143,17 @@ Partial Class PvEGame
         '
         Me.ShowHolesTimer.Interval = 50
         '
-        'Button2
+        'SelectedColorTimer
         '
-        Me.Button2.Location = New System.Drawing.Point(93, 389)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 20
-        Me.Button2.Text = "TestEasy"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.SelectedColorTimer.Interval = 40
+        '
+        'ColorTimer
+        '
+        Me.ColorTimer.Interval = 30
+        '
+        'HoleGraphicsTimer
+        '
+        Me.HoleGraphicsTimer.Interval = 80
         '
         'AIBackgroundWorkerEasy
         '
@@ -143,8 +165,6 @@ Partial Class PvEGame
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.StartScreenBG1
         Me.ClientSize = New System.Drawing.Size(251, 712)
-        Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.PicFormHeader)
         Me.Controls.Add(Me.GamePanel)
         Me.DoubleBuffered = True
@@ -155,6 +175,7 @@ Partial Class PvEGame
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicInitialLoadProgress, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GamePanel.ResumeLayout(False)
+        Me.GamePanel.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -171,6 +192,9 @@ Partial Class PvEGame
     Friend WithEvents GamePanel As Panel
     Friend WithEvents BWPanel As Panel
     Friend WithEvents ShowHolesTimer As Timer
+    Friend WithEvents SelectedColorTimer As Timer
+    Friend WithEvents ColorTimer As Timer
+    Friend WithEvents HoleGraphicsTimer As Timer
     Friend WithEvents Button2 As Button
     Friend WithEvents AIBackgroundWorkerEasy As System.ComponentModel.BackgroundWorker
 End Class

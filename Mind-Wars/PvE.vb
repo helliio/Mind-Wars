@@ -7,10 +7,12 @@ Public Class PvEGame
     Dim easy As New EasyComputer
 
     Private Sub PvE_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        SelectedColor = 2
+        Me.BackgroundImage = Theme_FormBackground
         BWPanel.Visible = True
         GamePanel.Visible = True
         Me.Width = 60 + 32 * holes
-        Me.Height = 38 * (tries + 1)
+        Me.Height = 38 * (tries + 1) + 74
         Call GenerateBoard(1, GamePanel, BWPanel)
         InitializeDelay.Enabled = True
         With PicInitialLoadProgress
@@ -19,17 +21,10 @@ Public Class PvEGame
             .Top = Me.ClientRectangle.Height / 2 - PicInitialLoadProgress.Height / 2
             .BringToFront()
         End With
-
         InitializeGMPRect = PicInitialLoadProgress.DisplayRectangle
         InitializeGMPRect.Inflate(-2, -2)
     End Sub
     Private Sub InitializeBackgroundWorker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles InitializeBackgroundWorker.DoWork
-        'Dim PopulateListsClass As New ListPopulate
-        'PopulateListsClass.Operation = 1
-        'PopulateListsClass.Sender = InitializeBackgroundWorker
-        'Dim PopulateListsThread As New System.Threading.Thread(AddressOf PopulateListsClass.PopulateLists)
-        'PopulateListsThread.Start()
-        'PopulateListsThread.Join()
         Call PopulateLists(1, InitializeBackgroundWorker)
     End Sub
     Private Sub InitializeBackgroundWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles InitializeBackgroundWorker.RunWorkerCompleted
@@ -41,10 +36,6 @@ Public Class PvEGame
                       InitializeGameModeProgress = Convert.ToSingle(e.ProgressPercentage * 3.6)
                       PicInitialLoadProgress.Invalidate()
                   End Sub)
-    End Sub
-
-    Private Sub PicInitialLoadProgress_Click(sender As Object, e As EventArgs) Handles PicInitialLoadProgress.Click
-
     End Sub
 
     Private Sub PicInitialLoadProgress_Paint(sender As Object, e As PaintEventArgs) Handles PicInitialLoadProgress.Paint
@@ -164,7 +155,6 @@ Public Class PvEGame
         End If
     End Sub
 
-
     Public Sub TestRepeatedly(ByVal code() As Integer)
         solution = code
         Dim AIGuess() As Integer = GenerateSolution()
@@ -227,6 +217,39 @@ Public Class PvEGame
         End If
     End Sub
 
+    Private Sub SelectedColorTimer_Tick(sender As Object, e As EventArgs) Handles SelectedColorTimer.Tick
+        SelectedArcRotation += 2
+        ChoiceList.Item(SelectedColor).Invalidate()
+        If SelectedArcRotation = 360 Then
+            SelectedArcRotation = 0
+        End If
+    End Sub
+
+    Private Sub ColorTimer_Tick(sender As Object, e As EventArgs) Handles ColorTimer.Tick
+        Dim ChangeRect As Rectangle
+
+        If ChoiceRectangleList.Item(SelectedColor).Width > 16 Then
+            ChangeRect = ChoiceRectangleList.Item(SelectedColor)
+            ChangeRect.Inflate(-1, -1)
+            ChoiceRectangleList.Item(SelectedColor) = ChangeRect
+            ChoiceList.Item(SelectedColor).Invalidate()
+            If ChoiceRectangleList.Item(SelectedColor).Width < 20 Then
+                SelectedSpinning = True
+            Else
+                SelectedSpinning = False
+            End If
+        End If
+
+        For Each ChoicePic As PictureBox In ChoiceList
+            If ChoiceRectangleList.Item(ChoicePic.Tag).Width < 24 AndAlso Not ChoicePic.Tag = SelectedColor Then
+                Dim GrowRect As Rectangle = ChoiceRectangleList.Item(ChoicePic.Tag)
+                'ChoiceList.Item(ChoiceRectangleList.IndexOf(rect)).Invalidate()
+                GrowRect.Inflate(1, 1)
+                ChoiceRectangleList.Item(ChoicePic.Tag) = GrowRect
+                ChoicePic.Invalidate()
+            End If
+        Next
+    End Sub
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         If TextBox1.TextLength = holes And IsNumeric(TextBox1.Text) Then
             Dim Input As Integer = Convert.ToInt32(TextBox1.Text)
@@ -262,9 +285,50 @@ Public Class PvEGame
         Else
             ShowHolesTimer.Enabled = False
             ShowHolesCounter = 0
+            HoleGraphicsTimer.Enabled = True
         End If
     End Sub
 
+    Private Sub HoleGraphicsTimer_Tick(sender As Object, e As EventArgs) Handles HoleGraphicsTimer.Tick
+        HolesList.Item(GuessList.Count).Invalidate()
+    End Sub
+
+    Private Sub PvEGame_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Left
+                If Not SelectedColor = 0 AndAlso Not SelectedColor = 4 Then
+                    SelectedColor -= 1
+                    SelectedSpinning = False
+                End If
+            Case Keys.Right
+                If Not SelectedColor = 3 AndAlso Not SelectedColor = 7 AndAlso Not SelectedColor = colours - 1 Then
+                    SelectedColor += 1
+                    SelectedSpinning = False
+                End If
+            Case Keys.Down
+                If Not SelectedColor + 4 > colours - 1 Then
+                    SelectedColor += 4
+                    SelectedSpinning = False
+                ElseIf Not SelectedColor >= 4 Then
+                    SelectedColor = colours - 1
+                    SelectedSpinning = False
+                End If
+            Case Keys.Up
+                If Not SelectedColor - 4 < 0 Then
+                    SelectedColor -= 4
+                    SelectedSpinning = False
+                End If
+            Case Keys.Space, Keys.Enter
+                GuessList.Add(SelectedColor)
+                HolesList.Item(GuessList.Count - 1).Invalidate()
+                HolesList.Item(GuessList.Count).Invalidate()
+            Case Keys.Back
+                GuessList.RemoveAt(GuessList.Count - 1)
+                GuessList.TrimToSize()
+                HolesList.Item(GuessList.Count + 1).Invalidate()
+                Debug.Print(GuessList.Count)
+        End Select
+    End Sub
     Private Sub AIBackgroundWorkerEasy_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles AIBackgroundWorkerEasy.RunWorkerCompleted
         If CurrentlyPossibleSolutions.Count > 1 Then
             AIBackgroundWorkerEasy.RunWorkerAsync()

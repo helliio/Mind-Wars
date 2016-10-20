@@ -36,7 +36,6 @@
     End Sub
 
     Private Sub InitializeGUI()
-
         With LabSettings
             .Parent = PicStartButton_Settings
             .Height = .Parent.Height
@@ -97,7 +96,6 @@
         With ButtonSettingsList
             .Add(PicCloseSettings)
         End With
-
 
         With ButtonPvEList
             .Add(PicClosePvE)
