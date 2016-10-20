@@ -32,11 +32,13 @@ Partial Class PvEGame
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.GamePanel = New System.Windows.Forms.Panel()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.BWPanel = New System.Windows.Forms.Panel()
         Me.ShowHolesTimer = New System.Windows.Forms.Timer(Me.components)
         Me.SelectedColorTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ColorTimer = New System.Windows.Forms.Timer(Me.components)
         Me.HoleGraphicsTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.AIBackgroundWorkerEasy = New System.ComponentModel.BackgroundWorker()
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicInitialLoadProgress, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GamePanel.SuspendLayout()
@@ -105,6 +107,7 @@ Partial Class PvEGame
         Me.GamePanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.GamePanel.BackColor = System.Drawing.Color.Transparent
         Me.GamePanel.Controls.Add(Me.Button1)
+        Me.GamePanel.Controls.Add(Me.Button2)
         Me.GamePanel.Controls.Add(Me.PicInitialLoadProgress)
         Me.GamePanel.Controls.Add(Me.TextBox1)
         Me.GamePanel.Controls.Add(Me.BWPanel)
@@ -115,6 +118,16 @@ Partial Class PvEGame
         Me.GamePanel.Size = New System.Drawing.Size(251, 712)
         Me.GamePanel.TabIndex = 19
         Me.GamePanel.Visible = False
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(93, 427)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(75, 23)
+        Me.Button2.TabIndex = 20
+        Me.Button2.Text = "TestEasy"
+        Me.Button2.UseVisualStyleBackColor = True
+        Me.Button2.Visible = False
         '
         'BWPanel
         '
@@ -141,6 +154,9 @@ Partial Class PvEGame
         'HoleGraphicsTimer
         '
         Me.HoleGraphicsTimer.Interval = 80
+        '
+        'AIBackgroundWorkerEasy
+        '
         '
         'PvEGame
         '
@@ -179,4 +195,6 @@ Partial Class PvEGame
     Friend WithEvents SelectedColorTimer As Timer
     Friend WithEvents ColorTimer As Timer
     Friend WithEvents HoleGraphicsTimer As Timer
+    Friend WithEvents Button2 As Button
+    Friend WithEvents AIBackgroundWorkerEasy As System.ComponentModel.BackgroundWorker
 End Class
