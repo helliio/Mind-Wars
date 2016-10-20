@@ -40,10 +40,8 @@
 
     Public SelectedSpinning As Boolean = True
 
-    Public Sub ChangeSelection(ByVal NewSelection As Integer)
-        SelectedColor = NewSelection
-        'SelectedChoicePeg = ChoiceList.Item(SelectedColor)
-    End Sub
+    Public GuessBrush As New SolidBrush(Color.Gray)
+    Public FocusedHolePen As New Pen(Color.HotPink)
 
     Public Sub GenerateBoard(ByVal GameMode As Integer, SenderPanel As Panel, ByVal SenderBWPanel As Panel)
         FinishedGeneratingBoard = False
@@ -121,19 +119,7 @@
                         SenderPanel.Controls.Add(Choice)
                         ChoiceList.Add(Choice)
                     End With
-                    'Dim ChoiceClass As New ColorChoice
-                    'With ChoiceClass
-                    '    .RepresentsTag = Choice.Tag
-                    '    .RectangleLocation = Choice.ClientRectangle.Location
-                    '    .varRectangle.Size = Choice.ClientRectangle.Size
-                    '    .varRectangle.Inflate(-2, -2)
-                    '    .SizeState = 0
-                    '    .Selected = False
-                    'End With
-                    '.Add(ChoiceClass)
-
                 Next
-                'HolesList.Reverse()
         End Select
         FinishedGeneratingBoard = True
         PvEGame.SelectedColorTimer.Enabled = True
@@ -179,16 +165,25 @@
         ChoiceRectangleList.Add(Testrect7)
         ChoiceRectangleList.Add(Testrect8)
 
-        Call ChangeSelection(3)
+        SelectedColor = 0
         PvEGame.ColorTimer.Enabled = True
 
     End Sub
 
     Public Sub PaintHole(sender As PictureBox, e As PaintEventArgs)
+        e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
         HoleRectangle = sender.ClientRectangle
         HoleRectangle.Inflate(-2, -2)
-        e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
-        e.Graphics.DrawEllipse(Pens.AliceBlue, HoleRectangle)
+        If sender.Tag = GuessList.Count Then
+            e.Graphics.DrawEllipse(FocusedHolePen, HoleRectangle)
+        Else
+            e.Graphics.DrawEllipse(Pens.AliceBlue, HoleRectangle)
+            If CInt(sender.Tag) < GuessList.Count Then
+                HoleRectangle.Inflate(-6, -6)
+                GuessBrush.Color = ColorCodes(GuessList.Item(sender.Tag) + 1)
+                e.Graphics.FillEllipse(GuessBrush, HoleRectangle)
+            End If
+        End If
     End Sub
     Public Sub PaintBWHole(sender As PictureBox, e As PaintEventArgs)
         BWRectangle = sender.ClientRectangle

@@ -264,7 +264,12 @@ Public Class PvEGame
         Else
             ShowHolesTimer.Enabled = False
             ShowHolesCounter = 0
+            HoleGraphicsTimer.Enabled = True
         End If
+    End Sub
+
+    Private Sub HoleGraphicsTimer_Tick(sender As Object, e As EventArgs) Handles HoleGraphicsTimer.Tick
+        HolesList.Item(GuessList.Count).Invalidate()
     End Sub
 
     Private Sub PvEGame_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
@@ -292,6 +297,15 @@ Public Class PvEGame
                     SelectedColor -= 4
                     SelectedSpinning = False
                 End If
+            Case Keys.Space, Keys.Enter
+                GuessList.Add(SelectedColor)
+                HolesList.Item(GuessList.Count - 1).Invalidate()
+                HolesList.Item(GuessList.Count).Invalidate()
+            Case Keys.Back
+                GuessList.RemoveAt(GuessList.Count - 1)
+                GuessList.TrimToSize()
+                HolesList.Item(GuessList.Count + 1).Invalidate()
+                Debug.Print(GuessList.Count)
         End Select
     End Sub
 End Class

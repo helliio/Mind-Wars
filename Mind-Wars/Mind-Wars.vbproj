@@ -74,7 +74,6 @@
   <ItemGroup>
     <Compile Include="AnalysisModule.vb" />
     <Compile Include="CodeStatisticsModuleTemp.vb" />
-    <Compile Include="ColorChoice.vb" />
     <Compile Include="DrawingModule.vb" />
     <Compile Include="AIModule.vb" />
     <Compile Include="EasterEgg.vb" />
