@@ -339,7 +339,6 @@
                             SelectedButtonListIndex -= 1
                             Call SelectButton(False)
                         End If
-
                     Case Keys.Down
                         If Not SelectedButtonListIndex = ButtonLabList.Count - 1 Then
                             Call SelectButton(True)

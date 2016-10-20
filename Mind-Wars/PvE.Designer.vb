@@ -32,13 +32,14 @@ Partial Class PvEGame
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.GamePanel = New System.Windows.Forms.Panel()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.BWPanel = New System.Windows.Forms.Panel()
         Me.ShowHolesTimer = New System.Windows.Forms.Timer(Me.components)
         Me.SelectedColorTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ColorTimer = New System.Windows.Forms.Timer(Me.components)
         Me.HoleGraphicsTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.AIBackgroundWorkerEasy = New System.ComponentModel.BackgroundWorker()
+        Me.VerifyRowTimer = New System.Windows.Forms.Timer(Me.components)
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicInitialLoadProgress, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GamePanel.SuspendLayout()
@@ -119,6 +120,16 @@ Partial Class PvEGame
         Me.GamePanel.TabIndex = 19
         Me.GamePanel.Visible = False
         '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(93, 427)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(75, 23)
+        Me.Button2.TabIndex = 20
+        Me.Button2.Text = "TestEasy"
+        Me.Button2.UseVisualStyleBackColor = True
+        Me.Button2.Visible = False
+        '
         'BWPanel
         '
         Me.BWPanel.BackColor = System.Drawing.Color.Transparent
@@ -144,17 +155,13 @@ Partial Class PvEGame
         'HoleGraphicsTimer
         '
         Me.HoleGraphicsTimer.Interval = 80
-        'Button2
-        '
-        Me.Button2.Location = New System.Drawing.Point(93, 389)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 20
-        Me.Button2.Text = "TestEasy"
-        Me.Button2.UseVisualStyleBackColor = True
         '
         'AIBackgroundWorkerEasy
         '
+        '
+        'VerifyRowTimer
+        '
+        Me.VerifyRowTimer.Interval = 30
         '
         'PvEGame
         '
@@ -195,4 +202,5 @@ Partial Class PvEGame
     Friend WithEvents HoleGraphicsTimer As Timer
     Friend WithEvents Button2 As Button
     Friend WithEvents AIBackgroundWorkerEasy As System.ComponentModel.BackgroundWorker
+    Friend WithEvents VerifyRowTimer As Timer
 End Class

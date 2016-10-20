@@ -12,8 +12,9 @@
     Public BWHolesList As New List(Of PictureBox)
     Public ChoiceList As New List(Of PictureBox)
     Public ChoiceRectangleList As New List(Of Rectangle)
-
     Public GuessList As New ArrayList
+    Public Attempt As Integer = 0
+
 
     Public Sub GameSetup(ByVal h As Integer, ByVal c As Integer, ByVal t As Integer)
         holes = h
