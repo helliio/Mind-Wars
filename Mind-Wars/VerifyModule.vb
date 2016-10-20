@@ -1,10 +1,10 @@
 ﻿Module VerifyModule
     'Returns a Array of {black,white}
-    Function verify(ByVal solution() As Integer, ByVal verifyguess() As Integer) As Integer()
-        Dim BW(1) As Integer
-        BW = {0, 0}
-        Dim s() As Integer = solution
-        Dim g() As Integer = verifyguess
+    Function verify(ByVal verifysolution() As Integer, ByVal verifyguess() As Integer) As Integer()
+        Dim bw(1) As Integer
+        bw = {0, 0}
+        Dim s() As Integer = verifysolution.Clone
+        Dim g() As Integer = verifyguess.Clone
         For i As Integer = 0 To SystemModule.holes - 1
             If g(i) = s(i) Then
                 BW(0) += 1
@@ -22,31 +22,6 @@
             Next
         Next
         Return BW
-    End Function
-
-    Function verifyFixTest(ByVal AgainstSolution() As Integer, ByVal VerifyGuess() As Integer) As Integer()
-        Dim givenSolution(holes - 1) As Integer
-        AgainstSolution.CopyTo(givenSolution, 0)
-        Dim checkGuess(holes - 1) As Integer
-        VerifyGuess.CopyTo(checkGuess, 0)
-        Dim BWPegs(1) As Integer
-        For i As Integer = 0 To holes - 1
-            If checkGuess(i) = givenSolution(i) Then
-                BWPegs(0) += 1
-                checkGuess(i) = -1
-                givenSolution(i) = -1
-            End If
-        Next
-        For i As Integer = 0 To holes - 1
-            For j As Integer = 0 To holes - 1
-                If checkGuess(j) = givenSolution(i) AndAlso checkGuess(i) <> givenSolution(i) AndAlso Not givenSolution(i) = -1 Then
-                    BWPegs(1) += 1
-                    checkGuess(j) = -1
-                    givenSolution(i) = -1
-                End If
-            Next
-        Next
-        Return BWPegs
     End Function
 
 
