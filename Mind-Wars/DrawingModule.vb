@@ -4,10 +4,7 @@
     Public DisabledColorBrush As New SolidBrush(Color.FromArgb(255, 20, 20, 20))
     Public SelectedColorPen As New Pen(Color.LimeGreen, 2)
 
-    Public DifficultyDrawRect As New Rectangle
-    Public ThemeDrawRect As New Rectangle
-    Public SoundDrawRect As New Rectangle
-    Public ColorPaletteRect As New Rectangle
+    Public DifficultyDrawRect, ThemeDrawRect, SoundDrawRect, ColorPaletteRect As New Rectangle
 
     Public EasyBrush As New SolidBrush(Color.LimeGreen)
     Public EasyPen As New Pen(EasyBrush)
@@ -22,21 +19,12 @@
     Public InitializeGMPRect As Rectangle
     Public InitializeGMPPen As New Pen(Color.LimeGreen, 3)
 
-    Public HoleRectangle As New Rectangle
-    Public BWRectangle As New Rectangle
-    Public ChoiceRectangle As New Rectangle
-
+    Public HoleRectangle, BWRectangle, ChoiceRectangle As New Rectangle
     Public FinishedGeneratingBoard As Boolean = False
     Public SelectedArcRotation As Integer = 0
 
-    Public Testrect1 As New Rectangle
-    Public Testrect2 As New Rectangle
-    Public Testrect3 As New Rectangle
-    Public Testrect4 As New Rectangle
-    Public Testrect5 As New Rectangle
-    Public Testrect6 As New Rectangle
-    Public Testrect7 As New Rectangle
-    Public Testrect8 As New Rectangle
+    Public Testrect1, Testrect2, TestRect3, Testrect4, Testrect5, Testrect6, Testrect7, Testrect8 As New Rectangle
+
 
     Public SelectedSpinning As Boolean = True
 

@@ -34,8 +34,7 @@
     End Function
 
     Public Function MiniGetBW(ByVal ail() As Integer, ByVal g() As Integer) As Integer()
-        Dim whitepegs As Integer
-        Dim blackpegs As Integer
+        Dim whitepegs, blackpegs As Integer
         Dim counted(holes - 1) As Integer
         Dim correct(holes - 1) As Integer
 
