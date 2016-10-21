@@ -117,7 +117,6 @@
                         .BorderStyle = BorderStyle.None
                         .Name = "Choice_" & i
                         .Tag = i
-                        '.Visible = False
                         AddHandler Choice.Paint, AddressOf PaintChoice
                         SenderPanel.Controls.Add(Choice)
                         ChoiceList.Add(Choice)
