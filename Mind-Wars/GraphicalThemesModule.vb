@@ -37,8 +37,10 @@
             Case 1
                 Theme_FormBackground = My.Resources.BGtema1
             Case 2
-
+                Theme_FormBackground = My.Resources.BGtema2
             Case 3
+                Theme_FormBackground = My.Resources.BGtema3
+
             Case 4
             Case 5
         End Select
