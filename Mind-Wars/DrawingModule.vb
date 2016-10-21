@@ -122,9 +122,9 @@
         Testrect2.Size = ChoiceList.Item(1).ClientRectangle.Size
         Testrect2.Inflate(-5, -5)
 
-        Testrect3.Location = ChoiceList.Item(2).ClientRectangle.Location
-        Testrect3.Size = ChoiceList.Item(2).ClientRectangle.Size
-        Testrect3.Inflate(-5, -5)
+        TestRect3.Location = ChoiceList.Item(2).ClientRectangle.Location
+        TestRect3.Size = ChoiceList.Item(2).ClientRectangle.Size
+        TestRect3.Inflate(-5, -5)
 
         Testrect4.Location = ChoiceList.Item(3).ClientRectangle.Location
         Testrect4.Size = ChoiceList.Item(3).ClientRectangle.Size
@@ -146,9 +146,9 @@
         Testrect8.Size = ChoiceList.Item(7).ClientRectangle.Size
         Testrect8.Inflate(-5, -5)
 
-        ChoiceRectangleList.Add(testrect1)
+        ChoiceRectangleList.Add(Testrect1)
         ChoiceRectangleList.Add(Testrect2)
-        ChoiceRectangleList.Add(Testrect3)
+        ChoiceRectangleList.Add(TestRect3)
         ChoiceRectangleList.Add(Testrect4)
         ChoiceRectangleList.Add(Testrect5)
         ChoiceRectangleList.Add(Testrect6)
