@@ -344,6 +344,7 @@ Public Class PvEGame
                         HoleGraphicsTimer.Enabled = True
                         HolesList.Item(GuessList.Count).Invalidate()
                         If GuessList.Count - Attempt * holes = holes Then
+                            ''''''''''''
                             Attempt += 1
                         End If
                     End If
@@ -369,6 +370,24 @@ Public Class PvEGame
                     End If
                 End If
         End Select
+    End Sub
+
+    Private Sub verify_guess()
+        Dim g(holes - 1) As Integer
+        For i As Integer = 0 To TestGuess.Count - 1
+            g(i) = TestGuess(i)
+        Next
+        TestGuess.Clear()
+        Dim verifiedguess() = verify(solution, g)
+        For i As Integer = 0 To holes - 1
+            If verifiedguess(0) > 0 Then
+                BWCountList.Add(2)
+            ElseIf verifiedguess(1) > 0 Then
+                BWCountList.Add(1)
+            Else
+                BWCountList.Add(0)
+            End If
+        Next
     End Sub
 
 
