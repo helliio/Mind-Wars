@@ -4,6 +4,9 @@
     Public tries As Integer
     Public solution() As Integer
     Public guess() As Integer
+
+    Public TestGuess As New ArrayList
+
     Public CurrentBW(1) As Integer
 
     Public SelectedColor As Integer = 0

@@ -286,6 +286,7 @@ Public Class PvEGame
             ShowHolesTimer.Enabled = False
             ShowHolesCounter = 0
             HoleGraphicsTimer.Enabled = True
+            solution = GenerateSolution()
         End If
     End Sub
 
@@ -324,6 +325,7 @@ Public Class PvEGame
                 If VerifyRowTimer.Enabled = False Then
                     If GuessList.Count < holes * tries Then
                         GuessList.Add(SelectedColor)
+                        TestGuess.Add(SelectedColor)
                         HolesList.Item(GuessList.Count - 1).Invalidate()
                     End If
 
@@ -341,7 +343,7 @@ Public Class PvEGame
                     If GuessList.Count <= tries * holes - 1 Then
                         HoleGraphicsTimer.Enabled = True
                         HolesList.Item(GuessList.Count).Invalidate()
-                        If GuessList.Count - Attempt * holes = 4 Then
+                        If GuessList.Count - Attempt * holes = holes Then
                             Attempt += 1
                         End If
                     End If
@@ -356,13 +358,14 @@ Public Class PvEGame
                 End If
                 If Not GuessList.Count - Attempt * holes = 0 Then
                     GuessList.RemoveAt(GuessList.Count - 1)
+                    TestGuess.RemoveAt(TestGuess.Count - 1)
                     GuessList.TrimToSize()
+                    TestGuess.TrimToSize()
+
                     If GuessList.Count < holes * tries - 1 Then
                         HolesList.Item(GuessList.Count + 1).Invalidate()
-                        Debug.Print("Invalidating " & GuessList.Count + 1)
                     Else
                         HolesList.Item(GuessList.Count).Invalidate()
-                        Debug.Print("Invalidating " & GuessList.Count)
                     End If
                 End If
         End Select

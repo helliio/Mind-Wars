@@ -563,6 +563,7 @@
                         End If
                     Case 7
                         Call GameSetup(PvEHoles, PvEColors, PvEAttempts)
+                        Debug.Print("Holes: " & holes)
                         PvEGame.Show()
                         Me.Hide()
                         PanelPvE.Hide()
