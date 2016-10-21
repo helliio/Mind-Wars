@@ -35,6 +35,8 @@ Partial Class StartScreen
         Me.LabTutorial = New System.Windows.Forms.Label()
         Me.PicStartButton_Tutorial = New System.Windows.Forms.PictureBox()
         Me.PicSettingsButton2 = New System.Windows.Forms.Panel()
+        Me.cmdTestTheme = New System.Windows.Forms.Button()
+        Me.ThemeComboBox = New System.Windows.Forms.ComboBox()
         Me.PanelSound = New System.Windows.Forms.Panel()
         Me.PicSound3 = New System.Windows.Forms.PictureBox()
         Me.PicSound2 = New System.Windows.Forms.PictureBox()
@@ -89,8 +91,6 @@ Partial Class StartScreen
         Me.PicCloseForm = New System.Windows.Forms.PictureBox()
         Me.GUITimer = New System.Windows.Forms.Timer(Me.components)
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
-        Me.ThemeComboBox = New System.Windows.Forms.ComboBox()
-        Me.cmdTestTheme = New System.Windows.Forms.Button()
         CType(Me.PicStartButton_Settings, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvE, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvPLan, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -279,6 +279,25 @@ Partial Class StartScreen
         Me.PicSettingsButton2.Size = New System.Drawing.Size(226, 260)
         Me.PicSettingsButton2.TabIndex = 9
         Me.PicSettingsButton2.Visible = False
+        '
+        'cmdTestTheme
+        '
+        Me.cmdTestTheme.ForeColor = System.Drawing.Color.Black
+        Me.cmdTestTheme.Location = New System.Drawing.Point(125, 189)
+        Me.cmdTestTheme.Name = "cmdTestTheme"
+        Me.cmdTestTheme.Size = New System.Drawing.Size(97, 25)
+        Me.cmdTestTheme.TabIndex = 15
+        Me.cmdTestTheme.Text = "Test theme"
+        Me.cmdTestTheme.UseVisualStyleBackColor = True
+        '
+        'ThemeComboBox
+        '
+        Me.ThemeComboBox.FormattingEnabled = True
+        Me.ThemeComboBox.Items.AddRange(New Object() {"1", "2", "3", "4", "5"})
+        Me.ThemeComboBox.Location = New System.Drawing.Point(0, 191)
+        Me.ThemeComboBox.Name = "ThemeComboBox"
+        Me.ThemeComboBox.Size = New System.Drawing.Size(119, 21)
+        Me.ThemeComboBox.TabIndex = 14
         '
         'PanelSound
         '
@@ -914,31 +933,12 @@ Partial Class StartScreen
         '
         'PictureBox2
         '
-        Me.PictureBox2.Image = Global.Mind_Wars.My.Resources.Resources.BGtema1
+        Me.PictureBox2.Image = Global.Mind_Wars.My.Resources.Resources.BGtema2
         Me.PictureBox2.Location = New System.Drawing.Point(12, 8)
         Me.PictureBox2.Name = "PictureBox2"
         Me.PictureBox2.Size = New System.Drawing.Size(20, 16)
         Me.PictureBox2.TabIndex = 19
         Me.PictureBox2.TabStop = False
-        '
-        'ThemeComboBox
-        '
-        Me.ThemeComboBox.FormattingEnabled = True
-        Me.ThemeComboBox.Items.AddRange(New Object() {"1", "2", "3", "4", "5"})
-        Me.ThemeComboBox.Location = New System.Drawing.Point(0, 191)
-        Me.ThemeComboBox.Name = "ThemeComboBox"
-        Me.ThemeComboBox.Size = New System.Drawing.Size(119, 21)
-        Me.ThemeComboBox.TabIndex = 14
-        '
-        'cmdTestTheme
-        '
-        Me.cmdTestTheme.ForeColor = System.Drawing.Color.Black
-        Me.cmdTestTheme.Location = New System.Drawing.Point(125, 189)
-        Me.cmdTestTheme.Name = "cmdTestTheme"
-        Me.cmdTestTheme.Size = New System.Drawing.Size(97, 25)
-        Me.cmdTestTheme.TabIndex = 15
-        Me.cmdTestTheme.Text = "Test theme"
-        Me.cmdTestTheme.UseVisualStyleBackColor = True
         '
         'StartScreen
         '
