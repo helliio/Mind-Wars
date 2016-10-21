@@ -40,6 +40,7 @@ Partial Class PvEGame
         Me.HoleGraphicsTimer = New System.Windows.Forms.Timer(Me.components)
         Me.AIBackgroundWorkerEasy = New System.ComponentModel.BackgroundWorker()
         Me.VerifyRowTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.FillBWTimer = New System.Windows.Forms.Timer(Me.components)
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicInitialLoadProgress, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GamePanel.SuspendLayout()
@@ -158,11 +159,14 @@ Partial Class PvEGame
         '
         'AIBackgroundWorkerEasy
         '
-
         '
         'VerifyRowTimer
         '
         Me.VerifyRowTimer.Interval = 30
+        '
+        'FillBWTimer
+        '
+        Me.FillBWTimer.Interval = 250
         '
         'PvEGame
         '
@@ -204,4 +208,5 @@ Partial Class PvEGame
     Friend WithEvents Button2 As Button
     Friend WithEvents AIBackgroundWorkerEasy As System.ComponentModel.BackgroundWorker
     Friend WithEvents VerifyRowTimer As Timer
+    Friend WithEvents FillBWTimer As Timer
 End Class

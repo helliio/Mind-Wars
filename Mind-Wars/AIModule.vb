@@ -1,6 +1,4 @@
 ﻿Module AIModule
-
-
     Public InitiallyPossibleSolutions As New ArrayList
     Public CurrentlyPossibleSolutions As New ArrayList
 
