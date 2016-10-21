@@ -371,6 +371,7 @@ Public Class PvEGame
         End Select
     End Sub
 
+
     Private Sub VerifyRowTimer_Tick(sender As Object, e As EventArgs) Handles VerifyRowTimer.Tick
         VerifyRowPen.Color = Color.FromArgb(VerifyRowAlpha, VerifyRowPen.Color)
         If VerifyRowAlpha = 255 Then
@@ -388,7 +389,6 @@ Public Class PvEGame
             HolesList.Item(Attempt * holes + i).Invalidate()
         Next
     End Sub
-
     Private Sub AIBackgroundWorkerEasy_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles AIBackgroundWorkerEasy.RunWorkerCompleted
         If CurrentlyPossibleSolutions.Count > 1 Then
             AIBackgroundWorkerEasy.RunWorkerAsync()
