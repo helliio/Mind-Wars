@@ -3,6 +3,9 @@
     Public ChoiceBrush As New SolidBrush(Color.Gray)
     Public DisabledColorBrush As New SolidBrush(Color.FromArgb(255, 20, 20, 20))
     Public SelectedColorPen As New Pen(Color.LimeGreen, 2)
+    Public VerifyRowPen As New Pen(Color.Cyan)
+    Public VerifyRowAlpha As Integer = 100
+    Public VerifyRowAlphaIncreasing As Boolean = True
 
     Public DifficultyDrawRect As New Rectangle
     Public ThemeDrawRect As New Rectangle
@@ -173,15 +176,24 @@
         e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
         HoleRectangle = sender.ClientRectangle
         HoleRectangle.Inflate(-2, -2)
-        If sender.Tag = GuessList.Count Then
-            e.Graphics.DrawEllipse(FocusedHolePen, HoleRectangle)
-        Else
-            e.Graphics.DrawEllipse(Pens.AliceBlue, HoleRectangle)
-            If CInt(sender.Tag) < GuessList.Count Then
-                HoleRectangle.Inflate(-6, -6)
-                GuessBrush.Color = ColorCodes(GuessList.Item(sender.Tag) + 1)
-                e.Graphics.FillEllipse(GuessBrush, HoleRectangle)
+        If PvEGame.VerifyRowTimer.Enabled = False Then
+            If sender.Tag = GuessList.Count Then
+                e.Graphics.DrawEllipse(FocusedHolePen, HoleRectangle)
+            Else
+                e.Graphics.DrawEllipse(Pens.AliceBlue, HoleRectangle)
+                If CInt(sender.Tag) < GuessList.Count Then
+                    HoleRectangle.Inflate(-6, -6)
+                    GuessBrush.Color = ColorCodes(GuessList.Item(sender.Tag) + 1)
+                    e.Graphics.FillEllipse(GuessBrush, HoleRectangle)
+                End If
             End If
+        ElseIf sender.Tag >= Attempt * holes AndAlso sender.Tag < (Attempt + 1) * holes Then
+            Debug.Print(Attempt * holes)
+            Debug.Print((Attempt + 1) * holes)
+            e.Graphics.DrawEllipse(VerifyRowPen, HoleRectangle)
+            HoleRectangle.Inflate(-6, -6)
+            GuessBrush.Color = ColorCodes(GuessList.Item(sender.Tag) + 1)
+            e.Graphics.FillEllipse(GuessBrush, HoleRectangle)
         End If
     End Sub
     Public Sub PaintBWHole(sender As PictureBox, e As PaintEventArgs)

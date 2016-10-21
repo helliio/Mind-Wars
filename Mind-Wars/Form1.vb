@@ -339,7 +339,6 @@
                             SelectedButtonListIndex -= 1
                             Call SelectButton(False)
                         End If
-
                     Case Keys.Down
                         If Not SelectedButtonListIndex = ButtonLabList.Count - 1 Then
                             Call SelectButton(True)
@@ -564,6 +563,7 @@
                         End If
                     Case 7
                         Call GameSetup(PvEHoles, PvEColors, PvEAttempts)
+                        Debug.Print("Holes: " & holes)
                         PvEGame.Show()
                         Me.Hide()
                         PanelPvE.Hide()
