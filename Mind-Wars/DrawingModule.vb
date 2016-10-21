@@ -46,6 +46,9 @@
     Public GuessBrush As New SolidBrush(Color.Gray)
     Public FocusedHolePen As New Pen(Color.HotPink)
 
+    Public BlackPegBrush As New SolidBrush(Color.Blue)
+    Public WhitePegBrush As New SolidBrush(Color.White)
+    Public NothingBrush As New SolidBrush(Color.DarkGray)
     Public Sub GenerateBoard(ByVal GameMode As Integer, SenderPanel As Panel, ByVal SenderBWPanel As Panel)
         FinishedGeneratingBoard = False
         HolesList.Clear()
@@ -63,7 +66,7 @@
                                     .Width = 16
                                     .Height = 16
                                     .Name = "BWHole_" & m * holes + n
-                                    .Tag = m * holes + n - 1
+                                    .Tag = m * holes + n
                                     If n < 2 Then
                                         .Top = (38 * tries) - (38 * m)
                                         .Left = 10 + n * 16
@@ -188,8 +191,8 @@
                 End If
             End If
         ElseIf sender.Tag >= Attempt * holes AndAlso sender.Tag < (Attempt + 1) * holes Then
-            Debug.Print(Attempt * holes)
-            Debug.Print((Attempt + 1) * holes)
+            'Debug.Print(Attempt * holes)
+            'Debug.Print((Attempt + 1) * holes)
             e.Graphics.DrawEllipse(VerifyRowPen, HoleRectangle)
             HoleRectangle.Inflate(-6, -6)
             GuessBrush.Color = ColorCodes(GuessList.Item(sender.Tag) + 1)
@@ -197,10 +200,26 @@
         End If
     End Sub
     Public Sub PaintBWHole(sender As PictureBox, e As PaintEventArgs)
+        e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
         BWRectangle = sender.ClientRectangle
         BWRectangle.Inflate(-2, -2)
-        e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
-        e.Graphics.FillEllipse(Brushes.Red, BWRectangle)
+
+        If CInt(sender.Tag) < BWCountList.Count Then
+            'Debug.Print(sender.Tag & "/" & BWHolesList.Count - 1)
+            Select Case BWCountList.Item(sender.Tag)
+                Case 0
+                    e.Graphics.FillEllipse(NothingBrush, BWRectangle)
+                Case 1
+                    e.Graphics.FillEllipse(WhitePegBrush, BWRectangle)
+                Case 2
+                    e.Graphics.FillEllipse(BlackPegBrush, BWRectangle)
+            End Select
+        Else
+            e.Graphics.FillEllipse(Brushes.Red, BWRectangle)
+        End If
+
+
+
     End Sub
     Public Sub PaintChoice(sender As PictureBox, e As PaintEventArgs)
         e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias

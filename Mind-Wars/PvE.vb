@@ -7,6 +7,9 @@ Public Class PvEGame
     Dim easy As New EasyComputer
 
     Private Sub PvE_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        solution = GenerateSolution()
+        'Debug
+        Debug.Print("Solution: " & ArrayToInt(solution))
         SelectedColor = 2
         Me.BackgroundImage = Theme_FormBackground
         BWPanel.Visible = True
@@ -286,7 +289,6 @@ Public Class PvEGame
             ShowHolesTimer.Enabled = False
             ShowHolesCounter = 0
             HoleGraphicsTimer.Enabled = True
-            solution = GenerateSolution()
         End If
     End Sub
 
@@ -326,6 +328,8 @@ Public Class PvEGame
                     If GuessList.Count < holes * tries Then
                         GuessList.Add(SelectedColor)
                         TestGuess.Add(SelectedColor)
+                        'Debug.Print("SelectedColor = " & SelectedColor)
+                        'Debug.Print("Solution: " & ArrayToInt(solution))
                         HolesList.Item(GuessList.Count - 1).Invalidate()
                     End If
 
@@ -342,9 +346,9 @@ Public Class PvEGame
                     Next
                     If GuessList.Count <= tries * holes - 1 Then
                         HoleGraphicsTimer.Enabled = True
-                        HolesList.Item(GuessList.Count).Invalidate()
+                        'HolesList.Item(GuessList.Count).Invalidate()
                         If GuessList.Count - Attempt * holes = holes Then
-                            Attempt += 1
+                            Call verify_guess()
                         End If
                     End If
                 End If
@@ -371,6 +375,28 @@ Public Class PvEGame
         End Select
     End Sub
 
+    Private Sub verify_guess()
+        HoleGraphicsTimer.Enabled = False
+        FillBWTimer.Enabled = True
+        Dim g(holes - 1) As Integer
+        For i As Integer = 0 To TestGuess.Count - 1
+            g(i) = TestGuess(i)
+        Next
+        TestGuess.Clear()
+        Dim verifiedguess() = verify(solution, g)
+        For i As Integer = 0 To holes - 1
+            If verifiedguess(0) > 0 Then
+                BWCountList.Add(2)
+                verifiedguess(0) -= 1
+            ElseIf verifiedguess(1) > 0 Then
+                BWCountList.Add(1)
+                verifiedguess(1) -= 1
+            Else
+                BWCountList.Add(0)
+            End If
+        Next
+    End Sub
+
 
     Private Sub VerifyRowTimer_Tick(sender As Object, e As EventArgs) Handles VerifyRowTimer.Tick
         VerifyRowPen.Color = Color.FromArgb(VerifyRowAlpha, VerifyRowPen.Color)
@@ -390,8 +416,17 @@ Public Class PvEGame
         Next
     End Sub
 
+    Dim BWStep As Integer = 0
     Private Sub FillBWTimer_Tick(sender As Object, e As EventArgs) Handles FillBWTimer.Tick
-
+        BWHolesList.Item(Attempt * holes + BWStep).Invalidate()
+        'Debug.Print("BWStep: " & Attempt * holes + BWStep)
+        BWStep += 1
+        If BWStep = holes Then
+            FillBWTimer.Enabled = False
+            BWStep = 0
+            Attempt += 1
+            HoleGraphicsTimer.Enabled = True
+        End If
     End Sub
 
     Private Sub AIBackgroundWorkerEasy_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles AIBackgroundWorkerEasy.RunWorkerCompleted
