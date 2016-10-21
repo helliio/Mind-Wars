@@ -286,11 +286,14 @@ Public Class PvEGame
             ShowHolesTimer.Enabled = False
             ShowHolesCounter = 0
             HoleGraphicsTimer.Enabled = True
+            solution = GenerateSolution()
         End If
     End Sub
 
     Private Sub HoleGraphicsTimer_Tick(sender As Object, e As EventArgs) Handles HoleGraphicsTimer.Tick
-        HolesList.Item(GuessList.Count).Invalidate()
+        If GuessList.Count < holes * tries AndAlso VerifyRowTimer.Enabled = False Then
+            HolesList.Item(GuessList.Count).Invalidate()
+        End If
     End Sub
 
     Private Sub PvEGame_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
@@ -319,15 +322,72 @@ Public Class PvEGame
                     SelectedSpinning = False
                 End If
             Case Keys.Space, Keys.Enter
-                GuessList.Add(SelectedColor)
-                HolesList.Item(GuessList.Count - 1).Invalidate()
-                HolesList.Item(GuessList.Count).Invalidate()
+                If VerifyRowTimer.Enabled = False Then
+                    If GuessList.Count < holes * tries Then
+                        GuessList.Add(SelectedColor)
+                        TestGuess.Add(SelectedColor)
+                        HolesList.Item(GuessList.Count - 1).Invalidate()
+                    End If
+
+                    If GuessList.Count = (Attempt + 1) * holes Then
+                        VerifyRowTimer.Enabled = True
+                        HoleGraphicsTimer.Enabled = False
+                    Else
+                        HolesList.Item(GuessList.Count).Invalidate()
+                    End If
+                Else
+                    VerifyRowTimer.Enabled = False
+                    For i = 0 To holes - 1
+                        HolesList.Item(i + Attempt * holes).Invalidate()
+                    Next
+                    If GuessList.Count <= tries * holes - 1 Then
+                        HoleGraphicsTimer.Enabled = True
+                        HolesList.Item(GuessList.Count).Invalidate()
+                        If GuessList.Count - Attempt * holes = holes Then
+                            Attempt += 1
+                        End If
+                    End If
+                End If
             Case Keys.Back
-                GuessList.RemoveAt(GuessList.Count - 1)
-                GuessList.TrimToSize()
-                HolesList.Item(GuessList.Count + 1).Invalidate()
-                Debug.Print(GuessList.Count)
+                If VerifyRowTimer.Enabled = True Then
+                    VerifyRowTimer.Enabled = False
+                    HoleGraphicsTimer.Enabled = True
+                    For i = 0 To holes - 1
+                        HolesList.Item(i + Attempt * holes).Invalidate()
+                    Next
+                End If
+                If Not GuessList.Count - Attempt * holes = 0 Then
+                    GuessList.RemoveAt(GuessList.Count - 1)
+                    TestGuess.RemoveAt(TestGuess.Count - 1)
+                    GuessList.TrimToSize()
+                    TestGuess.TrimToSize()
+
+                    If GuessList.Count < holes * tries - 1 Then
+                        HolesList.Item(GuessList.Count + 1).Invalidate()
+                    Else
+                        HolesList.Item(GuessList.Count).Invalidate()
+                    End If
+                End If
         End Select
+    End Sub
+
+
+    Private Sub VerifyRowTimer_Tick(sender As Object, e As EventArgs) Handles VerifyRowTimer.Tick
+        VerifyRowPen.Color = Color.FromArgb(VerifyRowAlpha, VerifyRowPen.Color)
+        If VerifyRowAlpha = 255 Then
+            VerifyRowAlphaIncreasing = False
+            VerifyRowAlpha -= 5
+        ElseIf VerifyRowAlpha = 100 Then
+            VerifyRowAlphaIncreasing = True
+            VerifyRowAlpha += 5
+        ElseIf VerifyRowAlphaIncreasing = True Then
+            VerifyRowAlpha += 5
+        Else
+            VerifyRowAlpha -= 5
+        End If
+        For i = 0 To holes - 1
+            HolesList.Item(Attempt * holes + i).Invalidate()
+        Next
     End Sub
     Private Sub AIBackgroundWorkerEasy_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles AIBackgroundWorkerEasy.RunWorkerCompleted
         If CurrentlyPossibleSolutions.Count > 1 Then
