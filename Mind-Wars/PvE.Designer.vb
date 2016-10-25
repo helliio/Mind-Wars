@@ -42,6 +42,7 @@ Partial Class PvEGame
         Me.AIBackgroundWorkerEasy = New System.ComponentModel.BackgroundWorker()
         Me.VerifyRowTimer = New System.Windows.Forms.Timer(Me.components)
         Me.FillBWTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.DebugTimer = New System.Windows.Forms.Timer(Me.components)
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicInitialLoadProgress, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GamePanel.SuspendLayout()
@@ -179,6 +180,11 @@ Partial Class PvEGame
         '
         Me.FillBWTimer.Interval = 250
         '
+        'DebugTimer
+        '
+        Me.DebugTimer.Enabled = True
+        Me.DebugTimer.Interval = 5000
+        '
         'PvEGame
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -221,4 +227,5 @@ Partial Class PvEGame
     Friend WithEvents VerifyRowTimer As Timer
     Friend WithEvents FillBWTimer As Timer
     Friend WithEvents ChooseCodePanel As Panel
+    Friend WithEvents DebugTimer As Timer
 End Class
