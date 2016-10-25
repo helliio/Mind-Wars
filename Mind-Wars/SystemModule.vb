@@ -10,6 +10,7 @@
     Public ChoiceRectangleList As New List(Of Rectangle)
     Public GuessList As New ArrayList
     Public Attempt As Integer = 0
+    Public BWCountList As New ArrayList
 
 
     Public Sub GameSetup(ByVal h As Integer, ByVal c As Integer, ByVal t As Integer)

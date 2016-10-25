@@ -1,8 +1,5 @@
 ﻿Module AIModule
-
-
     Public InitiallyPossibleSolutions, CurrentlyPossibleSolutions As New ArrayList
-
     Public UseLightMinimax As Boolean = False
 
     Public AI_BW_Check(1), FourBestScores(3), FourBestIndices(3) As Integer
