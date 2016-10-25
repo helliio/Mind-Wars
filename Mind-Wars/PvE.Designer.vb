@@ -32,6 +32,7 @@ Partial Class PvEGame
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.GamePanel = New System.Windows.Forms.Panel()
+        Me.HeaderTransparencyRight = New System.Windows.Forms.PictureBox()
         Me.ChooseCodePanel = New System.Windows.Forms.Panel()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.BWPanel = New System.Windows.Forms.Panel()
@@ -44,13 +45,12 @@ Partial Class PvEGame
         Me.VerifyRowTimer = New System.Windows.Forms.Timer(Me.components)
         Me.FillBWTimer = New System.Windows.Forms.Timer(Me.components)
         Me.DebugTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.HeaderTransparencyRight = New System.Windows.Forms.PictureBox()
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicInitialLoadProgress, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GamePanel.SuspendLayout()
+        CType(Me.HeaderTransparencyRight, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.BWPanel.SuspendLayout()
         CType(Me.HeaderTransparencyLeft, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.HeaderTransparencyRight, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PicFormHeader
@@ -129,6 +129,16 @@ Partial Class PvEGame
         Me.GamePanel.TabIndex = 19
         Me.GamePanel.Visible = False
         '
+        'HeaderTransparencyRight
+        '
+        Me.HeaderTransparencyRight.BackColor = System.Drawing.Color.Maroon
+        Me.HeaderTransparencyRight.Image = Global.Mind_Wars.My.Resources.Resources.HeaderTransparencyRight
+        Me.HeaderTransparencyRight.Location = New System.Drawing.Point(150, 226)
+        Me.HeaderTransparencyRight.Name = "HeaderTransparencyRight"
+        Me.HeaderTransparencyRight.Size = New System.Drawing.Size(66, 59)
+        Me.HeaderTransparencyRight.TabIndex = 21
+        Me.HeaderTransparencyRight.TabStop = False
+        '
         'ChooseCodePanel
         '
         Me.ChooseCodePanel.BackColor = System.Drawing.Color.Transparent
@@ -201,16 +211,6 @@ Partial Class PvEGame
         Me.DebugTimer.Enabled = True
         Me.DebugTimer.Interval = 5000
         '
-        'HeaderTransparencyRight
-        '
-        Me.HeaderTransparencyRight.BackColor = System.Drawing.Color.Maroon
-        Me.HeaderTransparencyRight.Image = Global.Mind_Wars.My.Resources.Resources.HeaderTransparencyRight
-        Me.HeaderTransparencyRight.Location = New System.Drawing.Point(150, 226)
-        Me.HeaderTransparencyRight.Name = "HeaderTransparencyRight"
-        Me.HeaderTransparencyRight.Size = New System.Drawing.Size(66, 59)
-        Me.HeaderTransparencyRight.TabIndex = 21
-        Me.HeaderTransparencyRight.TabStop = False
-        '
         'PvEGame
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -229,9 +229,9 @@ Partial Class PvEGame
         CType(Me.PicInitialLoadProgress, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GamePanel.ResumeLayout(False)
         Me.GamePanel.PerformLayout()
+        CType(Me.HeaderTransparencyRight, System.ComponentModel.ISupportInitialize).EndInit()
         Me.BWPanel.ResumeLayout(False)
         CType(Me.HeaderTransparencyLeft, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.HeaderTransparencyRight, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

@@ -306,7 +306,6 @@ Public Class PvEGame
     End Sub
 
     Private Sub ColorTimer_Tick(sender As Object, e As EventArgs) Handles ColorTimer.Tick
-
         Dim ChangeRect As Rectangle
         If ChooseCodePanel.Visible = False Then
             If ChoiceRectangleList.Item(SelectedColor).Width > 16 Then
@@ -314,11 +313,12 @@ Public Class PvEGame
                 ChangeRect.Inflate(-1, -1)
                 ChoiceRectangleList.Item(SelectedColor) = ChangeRect
                 ChoiceList.Item(SelectedColor).Invalidate()
-                If ChoiceRectangleList.Item(SelectedColor).Width < 20 Then
-                    SelectedSpinning = True
-                Else
-                    SelectedSpinning = False
-                End If
+            End If
+
+            If ChoiceRectangleList.Item(SelectedColor).Width < 20 Then
+                SelectedSpinning = True
+            Else
+                SelectedSpinning = False
             End If
 
             For Each ChoicePic As PictureBox In ChoiceList
@@ -404,8 +404,8 @@ Public Class PvEGame
     End Sub
 
     Private Sub PvEGame_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
-        If SelectedSpinning = True Then
-            Select Case e.KeyCode
+        'If SelectedSpinning = True Then
+        Select Case e.KeyCode
                 Case Keys.Left
                     If Not SelectedColor = 0 AndAlso Not SelectedColor = 4 Then
                         SelectedColor -= 1
@@ -543,7 +543,7 @@ Public Class PvEGame
                     Me.Close()
             End Select
             SelectedChooseCodeColor = SelectedColor
-        End If
+        'End If
     End Sub
 
     Private Sub verify_guess()
@@ -652,7 +652,21 @@ Public Class PvEGame
     End Sub
 
     Private Sub DebugTimer_Tick(sender As Object, e As EventArgs) Handles DebugTimer.Tick
-
+        If SelectedSpinning = True Then
+            Debug.Print("TRUE")
+        Else
+            Debug.Print("FALSE")
+            Debug.Print(ChoiceRectangleList.Item(SelectedColor).Width)
+        End If
+        If ColorTimer.Enabled = True Then
+            Debug.Print("TRUE 2")
+        Else
+            Debug.Print("FALSE 2")
+        End If
+        If ChooseCodePanel.Visible = True Then
+            Debug.Print("Panel visible.")
+        End If
+        Debug.Print("SelectedColor = " & SelectedColor)
     End Sub
 
     Private Sub AIBackgroundWorkerEasy_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles AIBackgroundWorkerEasy.RunWorkerCompleted

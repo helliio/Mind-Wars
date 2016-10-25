@@ -4,7 +4,6 @@
     Public CurrentBW(1) As Integer
     Public TestGuess, ChosenCodeList As New ArrayList
 
-
     Public SelectedColor As Integer = 0
     Public SelectedChooseCodeColor As Integer = 0
 
