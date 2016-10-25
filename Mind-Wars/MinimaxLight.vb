@@ -1,16 +1,12 @@
 ﻿Class MinimaxLight
-
     Inherits MinimaxFunctions
-
     Private LocalInitialList, LocalPossibleList As New ArrayList
     Sub New(ByVal InitialList As ArrayList, ByVal PossibleList As ArrayList)
         LocalInitialList.Clear()
         LocalPossibleList.Clear()
         LocalInitialList = InitialList.GetRange(0, InitialList.Count)
         LocalPossibleList = PossibleList.GetRange(0, InitialList.Count)
-
     End Sub
-
 
     Public Sub FindBestMove()
         Dim SleepCounter As Integer = 0

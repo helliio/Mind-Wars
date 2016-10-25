@@ -30,6 +30,9 @@ Public Class PvEGame
         ChooseCodePanel.Left = 0
         ChooseCodePanel.Top = 0
         ChooseCodePanel.Size = Me.ClientRectangle.Size
+        For Each pic As PictureBox In ChoiceList
+            pic.BringToFront()
+        Next
     End Sub
     Private Sub InitializeBackgroundWorker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles InitializeBackgroundWorker.DoWork
         Call PopulateLists(1, InitializeBackgroundWorker)
@@ -74,12 +77,18 @@ Public Class PvEGame
     Private Sub PvEGame_Closed(sender As Object, e As EventArgs) Handles Me.Closed
         CurrentlyPossibleSolutions.Clear()
         InitiallyPossibleSolutions.Clear()
+        ChooseCodePanel.Visible = False
         StartScreen.Show()
-
+        SelectedArcRotation = 0
         SelectedColor = 0
         SelectedChooseCodeColor = 0
         BWPanel.Visible = False
         GamePanel.Visible = False
+
+        ChoiceList.Clear()
+        ChooseCodeList.Clear()
+        BWHolesList.Clear()
+        HolesList.Clear()
 
         For Each pic As PictureBox In HolesList
             Dim myEventHandler As New PaintEventHandler(AddressOf PaintHole)
@@ -102,7 +111,6 @@ Public Class PvEGame
         Next
 
         InitializeDelay.Enabled = False
-
     End Sub
     'starts the ai
     Private Sub AIBackgroundWorker_DoWork(sender As Object, e As DoWorkEventArgs) Handles AIBackgroundWorker.DoWork
@@ -438,6 +446,7 @@ Public Class PvEGame
                     End If
                 End If
         End Select
+        Debug.Print(SelectedColor)
         SelectedChooseCodeColor = SelectedColor
     End Sub
 
@@ -536,6 +545,27 @@ Public Class PvEGame
             UsersTurn = True
         End If
         Call ClearBoard()
+    End Sub
+
+    Private Sub DebugTimer_Tick(sender As Object, e As EventArgs) Handles DebugTimer.Tick
+        If SelectedColorTimer.Enabled = True Then
+            Debug.Print("SelectedColorTimer is ENABLED")
+        Else
+            Debug.Print("SelectedColorTimer is DISABLED")
+        End If
+        If ChooseCodePanel.Visible = True Then
+            Debug.Print("ChooseCodePanel is VISIBLE")
+        Else
+            Debug.Print("ChooseCodePanel is INVISIBLE")
+        End If
+        Debug.Print("SELECTED COLOR = " & SelectedColor)
+        Debug.Print("ChoiceRectangleList.Item(SelectedColor).Width = " & ChoiceRectangleList.Item(SelectedColor).Width)
+        If SelectedSpinning = True Then
+            Debug.Print("SelectedSpinning is TRUE")
+        Else
+            Debug.Print("SelectedSpinning is FALSE")
+        End If
+        Debug.Print("Arc rotation = " & SelectedArcRotation)
     End Sub
 
     Private Sub AIBackgroundWorkerEasy_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles AIBackgroundWorkerEasy.RunWorkerCompleted
