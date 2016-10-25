@@ -1,4 +1,4 @@
-﻿Option Explicit On
+﻿Option Strict Off
 
 Class Minimax
     Implements IDisposable

@@ -1,4 +1,6 @@
-﻿Module SystemModule
+﻿Option Strict On
+
+Module SystemModule
     Public holes, colours, tries As Integer
     Public solution(), guess() As Integer
     Public CurrentBW(1) As Integer
@@ -34,7 +36,7 @@
         Dim arr(str.Length - 1) As Integer
         Dim l As Integer = str.Length - 1
         For i As Integer = 0 To l
-            arr(i) = str.Chars(i).ToString
+            arr(i) = CInt(str.Chars(i).ToString)
         Next
         Return arr
     End Function
@@ -43,7 +45,7 @@
         Dim int As Integer
         Dim l As Integer = array.Length - 1
         For i As Integer = 0 To l
-            int += array(i) * 10 ^ (l - i)
+            int += CInt(array(i) * 10 ^ (l - i))
         Next
         Return int
     End Function

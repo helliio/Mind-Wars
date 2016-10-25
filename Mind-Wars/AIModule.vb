@@ -1,4 +1,6 @@
-﻿Module AIModule
+﻿Option Strict Off
+
+Module AIModule
     Public InitiallyPossibleSolutions, CurrentlyPossibleSolutions As New ArrayList
     Public UseLightMinimax As Boolean = False
 
@@ -17,7 +19,7 @@
     End Function
 
     Public Sub PopulateLists(ByVal Operation As Integer, Optional sender As Object = Nothing)
-        Dim ExpectedCount As Integer = colours ^ holes
+        Dim ExpectedCount As Integer = CInt(colours ^ holes)
 
         If Operation = 1 Then
             CurrentlyPossibleSolutions = New ArrayList

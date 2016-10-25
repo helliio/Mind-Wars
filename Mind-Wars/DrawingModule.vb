@@ -31,20 +31,12 @@
     Public Testrect1, Testrect2, TestRect3, Testrect4, Testrect5, Testrect6, Testrect7, Testrect8 As New Rectangle
 
 
-    Public ChooseCodeRect1 As New Rectangle
-    Public ChooseCodeRect2 As New Rectangle
-    Public ChooseCodeRect3 As New Rectangle
-    Public ChooseCodeRect4 As New Rectangle
-    Public ChooseCodeRect5 As New Rectangle
-    Public ChooseCodeRect6 As New Rectangle
-    Public ChooseCodeRect7 As New Rectangle
-    Public ChooseCodeRect8 As New Rectangle
-
+    Public ChooseCodeRect1, ChooseCodeRect2, ChooseCodeRect3, ChooseCodeRect4, ChooseCodeRect5, ChooseCodeRect6, ChooseCodeRect7, ChooseCodeRect8 As New Rectangle
 
     Public SelectedSpinning As Boolean = True
 
     Public GuessBrush As New SolidBrush(Color.Gray)
-    Public FocusedHolePen As New Pen(Color.HotPink)
+    Public FocusedHolePen As New Pen(Color.Cyan)
 
     Public BlackPegBrush As New SolidBrush(Color.Blue)
     Public WhitePegBrush As New SolidBrush(Color.White)
@@ -266,7 +258,7 @@
             bwhole.Invalidate()
         Next
     End Sub
-    Public Sub PaintHole(sender As PictureBox, e As PaintEventArgs)
+    Public Sub PaintHole(sender As Object, e As PaintEventArgs)
         e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
         HoleRectangle = sender.ClientRectangle
         HoleRectangle.Inflate(-2, -2)
@@ -282,17 +274,13 @@
                 End If
             End If
         ElseIf sender.Tag >= Attempt * holes AndAlso sender.Tag < (Attempt + 1) * holes AndAlso UsersTurn = True Then
-            Try
-                e.Graphics.DrawEllipse(VerifyRowPen, HoleRectangle)
-                HoleRectangle.Inflate(-6, -6)
-                GuessBrush.Color = ColorCodes(GuessList.Item(sender.Tag) + 1)
-                e.Graphics.FillEllipse(GuessBrush, HoleRectangle)
-            Catch
-                MsgBox(Attempt)
-            End Try
+            e.Graphics.DrawEllipse(VerifyRowPen, HoleRectangle)
+            HoleRectangle.Inflate(-6, -6)
+            GuessBrush.Color = ColorCodes(GuessList.Item(sender.Tag) + 1)
+            e.Graphics.FillEllipse(GuessBrush, HoleRectangle)
         End If
     End Sub
-    Public Sub PaintBWHole(sender As PictureBox, e As PaintEventArgs)
+    Public Sub PaintBWHole(sender As Object, e As PaintEventArgs)
         e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
         BWRectangle = sender.ClientRectangle
         BWRectangle.Inflate(-2, -2)
@@ -311,11 +299,11 @@
             e.Graphics.FillEllipse(Brushes.Red, BWRectangle)
         End If
     End Sub
-    Public Sub PaintChoice(sender As PictureBox, e As PaintEventArgs)
+    Public Sub PaintChoice(sender As Object, e As PaintEventArgs)
         e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
         ChoiceRectangle = sender.ClientRectangle
         ChoiceRectangle.Inflate(-2, -2)
-        If sender.Tag < colours Then 
+        If sender.Tag < colours Then
             ChoiceBrush.Color = ColorCodes(sender.Tag + 1)
             e.Graphics.FillEllipse(ChoiceBrush, ChoiceRectangleList.Item(sender.Tag))
         Else
@@ -330,7 +318,7 @@
         End If
     End Sub
 
-    Public Sub PaintChooseCode(sender As PictureBox, e As PaintEventArgs)
+    Public Sub PaintChooseCode(sender As Object, e As PaintEventArgs)
         e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
         ChooseCodeRectangle = sender.ClientRectangle
         ChooseCodeRectangle.Inflate(-2, -2)
@@ -349,7 +337,7 @@
         End If
     End Sub
 
-    Public Sub PaintChooseCodeHole(sender As PictureBox, e As PaintEventArgs)
+    Public Sub PaintChooseCodeHole(sender As Object, e As PaintEventArgs)
         e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
         HoleRectangle = sender.ClientRectangle
         HoleRectangle.Inflate(-2, -2)
@@ -365,14 +353,10 @@
                 End If
             End If
         Else 'If sender.Tag >= Attempt * holes AndAlso sender.Tag < (Attempt + 1) * holes AndAlso UsersTurn = True Then
-            Try
-                e.Graphics.DrawEllipse(VerifyRowPen, HoleRectangle)
-                HoleRectangle.Inflate(-6, -6)
-                GuessBrush.Color = ColorCodes(ChosenCodeList.Item(sender.Tag) + 1)
-                e.Graphics.FillEllipse(GuessBrush, HoleRectangle)
-            Catch ex As Exception
-                MsgBox(ex.Message)
-            End Try
+            e.Graphics.DrawEllipse(VerifyRowPen, HoleRectangle)
+            HoleRectangle.Inflate(-6, -6)
+            GuessBrush.Color = ColorCodes(ChosenCodeList.Item(sender.Tag) + 1)
+            e.Graphics.FillEllipse(GuessBrush, HoleRectangle)
         End If
     End Sub
 
