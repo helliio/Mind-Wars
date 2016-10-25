@@ -2,14 +2,14 @@
     Public holes, colours, tries As Integer
     Public solution(), guess() As Integer
     Public CurrentBW(1) As Integer
-    Public TestGuess As New ArrayList
+    Public TestGuess, ChosenCodeList As New ArrayList
 
 
     Public SelectedColor As Integer = 0
     Public SelectedChooseCodeColor As Integer = 0
 
 
-    Public HolesList, BWHolesList, ChoiceList, ChooseCodeList As New List(Of PictureBox)
+    Public HolesList, BWHolesList, ChoiceList, ChooseCodeList, ChooseCodeHolesList As New List(Of PictureBox)
 
     Public ChoiceRectangleList, ChooseCodeRectangleList As New List(Of Rectangle)
     Public GuessList, BWCountList As New ArrayList

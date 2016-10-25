@@ -35,6 +35,7 @@ Partial Class PvEGame
         Me.ChooseCodePanel = New System.Windows.Forms.Panel()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.BWPanel = New System.Windows.Forms.Panel()
+        Me.HeaderTransparencyLeft = New System.Windows.Forms.PictureBox()
         Me.ShowHolesTimer = New System.Windows.Forms.Timer(Me.components)
         Me.SelectedColorTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ColorTimer = New System.Windows.Forms.Timer(Me.components)
@@ -43,16 +44,19 @@ Partial Class PvEGame
         Me.VerifyRowTimer = New System.Windows.Forms.Timer(Me.components)
         Me.FillBWTimer = New System.Windows.Forms.Timer(Me.components)
         Me.DebugTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.HeaderTransparencyRight = New System.Windows.Forms.PictureBox()
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicInitialLoadProgress, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GamePanel.SuspendLayout()
+        Me.BWPanel.SuspendLayout()
+        CType(Me.HeaderTransparencyLeft, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.HeaderTransparencyRight, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PicFormHeader
         '
         Me.PicFormHeader.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(1, Byte), Integer), CType(CType(2, Byte), Integer))
-        Me.PicFormHeader.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.FormHeader
-        Me.PicFormHeader.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.PicFormHeader.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.HeaderBG
         Me.PicFormHeader.Dock = System.Windows.Forms.DockStyle.Top
         Me.PicFormHeader.Location = New System.Drawing.Point(0, 0)
         Me.PicFormHeader.Name = "PicFormHeader"
@@ -110,6 +114,7 @@ Partial Class PvEGame
         Me.GamePanel.AutoSize = True
         Me.GamePanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.GamePanel.BackColor = System.Drawing.Color.Transparent
+        Me.GamePanel.Controls.Add(Me.HeaderTransparencyRight)
         Me.GamePanel.Controls.Add(Me.ChooseCodePanel)
         Me.GamePanel.Controls.Add(Me.Button1)
         Me.GamePanel.Controls.Add(Me.Button2)
@@ -146,12 +151,23 @@ Partial Class PvEGame
         'BWPanel
         '
         Me.BWPanel.BackColor = System.Drawing.Color.Transparent
+        Me.BWPanel.Controls.Add(Me.HeaderTransparencyLeft)
         Me.BWPanel.Dock = System.Windows.Forms.DockStyle.Left
         Me.BWPanel.Location = New System.Drawing.Point(0, 0)
         Me.BWPanel.Name = "BWPanel"
         Me.BWPanel.Size = New System.Drawing.Size(42, 712)
         Me.BWPanel.TabIndex = 17
         Me.BWPanel.Visible = False
+        '
+        'HeaderTransparencyLeft
+        '
+        Me.HeaderTransparencyLeft.BackColor = System.Drawing.Color.Maroon
+        Me.HeaderTransparencyLeft.Image = Global.Mind_Wars.My.Resources.Resources.HeaderTransparencyLeft
+        Me.HeaderTransparencyLeft.Location = New System.Drawing.Point(0, 0)
+        Me.HeaderTransparencyLeft.Name = "HeaderTransparencyLeft"
+        Me.HeaderTransparencyLeft.Size = New System.Drawing.Size(66, 59)
+        Me.HeaderTransparencyLeft.TabIndex = 20
+        Me.HeaderTransparencyLeft.TabStop = False
         '
         'ShowHolesTimer
         '
@@ -185,6 +201,16 @@ Partial Class PvEGame
         Me.DebugTimer.Enabled = True
         Me.DebugTimer.Interval = 5000
         '
+        'HeaderTransparencyRight
+        '
+        Me.HeaderTransparencyRight.BackColor = System.Drawing.Color.Maroon
+        Me.HeaderTransparencyRight.Image = Global.Mind_Wars.My.Resources.Resources.HeaderTransparencyRight
+        Me.HeaderTransparencyRight.Location = New System.Drawing.Point(150, 226)
+        Me.HeaderTransparencyRight.Name = "HeaderTransparencyRight"
+        Me.HeaderTransparencyRight.Size = New System.Drawing.Size(66, 59)
+        Me.HeaderTransparencyRight.TabIndex = 21
+        Me.HeaderTransparencyRight.TabStop = False
+        '
         'PvEGame
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -203,6 +229,9 @@ Partial Class PvEGame
         CType(Me.PicInitialLoadProgress, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GamePanel.ResumeLayout(False)
         Me.GamePanel.PerformLayout()
+        Me.BWPanel.ResumeLayout(False)
+        CType(Me.HeaderTransparencyLeft, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.HeaderTransparencyRight, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -228,4 +257,6 @@ Partial Class PvEGame
     Friend WithEvents FillBWTimer As Timer
     Friend WithEvents ChooseCodePanel As Panel
     Friend WithEvents DebugTimer As Timer
+    Friend WithEvents HeaderTransparencyLeft As PictureBox
+    Friend WithEvents HeaderTransparencyRight As PictureBox
 End Class

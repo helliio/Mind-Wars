@@ -60,8 +60,8 @@
                     Case 2
                     Case 3
                     Case 4
-                        For m = 0 To tries - 1
-                            For n = 0 To holes - 1
+                        For m As Integer = 0 To tries - 1
+                            For n As Integer = 0 To holes - 1
                                 Dim BWPeg As New PictureBox
                                 With BWPeg
                                     .Visible = False
@@ -107,7 +107,7 @@
                     Next
                 Next
 
-                For i = 0 To 7
+                For i As Integer = 0 To 7
                     Dim Choice As New PictureBox
                     With Choice
                         .Width = 32
@@ -152,6 +152,22 @@
                     SenderChoosePanel.Controls.Add(ChooseCode)
                     ChooseCodeList.Add(ChooseCode)
                 Next
+                For j As Integer = 0 To holes - 1
+                    Dim ChooseCodeHole As New PictureBox
+                    With ChooseCodeHole
+                        .Width = 32
+                        .Height = 32
+                        .Top = SenderChoosePanel.ClientRectangle.Height / 2 - 42
+                        .Left = SenderPanel.ClientRectangle.Width / 2 - (holes * 32) / 2 + 32 * j
+                        .BackColor = Color.Transparent
+                        .BorderStyle = BorderStyle.None
+                        .Tag = j
+                    End With
+                    SenderChoosePanel.Controls.Add(ChooseCodeHole)
+                    ChooseCodeHolesList.Add(ChooseCodeHole)
+                    AddHandler ChooseCodeHole.Paint, AddressOf PaintChooseCodeHole
+                Next
+
         End Select
         FinishedGeneratingBoard = True
         PvEGame.SelectedColorTimer.Enabled = True
@@ -333,5 +349,31 @@
         End If
     End Sub
 
+    Public Sub PaintChooseCodeHole(sender As PictureBox, e As PaintEventArgs)
+        e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+        HoleRectangle = sender.ClientRectangle
+        HoleRectangle.Inflate(-2, -2)
+        If PvEGame.VerifyRowTimer.Enabled = False Then
+            If CInt(sender.Tag) = ChosenCodeList.Count Then
+                e.Graphics.DrawEllipse(FocusedHolePen, HoleRectangle)
+            Else
+                e.Graphics.DrawEllipse(Pens.AliceBlue, HoleRectangle)
+                If CInt(sender.Tag) < ChosenCodeList.Count Then
+                    HoleRectangle.Inflate(-6, -6)
+                    GuessBrush.Color = ColorCodes(CInt(ChosenCodeList.Item(sender.Tag)) + 1)
+                    e.Graphics.FillEllipse(GuessBrush, HoleRectangle)
+                End If
+            End If
+        Else 'If sender.Tag >= Attempt * holes AndAlso sender.Tag < (Attempt + 1) * holes AndAlso UsersTurn = True Then
+            Try
+                e.Graphics.DrawEllipse(VerifyRowPen, HoleRectangle)
+                HoleRectangle.Inflate(-6, -6)
+                GuessBrush.Color = ColorCodes(ChosenCodeList.Item(sender.Tag) + 1)
+                e.Graphics.FillEllipse(GuessBrush, HoleRectangle)
+            Catch ex As Exception
+                MsgBox(ex.Message)
+            End Try
+        End If
+    End Sub
 
 End Module
