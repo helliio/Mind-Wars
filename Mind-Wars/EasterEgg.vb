@@ -22,8 +22,7 @@
 'imdb.com/title/tt1212027/goofs?item=gf1175507
 Public Class EasterEgg
     Private egg As Integer = 1
-    Private strHostName As String
-    Private strIPAddress As String
+    Private strHostName, strIPAddress As String
     Private counter As Integer
     Sub New(Optional n As Integer = 0)
         counter = n

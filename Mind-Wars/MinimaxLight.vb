@@ -2,8 +2,7 @@
 
     Inherits MinimaxFunctions
 
-    Private LocalInitialList As New ArrayList
-    Private LocalPossibleList As New ArrayList
+    Private LocalInitialList, LocalPossibleList As New ArrayList
     Sub New(ByVal InitialList As ArrayList, ByVal PossibleList As ArrayList)
         LocalInitialList.Clear()
         LocalPossibleList.Clear()

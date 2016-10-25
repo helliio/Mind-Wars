@@ -1,19 +1,12 @@
 ﻿Module SystemModule
-    Public holes As Integer = 4 'Leave blank; for testing purposes
-    Public colours As Integer = 8 'Leave blank; for testing purposes
-    Public tries As Integer
-    Public solution() As Integer
-    Public guess() As Integer
-
+    Public holes, colours, tries As Integer
+    Public solution(), guess(), CurrentBW(1) As Integer
     Public TestGuess As New ArrayList
 
-    Public CurrentBW(1) As Integer
 
     Public SelectedColor As Integer = 0
 
-    Public HolesList As New List(Of PictureBox)
-    Public BWHolesList As New List(Of PictureBox)
-    Public ChoiceList As New List(Of PictureBox)
+    Public HolesList, BWHolesList, ChoiceList As New List(Of PictureBox)
     Public ChoiceRectangleList As New List(Of Rectangle)
     Public GuessList As New ArrayList
     Public Attempt As Integer = 0

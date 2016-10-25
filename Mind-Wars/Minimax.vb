@@ -3,8 +3,8 @@
 Class Minimax
     Implements IDisposable
     Private FourthNumber As Integer = 0
-    Dim LocalInitialList As New ArrayList
-    Dim LocalPossibleList As New ArrayList
+    Dim LocalInitialList, LocalPossibleList As New ArrayList
+
     Sub New(ByVal InitialList As ArrayList, ByVal PossibleList As ArrayList, ByVal Fourth As Integer)
         FourthNumber = Fourth
         LocalInitialList.Clear()
@@ -23,11 +23,9 @@ Class Minimax
             End If
         Loop
 
-        Dim BWCount(1) As Integer
+        Dim BWCount(1), i, iMax As Integer
         Dim HighestMinScoreIndex As Integer = 0
         Dim ScoreForSolution As Integer = 0
-        Dim i As Integer
-        Dim iMax As Integer
         Dim quarter As Integer = CInt(Math.Round(LocalInitialList.Count / 4))
         Dim SolutionCount As Integer = LocalPossibleList.Count
         Dim InitialCount As Integer = LocalInitialList.Count

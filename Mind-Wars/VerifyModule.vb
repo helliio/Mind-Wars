@@ -27,10 +27,8 @@
 
     'Only used for testing purposes.
     Public Function GetBW(ByVal ail() As Integer, ByVal g() As Integer) As Integer()
-        Dim whitepegs As Integer
-        Dim blackpegs As Integer
-        Dim counted(holes - 1) As Integer
-        Dim correct(holes - 1) As Integer
+        Dim whitepegs, blackpegs As Integer
+        Dim counted(holes - 1), correct(holes - 1) As Integer
 
         Dim checkcorrectindex As Integer = 0
         Do
