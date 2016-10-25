@@ -321,7 +321,7 @@
         Else
             e.Graphics.FillEllipse(DisabledColorBrush, ChoiceRectangleList.Item(sender.Tag))
         End If
-
+        'Debug.Print("Selected spinnning: " & SelectedSpinning)
         If SelectedColor = sender.Tag AndAlso SelectedSpinning = True Then
             e.Graphics.DrawArc(SelectedColorPen, ChoiceRectangle, SelectedArcRotation, 45)
             e.Graphics.DrawArc(SelectedColorPen, ChoiceRectangle, SelectedArcRotation + 90, 45)

@@ -404,123 +404,146 @@ Public Class PvEGame
     End Sub
 
     Private Sub PvEGame_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
-        Select Case e.KeyCode
-            Case Keys.Left
-                If Not SelectedColor = 0 AndAlso Not SelectedColor = 4 Then
-                    SelectedColor -= 1
-                    SelectedSpinning = False
-                End If
-            Case Keys.Right
-                If Not SelectedColor = 3 AndAlso Not SelectedColor = 7 AndAlso Not SelectedColor = colours - 1 Then
-                    SelectedColor += 1
-                    SelectedSpinning = False
-                End If
-            Case Keys.Down
-                If Not SelectedColor + 4 > colours - 1 Then
-                    SelectedColor += 4
-                    SelectedSpinning = False
-                ElseIf Not SelectedColor >= 4 Then
-                    SelectedColor = colours - 1
-                    SelectedSpinning = False
-                End If
-            Case Keys.Up
-                If Not SelectedColor - 4 < 0 Then
-                    SelectedColor -= 4
-                    SelectedSpinning = False
-                End If
-            Case Keys.Space, Keys.Enter
-                If VerifyRowTimer.Enabled = False Then
-                    If ChooseCodePanel.Visible = False Then
-                        If GuessList.Count < holes * tries AndAlso HoleGraphicsTimer.Enabled = True Then
-                            GuessList.Add(SelectedColor)
-                            TestGuess.Add(SelectedColor)
-                            HolesList.Item(GuessList.Count - 1).Invalidate()
-                        End If
-
-                        If GuessList.Count = (Attempt + 1) * holes AndAlso UsersTurn = True Then
-                            VerifyRowTimer.Enabled = True
-                            HoleGraphicsTimer.Enabled = False
-                        ElseIf HoleGraphicsTimer.Enabled = True Then
-                            HolesList.Item(GuessList.Count).Invalidate()
-                        End If
-                    Else
-                        If ChosenCodeList.Count < holes Then 'AndAlso HoleGraphicsTimer.Enabled = True
-                            ChosenCodeList.Add(SelectedChooseCodeColor)
-                            ChooseCodeHolesList.Item(ChosenCodeList.Count - 1).Invalidate()
-                        End If
-
-                        If ChosenCodeList.Count = holes Then
-                            Debug.Print("!!! Holes-1 = " & holes - 1 & ", chosencodelist.count = " & ChosenCodeList.Count)
-                            VerifyRowTimer.Enabled = True
-                            HoleGraphicsTimer.Enabled = False
-                        ElseIf HoleGraphicsTimer.Enabled = True Then
-                            ChooseCodeHolesList.Item(ChosenCodeList.Count).Invalidate()
-                        End If
+        If SelectedSpinning = True Then
+            Select Case e.KeyCode
+                Case Keys.Left
+                    If Not SelectedColor = 0 AndAlso Not SelectedColor = 4 Then
+                        SelectedColor -= 1
+                        SelectedSpinning = False
                     End If
-                Else
-                    If ChooseCodePanel.Visible = False Then
-                        VerifyRowTimer.Enabled = False
-                        For i = 0 To holes - 1
-                            HolesList.Item(i + Attempt * holes).Invalidate()
-                        Next
-                        If GuessList.Count <= tries * holes - 1 Then
-                            HoleGraphicsTimer.Enabled = True
-                            'HolesList.Item(GuessList.Count).Invalidate()
-                            If GuessList.Count - Attempt * holes = holes Then
-                                Call verify_guess()
+                Case Keys.Right
+                    If Not SelectedColor = 3 AndAlso Not SelectedColor = 7 AndAlso Not SelectedColor = colours - 1 Then
+                        SelectedColor += 1
+                        SelectedSpinning = False
+                    End If
+                Case Keys.Down
+                    If Not SelectedColor + 4 > colours - 1 Then
+                        SelectedColor += 4
+                        SelectedSpinning = False
+                    ElseIf Not SelectedColor >= 4 Then
+                        SelectedColor = colours - 1
+                        SelectedSpinning = False
+                    End If
+                Case Keys.Up
+                    If Not SelectedColor - 4 < 0 Then
+                        SelectedColor -= 4
+                        SelectedSpinning = False
+                    End If
+                Case Keys.Space, Keys.Enter
+                    If VerifyRowTimer.Enabled = False Then
+                        If ChooseCodePanel.Visible = False Then
+                            If GuessList.Count < holes * tries AndAlso HoleGraphicsTimer.Enabled = True Then
+                                GuessList.Add(SelectedColor)
+                                TestGuess.Add(SelectedColor)
+                                HolesList.Item(GuessList.Count - 1).Invalidate()
+                            End If
+
+                            If GuessList.Count = (Attempt + 1) * holes AndAlso UsersTurn = True Then
+                                VerifyRowTimer.Enabled = True
+                                HoleGraphicsTimer.Enabled = False
+                            ElseIf HoleGraphicsTimer.Enabled = True Then
+                                HolesList.Item(GuessList.Count).Invalidate()
+                            End If
+                        Else
+                            If ChosenCodeList.Count < holes Then 'AndAlso HoleGraphicsTimer.Enabled = True
+                                ChosenCodeList.Add(SelectedChooseCodeColor)
+                                ChooseCodeHolesList.Item(ChosenCodeList.Count - 1).Invalidate()
+                            End If
+
+                            If ChosenCodeList.Count = holes Then
+                                Debug.Print("!!! Holes-1 = " & holes - 1 & ", chosencodelist.count = " & ChosenCodeList.Count)
+                                VerifyRowTimer.Enabled = True
+                                HoleGraphicsTimer.Enabled = False
+                            ElseIf HoleGraphicsTimer.Enabled = True Then
+                                ChooseCodeHolesList.Item(ChosenCodeList.Count).Invalidate()
                             End If
                         End If
                     Else
-                        VerifyRowTimer.Enabled = False
-                        For i = 0 To holes - 1
-                            solution(i) = ChosenCodeList.Item(i)
-                        Next
-                        ChosenCodeList.Clear()
-                        ChooseCodePanel.Hide()
-                        Debug.Print("SOLUTION IS " & ArrayToInt(solution))
+                        If ChooseCodePanel.Visible = False Then
+                            VerifyRowTimer.Enabled = False
+                            For i = 0 To holes - 1
+                                HolesList.Item(i + Attempt * holes).Invalidate()
+                            Next
+                            If GuessList.Count <= tries * holes - 1 Then
+                                HoleGraphicsTimer.Enabled = True
+                                'HolesList.Item(GuessList.Count).Invalidate()
+                                If GuessList.Count - Attempt * holes = holes Then
+                                    Call verify_guess()
+                                End If
+                            End If
+                        Else
+                            VerifyRowTimer.Enabled = False
+                            For i = 0 To holes - 1
+                                solution(i) = ChosenCodeList.Item(i)
+                            Next
+                            ChosenCodeList.Clear()
+                            ChooseCodePanel.Hide()
+                            Debug.Print("SOLUTION IS " & ArrayToInt(solution))
+                        End If
                     End If
-                End If
-            Case Keys.Back
-                If VerifyRowTimer.Enabled = True Then
-                    VerifyRowTimer.Enabled = False
-                    HoleGraphicsTimer.Enabled = True
+                Case Keys.Back
+                    If VerifyRowTimer.Enabled = True Then
+                        VerifyRowTimer.Enabled = False
+                        HoleGraphicsTimer.Enabled = True
+                        If ChooseCodePanel.Visible = False Then
+                            For i = 0 To holes - 1
+                                HolesList.Item(i + Attempt * holes).Invalidate()
+                            Next
+                        Else
+                            For i = 0 To holes - 1
+                                ChooseCodeHolesList.Item(i).Invalidate()
+                            Next
+                        End If
+                    End If
                     If ChooseCodePanel.Visible = False Then
+                        If Not GuessList.Count - Attempt * holes = 0 Then
+                            GuessList.RemoveAt(GuessList.Count - 1)
+                            TestGuess.RemoveAt(TestGuess.Count - 1)
+                            GuessList.TrimToSize()
+                            TestGuess.TrimToSize()
+
+                            If GuessList.Count < holes * tries - 1 Then
+                                HolesList.Item(GuessList.Count + 1).Invalidate()
+                            Else
+                                HolesList.Item(GuessList.Count).Invalidate()
+                            End If
+                        End If
+                    Else
+                        If Not ChosenCodeList.Count = 0 Then
+                            ChosenCodeList.RemoveAt(ChosenCodeList.Count - 1)
+                            GuessList.TrimToSize()
+                            If ChosenCodeList.Count < holes - 1 Then
+                                ChooseCodeHolesList.Item(ChosenCodeList.Count + 1).Invalidate()
+                            Else
+                                ChooseCodeHolesList.Item(ChosenCodeList.Count).Invalidate()
+
+                            End If
+                        End If
+                    End If
+                Case Keys.Back
+                    If VerifyRowTimer.Enabled = True Then
+                        VerifyRowTimer.Enabled = False
+                        HoleGraphicsTimer.Enabled = True
                         For i = 0 To holes - 1
                             HolesList.Item(i + Attempt * holes).Invalidate()
                         Next
-                    Else
-                        For i = 0 To holes - 1
-                            ChooseCodeHolesList.Item(i).Invalidate()
-                        Next
                     End If
-                End If
-                If ChooseCodePanel.Visible = False Then
                     If Not GuessList.Count - Attempt * holes = 0 Then
                         GuessList.RemoveAt(GuessList.Count - 1)
                         TestGuess.RemoveAt(TestGuess.Count - 1)
                         GuessList.TrimToSize()
                         TestGuess.TrimToSize()
-
                         If GuessList.Count < holes * tries - 1 Then
                             HolesList.Item(GuessList.Count + 1).Invalidate()
                         Else
                             HolesList.Item(GuessList.Count).Invalidate()
                         End If
                     End If
-                Else
-                    If Not ChosenCodeList.Count = 0 Then
-                        ChosenCodeList.RemoveAt(ChosenCodeList.Count - 1)
-                        GuessList.TrimToSize()
-                        If ChosenCodeList.Count < holes - 1 Then
-                            ChooseCodeHolesList.Item(ChosenCodeList.Count + 1).Invalidate()
-                        Else
-                            ChooseCodeHolesList.Item(ChosenCodeList.Count).Invalidate()
-                        End If
-                    End If
-                End If
-        End Select
-        Debug.Print(SelectedColor)
-        SelectedChooseCodeColor = SelectedColor
+                Case Keys.Escape
+                    Me.Close()
+            End Select
+            SelectedChooseCodeColor = SelectedColor
+        End If
     End Sub
 
     Private Sub verify_guess()
