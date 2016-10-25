@@ -1,10 +1,7 @@
 ﻿Public Class StartScreen
 
-    Dim ButtonLabList As New List(Of Label)
-    Dim ButtonSettingsList As New List(Of PictureBox)
-    Dim ButtonPvEList As New List(Of PictureBox)
-    Dim PvEColorList As New List(Of PictureBox)
-    Dim PvEDifficultyList As New List(Of Label)
+    Dim ButtonPvEList, PvEColorList, ButtonSettingsList As New List(Of PictureBox)
+    Dim PvEDifficultyList, ButtonLabList As New List(Of Label)
 
     Dim PvEHoles As Integer = 4
     Dim PvEColors As Integer = 6
