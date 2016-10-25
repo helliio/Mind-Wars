@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalysisModule.vb" />
+    <Compile Include="AudioModule.vb" />
     <Compile Include="CodeStatisticsModuleTemp.vb" />
     <Compile Include="DrawingModule.vb" />
     <Compile Include="AIModule.vb" />

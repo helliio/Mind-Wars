@@ -32,6 +32,7 @@ Partial Class PvEGame
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.GamePanel = New System.Windows.Forms.Panel()
+        Me.ChooseCodePanel = New System.Windows.Forms.Panel()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.BWPanel = New System.Windows.Forms.Panel()
         Me.ShowHolesTimer = New System.Windows.Forms.Timer(Me.components)
@@ -108,6 +109,7 @@ Partial Class PvEGame
         Me.GamePanel.AutoSize = True
         Me.GamePanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.GamePanel.BackColor = System.Drawing.Color.Transparent
+        Me.GamePanel.Controls.Add(Me.ChooseCodePanel)
         Me.GamePanel.Controls.Add(Me.Button1)
         Me.GamePanel.Controls.Add(Me.Button2)
         Me.GamePanel.Controls.Add(Me.PicInitialLoadProgress)
@@ -120,6 +122,15 @@ Partial Class PvEGame
         Me.GamePanel.Size = New System.Drawing.Size(251, 712)
         Me.GamePanel.TabIndex = 19
         Me.GamePanel.Visible = False
+        '
+        'ChooseCodePanel
+        '
+        Me.ChooseCodePanel.BackColor = System.Drawing.Color.Transparent
+        Me.ChooseCodePanel.Location = New System.Drawing.Point(39, 50)
+        Me.ChooseCodePanel.Name = "ChooseCodePanel"
+        Me.ChooseCodePanel.Size = New System.Drawing.Size(200, 100)
+        Me.ChooseCodePanel.TabIndex = 20
+        Me.ChooseCodePanel.Visible = False
         '
         'Button2
         '
@@ -209,4 +220,5 @@ Partial Class PvEGame
     Friend WithEvents AIBackgroundWorkerEasy As System.ComponentModel.BackgroundWorker
     Friend WithEvents VerifyRowTimer As Timer
     Friend WithEvents FillBWTimer As Timer
+    Friend WithEvents ChooseCodePanel As Panel
 End Class

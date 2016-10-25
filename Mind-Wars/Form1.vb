@@ -1,10 +1,7 @@
 ﻿Public Class StartScreen
 
-    Dim ButtonLabList As New List(Of Label)
-    Dim ButtonSettingsList As New List(Of PictureBox)
-    Dim ButtonPvEList As New List(Of PictureBox)
-    Dim PvEColorList As New List(Of PictureBox)
-    Dim PvEDifficultyList As New List(Of Label)
+    Dim ButtonPvEList, PvEColorList, ButtonSettingsList As New List(Of PictureBox)
+    Dim PvEDifficultyList, ButtonLabList As New List(Of Label)
 
     Dim PvEHoles As Integer = 4
     Dim PvEColors As Integer = 6
@@ -30,6 +27,7 @@
 
     Private Sub StartScreen_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Call InitializeGUI()
+        Call PlayLoopingBackgroundSoundFile(1)
     End Sub
 
     Private Sub InitializeGUI()
@@ -706,4 +704,7 @@
 
     End Sub
 
+    Private Sub StartScreen_Closed(sender As Object, e As EventArgs) Handles Me.Closed
+        End
+    End Sub
 End Class
