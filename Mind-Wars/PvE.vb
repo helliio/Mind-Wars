@@ -72,6 +72,7 @@ Public Class PvEGame
     End Sub
 
     Private Sub PvEGame_Closed(sender As Object, e As EventArgs) Handles Me.Closed
+        'Debug.Print("YAY im closed")
         CurrentlyPossibleSolutions.Clear()
         InitiallyPossibleSolutions.Clear()
         StartScreen.Show()
@@ -367,17 +368,17 @@ Public Class PvEGame
 
     Private Sub PvEGame_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         Select Case e.KeyCode
-            Case Keys.Left
+            Case Keys.Left And Not Keys.Right
                 If Not SelectedColor = 0 AndAlso Not SelectedColor = 4 Then
                     SelectedColor -= 1
                     SelectedSpinning = False
                 End If
-            Case Keys.Right
+            Case Keys.Right And Not Keys.Left
                 If Not SelectedColor = 3 AndAlso Not SelectedColor = 7 AndAlso Not SelectedColor = colours - 1 Then
                     SelectedColor += 1
                     SelectedSpinning = False
                 End If
-            Case Keys.Down
+            Case Keys.Down And Not Keys.Up
                 If Not SelectedColor + 4 > colours - 1 Then
                     SelectedColor += 4
                     SelectedSpinning = False
@@ -385,7 +386,7 @@ Public Class PvEGame
                     SelectedColor = colours - 1
                     SelectedSpinning = False
                 End If
-            Case Keys.Up
+            Case Keys.Up And Not Keys.Down
                 If Not SelectedColor - 4 < 0 Then
                     SelectedColor -= 4
                     SelectedSpinning = False
