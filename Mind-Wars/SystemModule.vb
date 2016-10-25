@@ -10,15 +10,19 @@
     Public CurrentBW(1) As Integer
 
     Public SelectedColor As Integer = 0
+    Public SelectedChooseCodeColor As Integer = 0
 
     Public HolesList As New List(Of PictureBox)
     Public BWHolesList As New List(Of PictureBox)
     Public ChoiceList As New List(Of PictureBox)
+    Public ChooseCodeList As New List(Of PictureBox)
     Public ChoiceRectangleList As New List(Of Rectangle)
+    Public ChooseCodeRectangleList As New List(Of Rectangle)
     Public GuessList As New ArrayList
     Public Attempt As Integer = 0
     Public BWCountList As New ArrayList
-
+    Public BlackCount As Integer
+    Public UsersTurn As Boolean = True
 
     Public Sub GameSetup(ByVal h As Integer, ByVal c As Integer, ByVal t As Integer)
         holes = h

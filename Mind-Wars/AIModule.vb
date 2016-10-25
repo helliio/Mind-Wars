@@ -16,7 +16,7 @@
     Function GenerateSolution() As Integer()
         Dim ret(SystemModule.holes - 1) As Integer
         For n As Integer = 0 To SystemModule.holes - 1
-            ret(n) = rdm.Next(1, SystemModule.colours)
+            ret(n) = rdm.Next(0, SystemModule.colours)
         Next
         Return ret
     End Function
@@ -33,16 +33,16 @@
             CurrentlyPossibleSolutions.TrimToSize()
             Dim q(holes - 1) As Integer
             For i As Integer = 0 To holes - 1
-                q(i) = 1
+                q(i) = 0
             Next
             Dim LowestListValue As Integer = ArrayToInt(q)
             For i As Integer = 0 To holes - 1
-                q(i) = colours
+                q(i) = colours - 1
             Next
             Dim HighestListValue As Integer = ArrayToInt(q)
             Dim ReportProgressCounter As Integer = 0
             For i As Integer = LowestListValue To HighestListValue
-                If CheckArrRange(i, 1, colours) = True Then
+                If CheckArrRange(i, 0, colours - 1) = True Then
                     CurrentlyPossibleSolutions.Add(IntToArr(i))
                     ReportProgressCounter += 1
                     If ReportProgressCounter = 10 AndAlso Not IsNothing(sender) Then

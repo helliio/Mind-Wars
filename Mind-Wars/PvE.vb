@@ -7,16 +7,17 @@ Public Class PvEGame
     Dim easy As New EasyComputer
 
     Private Sub PvE_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        InitializeGameModeProgress = 0
         solution = GenerateSolution()
-        'Debug
         Debug.Print("Solution: " & ArrayToInt(solution))
         SelectedColor = 2
+        SelectedChooseCodeColor = 2
         Me.BackgroundImage = Theme_FormBackground
         BWPanel.Visible = True
         GamePanel.Visible = True
         Me.Width = 60 + 32 * holes
         Me.Height = 38 * (tries + 1) + 74
-        Call GenerateBoard(1, GamePanel, BWPanel)
+        Call GenerateBoard(1, GamePanel, BWPanel, ChooseCodePanel)
         InitializeDelay.Enabled = True
         With PicInitialLoadProgress
             .Parent = Me
@@ -26,12 +27,16 @@ Public Class PvEGame
         End With
         InitializeGMPRect = PicInitialLoadProgress.DisplayRectangle
         InitializeGMPRect.Inflate(-2, -2)
+        ChooseCodePanel.Left = 0
+        ChooseCodePanel.Top = 0
+        ChooseCodePanel.Size = Me.ClientRectangle.Size
     End Sub
     Private Sub InitializeBackgroundWorker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles InitializeBackgroundWorker.DoWork
         Call PopulateLists(1, InitializeBackgroundWorker)
     End Sub
     Private Sub InitializeBackgroundWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles InitializeBackgroundWorker.RunWorkerCompleted
         LoadCompleteTimer.Enabled = True
+        PicInitialLoadProgress.Invalidate()
     End Sub
 
     Private Sub InitializeBackgroundWorker_ProgressChanged(sender As Object, e As ProgressChangedEventArgs) Handles InitializeBackgroundWorker.ProgressChanged
@@ -57,7 +62,7 @@ Public Class PvEGame
             PicInitialLoadProgress.Refresh()
         Else
             PicInitialLoadProgress.Hide()
-            InitializeGMPPen.Dispose()
+            'InitializeGMPPen.Dispose()
             LoadCompleteTimer.Enabled = False
             BWPanel.Visible = True
             GamePanel.Visible = True
@@ -67,7 +72,37 @@ Public Class PvEGame
     End Sub
 
     Private Sub PvEGame_Closed(sender As Object, e As EventArgs) Handles Me.Closed
+        CurrentlyPossibleSolutions.Clear()
+        InitiallyPossibleSolutions.Clear()
         StartScreen.Show()
+
+        SelectedColor = 0
+        SelectedChooseCodeColor = 0
+        BWPanel.Visible = False
+        GamePanel.Visible = False
+
+        For Each pic As PictureBox In HolesList
+            Dim myEventHandler As New PaintEventHandler(AddressOf PaintHole)
+            RemoveHandler pic.Paint, myEventHandler
+        Next
+
+        For Each pic As PictureBox In BWHolesList
+            Dim myEventHandler As New PaintEventHandler(AddressOf PaintBWHole)
+            RemoveHandler pic.Paint, myEventHandler
+        Next
+
+        For Each pic As PictureBox In ChoiceList
+            Dim myEventHandler As New PaintEventHandler(AddressOf PaintChoice)
+            RemoveHandler pic.Paint, myEventHandler
+        Next
+
+        For Each pic As PictureBox In ChooseCodeList
+            Dim myEventHandler As New PaintEventHandler(AddressOf PaintChooseCode)
+            RemoveHandler pic.Paint, myEventHandler
+        Next
+
+        InitializeDelay.Enabled = False
+
     End Sub
     'starts the ai
     Private Sub AIBackgroundWorker_DoWork(sender As Object, e As DoWorkEventArgs) Handles AIBackgroundWorker.DoWork
@@ -76,6 +111,7 @@ Public Class PvEGame
             Dim LightMinimax As New MinimaxLight(InitiallyPossibleSolutions, CurrentlyPossibleSolutions)
             Dim LightMinimaxThread As New System.Threading.Thread(AddressOf LightMinimax.FindBestMove)
             LightMinimaxThread.Priority = Threading.ThreadPriority.Highest
+            LightMinimaxThread.IsBackground = True
             LightMinimaxThread.Start()
             LightMinimaxThread.Join()
             Dim bestindexlight = FourBestIndices(0)
@@ -101,12 +137,16 @@ Public Class PvEGame
             Dim Minimax4of4 As New Minimax(InitiallyPossibleSolutions, CurrentlyPossibleSolutions, 4)
             Dim MinimaxThread1 As New System.Threading.Thread(AddressOf Minimax1of4.FindBestMove)
             MinimaxThread1.Priority = Threading.ThreadPriority.Highest
+            MinimaxThread1.IsBackground = True
             Dim MinimaxThread2 As New System.Threading.Thread(AddressOf Minimax2of4.FindBestMove)
             MinimaxThread2.Priority = Threading.ThreadPriority.Highest
+            MinimaxThread2.IsBackground = True
             Dim MinimaxThread3 As New System.Threading.Thread(AddressOf Minimax3of4.FindBestMove)
             MinimaxThread3.Priority = Threading.ThreadPriority.Highest
+            MinimaxThread3.IsBackground = True
             Dim MinimaxThread4 As New System.Threading.Thread(AddressOf Minimax4of4.FindBestMove)
             MinimaxThread4.Priority = Threading.ThreadPriority.Highest
+            MinimaxThread4.IsBackground = True
             MinimaxThread1.Start()
             MinimaxThread2.Start()
             MinimaxThread3.Start()
@@ -189,13 +229,14 @@ Public Class PvEGame
             Debug.Print("FINISHED IN " & AIAttempts & " MOVES")
             AIAttempts = 0
             'UseLightMinimax = False
-            InitializeBackgroundWorker.Dispose()
+            'InitializeBackgroundWorker.Dispose()
             Dim PopulateListsClass As New ListPopulate
             'InitializeBackgroundWorker = New BackgroundWorker
             'InitializeBackgroundWorker.WorkerReportsProgress = True
             PopulateListsClass.Operation = 1
             'PopulateListsClass.Sender = InitializeBackgroundWorker
             Dim PopulateListsThread As New System.Threading.Thread(AddressOf PopulateListsClass.PopulateLists)
+            PopulateListsThread.IsBackground = True
             PopulateListsThread.Start()
             PopulateListsThread.Join()
             Button1.Enabled = True
@@ -222,36 +263,62 @@ Public Class PvEGame
 
     Private Sub SelectedColorTimer_Tick(sender As Object, e As EventArgs) Handles SelectedColorTimer.Tick
         SelectedArcRotation += 2
-        ChoiceList.Item(SelectedColor).Invalidate()
+        If ChooseCodePanel.Visible = False Then
+            ChoiceList.Item(SelectedColor).Invalidate()
+        Else
+            ChooseCodeList.Item(SelectedChooseCodeColor).Invalidate()
+        End If
         If SelectedArcRotation = 360 Then
             SelectedArcRotation = 0
         End If
     End Sub
 
     Private Sub ColorTimer_Tick(sender As Object, e As EventArgs) Handles ColorTimer.Tick
+
         Dim ChangeRect As Rectangle
-
-        If ChoiceRectangleList.Item(SelectedColor).Width > 16 Then
-            ChangeRect = ChoiceRectangleList.Item(SelectedColor)
-            ChangeRect.Inflate(-1, -1)
-            ChoiceRectangleList.Item(SelectedColor) = ChangeRect
-            ChoiceList.Item(SelectedColor).Invalidate()
-            If ChoiceRectangleList.Item(SelectedColor).Width < 20 Then
-                SelectedSpinning = True
-            Else
-                SelectedSpinning = False
+        If ChooseCodePanel.Visible = False Then
+            If ChoiceRectangleList.Item(SelectedColor).Width > 16 Then
+                ChangeRect = ChoiceRectangleList.Item(SelectedColor)
+                ChangeRect.Inflate(-1, -1)
+                ChoiceRectangleList.Item(SelectedColor) = ChangeRect
+                ChoiceList.Item(SelectedColor).Invalidate()
+                If ChoiceRectangleList.Item(SelectedColor).Width < 20 Then
+                    SelectedSpinning = True
+                Else
+                    SelectedSpinning = False
+                End If
             End If
+
+            For Each ChoicePic As PictureBox In ChoiceList
+                If ChoiceRectangleList.Item(ChoicePic.Tag).Width < 24 AndAlso Not ChoicePic.Tag = SelectedColor Then
+                    Dim GrowRect As Rectangle = ChoiceRectangleList.Item(ChoicePic.Tag)
+                    GrowRect.Inflate(1, 1)
+                    ChoiceRectangleList.Item(ChoicePic.Tag) = GrowRect
+                    ChoicePic.Invalidate()
+                End If
+            Next
+        Else
+            If ChooseCodeRectangleList.Item(SelectedChooseCodeColor).Width > 16 Then
+                ChangeRect = ChooseCodeRectangleList.Item(SelectedChooseCodeColor)
+                ChangeRect.Inflate(-1, -1)
+                ChooseCodeRectangleList.Item(SelectedChooseCodeColor) = ChangeRect
+                ChooseCodeList.Item(SelectedChooseCodeColor).Invalidate()
+                If ChooseCodeRectangleList.Item(SelectedChooseCodeColor).Width < 20 Then
+                    SelectedSpinning = True
+                Else
+                    SelectedSpinning = False
+                End If
+            End If
+
+            For Each ChoicePic As PictureBox In ChooseCodeList
+                If ChooseCodeRectangleList.Item(ChoicePic.Tag).Width < 24 AndAlso Not ChoicePic.Tag = SelectedChooseCodeColor Then
+                    Dim GrowRect As Rectangle = ChooseCodeRectangleList.Item(ChoicePic.Tag)
+                    GrowRect.Inflate(1, 1)
+                    ChooseCodeRectangleList.Item(ChoicePic.Tag) = GrowRect
+                    ChoicePic.Invalidate()
+                End If
+            Next
         End If
-
-        For Each ChoicePic As PictureBox In ChoiceList
-            If ChoiceRectangleList.Item(ChoicePic.Tag).Width < 24 AndAlso Not ChoicePic.Tag = SelectedColor Then
-                Dim GrowRect As Rectangle = ChoiceRectangleList.Item(ChoicePic.Tag)
-                'ChoiceList.Item(ChoiceRectangleList.IndexOf(rect)).Invalidate()
-                GrowRect.Inflate(1, 1)
-                ChoiceRectangleList.Item(ChoicePic.Tag) = GrowRect
-                ChoicePic.Invalidate()
-            End If
-        Next
     End Sub
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         If TextBox1.TextLength = holes And IsNumeric(TextBox1.Text) Then
@@ -325,18 +392,16 @@ Public Class PvEGame
                 End If
             Case Keys.Space, Keys.Enter
                 If VerifyRowTimer.Enabled = False Then
-                    If GuessList.Count < holes * tries Then
+                    If GuessList.Count < holes * tries AndAlso HoleGraphicsTimer.Enabled = True Then
                         GuessList.Add(SelectedColor)
                         TestGuess.Add(SelectedColor)
-                        'Debug.Print("SelectedColor = " & SelectedColor)
-                        'Debug.Print("Solution: " & ArrayToInt(solution))
                         HolesList.Item(GuessList.Count - 1).Invalidate()
                     End If
 
-                    If GuessList.Count = (Attempt + 1) * holes Then
+                    If GuessList.Count = (Attempt + 1) * holes AndAlso UsersTurn = True Then
                         VerifyRowTimer.Enabled = True
                         HoleGraphicsTimer.Enabled = False
-                    Else
+                    ElseIf HoleGraphicsTimer.Enabled = True Then
                         HolesList.Item(GuessList.Count).Invalidate()
                     End If
                 Else
@@ -373,6 +438,7 @@ Public Class PvEGame
                     End If
                 End If
         End Select
+        SelectedChooseCodeColor = SelectedColor
     End Sub
 
     Private Sub verify_guess()
@@ -384,6 +450,7 @@ Public Class PvEGame
         Next
         TestGuess.Clear()
         Dim verifiedguess() = verify(solution, g)
+        BlackCount = verifiedguess(0)
         For i As Integer = 0 To holes - 1
             If verifiedguess(0) > 0 Then
                 BWCountList.Add(2)
@@ -418,15 +485,57 @@ Public Class PvEGame
 
     Dim BWStep As Integer = 0
     Private Sub FillBWTimer_Tick(sender As Object, e As EventArgs) Handles FillBWTimer.Tick
-        BWHolesList.Item(Attempt * holes + BWStep).Invalidate()
-        'Debug.Print("BWStep: " & Attempt * holes + BWStep)
-        BWStep += 1
-        If BWStep = holes Then
-            FillBWTimer.Enabled = False
-            BWStep = 0
-            Attempt += 1
-            HoleGraphicsTimer.Enabled = True
+        If UsersTurn = True Then
+            BWHolesList.Item(Attempt * holes + BWStep).Invalidate()
+            BWStep += 1
+            If BWStep = holes Then
+                FillBWTimer.Enabled = False
+                BWStep = 0
+                If BlackCount = holes Then
+                    MsgBox("You won")
+                    If HoleGraphicsTimer.Enabled = True Then
+                        MsgBox("Enabled")
+                    End If
+                    Call SwitchSides()
+                Else
+                    HoleGraphicsTimer.Enabled = True
+                    Attempt += 1
+                End If
+            End If
+        Else
+            BWHolesList.Item(tries * holes - AIAttempts * holes - BWStep).Invalidate()
+            BWStep += 1
+            If BWStep = holes Then
+                FillBWTimer.Enabled = False
+                BWStep = 0
+                If BlackCount = holes Then
+                    HoleGraphicsTimer.Enabled = False
+                    TestGuess.Clear()
+                    TestGuess.TrimToSize()
+                    MsgBox("AI won")
+                    Call SwitchSides()
+                Else
+                    HoleGraphicsTimer.Enabled = True
+                    Attempt += 1
+                End If
+            End If
         End If
+    End Sub
+
+    Private Sub SwitchSides()
+        Attempt = 0
+        AIAttempts = 0
+        BWCountList.Clear()
+        GuessList.Clear()
+        BWCountList.TrimToSize()
+        GuessList.TrimToSize()
+        If UsersTurn = True Then
+            ChooseCodePanel.Visible = True
+            UsersTurn = False
+        Else
+            UsersTurn = True
+        End If
+        Call ClearBoard()
     End Sub
 
     Private Sub AIBackgroundWorkerEasy_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles AIBackgroundWorkerEasy.RunWorkerCompleted
@@ -438,12 +547,13 @@ Public Class PvEGame
             Debug.Print("AI's solution: " & ArrayToInt(InitiallyPossibleSolutions.Item(0)) & ", real solution: " & ArrayToInt(solution))
             AIAttempts = 0
             Button2.Enabled = True
-            InitializeBackgroundWorker.Dispose()
+            'InitializeBackgroundWorker.Dispose()
             Dim PopulateListsClass As New ListPopulate
             PopulateListsClass.Operation = 1
             Dim PopulateListsThread As New System.Threading.Thread(AddressOf PopulateListsClass.PopulateLists)
             PopulateListsThread.Start()
             PopulateListsThread.Join()
+            Call SwitchSides()
         End If
     End Sub
 End Class

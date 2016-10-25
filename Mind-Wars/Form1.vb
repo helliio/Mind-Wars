@@ -30,6 +30,7 @@
 
     Private Sub StartScreen_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Call InitializeGUI()
+        Call PlayLoopingBackgroundSoundFile(1)
     End Sub
 
     Private Sub InitializeGUI()
@@ -706,4 +707,7 @@
 
     End Sub
 
+    Private Sub StartScreen_Closed(sender As Object, e As EventArgs) Handles Me.Closed
+        End
+    End Sub
 End Class
