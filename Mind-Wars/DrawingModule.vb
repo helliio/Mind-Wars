@@ -7,10 +7,7 @@
     Public VerifyRowAlpha As Integer = 100
     Public VerifyRowAlphaIncreasing As Boolean = True
 
-    Public DifficultyDrawRect As New Rectangle
-    Public ThemeDrawRect As New Rectangle
-    Public SoundDrawRect As New Rectangle
-    Public ColorPaletteRect As New Rectangle
+    Public DifficultyDrawRect, ThemeDrawRect, SoundDrawRect, ColorPaletteRect As New Rectangle
 
     Public EasyBrush As New SolidBrush(Color.LimeGreen)
     Public EasyPen As New Pen(EasyBrush)
@@ -25,22 +22,14 @@
     Public InitializeGMPRect As Rectangle
     Public InitializeGMPPen As New Pen(Color.LimeGreen, 3)
 
-    Public HoleRectangle As New Rectangle
-    Public BWRectangle As New Rectangle
-    Public ChoiceRectangle As New Rectangle
-    Public ChooseCodeRectangle As New Rectangle
+
+    Public HoleRectangle, BWRectangle, ChoiceRectangle, ChooseCodeRectangle As New Rectangle
 
     Public FinishedGeneratingBoard As Boolean = False
     Public SelectedArcRotation As Integer = 0
 
-    Public Testrect1 As New Rectangle
-    Public Testrect2 As New Rectangle
-    Public Testrect3 As New Rectangle
-    Public Testrect4 As New Rectangle
-    Public Testrect5 As New Rectangle
-    Public Testrect6 As New Rectangle
-    Public Testrect7 As New Rectangle
-    Public Testrect8 As New Rectangle
+    Public Testrect1, Testrect2, TestRect3, Testrect4, Testrect5, Testrect6, Testrect7, Testrect8 As New Rectangle
+
 
     Public ChooseCodeRect1 As New Rectangle
     Public ChooseCodeRect2 As New Rectangle
@@ -175,9 +164,9 @@
         Testrect2.Size = ChoiceList.Item(1).ClientRectangle.Size
         Testrect2.Inflate(-5, -5)
 
-        Testrect3.Location = ChoiceList.Item(2).ClientRectangle.Location
-        Testrect3.Size = ChoiceList.Item(2).ClientRectangle.Size
-        Testrect3.Inflate(-5, -5)
+        TestRect3.Location = ChoiceList.Item(2).ClientRectangle.Location
+        TestRect3.Size = ChoiceList.Item(2).ClientRectangle.Size
+        TestRect3.Inflate(-5, -5)
 
         Testrect4.Location = ChoiceList.Item(3).ClientRectangle.Location
         Testrect4.Size = ChoiceList.Item(3).ClientRectangle.Size
@@ -201,7 +190,7 @@
 
         ChoiceRectangleList.Add(Testrect1)
         ChoiceRectangleList.Add(Testrect2)
-        ChoiceRectangleList.Add(Testrect3)
+        ChoiceRectangleList.Add(TestRect3)
         ChoiceRectangleList.Add(Testrect4)
         ChoiceRectangleList.Add(Testrect5)
         ChoiceRectangleList.Add(Testrect6)
