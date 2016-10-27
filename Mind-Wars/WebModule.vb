@@ -11,10 +11,15 @@ Module WebModule
     Public CreateGameSuccess As Boolean = False
     Public HTTPGameCode As Integer
     Public HTTPClient As New WebClient
+    Public HTTPConnectClient As New WebClient
     Public ConnectionEstablished As Boolean = False
 
     Public Function CheckOpponentConnection(ByVal code As Integer) As Integer
-        Return CInt(HTTPClient.DownloadString(ServerBaseURI & "/checkconnection.php?code=" & code))
+        If HTTPConnectClient.IsBusy = False Then
+            Return CInt(HTTPConnectClient.DownloadString(ServerBaseURI & "/checkconnection.php?code=" & code))
+        Else
+            Return 0
+        End If
     End Function
 
     Public Sub DisplayCode(ByVal LAN As Boolean)

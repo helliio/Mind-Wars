@@ -50,7 +50,6 @@ Public Class PvPHTTP
             Dim result As Integer = CheckOpponentConnection(HTTPGameCode)
             Debug.Print(result)
             If result > 0 Then
-                MsgBox("Ja")
                 ConnectionEstablished = True
             Else
                 ConnectionEstablished = False
