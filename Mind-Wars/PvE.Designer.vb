@@ -32,6 +32,8 @@ Partial Class PvEGame
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.GamePanel = New System.Windows.Forms.Panel()
+        Me.PicCloseForm = New System.Windows.Forms.PictureBox()
+        Me.PicMinimizeForm = New System.Windows.Forms.PictureBox()
         Me.HeaderTransparencyRight = New System.Windows.Forms.PictureBox()
         Me.ChooseCodePanel = New System.Windows.Forms.Panel()
         Me.Button2 = New System.Windows.Forms.Button()
@@ -48,6 +50,8 @@ Partial Class PvEGame
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicInitialLoadProgress, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GamePanel.SuspendLayout()
+        CType(Me.PicCloseForm, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicMinimizeForm, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.HeaderTransparencyRight, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.BWPanel.SuspendLayout()
         CType(Me.HeaderTransparencyLeft, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -114,6 +118,8 @@ Partial Class PvEGame
         Me.GamePanel.AutoSize = True
         Me.GamePanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.GamePanel.BackColor = System.Drawing.Color.Transparent
+        Me.GamePanel.Controls.Add(Me.PicCloseForm)
+        Me.GamePanel.Controls.Add(Me.PicMinimizeForm)
         Me.GamePanel.Controls.Add(Me.HeaderTransparencyRight)
         Me.GamePanel.Controls.Add(Me.ChooseCodePanel)
         Me.GamePanel.Controls.Add(Me.Button1)
@@ -128,6 +134,27 @@ Partial Class PvEGame
         Me.GamePanel.Size = New System.Drawing.Size(251, 712)
         Me.GamePanel.TabIndex = 19
         Me.GamePanel.Visible = False
+        '
+        'PicCloseForm
+        '
+        Me.PicCloseForm.BackColor = System.Drawing.Color.Transparent
+        Me.PicCloseForm.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.Exit1
+        Me.PicCloseForm.Location = New System.Drawing.Point(225, 24)
+        Me.PicCloseForm.Name = "PicCloseForm"
+        Me.PicCloseForm.Size = New System.Drawing.Size(16, 16)
+        Me.PicCloseForm.TabIndex = 21
+        Me.PicCloseForm.TabStop = False
+        '
+        'PicMinimizeForm
+        '
+        Me.PicMinimizeForm.BackColor = System.Drawing.Color.Transparent
+        Me.PicMinimizeForm.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.Minimize
+        Me.PicMinimizeForm.Location = New System.Drawing.Point(206, 24)
+        Me.PicMinimizeForm.Margin = New System.Windows.Forms.Padding(0)
+        Me.PicMinimizeForm.Name = "PicMinimizeForm"
+        Me.PicMinimizeForm.Size = New System.Drawing.Size(16, 16)
+        Me.PicMinimizeForm.TabIndex = 20
+        Me.PicMinimizeForm.TabStop = False
         '
         'HeaderTransparencyRight
         '
@@ -215,20 +242,24 @@ Partial Class PvEGame
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.StartScreenBG1
         Me.ClientSize = New System.Drawing.Size(251, 712)
+        Me.ControlBox = False
         Me.Controls.Add(Me.PicFormHeader)
         Me.Controls.Add(Me.GamePanel)
         Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.MaximizeBox = False
         Me.Name = "PvEGame"
-        Me.Text = "PvE"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "Mind Wars"
         Me.TransparencyKey = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(1, Byte), Integer), CType(CType(2, Byte), Integer))
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicInitialLoadProgress, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GamePanel.ResumeLayout(False)
         Me.GamePanel.PerformLayout()
+        CType(Me.PicCloseForm, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicMinimizeForm, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.HeaderTransparencyRight, System.ComponentModel.ISupportInitialize).EndInit()
         Me.BWPanel.ResumeLayout(False)
         CType(Me.HeaderTransparencyLeft, System.ComponentModel.ISupportInitialize).EndInit()
@@ -259,4 +290,6 @@ Partial Class PvEGame
     Friend WithEvents DebugTimer As Timer
     Friend WithEvents HeaderTransparencyLeft As PictureBox
     Friend WithEvents HeaderTransparencyRight As PictureBox
+    Friend WithEvents PicCloseForm As PictureBox
+    Friend WithEvents PicMinimizeForm As PictureBox
 End Class

@@ -46,123 +46,126 @@
         SenderChoosePanel.Width = SenderPanel.Width
         FinishedGeneratingBoard = False
         HolesList.Clear()
-        Select Case GameMode
-            Case 1 'PvE
-                Select Case holes
-                    Case 2
-                    Case 3
-                    Case 4
-                        For m As Integer = 0 To tries - 1
-                            For n As Integer = 0 To holes - 1
-                                Dim BWPeg As New PictureBox
-                                With BWPeg
-                                    .Visible = False
-                                    .Width = 16
-                                    .Height = 16
-                                    .Name = "BWHole_" & m * holes + n
-                                    .Tag = m * holes + n
-                                    If n < 2 Then
-                                        .Top = (38 * tries) - (38 * m)
-                                        .Left = 10 + n * 16
-                                    Else
-                                        .Top = 16 + (38 * tries) - (38 * m)
-                                        .Left = n * 16 - 22
-                                    End If
-                                End With
-                                SenderBWPanel.Controls.Add(BWPeg)
-                                AddHandler BWPeg.Paint, AddressOf PaintBWHole
-                                BWHolesList.Add(BWPeg)
-                            Next
-                        Next
-                    Case 5
-                    Case 6
-                    Case 7
-                    Case 8
-                End Select
-                For y As Integer = 0 To tries - 1
-                    For x As Integer = 0 To holes - 1
-                        Dim Hole As New PictureBox
-                        With Hole
-                            .Width = 32
-                            .Height = 32
-                            .Top = (38 * tries) - (38 * y)
-                            .Left = 50 + 32 * x
-                            .BorderStyle = BorderStyle.None
-                            .BackColor = Color.Transparent
-                            .Name = "Hole_" & y * holes + x
-                            .Tag = y * holes + x
+
+        Select Case holes
+            Case 2
+            Case 3
+            Case 4
+                For m As Integer = 0 To tries - 1
+                    For n As Integer = 0 To holes - 1
+                        Dim BWPeg As New PictureBox
+                        With BWPeg
                             .Visible = False
+                            .Width = 16
+                            .Height = 16
+                            .Name = "BWHole_" & m * holes + n
+                            .Tag = m * holes + n
+                            If n < 2 Then
+                                .Top = (38 * tries) - (38 * m)
+                                .Left = 10 + n * 16
+                            Else
+                                .Top = 16 + (38 * tries) - (38 * m)
+                                .Left = n * 16 - 22
+                            End If
                         End With
-                        AddHandler Hole.Paint, AddressOf PaintHole
-                        SenderPanel.Controls.Add(Hole)
-                        HolesList.Add(Hole)
+                        SenderBWPanel.Controls.Add(BWPeg)
+                        AddHandler BWPeg.Paint, AddressOf PaintBWHole
+                        BWHolesList.Add(BWPeg)
                     Next
                 Next
-
-                For i As Integer = 0 To 7
-                    Dim Choice As New PictureBox
-                    With Choice
-                        .Width = 32
-                        .Height = 32
-                        If i < 4 Then
-                            .Top = (38 * tries + 42)
-                            .Left = 50 + 32 * i
-                        Else
-                            .Top = (38 * tries + 74)
-                            .Left = 50 + 32 * (i - 4)
-                        End If
-                        .BackColor = Color.Transparent
-                        .BorderStyle = BorderStyle.None
-                        .Name = "Choice_" & i
-                        .Tag = i
-                        AddHandler Choice.Paint, AddressOf PaintChoice
-                        SenderPanel.Controls.Add(Choice)
-                        ChoiceList.Add(Choice)
-                    End With
-                    Dim ChooseCode As New PictureBox
-                    With ChooseCode
-                        .Width = 32
-                        .Height = 32
-                        If i < 4 Then
-                            .Top = SenderChoosePanel.ClientRectangle.Height / 2
-                            .Left = SenderPanel.ClientRectangle.Width / 2 - 2 * 32 + 32 * i
-                        Else
-                            .Top = SenderChoosePanel.ClientRectangle.Height / 2 + 32
-                            .Left = SenderPanel.ClientRectangle.Width / 2 - 2 * 32 + 32 * (i - 4)
-                        End If
-                        .BackColor = Color.Transparent
-                        .BorderStyle = BorderStyle.None
-                        .Name = "ChooseCode_" & i
-                        .Tag = i
-                        If i < colours Then
-                            .Visible = True
-                        Else
-                            .Visible = False
-                        End If
-                    End With
-                    AddHandler ChooseCode.Paint, AddressOf PaintChooseCode
-                    SenderChoosePanel.Controls.Add(ChooseCode)
-                    ChooseCodeList.Add(ChooseCode)
-                Next
-                For j As Integer = 0 To holes - 1
-                    Dim ChooseCodeHole As New PictureBox
-                    With ChooseCodeHole
-                        .Width = 32
-                        .Height = 32
-                        .Top = SenderChoosePanel.ClientRectangle.Height / 2 - 42
-                        .Left = SenderPanel.ClientRectangle.Width / 2 - (holes * 32) / 2 + 32 * j
-                        .BackColor = Color.Transparent
-                        .BorderStyle = BorderStyle.None
-                        .Tag = j
-                    End With
-                    SenderChoosePanel.Controls.Add(ChooseCodeHole)
-                    ChooseCodeHolesList.Add(ChooseCodeHole)
-                    AddHandler ChooseCodeHole.Paint, AddressOf PaintChooseCodeHole
-                Next
-
+            Case 5
+            Case 6
+            Case 7
+            Case 8
         End Select
+        For y As Integer = 0 To tries - 1
+            For x As Integer = 0 To holes - 1
+                Dim Hole As New PictureBox
+                With Hole
+                    .Width = 32
+                    .Height = 32
+                    .Top = (38 * tries) - (38 * y)
+                    .Left = 50 + 32 * x
+                    .BorderStyle = BorderStyle.None
+                    .BackColor = Color.Transparent
+                    .Name = "Hole_" & y * holes + x
+                    .Tag = y * holes + x
+                    .Visible = False
+                End With
+                AddHandler Hole.Paint, AddressOf PaintHole
+                SenderPanel.Controls.Add(Hole)
+                HolesList.Add(Hole)
+            Next
+        Next
+
+        For i As Integer = 0 To 7
+            Dim Choice As New PictureBox
+            With Choice
+                .Width = 32
+                .Height = 32
+                If i < 4 Then
+                    .Top = (38 * tries + 42)
+                    .Left = 50 + 32 * i
+                Else
+                    .Top = (38 * tries + 74)
+                    .Left = 50 + 32 * (i - 4)
+                End If
+                .BackColor = Color.Transparent
+                .BorderStyle = BorderStyle.None
+                .Name = "Choice_" & i
+                .Tag = i
+                AddHandler Choice.Paint, AddressOf PaintChoice
+                SenderPanel.Controls.Add(Choice)
+                ChoiceList.Add(Choice)
+            End With
+            Dim ChooseCode As New PictureBox
+            With ChooseCode
+                .Width = 32
+                .Height = 32
+                If i < 4 Then
+                    .Top = SenderChoosePanel.ClientRectangle.Height / 2
+                    .Left = SenderPanel.ClientRectangle.Width / 2 - 2 * 32 + 32 * i
+                Else
+                    .Top = SenderChoosePanel.ClientRectangle.Height / 2 + 32
+                    .Left = SenderPanel.ClientRectangle.Width / 2 - 2 * 32 + 32 * (i - 4)
+                End If
+                .BackColor = Color.Transparent
+                .BorderStyle = BorderStyle.None
+                .Name = "ChooseCode_" & i
+                .Tag = i
+                If i < colours Then
+                    .Visible = True
+                Else
+                    .Visible = False
+                End If
+            End With
+            AddHandler ChooseCode.Paint, AddressOf PaintChooseCode
+            SenderChoosePanel.Controls.Add(ChooseCode)
+            ChooseCodeList.Add(ChooseCode)
+        Next
+        For j As Integer = 0 To holes - 1
+            Dim ChooseCodeHole As New PictureBox
+            With ChooseCodeHole
+                .Width = 32
+                .Height = 32
+                .Top = SenderChoosePanel.ClientRectangle.Height / 2 - 42
+                .Left = SenderPanel.ClientRectangle.Width / 2 - (holes * 32) / 2 + 32 * j
+                .BackColor = Color.Transparent
+                .BorderStyle = BorderStyle.None
+                .Tag = j
+            End With
+            SenderChoosePanel.Controls.Add(ChooseCodeHole)
+            ChooseCodeHolesList.Add(ChooseCodeHole)
+            AddHandler ChooseCodeHole.Paint, AddressOf PaintChooseCodeHole
+        Next
         FinishedGeneratingBoard = True
-        PvEGame.SelectedColorTimer.Enabled = True
+
+        Select Case GameMode
+            Case 1 'PvE
+                PvEGame.SelectedColorTimer.Enabled = True
+            Case 2 ' PvP HTTP
+                PvPHTTP.SelectedColorTimer.Enabled = True
+        End Select
 
         Testrect1.Location = ChoiceList.Item(0).ClientRectangle.Location
         Testrect1.Size = ChoiceList.Item(0).ClientRectangle.Size
@@ -244,9 +247,15 @@
         ChooseCodeRectangleList.Add(ChooseCodeRect6)
         ChooseCodeRectangleList.Add(ChooseCodeRect7)
         ChooseCodeRectangleList.Add(ChooseCodeRect8)
-        SelectedChooseCodeColor = 1
+        SelectedChooseCodeColor = 0
         SelectedColor = 0
-        PvEGame.ColorTimer.Enabled = True
+
+        Select Case GameMode
+            Case 1
+                PvEGame.ColorTimer.Enabled = True
+            Case 2
+                PvPHTTP.ColorTimer.Enabled = True
+        End Select
         SenderChoosePanel.BringToFront()
     End Sub
 
@@ -262,7 +271,7 @@
         e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
         HoleRectangle = sender.ClientRectangle
         HoleRectangle.Inflate(-2, -2)
-        If PvEGame.VerifyRowTimer.Enabled = False Then
+        If PvEGame.VerifyRowTimer.Enabled = False AndAlso PvPHTTP.VerifyRowTimer.Enabled = False Then
             If sender.Tag = GuessList.Count AndAlso UsersTurn = True Then
                 e.Graphics.DrawEllipse(FocusedHolePen, HoleRectangle)
             Else
@@ -310,7 +319,7 @@
             e.Graphics.FillEllipse(DisabledColorBrush, ChoiceRectangleList.Item(sender.Tag))
         End If
         'Debug.Print("Selected spinnning: " & SelectedSpinning)
-        If SelectedColor = sender.Tag AndAlso SelectedSpinning = True Then
+        If sender.Tag = SelectedColor AndAlso SelectedSpinning = True Then
             e.Graphics.DrawArc(SelectedColorPen, ChoiceRectangle, SelectedArcRotation, 45)
             e.Graphics.DrawArc(SelectedColorPen, ChoiceRectangle, SelectedArcRotation + 90, 45)
             e.Graphics.DrawArc(SelectedColorPen, ChoiceRectangle, SelectedArcRotation + 180, 45)
@@ -341,7 +350,7 @@
         e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
         HoleRectangle = sender.ClientRectangle
         HoleRectangle.Inflate(-2, -2)
-        If PvEGame.VerifyRowTimer.Enabled = False Then
+        If PvEGame.VerifyRowTimer.Enabled = False AndAlso PvPHTTP.VerifyRowTimer.Enabled = False Then
             If CInt(sender.Tag) = ChosenCodeList.Count Then
                 e.Graphics.DrawEllipse(FocusedHolePen, HoleRectangle)
             Else

@@ -49,7 +49,6 @@ Module SystemModule
         Select Case GameMode
             Case 1 'PvE
                 PvEGame.InitializeBackgroundWorker.RunWorkerAsync()
-
         End Select
     End Sub
 
@@ -70,6 +69,15 @@ Module SystemModule
             int += CInt(array(i) * 10 ^ (l - i))
         Next
         Return int
+    End Function
+
+    Public Function ArrayToString(ByVal array() As Integer) As String
+        Dim str As String = ""
+        Dim l As Integer = array.Length - 1
+        For i As Integer = 0 To l
+            str &= CType(array(i), String)
+        Next
+        Return str
     End Function
 
     Public Function CheckArrRange(ByVal int As Integer, ByVal min As Integer, ByVal max As Integer) As Boolean

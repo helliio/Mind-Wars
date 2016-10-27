@@ -30,13 +30,17 @@ Partial Class PvPHTTP
         Me.Button1 = New System.Windows.Forms.Button()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.GamePanel = New System.Windows.Forms.Panel()
+        Me.InfoPanel = New System.Windows.Forms.Panel()
+        Me.LabInfo = New System.Windows.Forms.Label()
+        Me.PicInfoRight = New System.Windows.Forms.PictureBox()
+        Me.PicInfoMiddle = New System.Windows.Forms.PictureBox()
+        Me.PicInfoLeft = New System.Windows.Forms.PictureBox()
         Me.GameCodePanel = New System.Windows.Forms.Panel()
         Me.LabGameCode = New System.Windows.Forms.Label()
         Me.LabExplanation = New System.Windows.Forms.Label()
         Me.LabActualCode = New System.Windows.Forms.Label()
         Me.BWPanel = New System.Windows.Forms.Panel()
         Me.HeaderTransparencyLeft = New System.Windows.Forms.PictureBox()
-        Me.InitializeDelay = New System.Windows.Forms.Timer(Me.components)
         Me.ConnectionBackgroundWorker = New System.ComponentModel.BackgroundWorker()
         Me.ShowHolesTimer = New System.Windows.Forms.Timer(Me.components)
         Me.SelectedColorTimer = New System.Windows.Forms.Timer(Me.components)
@@ -45,9 +49,14 @@ Partial Class PvPHTTP
         Me.VerifyRowTimer = New System.Windows.Forms.Timer(Me.components)
         Me.FillBWTimer = New System.Windows.Forms.Timer(Me.components)
         Me.DebugTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.CheckStatusBackgroundWorker = New System.ComponentModel.BackgroundWorker()
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.HeaderTransparencyRight, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GamePanel.SuspendLayout()
+        Me.InfoPanel.SuspendLayout()
+        CType(Me.PicInfoRight, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicInfoMiddle, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicInfoLeft, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GameCodePanel.SuspendLayout()
         Me.BWPanel.SuspendLayout()
         CType(Me.HeaderTransparencyLeft, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -119,6 +128,7 @@ Partial Class PvPHTTP
         Me.GamePanel.AutoSize = True
         Me.GamePanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.GamePanel.BackColor = System.Drawing.Color.Transparent
+        Me.GamePanel.Controls.Add(Me.InfoPanel)
         Me.GamePanel.Controls.Add(Me.GameCodePanel)
         Me.GamePanel.Controls.Add(Me.HeaderTransparencyRight)
         Me.GamePanel.Controls.Add(Me.ChooseCodePanel)
@@ -133,6 +143,57 @@ Partial Class PvPHTTP
         Me.GamePanel.Size = New System.Drawing.Size(264, 500)
         Me.GamePanel.TabIndex = 21
         Me.GamePanel.Visible = False
+        '
+        'InfoPanel
+        '
+        Me.InfoPanel.Controls.Add(Me.LabInfo)
+        Me.InfoPanel.Controls.Add(Me.PicInfoRight)
+        Me.InfoPanel.Controls.Add(Me.PicInfoMiddle)
+        Me.InfoPanel.Controls.Add(Me.PicInfoLeft)
+        Me.InfoPanel.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.InfoPanel.Location = New System.Drawing.Point(51, 156)
+        Me.InfoPanel.Name = "InfoPanel"
+        Me.InfoPanel.Size = New System.Drawing.Size(200, 100)
+        Me.InfoPanel.TabIndex = 22
+        Me.InfoPanel.Visible = False
+        '
+        'LabInfo
+        '
+        Me.LabInfo.Location = New System.Drawing.Point(6, 9)
+        Me.LabInfo.Name = "LabInfo"
+        Me.LabInfo.Size = New System.Drawing.Size(119, 45)
+        Me.LabInfo.TabIndex = 3
+        Me.LabInfo.Text = "Your opponent is guessing your code"
+        Me.LabInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'PicInfoRight
+        '
+        Me.PicInfoRight.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.InfoBoxRight
+        Me.PicInfoRight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.PicInfoRight.Location = New System.Drawing.Point(150, 0)
+        Me.PicInfoRight.Name = "PicInfoRight"
+        Me.PicInfoRight.Size = New System.Drawing.Size(15, 100)
+        Me.PicInfoRight.TabIndex = 2
+        Me.PicInfoRight.TabStop = False
+        '
+        'PicInfoMiddle
+        '
+        Me.PicInfoMiddle.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.InfoBoxMiddle
+        Me.PicInfoMiddle.Location = New System.Drawing.Point(21, 0)
+        Me.PicInfoMiddle.Name = "PicInfoMiddle"
+        Me.PicInfoMiddle.Size = New System.Drawing.Size(95, 64)
+        Me.PicInfoMiddle.TabIndex = 1
+        Me.PicInfoMiddle.TabStop = False
+        '
+        'PicInfoLeft
+        '
+        Me.PicInfoLeft.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.InfoBoxLeft
+        Me.PicInfoLeft.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.PicInfoLeft.Location = New System.Drawing.Point(0, 0)
+        Me.PicInfoLeft.Name = "PicInfoLeft"
+        Me.PicInfoLeft.Size = New System.Drawing.Size(15, 100)
+        Me.PicInfoLeft.TabIndex = 0
+        Me.PicInfoLeft.TabStop = False
         '
         'GameCodePanel
         '
@@ -234,22 +295,34 @@ Partial Class PvPHTTP
         Me.DebugTimer.Enabled = True
         Me.DebugTimer.Interval = 5000
         '
+        'CheckStatusBackgroundWorker
+        '
+        Me.CheckStatusBackgroundWorker.WorkerSupportsCancellation = True
+        '
         'PvPHTTP
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.StartScreenBG1
         Me.ClientSize = New System.Drawing.Size(264, 500)
+        Me.ControlBox = False
         Me.Controls.Add(Me.PicFormHeader)
         Me.Controls.Add(Me.GamePanel)
+        Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.MaximizeBox = False
         Me.Name = "PvPHTTP"
-        Me.Text = "PvPHTTP"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "Mind Wars"
         Me.TransparencyKey = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(1, Byte), Integer), CType(CType(2, Byte), Integer))
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.HeaderTransparencyRight, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GamePanel.ResumeLayout(False)
         Me.GamePanel.PerformLayout()
+        Me.InfoPanel.ResumeLayout(False)
+        CType(Me.PicInfoRight, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicInfoMiddle, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicInfoLeft, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GameCodePanel.ResumeLayout(False)
         Me.BWPanel.ResumeLayout(False)
         CType(Me.HeaderTransparencyLeft, System.ComponentModel.ISupportInitialize).EndInit()
@@ -267,7 +340,6 @@ Partial Class PvPHTTP
     Friend WithEvents GamePanel As Panel
     Friend WithEvents BWPanel As Panel
     Friend WithEvents HeaderTransparencyLeft As PictureBox
-    Friend WithEvents InitializeDelay As Timer
     Public WithEvents ConnectionBackgroundWorker As System.ComponentModel.BackgroundWorker
     Friend WithEvents ShowHolesTimer As Timer
     Friend WithEvents SelectedColorTimer As Timer
@@ -280,4 +352,10 @@ Partial Class PvPHTTP
     Friend WithEvents LabGameCode As Label
     Friend WithEvents LabExplanation As Label
     Friend WithEvents LabActualCode As Label
+    Friend WithEvents CheckStatusBackgroundWorker As System.ComponentModel.BackgroundWorker
+    Friend WithEvents InfoPanel As Panel
+    Friend WithEvents PicInfoLeft As PictureBox
+    Friend WithEvents PicInfoRight As PictureBox
+    Friend WithEvents PicInfoMiddle As PictureBox
+    Friend WithEvents LabInfo As Label
 End Class

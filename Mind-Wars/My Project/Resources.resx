@@ -124,14 +124,17 @@
   <data name="BGteam2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BGteam2.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="NumberSettings11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NumberSettings11.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Exit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Exit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SettingsButtonActive" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SettingsButtonActive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ButtonBorder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ButtonBorder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ButtonBorderInactive" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ButtonBorderInactive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MinimizeHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MinimizeHover1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -153,9 +156,6 @@
   </data>
   <data name="ExitHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ExitHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ButtonBorderInactive" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ButtonBorderInactive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Minimize" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Minimize1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -190,11 +190,14 @@
   <data name="BGtema3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BGtema3.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="HeaderTransparencyRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HeaderTransparencyRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="HeaderBG" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HeaderBG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="NumberSettings11" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NumberSettings11.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ButtonBorder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ButtonBorder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ButtonBackActive" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ButtonBackActive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -205,7 +208,13 @@
   <data name="ButtonBorderActive" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ButtonBorderActive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="HeaderTransparencyRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HeaderTransparencyRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="InfoBoxLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\InfoBoxLeft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="InfoBoxMiddle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\InfoBoxMiddle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="InfoBoxRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\InfoBoxRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

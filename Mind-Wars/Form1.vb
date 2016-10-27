@@ -28,6 +28,7 @@ Public Class StartScreen
     Dim SelectedPvEDifficulty As Integer = 1
 
     Private Sub StartScreen_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        txtCode.Top = -100
         Call InitializeGUI()
         Call PlayLoopingBackgroundSoundFile(1)
     End Sub
@@ -312,6 +313,8 @@ Public Class StartScreen
         End Select
     End Sub
 
+
+
     Private Sub StartScreen_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If e.KeyCode = Keys.Escape Then
             If Not VisiblePanel = 0 Then
@@ -330,6 +333,9 @@ Public Class StartScreen
         Select Case VisiblePanel
             Case 0
                 Select Case e.KeyCode
+                    Case Keys.LWin
+                        e.SuppressKeyPress = True
+                        e.Handled = True
                     Case Keys.Up
                         If Not SelectedButtonListIndex = 0 Then
                             Call SelectButton(True)
@@ -575,7 +581,7 @@ Public Class StartScreen
         Call EnterSelected()
     End Sub
 
-    Private Sub ClosePanel(sender As Object, e As EventArgs) Handles PicClosePvE.Click, PicClosePvPLAN.Click, PicClosePvPHTTP.Click, PicCloseTutorial.Click
+    Private Sub ClosePanel(sender As Object, e As EventArgs) Handles PicClosePvE.Click, PicClosePvPLAN.Click, PicCloseTutorial.Click
         VisiblePanel = 0
         sender.Parent.Hide()
     End Sub
@@ -668,7 +674,9 @@ Public Class StartScreen
     End Sub
 
     Private Sub PicFormHeader_Click(sender As Object, e As EventArgs) Handles PicFormHeader.Click
-        HTTPBackgroundWorker.RunWorkerAsync()
+        If HTTPBackgroundWorker.IsBusy = False Then
+            HTTPBackgroundWorker.RunWorkerAsync()
+        End If
     End Sub
 
     Private Sub cmdConnectHTTP_Click(sender As Object, e As EventArgs) Handles cmdConnectHTTP.Click
@@ -694,9 +702,22 @@ Public Class StartScreen
         End If
     End Sub
 
+    Private Sub PicMinimizeForm_Click(sender As Object, e As EventArgs) Handles PicMinimizeForm.Click
+        Me.WindowState = FormWindowState.Minimized
+    End Sub
+
     Private Sub cmdTestTheme_Click(sender As Object, e As EventArgs) Handles cmdTestTheme.Click
         Dim themeint As Integer = ThemeComboBox.SelectedValue
         Call ChangeTheme(0)
+    End Sub
+
+    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles LabCode.Click
+        txtCode.Clear()
+        txtCode.Focus()
+    End Sub
+
+    Private Sub txtCode_TextChanged(sender As Object, e As EventArgs) Handles txtCode.TextChanged
+        LabCode.Text = txtCode.Text
     End Sub
 
     Private Sub PicPvEColorPalette_Paint(sender As Object, e As PaintEventArgs) Handles PicPvEColor1.Paint, PicPvEColor2.Paint, PicPvEColor3.Paint, PicPvEColor4.Paint, PicPvEColor5.Paint, PicPvEColor6.Paint, PicPvEColor7.Paint, PicPvEColor8.Paint
@@ -726,9 +747,72 @@ Public Class StartScreen
         End
     End Sub
 
+    Private Sub PanelPvPHTTP_Paint(sender As Object, e As PaintEventArgs) Handles PanelPvPHTTP.Paint
+
+    End Sub
+
     Private Sub HTTPBackgroundWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles HTTPBackgroundWorker.RunWorkerCompleted
         If CreateGameSuccess = True Then
             Call DisplayCode(False)
+            IsGameStarter = 2
+        End If
+    End Sub
+
+    Private Sub StartScreen_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+        If Me.WindowState = FormWindowState.Maximized Then
+            Me.WindowState = FormWindowState.Normal
+        End If
+    End Sub
+
+    Private Sub txtCode_GotFocus(sender As Object, e As EventArgs) Handles txtCode.GotFocus
+        LabCode.Image = My.Resources.SettingsButtonActive
+    End Sub
+
+    Private Sub txtCode_LostFocus(sender As Object, e As EventArgs) Handles txtCode.LostFocus
+        LabCode.Image = My.Resources.SettingsButtonInactive
+        If txtCode.Text = "" Then
+            txtCode.Text = "CODE"
+        End If
+    End Sub
+
+    Private Sub PanelPvPHTTP_Resize(sender As Object, e As EventArgs) Handles PanelPvPHTTP.Resize
+        With LabCode
+            .Parent = PanelPvPHTTP
+            .Width = .Parent.ClientRectangle.Width
+            .Height = My.Resources.SettingsButtonActive.Height
+            .Top = 10
+            .Left = 0
+        End With
+        With cmdConnectHTTP
+            .Parent = PanelPvPHTTP
+            .Width = .Parent.ClientRectangle.Width
+            .Height = My.Resources.ButtonBorderInactive.Height
+            .Top = LabCode.Height + LabCode.Top + 10
+            .Left = 0
+        End With
+        With cmdNewPrivateGame
+            .Parent = PanelPvPHTTP
+            .Width = .Parent.ClientRectangle.Width
+            .Height = My.Resources.ButtonBorderInactive.Height
+            .Top = cmdConnectHTTP.Height + cmdConnectHTTP.Top + 10
+            .Left = 0
+        End With
+        With cmdNewPublicGame
+            .Parent = PanelPvPHTTP
+            .Width = .Parent.ClientRectangle.Width
+            .Height = My.Resources.ButtonBorderInactive.Height
+            .Top = cmdNewPrivateGame.Height + cmdNewPrivateGame.Top + 10
+            .Left = 0
+        End With
+    End Sub
+
+    Private Sub LabCode_MouseEnter(sender As Object, e As EventArgs) Handles LabCode.MouseEnter
+        LabCode.Image = My.Resources.SettingsButtonActive
+    End Sub
+
+    Private Sub LabCode_MouseLeave(sender As Object, e As EventArgs) Handles LabCode.MouseLeave
+        If txtCode.Focused = False Then
+            LabCode.Image = My.Resources.SettingsButtonInactive
         End If
     End Sub
 End Class
