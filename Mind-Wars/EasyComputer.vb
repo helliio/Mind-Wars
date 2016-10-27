@@ -1,4 +1,5 @@
-﻿Public Class EasyComputer
+﻿Option Strict Off
+Public Class EasyComputer
     Private rdm As New Random()
     Sub EasyGuess()
         Dim guess() As Integer

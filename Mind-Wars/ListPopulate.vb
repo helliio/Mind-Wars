@@ -1,8 +1,10 @@
-﻿Public Class ListPopulate
+﻿Option Strict Off
+
+Public Class ListPopulate
     Public Operation As Integer = 1
     Public Sender As Object = Nothing
     Public Sub PopulateLists()
-        Dim ExpectedCount As Integer = colours ^ holes
+        Dim ExpectedCount As Integer = CInt(colours ^ holes)
         Select Case Operation
             Case 1
                 InitiallyPossibleSolutions.Clear()
@@ -16,7 +18,7 @@
                     q(i) = colours
                 Next
                 Dim HighestListValue As Integer = ArrayToInt(q)
-                Dim ReportProgressCounter As Integer = 0
+                Dim ReportProgressCounter As Double = 0
 
                 For i As Integer = LowestListValue To HighestListValue
                     If CheckArrRange(i, 1, colours) = True Then
@@ -26,8 +28,8 @@
                         End If
                         If CurrentlyPossibleSolutions.Count < 5000 Then
 
-                            End If
                         End If
+                    End If
                     If ReportProgressCounter = 10 AndAlso Not IsNothing(Sender) Then
                         Sender.ReportProgress((CurrentlyPossibleSolutions.Count / ExpectedCount) * 400)
                         ReportProgressCounter = 0

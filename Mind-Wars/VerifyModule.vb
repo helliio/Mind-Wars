@@ -1,4 +1,5 @@
-﻿Module VerifyModule
+﻿Option Strict Off
+Module VerifyModule
     'Returns a Array of {black,white}
     Function verify(ByVal verifysolution() As Integer, ByVal verifyguess() As Integer) As Integer()
         Dim bw(1) As Integer
@@ -7,7 +8,7 @@
         Dim g() As Integer = verifyguess.Clone
         For i As Integer = 0 To SystemModule.holes - 1
             If g(i) = s(i) Then
-                BW(0) += 1
+                bw(0) += 1
                 g(i) = -1
                 s(i) = -1
             End If
@@ -15,13 +16,13 @@
         For i As Integer = 0 To SystemModule.holes - 1
             For j As Integer = 0 To SystemModule.holes - 1
                 If g(j) = s(i) And g(i) <> s(i) And s(i) <> -1 Then
-                    BW(1) += 1
+                    bw(1) += 1
                     g(j) = -1
                     s(i) = -1
                 End If
             Next
         Next
-        Return BW
+        Return bw
     End Function
 
 

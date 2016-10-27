@@ -1,7 +1,6 @@
 ﻿Module CodeStatisticsModuleTemp
     Public CodeComparisonSwitch As Boolean = False
-    Public ComparisonA As New ArrayList
-    Public ComparisonB As New ArrayList
+    Public ComparisonA, ComparisonB As New ArrayList
     Public ComparisonWatch As New Stopwatch
 
     Public Sub Compare()
