@@ -13,7 +13,7 @@ Module SystemModule
     Public HolesList, BWHolesList, ChoiceList, ChooseCodeList, ChooseCodeHolesList As New List(Of PictureBox)
 
     Public ChoiceRectangleList, ChooseCodeRectangleList As New List(Of Rectangle)
-    Public GuessList, BWCountList As New ArrayList
+    Public GuessList, BWCountList, AIGuessList, AIBWList As New ArrayList
     Public Attempt As Integer = 0
     Public BlackCount As Integer
     Public UsersTurn As Boolean = True

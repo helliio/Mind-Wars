@@ -45,6 +45,7 @@ Partial Class PvEGame
         Me.VerifyRowTimer = New System.Windows.Forms.Timer(Me.components)
         Me.FillBWTimer = New System.Windows.Forms.Timer(Me.components)
         Me.DebugTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.AITimer = New System.Windows.Forms.Timer(Me.components)
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicInitialLoadProgress, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GamePanel.SuspendLayout()
@@ -211,6 +212,10 @@ Partial Class PvEGame
         Me.DebugTimer.Enabled = True
         Me.DebugTimer.Interval = 5000
         '
+        'AITimer
+        '
+        Me.AITimer.Interval = 250
+        '
         'PvEGame
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -259,4 +264,5 @@ Partial Class PvEGame
     Friend WithEvents DebugTimer As Timer
     Friend WithEvents HeaderTransparencyLeft As PictureBox
     Friend WithEvents HeaderTransparencyRight As PictureBox
+    Friend WithEvents AITimer As Timer
 End Class

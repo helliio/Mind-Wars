@@ -276,9 +276,14 @@ Public Class PvEGame
         AIBackgroundWorker.RunWorkerAsync()
     End Sub
     Private Sub AIBackgroundWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles AIBackgroundWorker.RunWorkerCompleted
+        'Only starts the timer'
         If CurrentlyPossibleSolutions.Count > 40 Then
             Debug.Print("Running again: " & CurrentlyPossibleSolutions.Count & " left.")
             AIBackgroundWorker.RunWorkerAsync()
+
+            ' Instead of RunWorkerAsync, fill holes and BW holes with colors in a timer.
+            ' When timer is done, THEN RunWorkerAsync.
+
             UseLightMinimax = False ' SET THIS TO FALSE
         ElseIf CurrentlyPossibleSolutions.Count > 1 Then
             UseLightMinimax = True
@@ -614,6 +619,17 @@ Public Class PvEGame
         End If
     End Sub
 
+    Dim AIStep As Integer = 0
+    Private Sub AITimer_Tick(sender As Object, e As EventArgs) Handles AITimer.Tick
+        If AIStep < holes Then
+            'fill color
+        ElseIf AIStep < holes * 2 Then
+            'fill bw
+        Else
+            'run ai
+        End If
+    End Sub
+
     Dim BWStep As Integer = 0
     Private Sub FillBWTimer_Tick(sender As Object, e As EventArgs) Handles FillBWTimer.Tick
         If UsersTurn = True Then
@@ -688,6 +704,8 @@ Public Class PvEGame
         End If
         Debug.Print("SelectedColor = " & SelectedColor)
     End Sub
+
+
 
     Private Sub AIBackgroundWorkerEasy_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles AIBackgroundWorkerEasy.RunWorkerCompleted
         If CurrentlyPossibleSolutions.Count > 1 Then
