@@ -1,4 +1,6 @@
-﻿Public Class StartScreen
+﻿Imports System.ComponentModel
+
+Public Class StartScreen
 
     Dim ButtonPvEList, PvEColorList, ButtonSettingsList As New List(Of PictureBox)
     Dim PvEDifficultyList, ButtonLabList As New List(Of Label)
@@ -466,16 +468,16 @@
                                     Call SelectColor()
                                 End If
                         End Select
-                            Case Keys.Space, Keys.Enter
-                                Select Case PvEFocusedCategory
-                                    Case 0
-                                        Call EnterSelected()
-                                        Debug.Print("Enter selected " & SelectedPvEListIndex)
-                                    Case 1, 2
-                                        Call EnterSelected()
-                                End Select
+                    Case Keys.Space, Keys.Enter
+                        Select Case PvEFocusedCategory
+                            Case 0
+                                Call EnterSelected()
+                                Debug.Print("Enter selected " & SelectedPvEListIndex)
+                            Case 1, 2
+                                Call EnterSelected()
                         End Select
                 End Select
+        End Select
     End Sub
 
     Sub SelectColor()
@@ -665,6 +667,22 @@
         End If
     End Sub
 
+    Private Sub PicFormHeader_Click(sender As Object, e As EventArgs) Handles PicFormHeader.Click
+        HTTPBackgroundWorker.RunWorkerAsync()
+    End Sub
+
+    Private Sub cmdConnectHTTP_Click(sender As Object, e As EventArgs) Handles cmdConnectHTTP.Click
+        Call ConnectToHTTP(txtCode.Text)
+    End Sub
+
+    Private Sub HTTPBackgroundWorker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles HTTPBackgroundWorker.DoWork
+        Dim NewGame As New CreateHTTPGameClass
+        Dim NewGameThread As New System.Threading.Thread(AddressOf NewGame.Create)
+        NewGameThread.IsBackground = True
+        NewGameThread.Start()
+        NewGameThread.Join()
+    End Sub
+
     Private Sub PicSound_Paint(sender As Object, e As PaintEventArgs) Handles PicSound1.Paint, PicSound2.Paint, PicSound3.Paint
         SoundDrawRect = sender.DisplayRectangle
         SoundDrawRect.Inflate(-1, -1)
@@ -706,5 +724,11 @@
 
     Private Sub StartScreen_Closed(sender As Object, e As EventArgs) Handles Me.Closed
         End
+    End Sub
+
+    Private Sub HTTPBackgroundWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles HTTPBackgroundWorker.RunWorkerCompleted
+        If CreateGameSuccess = True Then
+            Call DisplayCode(False)
+        End If
     End Sub
 End Class

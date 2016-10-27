@@ -82,6 +82,8 @@ Partial Class StartScreen
         Me.PanelPvPLan = New System.Windows.Forms.Panel()
         Me.PicClosePvPLAN = New System.Windows.Forms.PictureBox()
         Me.PanelPvPHTTP = New System.Windows.Forms.Panel()
+        Me.cmdConnectHTTP = New System.Windows.Forms.Button()
+        Me.txtCode = New System.Windows.Forms.TextBox()
         Me.PicClosePvPHTTP = New System.Windows.Forms.PictureBox()
         Me.PanelTutorial = New System.Windows.Forms.Panel()
         Me.PicCloseTutorial = New System.Windows.Forms.PictureBox()
@@ -91,6 +93,7 @@ Partial Class StartScreen
         Me.PicCloseForm = New System.Windows.Forms.PictureBox()
         Me.GUITimer = New System.Windows.Forms.Timer(Me.components)
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.HTTPBackgroundWorker = New System.ComponentModel.BackgroundWorker()
         CType(Me.PicStartButton_Settings, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvE, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvPLan, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -836,13 +839,37 @@ Partial Class StartScreen
         '
         'PanelPvPHTTP
         '
+        Me.PanelPvPHTTP.Controls.Add(Me.cmdConnectHTTP)
+        Me.PanelPvPHTTP.Controls.Add(Me.txtCode)
         Me.PanelPvPHTTP.Controls.Add(Me.PicClosePvPHTTP)
-        Me.PanelPvPHTTP.Location = New System.Drawing.Point(12, 432)
+        Me.PanelPvPHTTP.Location = New System.Drawing.Point(491, 339)
         Me.PanelPvPHTTP.Margin = New System.Windows.Forms.Padding(0)
         Me.PanelPvPHTTP.Name = "PanelPvPHTTP"
-        Me.PanelPvPHTTP.Size = New System.Drawing.Size(226, 27)
+        Me.PanelPvPHTTP.Size = New System.Drawing.Size(226, 178)
         Me.PanelPvPHTTP.TabIndex = 12
         Me.PanelPvPHTTP.Visible = False
+        '
+        'cmdConnectHTTP
+        '
+        Me.cmdConnectHTTP.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdConnectHTTP.Location = New System.Drawing.Point(10, 117)
+        Me.cmdConnectHTTP.Name = "cmdConnectHTTP"
+        Me.cmdConnectHTTP.Size = New System.Drawing.Size(204, 36)
+        Me.cmdConnectHTTP.TabIndex = 2
+        Me.cmdConnectHTTP.Text = "Connect"
+        Me.cmdConnectHTTP.UseVisualStyleBackColor = True
+        '
+        'txtCode
+        '
+        Me.txtCode.BackColor = System.Drawing.Color.Black
+        Me.txtCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtCode.ForeColor = System.Drawing.Color.White
+        Me.txtCode.Location = New System.Drawing.Point(10, 91)
+        Me.txtCode.Name = "txtCode"
+        Me.txtCode.Size = New System.Drawing.Size(204, 20)
+        Me.txtCode.TabIndex = 1
+        Me.txtCode.Text = "1234"
+        Me.txtCode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'PicClosePvPHTTP
         '
@@ -940,6 +967,11 @@ Partial Class StartScreen
         Me.PictureBox2.TabIndex = 19
         Me.PictureBox2.TabStop = False
         '
+        'HTTPBackgroundWorker
+        '
+        Me.HTTPBackgroundWorker.WorkerReportsProgress = True
+        Me.HTTPBackgroundWorker.WorkerSupportsCancellation = True
+        '
         'StartScreen
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -948,7 +980,7 @@ Partial Class StartScreen
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.BackColor = System.Drawing.Color.Black
         Me.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.StartScreenBG
-        Me.ClientSize = New System.Drawing.Size(944, 504)
+        Me.ClientSize = New System.Drawing.Size(944, 647)
         Me.ControlBox = False
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.PicCloseForm)
@@ -1009,6 +1041,7 @@ Partial Class StartScreen
         Me.PanelPvPLan.ResumeLayout(False)
         CType(Me.PicClosePvPLAN, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelPvPHTTP.ResumeLayout(False)
+        Me.PanelPvPHTTP.PerformLayout()
         CType(Me.PicClosePvPHTTP, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelTutorial.ResumeLayout(False)
         CType(Me.PicCloseTutorial, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1089,4 +1122,7 @@ Partial Class StartScreen
     Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents cmdTestTheme As Button
     Friend WithEvents ThemeComboBox As ComboBox
+    Friend WithEvents cmdConnectHTTP As Button
+    Friend WithEvents txtCode As TextBox
+    Friend WithEvents HTTPBackgroundWorker As System.ComponentModel.BackgroundWorker
 End Class

@@ -507,8 +507,10 @@ Public Class PvEGame
                                 HoleGraphicsTimer.Enabled = True
                                 'HolesList.Item(GuessList.Count).Invalidate()
                                 If GuessList.Count - Attempt * holes = holes Then
-                                    Call verify_guess()
-                                End If
+                                HoleGraphicsTimer.Enabled = False
+                                FillBWTimer.Enabled = True
+                                Call verify_guess()
+                            End If
                             End If
                         Else
                             VerifyRowTimer.Enabled = False
@@ -585,28 +587,7 @@ Public Class PvEGame
         'End If
     End Sub
 
-    Private Sub verify_guess()
-        HoleGraphicsTimer.Enabled = False
-        FillBWTimer.Enabled = True
-        Dim g(holes - 1) As Integer
-        For i As Integer = 0 To TestGuess.Count - 1
-            g(i) = CInt(TestGuess(i))
-        Next
-        TestGuess.Clear()
-        Dim verifiedguess() = verify(solution, g)
-        BlackCount = verifiedguess(0)
-        For i As Integer = 0 To holes - 1
-            If verifiedguess(0) > 0 Then
-                BWCountList.Add(2)
-                verifiedguess(0) -= 1
-            ElseIf verifiedguess(1) > 0 Then
-                BWCountList.Add(1)
-                verifiedguess(1) -= 1
-            Else
-                BWCountList.Add(0)
-            End If
-        Next
-    End Sub
+
 
 
     Private Sub VerifyRowTimer_Tick(sender As Object, e As EventArgs) Handles VerifyRowTimer.Tick

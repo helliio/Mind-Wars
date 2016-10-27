@@ -24,10 +24,32 @@ Module SystemModule
         tries = t
     End Sub
 
+    Public Sub verify_guess()
+        Dim g(holes - 1) As Integer
+        For i As Integer = 0 To TestGuess.Count - 1
+            g(i) = CInt(TestGuess(i))
+        Next
+        TestGuess.Clear()
+        Dim verifiedguess() = verify(solution, g)
+        BlackCount = verifiedguess(0)
+        For i As Integer = 0 To holes - 1
+            If verifiedguess(0) > 0 Then
+                BWCountList.Add(2)
+                verifiedguess(0) -= 1
+            ElseIf verifiedguess(1) > 0 Then
+                BWCountList.Add(1)
+                verifiedguess(1) -= 1
+            Else
+                BWCountList.Add(0)
+            End If
+        Next
+    End Sub
+
     Public Sub InitializeGameMode(ByVal GameMode As Integer)
         Select Case GameMode
             Case 1 'PvE
                 PvEGame.InitializeBackgroundWorker.RunWorkerAsync()
+
         End Select
     End Sub
 
