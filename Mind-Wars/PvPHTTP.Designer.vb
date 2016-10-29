@@ -23,12 +23,9 @@ Partial Class PvPHTTP
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.PicFormHeader = New System.Windows.Forms.PictureBox()
         Me.HeaderTransparencyRight = New System.Windows.Forms.PictureBox()
         Me.ChooseCodePanel = New System.Windows.Forms.Panel()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.GamePanel = New System.Windows.Forms.Panel()
         Me.InfoPanel = New System.Windows.Forms.Panel()
         Me.LabInfo = New System.Windows.Forms.Label()
@@ -50,6 +47,7 @@ Partial Class PvPHTTP
         Me.FillBWTimer = New System.Windows.Forms.Timer(Me.components)
         Me.DebugTimer = New System.Windows.Forms.Timer(Me.components)
         Me.CheckStatusBackgroundWorker = New System.ComponentModel.BackgroundWorker()
+        Me.Button1 = New System.Windows.Forms.Button()
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.HeaderTransparencyRight, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GamePanel.SuspendLayout()
@@ -61,16 +59,6 @@ Partial Class PvPHTTP
         Me.BWPanel.SuspendLayout()
         CType(Me.HeaderTransparencyLeft, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'Button2
-        '
-        Me.Button2.Location = New System.Drawing.Point(93, 427)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 20
-        Me.Button2.Text = "TestEasy"
-        Me.Button2.UseVisualStyleBackColor = True
-        Me.Button2.Visible = False
         '
         'PicFormHeader
         '
@@ -103,38 +91,16 @@ Partial Class PvPHTTP
         Me.ChooseCodePanel.TabIndex = 20
         Me.ChooseCodePanel.Visible = False
         '
-        'Button1
-        '
-        Me.Button1.Enabled = False
-        Me.Button1.Location = New System.Drawing.Point(12, 427)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 18
-        Me.Button1.Text = "Test"
-        Me.Button1.UseVisualStyleBackColor = True
-        Me.Button1.Visible = False
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Enabled = False
-        Me.TextBox1.Location = New System.Drawing.Point(12, 401)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(100, 20)
-        Me.TextBox1.TabIndex = 17
-        Me.TextBox1.Visible = False
-        '
         'GamePanel
         '
         Me.GamePanel.AutoSize = True
         Me.GamePanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.GamePanel.BackColor = System.Drawing.Color.Transparent
+        Me.GamePanel.Controls.Add(Me.Button1)
         Me.GamePanel.Controls.Add(Me.InfoPanel)
         Me.GamePanel.Controls.Add(Me.GameCodePanel)
         Me.GamePanel.Controls.Add(Me.HeaderTransparencyRight)
         Me.GamePanel.Controls.Add(Me.ChooseCodePanel)
-        Me.GamePanel.Controls.Add(Me.Button1)
-        Me.GamePanel.Controls.Add(Me.Button2)
-        Me.GamePanel.Controls.Add(Me.TextBox1)
         Me.GamePanel.Controls.Add(Me.BWPanel)
         Me.GamePanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GamePanel.Location = New System.Drawing.Point(0, 0)
@@ -151,7 +117,7 @@ Partial Class PvPHTTP
         Me.InfoPanel.Controls.Add(Me.PicInfoMiddle)
         Me.InfoPanel.Controls.Add(Me.PicInfoLeft)
         Me.InfoPanel.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.InfoPanel.Location = New System.Drawing.Point(51, 156)
+        Me.InfoPanel.Location = New System.Drawing.Point(54, 166)
         Me.InfoPanel.Name = "InfoPanel"
         Me.InfoPanel.Size = New System.Drawing.Size(200, 100)
         Me.InfoPanel.TabIndex = 22
@@ -200,7 +166,7 @@ Partial Class PvPHTTP
         Me.GameCodePanel.Controls.Add(Me.LabGameCode)
         Me.GameCodePanel.Controls.Add(Me.LabExplanation)
         Me.GameCodePanel.Controls.Add(Me.LabActualCode)
-        Me.GameCodePanel.Location = New System.Drawing.Point(48, 350)
+        Me.GameCodePanel.Location = New System.Drawing.Point(48, 323)
         Me.GameCodePanel.Name = "GameCodePanel"
         Me.GameCodePanel.Size = New System.Drawing.Size(312, 150)
         Me.GameCodePanel.TabIndex = 24
@@ -299,6 +265,16 @@ Partial Class PvPHTTP
         '
         Me.CheckStatusBackgroundWorker.WorkerSupportsCancellation = True
         '
+        'Button1
+        '
+        Me.Button1.Enabled = False
+        Me.Button1.Location = New System.Drawing.Point(179, 291)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 22
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'PvPHTTP
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -318,7 +294,6 @@ Partial Class PvPHTTP
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.HeaderTransparencyRight, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GamePanel.ResumeLayout(False)
-        Me.GamePanel.PerformLayout()
         Me.InfoPanel.ResumeLayout(False)
         CType(Me.PicInfoRight, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicInfoMiddle, System.ComponentModel.ISupportInitialize).EndInit()
@@ -330,13 +305,9 @@ Partial Class PvPHTTP
         Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents Button2 As Button
     Friend WithEvents PicFormHeader As PictureBox
     Friend WithEvents HeaderTransparencyRight As PictureBox
     Friend WithEvents ChooseCodePanel As Panel
-    Friend WithEvents Button1 As Button
-    Friend WithEvents TextBox1 As TextBox
     Friend WithEvents GamePanel As Panel
     Friend WithEvents BWPanel As Panel
     Friend WithEvents HeaderTransparencyLeft As PictureBox
@@ -358,4 +329,5 @@ Partial Class PvPHTTP
     Friend WithEvents PicInfoRight As PictureBox
     Friend WithEvents PicInfoMiddle As PictureBox
     Friend WithEvents LabInfo As Label
+    Friend WithEvents Button1 As Button
 End Class

@@ -70,7 +70,9 @@ Module WebModule
                 .Left += 20
                 .BackColor = Color.Transparent
             End With
-            PvPHTTP.ConnectionBackgroundWorker.RunWorkerAsync()
+            If PvPHTTP.ConnectionBackgroundWorker.IsBusy = False Then
+                PvPHTTP.ConnectionBackgroundWorker.RunWorkerAsync()
+            End If
         Else
         End If
     End Sub
