@@ -170,6 +170,7 @@ Public Class PvEGame
             AIAttempts += 1
             CurrentBW = verify(solution, AIGuessLight)
             Debug.Print("CurrentBW: " & ArrayToString(CurrentBW) & ". Should be: " & ArrayToString(verify(solution, AIGuessLight)) & ". Solution is " & ArrayToInt(solution))
+
             Debug.Print("This returns " & ArrayToInt(CurrentBW))
             Debug.Print("Before elimination: " & CurrentlyPossibleSolutions.Count)
 
