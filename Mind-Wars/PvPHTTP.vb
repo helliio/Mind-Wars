@@ -7,10 +7,17 @@ Public Class PvPHTTP
     Dim BWStep As Integer = 0
 
     Private Sub PvPHTTP_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        '''' Remove ''''
+        '''' Move to SetupGame sub ''''
         holes = 4
         tries = 10
         colours = 8
+
+        ' Move to SetupGame sub:
+        ChosenCodeList.Capacity = holes
+        GuessList.Capacity = holes * tries
+        BWCountList.Capacity = holes * tries
+        ChosenCodeList.Capacity = holes
+        TestGuess.Capacity = holes
 
         SelectedColor = 0
         SelectedChooseCodeColor = 0
@@ -20,7 +27,9 @@ Public Class PvPHTTP
         ChooseCodePanel.Visible = False
         Me.Width = 60 + 32 * holes
         Me.Height = 38 * (tries + 1) + 74
-        Call GenerateBoard(2, GamePanel, BWPanel, ChooseCodePanel)
+        'Call GenerateBoard(2, GamePanel, BWPanel, ChooseCodePanel)
+        Call GenerateBoard(2, Me, BWPanel, ChooseCodePanel)
+
         With ChooseCodePanel
             .Left = 0
             .Top = 0
@@ -104,6 +113,15 @@ Public Class PvPHTTP
             BWHolesList.Item(ShowHolesCounter + 3 - HolesList.Count).Visible = True
             ShowHolesCounter += 4
         Else
+            With InfoPanel
+                .Parent = Me
+                .BackColor = Color.Transparent
+                .BringToFront()
+                .Width = 32 * holes
+                .Height = PicInfoLeft.BackgroundImage.Height
+                .Left = HolesList.Item(0).Left
+                .Top = HolesList.Item(0).Top + 44
+            End With
             ShowHolesTimer.Enabled = False
             ShowHolesCounter = 0
             HoleGraphicsTimer.Enabled = True
@@ -177,6 +195,14 @@ Public Class PvPHTTP
                             If GuessList.Count = (Attempt + 1) * holes AndAlso UsersTurn = True Then
                                 VerifyRowTimer.Enabled = True
                                 HoleGraphicsTimer.Enabled = False
+
+
+                                'BUGGY'
+                                InfoPanel.Parent = GamePanel
+                                InfoPanel.Show()
+                                '/BUGGY'
+
+
                             ElseIf HoleGraphicsTimer.Enabled = True Then
                                 HolesList.Item(GuessList.Count).Invalidate()
                             End If
@@ -212,20 +238,11 @@ Public Class PvPHTTP
                         Else
                             VerifyRowTimer.Enabled = False
                             For i As Integer = 0 To holes - 1
-                                solution(i) = CInt(ChosenCodeList.Item(i))
+                                solution(i) = ChosenCodeList.Item(i)
                             Next
                             ChosenCodeList.Clear()
                             ChooseCodePanel.Hide()
-                            For Each Pic As PictureBox In ChoiceList
-                                Pic.Visible = False
-                            Next
-                            With InfoPanel
-                                .Width = 32 * holes
-                                .Height = PicInfoLeft.BackgroundImage.Height
-                                .Left = HolesList.Item(0).Left
-                                .Top = HolesList.Item(0).Top + 44
-                                .Visible = True
-                            End With
+                            InfoPanel.Show()
 
                             Dim UpdateSolutionString As String = ArrayToString(solution)
                             Dim UpdateGame As New UpdateGameClass
@@ -255,8 +272,6 @@ Public Class PvPHTTP
                         If Not GuessList.Count - Attempt * holes = 0 Then
                             GuessList.RemoveAt(GuessList.Count - 1)
                             TestGuess.RemoveAt(TestGuess.Count - 1)
-                            GuessList.TrimToSize()
-                            TestGuess.TrimToSize()
 
                             If GuessList.Count < holes * tries - 1 Then
                                 HolesList.Item(GuessList.Count + 1).Invalidate()
@@ -267,7 +282,7 @@ Public Class PvPHTTP
                     Else
                         If Not ChosenCodeList.Count = 0 Then
                             ChosenCodeList.RemoveAt(ChosenCodeList.Count - 1)
-                            GuessList.TrimToSize()
+
                             If ChosenCodeList.Count < holes - 1 Then
                                 ChooseCodeHolesList.Item(ChosenCodeList.Count + 1).Invalidate()
                             Else
@@ -287,8 +302,7 @@ Public Class PvPHTTP
                     If Not GuessList.Count - Attempt * holes = 0 Then
                         GuessList.RemoveAt(GuessList.Count - 1)
                         TestGuess.RemoveAt(TestGuess.Count - 1)
-                        GuessList.TrimToSize()
-                        TestGuess.TrimToSize()
+
                         If GuessList.Count < holes * tries - 1 Then
                             HolesList.Item(GuessList.Count + 1).Invalidate()
                         Else
@@ -385,8 +399,6 @@ Public Class PvPHTTP
         Attempt = 0
         BWCountList.Clear()
         GuessList.Clear()
-        BWCountList.TrimToSize()
-        GuessList.TrimToSize()
         If UsersTurn = True Then
             VerifyRowTimer.Enabled = False
             HoleGraphicsTimer.Enabled = True
@@ -394,6 +406,7 @@ Public Class PvPHTTP
             UsersTurn = False
         Else
             UsersTurn = True
+            InfoPanel.Visible = False
         End If
         Call ClearBoard()
     End Sub
@@ -424,7 +437,6 @@ Public Class PvPHTTP
                 If BlackCount = holes Then
                     HoleGraphicsTimer.Enabled = False
                     TestGuess.Clear()
-                    TestGuess.TrimToSize()
                     MsgBox("AI won")
                     Call SwitchSides()
                 Else
@@ -449,7 +461,7 @@ Public Class PvPHTTP
                 If IsNumeric(ResultString) AndAlso ResultString.Length = holes Then
                     SolutionSet = True
                     Debug.Print("SOLUTION FOUND: " & ResultString)
-                    solution = IntToArr(CInt(ResultString))
+                    solution = SolutionIntToArray(CInt(ResultString))
                     Debug.Print("SOLUTION VERIFICATION: " & ArrayToString(solution))
                 Else
                     MsgBox(ResultString)
@@ -515,30 +527,38 @@ Public Class PvPHTTP
 
     Private Sub InfoPanel_Paint(sender As Object, e As PaintEventArgs) Handles InfoPanel.Paint
         With PicInfoLeft
+            .Hide()
             .Parent = InfoPanel
             .Size = .BackgroundImage.Size
             .Left = 0
             .Top = 0
+            .Show()
         End With
         With PicInfoMiddle
+            .Hide()
             .Parent = InfoPanel
             .Height = .BackgroundImage.Height
             .Width = .Parent.Width - PicInfoLeft.Width * 2
             .Left = PicInfoLeft.Width
             .Top = 0
+            .Show()
         End With
         With PicInfoRight
+            .Hide()
             .Parent = InfoPanel
             .Size = .BackgroundImage.Size
             .Left = PicInfoLeft.Width + PicInfoMiddle.Width
             .Top = 0
+            .Show()
         End With
         With LabInfo
+            .Hide()
             .Parent = PicInfoMiddle
             .Size = .Parent.Size
             .Left = 0
             .Top = 0
             .Text = "Your opponent is breaking your code."
+            .Show()
         End With
     End Sub
 
@@ -547,6 +567,14 @@ Public Class PvPHTTP
             Debug.Print("Ready to play")
         Else
             CheckStatusBackgroundWorker.RunWorkerAsync()
+        End If
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        If InfoPanel.Visible = False Then
+            InfoPanel.Show()
+        Else
+            InfoPanel.Hide()
         End If
     End Sub
 

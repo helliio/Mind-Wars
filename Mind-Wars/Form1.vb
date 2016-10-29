@@ -30,6 +30,7 @@ Public Class StartScreen
     Private Sub StartScreen_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         txtCode.Top = -100
         Call InitializeGUI()
+
         Call PlayLoopingBackgroundSoundFile(1)
     End Sub
 
@@ -219,6 +220,34 @@ Public Class StartScreen
             .Dock = DockStyle.Fill
         End With
 
+        With LabCode
+            .Parent = PanelPvPHTTP
+            .Width = .Parent.ClientRectangle.Width
+            .Height = My.Resources.SettingsButtonActive.Height
+            .Top = 10
+            .Left = 0
+        End With
+        With cmdConnectHTTP
+            .Parent = PanelPvPHTTP
+            .Width = .Parent.ClientRectangle.Width
+            .Height = My.Resources.ButtonBorderInactive.Height
+            .Top = LabCode.Height + LabCode.Top + 10
+            .Left = 0
+        End With
+        With cmdNewPrivateGame
+            .Parent = PanelPvPHTTP
+            .Width = .Parent.ClientRectangle.Width
+            .Height = My.Resources.ButtonBorderInactive.Height
+            .Top = cmdConnectHTTP.Height + cmdConnectHTTP.Top + 10
+            .Left = 0
+        End With
+        With cmdNewPublicGame
+            .Parent = PanelPvPHTTP
+            .Width = .Parent.ClientRectangle.Width
+            .Height = My.Resources.ButtonBorderInactive.Height
+            .Top = cmdNewPrivateGame.Height + cmdNewPrivateGame.Top + 10
+            .Left = 0
+        End With
 
 
         Call SelectButton(False)
@@ -297,17 +326,18 @@ Public Class StartScreen
     End Sub
 
     Sub ButtonMouseEnter(sender As Object, e As EventArgs) Handles LabSettings.MouseEnter, LabPvE.MouseEnter, LabPvPLan.MouseEnter, LabPvPHTTP.MouseEnter, PicCloseSettings.MouseEnter
+        Dim SenderLab As Label = DirectCast(sender, Label)
         Select Case VisiblePanel
             Case 0
-                If Not sender.TabIndex = SelectedButtonListIndex Then
+                If Not SenderLab.TabIndex = SelectedButtonListIndex Then
                     Call SelectButton(True)
-                    SelectedButtonListIndex = sender.TabIndex
+                    SelectedButtonListIndex = SenderLab.TabIndex
                     Call SelectButton(False)
                 End If
             Case 1
-                If Not sender.Tag = SelectedSettingsListIndex Then
+                If Not SenderLab.Tag = SelectedSettingsListIndex Then
                     Call SelectButton(True)
-                    SelectedSettingsListIndex = sender.Tag
+                    SelectedSettingsListIndex = SenderLab.Tag
                     Call SelectButton(False)
                 End If
         End Select
@@ -488,9 +518,10 @@ Public Class StartScreen
 
     Sub SelectColor()
         PvEColors = FocusedPvEColorListIndex + 1
-        For Each ColPal As PictureBox In PvEColorList
-            ColPal.Refresh()
-        Next
+        'For Each ColPal As PictureBox In PvEColorList
+        '    ColPal.Invalidate()
+        'Next
+        PvEColorList.Item(FocusedPvEColorListIndex).Invalidate()
     End Sub
 
     Sub EnterSelected()
@@ -531,13 +562,14 @@ Public Class StartScreen
                     Case 4
                         If Not PvEFocusedCategory = 1 Then
                             PvEFocusedCategory = 1
-                            For Each ColPal As PictureBox In PvEColorList
-                                ColPal.Refresh()
-                            Next
+                            'For Each ColPal As PictureBox In PvEColorList
+                            '    ColPal.Invalidate()
+                            'Next
+                            PanelPvEColors.Invalidate()
                         Else
                             PvEFocusedCategory = 0
                             For Each ColPal As PictureBox In PvEColorList
-                                ColPal.Refresh()
+                                ColPal.Invalidate()
                             Next
                         End If
                     Case 5
@@ -568,10 +600,11 @@ Public Class StartScreen
                         PvEAttempts = CInt(LabPvENumberOfAttempts.Text)
                         Call GameSetup(PvEHoles, PvEColors, PvEAttempts)
                         Debug.Print("Holes: " & holes)
-                        PvEGame.Show()
                         Me.Hide()
                         PanelPvE.Hide()
+                        PvEFocusedCategory = 0
                         VisiblePanel = 0
+                        PvEGame.Show()
                 End Select
 
         End Select
@@ -663,10 +696,11 @@ Public Class StartScreen
     End Sub
 
     Private Sub PicTheme_Paint(sender As Object, e As PaintEventArgs) Handles PicTheme1.Paint, PicTheme2.Paint, PicTheme3.Paint
-        ThemeDrawRect = sender.DisplayRectangle
+        Dim SenderPic As PictureBox = DirectCast(sender, PictureBox)
+        ThemeDrawRect = SenderPic.DisplayRectangle
         ThemeDrawRect.Inflate(-1, -1)
         e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
-        If sender.Tag = "test" Then
+        If SenderPic.Tag = "test" Then
             e.Graphics.DrawEllipse(Pens.Red, ThemeDrawRect)
         Else
             e.Graphics.DrawEllipse(Pens.LightCyan, ThemeDrawRect)
@@ -692,6 +726,7 @@ Public Class StartScreen
     End Sub
 
     Private Sub PicSound_Paint(sender As Object, e As PaintEventArgs) Handles PicSound1.Paint, PicSound2.Paint, PicSound3.Paint
+
         SoundDrawRect = sender.DisplayRectangle
         SoundDrawRect.Inflate(-1, -1)
         e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
@@ -721,26 +756,30 @@ Public Class StartScreen
     End Sub
 
     Private Sub PicPvEColorPalette_Paint(sender As Object, e As PaintEventArgs) Handles PicPvEColor1.Paint, PicPvEColor2.Paint, PicPvEColor3.Paint, PicPvEColor4.Paint, PicPvEColor5.Paint, PicPvEColor6.Paint, PicPvEColor7.Paint, PicPvEColor8.Paint
+        Dim SenderPic As PictureBox = DirectCast(sender, PictureBox)
         e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
-        ColorPaletteRect.Size = sender.DisplayRectangle.Size
-        ColorPaletteRect.Location = sender.DisplayRectangle.Location
+        ColorPaletteRect.Size = SenderPic.DisplayRectangle.Size
+        ColorPaletteRect.Location = SenderPic.DisplayRectangle.Location
+        Dim SenderTag As Integer = CInt(SenderPic.Tag)
 
-
-        If PvEFocusedCategory = 1 AndAlso sender.Tag > FocusedPvEColorListIndex + 1 Then
-            ColorPaletteBrush.Color = Color.FromArgb(150, ColorCodes(sender.Tag))
-            ColorPaletteRect.Inflate(-4, -4)
-        ElseIf PvEFocusedCategory = 1 AndAlso sender.Tag <= FocusedPvEColorListIndex + 1 Then
-            ColorPaletteBrush.Color = ColorCodes(sender.Tag)
-            ColorPaletteRect.Inflate(-1, -1)
-        ElseIf sender.tag > FocusedPvEColorListIndex + 1 Then
-            ColorPaletteBrush.Color = Color.FromArgb(40, ColorCodes(sender.Tag))
-            ColorPaletteRect.Inflate(-4, -4)
+        If PvEFocusedCategory = 1 Then
+            If PvEFocusedCategory = 1 AndAlso SenderTag > FocusedPvEColorListIndex + 1 Then
+                ColorPaletteBrush.Color = Color.FromArgb(150, ColorCodes(SenderTag))
+                ColorPaletteRect.Inflate(-4, -4)
+            ElseIf PvEFocusedCategory = 1 AndAlso SenderTag <= FocusedPvEColorListIndex + 1 Then
+                ColorPaletteBrush.Color = ColorCodes(SenderTag)
+                ColorPaletteRect.Inflate(-1, -1)
+            End If
         Else
-            ColorPaletteBrush.Color = Color.FromArgb(170, ColorCodes(sender.Tag))
-            ColorPaletteRect.Inflate(-1, -1)
+            If CInt(SenderPic.Tag) > FocusedPvEColorListIndex + 1 Then
+                ColorPaletteBrush.Color = Color.FromArgb(40, ColorCodes(SenderTag))
+                ColorPaletteRect.Inflate(-4, -4)
+            Else
+                ColorPaletteBrush.Color = Color.FromArgb(170, ColorCodes(SenderTag))
+                ColorPaletteRect.Inflate(-1, -1)
+            End If
         End If
         e.Graphics.FillEllipse(ColorPaletteBrush, ColorPaletteRect)
-
     End Sub
 
     Private Sub StartScreen_Closed(sender As Object, e As EventArgs) Handles Me.Closed
@@ -776,34 +815,34 @@ Public Class StartScreen
     End Sub
 
     Private Sub PanelPvPHTTP_Resize(sender As Object, e As EventArgs) Handles PanelPvPHTTP.Resize
-        With LabCode
-            .Parent = PanelPvPHTTP
-            .Width = .Parent.ClientRectangle.Width
-            .Height = My.Resources.SettingsButtonActive.Height
-            .Top = 10
-            .Left = 0
-        End With
-        With cmdConnectHTTP
-            .Parent = PanelPvPHTTP
-            .Width = .Parent.ClientRectangle.Width
-            .Height = My.Resources.ButtonBorderInactive.Height
-            .Top = LabCode.Height + LabCode.Top + 10
-            .Left = 0
-        End With
-        With cmdNewPrivateGame
-            .Parent = PanelPvPHTTP
-            .Width = .Parent.ClientRectangle.Width
-            .Height = My.Resources.ButtonBorderInactive.Height
-            .Top = cmdConnectHTTP.Height + cmdConnectHTTP.Top + 10
-            .Left = 0
-        End With
-        With cmdNewPublicGame
-            .Parent = PanelPvPHTTP
-            .Width = .Parent.ClientRectangle.Width
-            .Height = My.Resources.ButtonBorderInactive.Height
-            .Top = cmdNewPrivateGame.Height + cmdNewPrivateGame.Top + 10
-            .Left = 0
-        End With
+        'With LabCode
+        '    .Parent = PanelPvPHTTP
+        '    .Width = .Parent.ClientRectangle.Width
+        '    .Height = My.Resources.SettingsButtonActive.Height
+        '    .Top = 10
+        '    .Left = 0
+        'End With
+        'With cmdConnectHTTP
+        '    .Parent = PanelPvPHTTP
+        '    .Width = .Parent.ClientRectangle.Width
+        '    .Height = My.Resources.ButtonBorderInactive.Height
+        '    .Top = LabCode.Height + LabCode.Top + 10
+        '    .Left = 0
+        'End With
+        'With cmdNewPrivateGame
+        '    .Parent = PanelPvPHTTP
+        '    .Width = .Parent.ClientRectangle.Width
+        '    .Height = My.Resources.ButtonBorderInactive.Height
+        '    .Top = cmdConnectHTTP.Height + cmdConnectHTTP.Top + 10
+        '    .Left = 0
+        'End With
+        'With cmdNewPublicGame
+        '    .Parent = PanelPvPHTTP
+        '    .Width = .Parent.ClientRectangle.Width
+        '    .Height = My.Resources.ButtonBorderInactive.Height
+        '    .Top = cmdNewPrivateGame.Height + cmdNewPrivateGame.Top + 10
+        '    .Left = 0
+        'End With
     End Sub
 
     Private Sub LabCode_MouseEnter(sender As Object, e As EventArgs) Handles LabCode.MouseEnter

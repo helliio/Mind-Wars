@@ -80,6 +80,7 @@
     <Compile Include="AIModule.vb" />
     <Compile Include="EasterEgg.vb" />
     <Compile Include="EasyComputer.vb" />
+    <Compile Include="Eliminator.vb" />
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
     </Compile>
