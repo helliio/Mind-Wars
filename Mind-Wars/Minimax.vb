@@ -18,17 +18,25 @@ Class Minimax
     End Sub
 
     Private Function BWCapacity(ByVal holecount As Integer) As Integer
-        Dim capacity As Integer = 0
-        Dim blacks As Integer = 0
-        While blacks <= holecount
-            Dim whites As Integer = 0
-            While whites <= holecount - blacks
-                capacity += 1
-                whites += 1
-            End While
-            blacks += 1
-        End While
-        Return capacity
+        'Dim capacity As Integer = 0
+        'Dim blacks As Integer = 0
+        'While blacks <= holecount
+        '    Dim whites As Integer = 0
+        '    While whites <= holecount - blacks
+        '        capacity += 1
+        '        whites += 1
+        '    End While
+        '    blacks += 1
+        'End While
+
+
+        Dim Capacity As Integer = 0
+        For x = holecount + 1 To 1
+            Capacity += x
+            x -= 1
+        Next
+
+        Return Capacity
     End Function
 
     Public Sub FindBestMove()
@@ -37,7 +45,7 @@ Class Minimax
         Dim ScoreForSolution As Integer = 0
         Dim SolutionCount As Integer = LocalPossibleList.Count
 
-        Dim BWList As New List(Of Integer)(100)
+        Dim BWList As New List(Of Integer)(BWCapacity(HolesLocal))
         'If BWCapacity(HolesLocal) < SolutionCount Then
         '    BWList.Capacity = BWCapacity(HolesLocal)
         'Else
@@ -68,7 +76,6 @@ Class Minimax
 
 
         Dim BWCount(1) As Integer
-        Debug.Print("MINIMAX STAGE 2")
         Do Until i = iMax
             Dim score As Integer = Integer.MaxValue
             Dim InitialItemiArray() As Integer = LocalInitialList(i)

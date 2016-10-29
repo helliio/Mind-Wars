@@ -117,6 +117,7 @@
     </Compile>
     <Compile Include="PvPModule.vb" />
     <Compile Include="SystemModule.vb" />
+    <Compile Include="TaskModule.vb" />
     <Compile Include="UpdateGameClass.vb" />
     <Compile Include="VerifyModule.vb" />
     <Compile Include="PvE.Designer.vb">

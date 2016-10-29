@@ -411,4 +411,32 @@ Module DrawingModule
         End If
     End Sub
 
+    'Public SelectedColorGUIPort As New IO.Ports.SerialPort
+
+    'Public Async Sub SomeButton_Click()
+    '    Task.Run(Async Function()
+    '                 Await SendAndWait()
+    '             End Function)
+    'End Sub
+
+    'Public Async Function SendAndWait() As Task
+    '    If SelectedSpinning = True Then
+    '        SelectedArcRotation += 2
+    '        If PvEGame.ChooseCodePanel.Visible = False Then
+    '            ChoiceList.Item(SelectedColor).Invalidate()
+    '        Else
+    '            ChooseCodeList.Item(SelectedChooseCodeColor).Invalidate()
+    '        End If
+    '        If SelectedArcRotation = 360 Then
+    '            SelectedArcRotation = 0
+    '        End If
+    '    End If
+    '    Await Task.Delay(40)
+    '    _port.WriteLine("Second")
+    '    Await Task.Delay(300)
+    '    _port.WriteLine("Third")
+    'End Function
+
+
+
 End Module

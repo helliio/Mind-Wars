@@ -9,18 +9,8 @@ Class MinimaxLight
     End Sub
 
     Public Sub FindBestMove()
-        Dim SleepCounter As Integer = 0
         Do Until LocalPossibleList.Count > 0 AndAlso LocalInitialList.Count > 0
-            SleepCounter += 1
-            If SleepCounter >= 500 Then
-                Debug.Print("Error: The list is empty.")
-                MsgBox("Solution: " & ArrayToString(solution) & ", empty")
-                If Not LocalPossibleList.Contains(solution) Then
-                    MsgBox("List does not contain " & ArrayToString(solution))
-                End If
-                Exit Sub
-            End If
-            System.Threading.Thread.Sleep(10)
+            System.Threading.Thread.Yield()
         Loop
 
         Dim BWCount(1) As Integer

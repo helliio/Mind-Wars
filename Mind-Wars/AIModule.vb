@@ -42,6 +42,7 @@ Module AIModule
             For i As Integer = LowestListValue To HighestListValue
                 If CheckArrRange(i, 0, colours - 1) = True Then
                     CurrentlyPossibleSolutions.Add(SolutionIntToArray(i))
+
                     ReportProgressCounter += 1
                     If ReportProgressCounter = 10 AndAlso Not IsNothing(sender) Then
                         sender.ReportProgress(CInt(i / HighestListValue) * 100)
@@ -93,5 +94,4 @@ Module AIModule
         Next
         Return SolutionsEliminated
     End Function
-
 End Module

@@ -1,7 +1,7 @@
 ﻿Option Strict On
 
 Imports System.ComponentModel
-
+Imports System.Threading
 
 Public Class PvEGame
     Dim CursorX As Integer, CursorY As Integer
@@ -157,7 +157,6 @@ Public Class PvEGame
             Dim LightMinimaxThread As New System.Threading.Thread(AddressOf LightMinimax.FindBestMove)
             With LightMinimaxThread
                 .Priority = Threading.ThreadPriority.AboveNormal
-                .IsBackground = True
                 .Start()
                 .Join()
             End With
@@ -179,7 +178,7 @@ Public Class PvEGame
             EliminateClass.RealGuess = AIGuessLight
             EliminateClass.RealBW = CurrentBW
             Dim EliminateThread As New System.Threading.Thread(AddressOf EliminateClass.Eliminate)
-            EliminateThread.IsBackground = True
+            'EliminateThread.IsBackground = True
             EliminateThread.Start()
             EliminateThread.Join()
             Debug.Print("After elimination: " & CurrentlyPossibleSolutions.Count)
@@ -191,117 +190,58 @@ Public Class PvEGame
         Else
             Debug.Print("Starting quadruple thread")
 
-            'Dim InitialArray(InitiallyPossibleSolutions.Count - 1)() As Integer
-            'Dim CurrentArray(CurrentlyPossibleSolutions.Count - 1)() As Integer
-            'InitiallyPossibleSolutions.CopyTo(InitialArray)
-            'CurrentlyPossibleSolutions.CopyTo(CurrentArray)
+            ' <UNCOMMENT> '
 
-            'Dim ReferenceListInitial As New List(Of Integer())(InitiallyPossibleSolutions.Count)
-            'ReferenceListInitial = CopyList(InitiallyPossibleSolutions)
-            'Dim Quarter As Integer = CInt(Math.Round(InitiallyPossibleSolutions.Count / 4, 0))
+            'Dim Minimax1of4 As New Minimax(InitiallyPossibleSolutions, CurrentlyPossibleSolutions, 1)
+            'Dim MinimaxThread1 As New System.Threading.Thread(AddressOf Minimax1of4.FindBestMove)
+            'MinimaxThread1.Priority = Threading.ThreadPriority.AboveNormal
+            ''MinimaxThread1.IsBackground = True
+            'MinimaxThread1.Start()
 
-            '''''' THREAD 1 '''''
-
-            'Dim Initial1 As New List(Of Integer())
-            'Initial1 = CopyList(ReferenceListInitial)
-            'Initial1.RemoveRange(Quarter, ReferenceListInitial.Count - Quarter)
-            'Initial1.TrimExcess()
-
-            'Dim Current1 As New List(Of Integer())
-            'Current1 = CopyList(ReferenceListInitial)
-
-            Dim Minimax1of4 As New Minimax(InitiallyPossibleSolutions, CurrentlyPossibleSolutions, 1)
-            Dim MinimaxThread1 As New System.Threading.Thread(AddressOf Minimax1of4.FindBestMove)
-            MinimaxThread1.Priority = Threading.ThreadPriority.AboveNormal
-            MinimaxThread1.IsBackground = True
-            MinimaxThread1.Start()
-
-            Dim Minimax2of4 As New Minimax(InitiallyPossibleSolutions, CurrentlyPossibleSolutions, 2)
-            Dim MinimaxThread2 As New System.Threading.Thread(AddressOf Minimax2of4.FindBestMove)
-            MinimaxThread2.Priority = Threading.ThreadPriority.AboveNormal
-            MinimaxThread2.IsBackground = True
-            MinimaxThread2.Start()
-
-            Dim Minimax3of4 As New Minimax(InitiallyPossibleSolutions, CurrentlyPossibleSolutions, 3)
-            Dim MinimaxThread3 As New System.Threading.Thread(AddressOf Minimax3of4.FindBestMove)
-            MinimaxThread3.Priority = Threading.ThreadPriority.AboveNormal
-            MinimaxThread3.IsBackground = True
-            MinimaxThread3.Start()
-
-            Dim Minimax4of4 As New Minimax(InitiallyPossibleSolutions, CurrentlyPossibleSolutions, 4)
-            Dim MinimaxThread4 As New System.Threading.Thread(AddressOf Minimax4of4.FindBestMove)
-            MinimaxThread4.Priority = Threading.ThreadPriority.AboveNormal
-            MinimaxThread4.IsBackground = True
-            MinimaxThread4.Start()
-
-            '''''' THREAD 2 '''''
-
-            'Dim Initial2 As New List(Of Integer())
-            'Initial2 = CopyList(ReferenceListInitial)
-            'Initial2.RemoveRange(Quarter * 2, ReferenceListInitial.Count - Quarter * 2)
-            'Initial2.RemoveRange(0, Quarter)
-            'Initial2.TrimExcess()
-
-            'Dim Current2 As New List(Of Integer())
-            'Current2 = CopyList(ReferenceListInitial)
-
-            'Dim Minimax2of4 As New Minimax(Initial2, Current2, 2, Quarter)
+            'Dim Minimax2of4 As New Minimax(InitiallyPossibleSolutions, CurrentlyPossibleSolutions, 2)
             'Dim MinimaxThread2 As New System.Threading.Thread(AddressOf Minimax2of4.FindBestMove)
             'MinimaxThread2.Priority = Threading.ThreadPriority.AboveNormal
-            'MinimaxThread2.IsBackground = True
+            ''MinimaxThread2.IsBackground = True
             'MinimaxThread2.Start()
 
-            '''''' THREAD 3 '''''
-
-            'Dim Initial3 As New List(Of Integer())
-            'Initial3 = CopyList(ReferenceListInitial)
-            'Initial3.RemoveRange(Quarter * 3, ReferenceListInitial.Count - Quarter * 3)
-            'Initial3.RemoveRange(0, Quarter * 2)
-            'Initial3.TrimExcess()
-
-            'Dim Current3 As New List(Of Integer())
-            'Current3 = CopyList(ReferenceListInitial)
-
-            'Dim Minimax3of4 As New Minimax(Initial3, Current3, 3, Quarter * 2)
+            'Dim Minimax3of4 As New Minimax(InitiallyPossibleSolutions, CurrentlyPossibleSolutions, 3)
             'Dim MinimaxThread3 As New System.Threading.Thread(AddressOf Minimax3of4.FindBestMove)
             'MinimaxThread3.Priority = Threading.ThreadPriority.AboveNormal
-            'MinimaxThread3.IsBackground = True
+            ''MinimaxThread3.IsBackground = True
             'MinimaxThread3.Start()
 
-            '''''' THREAD 4 '''''
-
-            'Dim Initial4 As New List(Of Integer())
-            'Initial4 = CopyList(ReferenceListInitial)
-            'Initial4.RemoveRange(0, Quarter * 3)
-            'Initial4.TrimExcess()
-
-            'Dim Current4 As New List(Of Integer())
-            'Current4 = CopyList(ReferenceListInitial)
-
-            'Dim Minimax4of4 As New Minimax(Initial4, Current4, 4, Quarter * 3)
+            'Dim Minimax4of4 As New Minimax(InitiallyPossibleSolutions, CurrentlyPossibleSolutions, 4)
             'Dim MinimaxThread4 As New System.Threading.Thread(AddressOf Minimax4of4.FindBestMove)
             'MinimaxThread4.Priority = Threading.ThreadPriority.AboveNormal
-            'MinimaxThread4.IsBackground = True
+            ''MinimaxThread4.IsBackground = True
             'MinimaxThread4.Start()
 
-            MinimaxThread1.Join()
-            MinimaxThread2.Join()
-            MinimaxThread3.Join()
-            MinimaxThread4.Join()
-            Debug.Print("Quadruple thread finished.")
+            'MinimaxThread1.Join()
+            'MinimaxThread2.Join()
+            'MinimaxThread3.Join()
+            'MinimaxThread4.Join()
+            'Debug.Print("Quadruple thread finished.")
 
-            Dim bestscore As Integer = 0
-            Dim bestindex As Integer = 0
+            'Dim bestscore As Integer = 0
+            'Dim bestindex As Integer = 0
 
-            For i = 0 To 3
-                If FourBestScores(i) > bestscore Then
-                    bestscore = FourBestScores(i)
-                    bestindex = FourBestIndices(i)
-                End If
-            Next
+            '</UNCOMMENT>'
 
-            Dim AIGuess() As Integer = InitiallyPossibleSolutions.Item(bestindex)
-            Debug.Print("AI guesses " & ArrayToString(AIGuess))
+            Dim newthread As New Thread(AddressOf RunMinimaxTask)
+            newthread.Start()
+            newthread.Join()
+
+            '<UNCOMMENT>'
+            'For i = 0 To 3
+            '    If FourBestScores(i) > bestscore Then
+            '        bestscore = FourBestScores(i)
+            '        bestindex = FourBestIndices(i)
+            '    End If
+            'Next
+            '</UNCOMMENT>'
+
+            Dim AIGuess() As Integer = InitiallyPossibleSolutions.Item(TESTBestIndex)
+            Debug.Print("AI guesses " & ArrayToString(AIGuess) & ". Solution is " & ArrayToString(solution))
 
             AIAttempts += 1
             CurrentBW = verify(solution, AIGuess)
@@ -318,7 +258,7 @@ Public Class PvEGame
                 EliminateClass.RealGuess = AIGuess
                 EliminateClass.RealBW = CurrentBW
                 Dim EliminateThread As New System.Threading.Thread(AddressOf EliminateClass.Eliminate)
-                EliminateThread.IsBackground = True
+                'EliminateThread.IsBackground = True
                 EliminateThread.Start()
                 EliminateThread.Join()
                 Debug.Print("After elimination: " & CurrentlyPossibleSolutions.Count)
@@ -346,14 +286,15 @@ Public Class PvEGame
     End Sub
     Public Sub TestRepeatedly(ByVal code() As Integer)
         solution = code
-        Dim AIGuess() As Integer = GenerateSolution()
-        Debug.Print("AI guesses " & ArrayToInt(AIGuess))
-        AIAttempts += 1
-        CurrentBW = verify(solution, AIGuess)
-        Debug.Print("This returns " & ArrayToInt(CurrentBW))
-        Debug.Print("Number of possible solutions before elimination: " & CurrentlyPossibleSolutions.Count)
-        Call Eliminate(AIGuess, CurrentBW)
-        Debug.Print("Number of possible solutions after elimination: " & CurrentlyPossibleSolutions.Count)
+        ' IF THE NEW AI DOESN'T WORK, UNCOMMENT. RIGHT NOW, IT'S WORKING SWIMMINGLY. '
+        'Dim AIGuess() As Integer = GenerateSolution()
+        'Debug.Print("AI guesses " & ArrayToInt(AIGuess))
+        'AIAttempts += 1
+        'CurrentBW = verify(solution, AIGuess)
+        'Debug.Print("This returns " & ArrayToInt(CurrentBW))
+        'Debug.Print("Number of possible solutions before elimination: " & CurrentlyPossibleSolutions.Count)
+        'Call Eliminate(AIGuess, CurrentBW)
+        'Debug.Print("Number of possible solutions after elimination: " & CurrentlyPossibleSolutions.Count)
         If CurrentlyPossibleSolutions.Count > 40 Then
             UseLightMinimax = False
         Else
@@ -833,6 +774,11 @@ Public Class PvEGame
         If Me.WindowState = FormWindowState.Maximized Then
             Me.WindowState = FormWindowState.Normal
         End If
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Dim newthread As New Thread(AddressOf RunMinimaxTask)
+        newthread.Start()
     End Sub
 
     Private Sub StealthyPopulateBackgroundWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles StealthyPopulateBackgroundWorker.RunWorkerCompleted

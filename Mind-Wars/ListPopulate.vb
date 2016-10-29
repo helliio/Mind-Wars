@@ -8,8 +8,6 @@ Public Class ListPopulate
             InitiallyPossibleSolutions.Clear()
             CurrentlyPossibleSolutions.Clear()
         End If
-        InitiallyPossibleSolutions.Capacity = ExpectedCount
-        CurrentlyPossibleSolutions.Capacity = ExpectedCount
 
         Dim LowestListValue As Integer = 0
         Dim q(holes - 1) As Integer
