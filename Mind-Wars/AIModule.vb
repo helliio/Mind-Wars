@@ -24,12 +24,11 @@ Module AIModule
         Dim ExpectedCount As Integer = CInt(colours ^ holes)
 
         If Operation = 1 Then
-            If InitiallyPossibleSolutions.Count > 0 OrElse CurrentlyPossibleSolutions.Count > 0 Then
-                InitiallyPossibleSolutions.Clear()
-                CurrentlyPossibleSolutions.Clear()
-            End If
-            InitiallyPossibleSolutions.Capacity = ExpectedCount
-            CurrentlyPossibleSolutions.Capacity = ExpectedCount
+
+            InitiallyPossibleSolutions.Clear()
+            CurrentlyPossibleSolutions.Clear()
+            InitiallyPossibleSolutions.Capacity = ExpectedCount + 1
+            CurrentlyPossibleSolutions.Capacity = ExpectedCount + 1
 
             Dim LowestListValue As Integer = 0
 
@@ -38,10 +37,13 @@ Module AIModule
                 q(i) = colours - 1
             Next
             Dim HighestListValue As Integer = ArrayToInt(q)
+            Debug.Print("Max value: " & CStr(ArrayToInt(q)))
             Dim ReportProgressCounter As Integer = 0
             For i As Integer = LowestListValue To HighestListValue
                 If CheckArrRange(i, 0, colours - 1) = True Then
+                    Debug.Print("Range true")
                     CurrentlyPossibleSolutions.Add(SolutionIntToArray(i))
+                    InitiallyPossibleSolutions.Add(SolutionIntToArray(i))
                     ReportProgressCounter += 1
                     If ReportProgressCounter = 10 AndAlso Not IsNothing(sender) Then
                         sender.ReportProgress(CInt(i / HighestListValue) * 100)
@@ -49,13 +51,14 @@ Module AIModule
                     End If
                 End If
             Next
-            ' For impractically slow but more intelligent decisions, replace with:
-            ' InitiallyPossibleSolutions = CurrentlyPossibleSolutions.GetRange(0, CurrentlyPossibleSolutions.Count)
-            ' or something like that. These lists are equal now, as discriminating between the two would result in
-            ' calculations several minutes long in the upper range of holes and colors, though it gives the computer
-            ' the ability to strategically pick an incorrect code in order to gain the maximum amount of information.
-            InitiallyPossibleSolutions = CurrentlyPossibleSolutions
-
+            If HighestListValue > ArrayToInt(solution) Then
+                MsgBox("Ja 1")
+            Else
+                MsgBox("Nei 1")
+            End If
+            If Not CurrentlyPossibleSolutions.Contains(solution) Then
+                MsgBox("Nei")
+            End If
             Debug.Print("The InitiallyPossibleSolutions list contains " & InitiallyPossibleSolutions.Count.ToString & " integers.")
             Debug.Print("If " & InitiallyPossibleSolutions.Count.ToString & " = colours^holes = " & ExpectedCount.ToString & ", this checks out.")
 
@@ -93,5 +96,4 @@ Module AIModule
         Next
         Return SolutionsEliminated
     End Function
-
 End Module

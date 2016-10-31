@@ -52,6 +52,7 @@ Partial Class PvEGame
         Me.FillBWTimer = New System.Windows.Forms.Timer(Me.components)
         Me.DebugTimer = New System.Windows.Forms.Timer(Me.components)
         Me.StealthyPopulateBackgroundWorker = New System.ComponentModel.BackgroundWorker()
+        Me.Button3 = New System.Windows.Forms.Button()
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicInitialLoadProgress, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.InfoPanel.SuspendLayout()
@@ -106,6 +107,7 @@ Partial Class PvEGame
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(36, 20)
         Me.TextBox1.TabIndex = 17
+        Me.TextBox1.Visible = False
         '
         'Button1
         '
@@ -117,6 +119,7 @@ Partial Class PvEGame
         Me.Button1.TabIndex = 18
         Me.Button1.Text = "Test"
         Me.Button1.UseVisualStyleBackColor = True
+        Me.Button1.Visible = False
         '
         'InfoPanel
         '
@@ -279,6 +282,16 @@ Partial Class PvEGame
         'StealthyPopulateBackgroundWorker
         '
         '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(89, 227)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(75, 23)
+        Me.Button3.TabIndex = 23
+        Me.Button3.Text = "Button3"
+        Me.Button3.UseVisualStyleBackColor = True
+        Me.Button3.Visible = False
+        '
         'PvEGame
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -287,6 +300,7 @@ Partial Class PvEGame
         Me.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.StartScreenBG1
         Me.ClientSize = New System.Drawing.Size(251, 712)
         Me.ControlBox = False
+        Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.InfoPanel)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.PicCloseForm)
@@ -361,4 +375,5 @@ Partial Class PvEGame
     End Sub
 
     Public WithEvents SelectedColorTimer As Timer
+    Friend WithEvents Button3 As Button
 End Class
