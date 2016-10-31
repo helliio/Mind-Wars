@@ -107,6 +107,7 @@ Partial Class PvEGame
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(36, 20)
         Me.TextBox1.TabIndex = 17
+        Me.TextBox1.Visible = False
         '
         'Button1
         '
@@ -118,6 +119,7 @@ Partial Class PvEGame
         Me.Button1.TabIndex = 18
         Me.Button1.Text = "Test"
         Me.Button1.UseVisualStyleBackColor = True
+        Me.Button1.Visible = False
         '
         'InfoPanel
         '
@@ -288,6 +290,7 @@ Partial Class PvEGame
         Me.Button3.TabIndex = 23
         Me.Button3.Text = "Button3"
         Me.Button3.UseVisualStyleBackColor = True
+        Me.Button3.Visible = False
         '
         'PvEGame
         '

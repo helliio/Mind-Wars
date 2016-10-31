@@ -64,7 +64,7 @@ Module TaskModule
             Dim score As Integer = Integer.MaxValue
             Dim InitialItemiArray() As Integer = InitialList(i)
             Dim q As Integer = 0
-            Do Until q = SolutionCount
+            Do Until q = CurrentList.Count
                 Dim Check() As Integer = CurrentList(q)
                 BWCount = LocalFunctions.MiniGetBW(Check, InitialItemiArray)
                 Dim BWint As Integer = BWCount(0) * 10 + BWCount(1)
@@ -75,7 +75,6 @@ Module TaskModule
                         score = tempscore
                     End If
                     If score < ScoreForSolution Then
-                        Debug.Print(tempscore & "<" & ScoreForSolution)
                         Exit Do
                     End If
                 End If
@@ -92,18 +91,6 @@ Module TaskModule
         'BWList.TrimExcess()
         'BWList = Nothing
 
-        Debug.Print("Highest minimum score found for i = " & i & " to " & iMax & ": " & ScoreForSolution & " at " & HighestMinScoreIndex)
-
-        Dim bwmin(1) As Integer
-        Dim minremoved As Integer = Integer.MaxValue
-        For test As Integer = 0 To CurrentList.Count - 1
-            bwmin = verify(CurrentList(test), InitialList(HighestMinScoreIndex))
-            Dim calculated As Integer = CalculateEliminated(bwmin(0), bwmin(1), InitialList(HighestMinScoreIndex))
-            If calculated < minremoved Then
-                minremoved = calculated
-            End If
-        Next
-        Debug.Print("MINREMOVED: " & minremoved & " VS SCOREFORSOLUTION: " & ScoreForSolution)
         Dim ReturnArray() As Integer = {HighestMinScoreIndex, ScoreForSolution}
         Return ReturnArray
     End Function

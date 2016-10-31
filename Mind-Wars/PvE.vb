@@ -165,6 +165,8 @@ Public Class PvEGame
             ' IF ERROR, REMOVE CTYPE AND TURN OPTION STRICT OFF '
             Dim AIGuessLight() As Integer = InitiallyPossibleSolutions.Item(bestindexlight)
 
+
+            ' WE NEED TO REMOVE THE GUESS FROM THE LIST SO THAT THE AI DOESN'T GET STUCK ON PLAYING IT.
             Debug.Print("AI guesses " & ArrayToString(AIGuessLight))
             AIAttempts += 1
             CurrentBW = verify(solution, AIGuessLight)
@@ -252,7 +254,9 @@ Public Class PvEGame
                 Debug.Print("CurrentBW: " & ArrayToString(CurrentBW) & ". Should be: " & ArrayToString(verify(solution, AIGuess)) & ". Solution is " & ArrayToString(solution))
                 Debug.Print("This returns " & ArrayToString(CurrentBW))
                 Debug.Print("Before elimination: " & CurrentlyPossibleSolutions.Count)
-
+                If Not CurrentlyPossibleSolutions.Contains(solution) Then
+                    MsgBox("False: " & CheckArrRange(ArrayToInt(solution), 0, colours - 1).ToString)
+                End If
 
                 Dim EliminateClass As New Eliminator
                 EliminateClass.RealGuess = AIGuess
