@@ -625,6 +625,39 @@ Public Class PvEGame
             'fill color
         ElseIf AIStep < holes * 2 Then
             'fill bw
+            If UsersTurn = True Then
+                BWHolesList.Item(Attempt * holes + AIStep).Invalidate()
+                AIStep += 1
+                If AIStep = holes Then
+                    AITimer.Enabled = False
+                    AIStep = 0
+                    If BlackCount = holes Then
+                        MsgBox("Ai won")
+                        If HoleGraphicsTimer.Enabled = True Then
+                            MsgBox("Enabled")
+                        End If
+                        Call SwitchSides()
+                    Else
+                        HoleGraphicsTimer.Enabled = True
+                    End If
+                End If
+            Else
+                BWHolesList.Item(tries * holes - AIAttempts * holes - AIStep).Invalidate()
+                AIStep += 1
+                If AIStep = holes Then
+                    AITimer.Enabled = False
+                    AIStep = 0
+                    If BlackCount = holes Then
+                        HoleGraphicsTimer.Enabled = False
+                        TestGuess.Clear()
+                        TestGuess.TrimToSize()
+                        MsgBox("Player Won")
+                        Call SwitchSides()
+                    Else
+                        HoleGraphicsTimer.Enabled = True
+                    End If
+                End If
+            End If
         Else
             'run ai
         End If

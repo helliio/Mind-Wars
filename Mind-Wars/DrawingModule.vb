@@ -278,6 +278,10 @@
             HoleRectangle.Inflate(-6, -6)
             GuessBrush.Color = ColorCodes(GuessList.Item(sender.Tag) + 1)
             e.Graphics.FillEllipse(GuessBrush, HoleRectangle)
+        ElseIf sender.Tag >= AIGuessList.Count AndAlso UsersTurn = False Then
+            HoleRectangle.Inflate(-6, -6)
+            GuessBrush.Color = ColorCodes(AIGuessList.Item(AIGuessList.Count - sender.Tag) + 1)
+            e.Graphics.FillEllipse(GuessBrush, HoleRectangle)
         End If
     End Sub
     Public Sub PaintBWHole(sender As Object, e As PaintEventArgs)

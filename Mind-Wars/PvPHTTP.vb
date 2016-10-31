@@ -69,6 +69,7 @@ Public Class PvPHTTP
             GamePanel.Visible = True
             BWPanel.Visible = True
             ShowHolesTimer.Enabled = True
+            GameCodePanel.Hide()
         Else
             ConnectionBackgroundWorker.RunWorkerAsync()
         End If
