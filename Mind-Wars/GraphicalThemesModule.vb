@@ -15,7 +15,6 @@
         StartScreen.PicStartButton_Tutorial.Tag = "StartButton"
 
         StartScreen.PicClosePvE.Tag = "ClosePanel"
-        StartScreen.PicClosePvPHTTP.Tag = "ClosePanel"
         StartScreen.PicClosePvPLAN.Tag = "ClosePanel"
         StartScreen.PicCloseSettings.Tag = "ClosePanel"
         StartScreen.PicCloseTutorial.Tag = "ClosePanel"

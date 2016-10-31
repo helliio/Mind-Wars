@@ -10,9 +10,15 @@ Module WebModule
 
     Public CreateGameSuccess As Boolean = False
     Public HTTPGameCode As Integer
+
     Public HTTPClient As New WebClient
     Public HTTPConnectClient As New WebClient
+    Public HTTPCheckStatusClient As New WebClient
+
     Public ConnectionEstablished As Boolean = False
+
+    Public SolutionSet As Boolean = False
+
 
     Public Function CheckOpponentConnection(ByVal code As Integer) As Integer
         If HTTPConnectClient.IsBusy = False Then
@@ -64,7 +70,9 @@ Module WebModule
                 .Left += 20
                 .BackColor = Color.Transparent
             End With
-            PvPHTTP.ConnectionBackgroundWorker.RunWorkerAsync()
+            If PvPHTTP.ConnectionBackgroundWorker.IsBusy = False Then
+                PvPHTTP.ConnectionBackgroundWorker.RunWorkerAsync()
+            End If
         Else
         End If
     End Sub
@@ -80,11 +88,14 @@ Module WebModule
                 Case "occupied"
                     MsgBox("This game has already started.")
                 Case "found"
-                    IsOpponent = 2
-                    PvPHTTP.GamePanel.Show()
-                    PvPHTTP.BWPanel.Show()
-                    PvPHTTP.GameCodePanel.Hide()
-                    PvPHTTP.Show()
+                    'IsGameStarter = 1
+                    'PvPHTTP.GamePanel.Show()
+                    'PvPHTTP.BWPanel.Show()
+                    'PvPHTTP.GameCodePanel.Hide()
+                    'PvPHTTP.Show()
+                    HTTPGameCode = CInt(code)
+                    PvPHTTP.CheckStatusBackgroundWorker.RunWorkerAsync()
+
                 Case Else
                     MsgBox(ResultString)
             End Select
