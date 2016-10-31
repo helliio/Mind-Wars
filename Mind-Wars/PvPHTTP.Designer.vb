@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class PvEGame
+Partial Class PvPHTTP
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -24,43 +24,38 @@ Partial Class PvEGame
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.PicFormHeader = New System.Windows.Forms.PictureBox()
-        Me.AIBackgroundWorker = New System.ComponentModel.BackgroundWorker()
-        Me.InitializeBackgroundWorker = New System.ComponentModel.BackgroundWorker()
-        Me.PicInitialLoadProgress = New System.Windows.Forms.PictureBox()
-        Me.InitializeDelay = New System.Windows.Forms.Timer(Me.components)
-        Me.LoadCompleteTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.HeaderTransparencyRight = New System.Windows.Forms.PictureBox()
+        Me.ChooseCodePanel = New System.Windows.Forms.Panel()
+        Me.GamePanel = New System.Windows.Forms.Panel()
         Me.InfoPanel = New System.Windows.Forms.Panel()
         Me.LabInfo = New System.Windows.Forms.Label()
         Me.PicInfoRight = New System.Windows.Forms.PictureBox()
         Me.PicInfoMiddle = New System.Windows.Forms.PictureBox()
         Me.PicInfoLeft = New System.Windows.Forms.PictureBox()
-        Me.PicCloseForm = New System.Windows.Forms.PictureBox()
-        Me.PicMinimizeForm = New System.Windows.Forms.PictureBox()
-        Me.HeaderTransparencyRight = New System.Windows.Forms.PictureBox()
-        Me.ChooseCodePanel = New System.Windows.Forms.Panel()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.GameCodePanel = New System.Windows.Forms.Panel()
+        Me.LabGameCode = New System.Windows.Forms.Label()
+        Me.LabExplanation = New System.Windows.Forms.Label()
+        Me.LabActualCode = New System.Windows.Forms.Label()
         Me.BWPanel = New System.Windows.Forms.Panel()
         Me.HeaderTransparencyLeft = New System.Windows.Forms.PictureBox()
+        Me.ConnectionBackgroundWorker = New System.ComponentModel.BackgroundWorker()
         Me.ShowHolesTimer = New System.Windows.Forms.Timer(Me.components)
         Me.SelectedColorTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ColorTimer = New System.Windows.Forms.Timer(Me.components)
         Me.HoleGraphicsTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.AIBackgroundWorkerEasy = New System.ComponentModel.BackgroundWorker()
         Me.VerifyRowTimer = New System.Windows.Forms.Timer(Me.components)
         Me.FillBWTimer = New System.Windows.Forms.Timer(Me.components)
         Me.DebugTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.StealthyPopulateBackgroundWorker = New System.ComponentModel.BackgroundWorker()
+        Me.CheckStatusBackgroundWorker = New System.ComponentModel.BackgroundWorker()
+        Me.Button1 = New System.Windows.Forms.Button()
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PicInitialLoadProgress, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.HeaderTransparencyRight, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GamePanel.SuspendLayout()
         Me.InfoPanel.SuspendLayout()
         CType(Me.PicInfoRight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicInfoMiddle, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicInfoLeft, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PicCloseForm, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PicMinimizeForm, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.HeaderTransparencyRight, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GameCodePanel.SuspendLayout()
         Me.BWPanel.SuspendLayout()
         CType(Me.HeaderTransparencyLeft, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -69,54 +64,51 @@ Partial Class PvEGame
         '
         Me.PicFormHeader.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(1, Byte), Integer), CType(CType(2, Byte), Integer))
         Me.PicFormHeader.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.HeaderBG
+        Me.PicFormHeader.Dock = System.Windows.Forms.DockStyle.Top
         Me.PicFormHeader.Location = New System.Drawing.Point(0, 0)
         Me.PicFormHeader.Name = "PicFormHeader"
-        Me.PicFormHeader.Size = New System.Drawing.Size(251, 32)
-        Me.PicFormHeader.TabIndex = 15
+        Me.PicFormHeader.Size = New System.Drawing.Size(264, 32)
+        Me.PicFormHeader.TabIndex = 20
         Me.PicFormHeader.TabStop = False
         Me.PicFormHeader.WaitOnLoad = True
         '
-        'AIBackgroundWorker
+        'HeaderTransparencyRight
         '
-        Me.AIBackgroundWorker.WorkerReportsProgress = True
+        Me.HeaderTransparencyRight.BackColor = System.Drawing.Color.Maroon
+        Me.HeaderTransparencyRight.Image = Global.Mind_Wars.My.Resources.Resources.HeaderTransparencyRight
+        Me.HeaderTransparencyRight.Location = New System.Drawing.Point(150, 226)
+        Me.HeaderTransparencyRight.Name = "HeaderTransparencyRight"
+        Me.HeaderTransparencyRight.Size = New System.Drawing.Size(66, 59)
+        Me.HeaderTransparencyRight.TabIndex = 21
+        Me.HeaderTransparencyRight.TabStop = False
         '
-        'InitializeBackgroundWorker
+        'ChooseCodePanel
         '
-        Me.InitializeBackgroundWorker.WorkerReportsProgress = True
+        Me.ChooseCodePanel.BackColor = System.Drawing.Color.Transparent
+        Me.ChooseCodePanel.Location = New System.Drawing.Point(39, 50)
+        Me.ChooseCodePanel.Name = "ChooseCodePanel"
+        Me.ChooseCodePanel.Size = New System.Drawing.Size(200, 100)
+        Me.ChooseCodePanel.TabIndex = 20
+        Me.ChooseCodePanel.Visible = False
         '
-        'PicInitialLoadProgress
+        'GamePanel
         '
-        Me.PicInitialLoadProgress.BackColor = System.Drawing.Color.Transparent
-        Me.PicInitialLoadProgress.Location = New System.Drawing.Point(49, 290)
-        Me.PicInitialLoadProgress.Name = "PicInitialLoadProgress"
-        Me.PicInitialLoadProgress.Size = New System.Drawing.Size(80, 80)
-        Me.PicInitialLoadProgress.TabIndex = 16
-        Me.PicInitialLoadProgress.TabStop = False
-        '
-        'InitializeDelay
-        '
-        '
-        'LoadCompleteTimer
-        '
-        Me.LoadCompleteTimer.Interval = 30
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Location = New System.Drawing.Point(3, 182)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(36, 20)
-        Me.TextBox1.TabIndex = 17
-        '
-        'Button1
-        '
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.Location = New System.Drawing.Point(3, 124)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(36, 23)
-        Me.Button1.TabIndex = 18
-        Me.Button1.Text = "Test"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.GamePanel.AutoSize = True
+        Me.GamePanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.GamePanel.BackColor = System.Drawing.Color.Transparent
+        Me.GamePanel.Controls.Add(Me.Button1)
+        Me.GamePanel.Controls.Add(Me.InfoPanel)
+        Me.GamePanel.Controls.Add(Me.GameCodePanel)
+        Me.GamePanel.Controls.Add(Me.HeaderTransparencyRight)
+        Me.GamePanel.Controls.Add(Me.ChooseCodePanel)
+        Me.GamePanel.Controls.Add(Me.BWPanel)
+        Me.GamePanel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GamePanel.Location = New System.Drawing.Point(0, 0)
+        Me.GamePanel.Name = "GamePanel"
+        Me.GamePanel.Padding = New System.Windows.Forms.Padding(0, 0, 10, 0)
+        Me.GamePanel.Size = New System.Drawing.Size(264, 500)
+        Me.GamePanel.TabIndex = 21
+        Me.GamePanel.Visible = False
         '
         'InfoPanel
         '
@@ -125,7 +117,7 @@ Partial Class PvEGame
         Me.InfoPanel.Controls.Add(Me.PicInfoMiddle)
         Me.InfoPanel.Controls.Add(Me.PicInfoLeft)
         Me.InfoPanel.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.InfoPanel.Location = New System.Drawing.Point(48, 393)
+        Me.InfoPanel.Location = New System.Drawing.Point(54, 166)
         Me.InfoPanel.Name = "InfoPanel"
         Me.InfoPanel.Size = New System.Drawing.Size(200, 100)
         Me.InfoPanel.TabIndex = 22
@@ -169,68 +161,60 @@ Partial Class PvEGame
         Me.PicInfoLeft.TabIndex = 0
         Me.PicInfoLeft.TabStop = False
         '
-        'PicCloseForm
+        'GameCodePanel
         '
-        Me.PicCloseForm.BackColor = System.Drawing.Color.Transparent
-        Me.PicCloseForm.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.Exit1
-        Me.PicCloseForm.Location = New System.Drawing.Point(226, 8)
-        Me.PicCloseForm.Name = "PicCloseForm"
-        Me.PicCloseForm.Size = New System.Drawing.Size(16, 16)
-        Me.PicCloseForm.TabIndex = 21
-        Me.PicCloseForm.TabStop = False
+        Me.GameCodePanel.Controls.Add(Me.LabGameCode)
+        Me.GameCodePanel.Controls.Add(Me.LabExplanation)
+        Me.GameCodePanel.Controls.Add(Me.LabActualCode)
+        Me.GameCodePanel.Location = New System.Drawing.Point(48, 323)
+        Me.GameCodePanel.Name = "GameCodePanel"
+        Me.GameCodePanel.Size = New System.Drawing.Size(312, 150)
+        Me.GameCodePanel.TabIndex = 24
         '
-        'PicMinimizeForm
+        'LabGameCode
         '
-        Me.PicMinimizeForm.BackColor = System.Drawing.Color.Transparent
-        Me.PicMinimizeForm.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.Minimize
-        Me.PicMinimizeForm.Location = New System.Drawing.Point(207, 8)
-        Me.PicMinimizeForm.Margin = New System.Windows.Forms.Padding(0)
-        Me.PicMinimizeForm.Name = "PicMinimizeForm"
-        Me.PicMinimizeForm.Size = New System.Drawing.Size(16, 16)
-        Me.PicMinimizeForm.TabIndex = 20
-        Me.PicMinimizeForm.TabStop = False
+        Me.LabGameCode.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.LabGameCode.Font = New System.Drawing.Font("Courier New", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabGameCode.ForeColor = System.Drawing.Color.White
+        Me.LabGameCode.Location = New System.Drawing.Point(5, 10)
+        Me.LabGameCode.Name = "LabGameCode"
+        Me.LabGameCode.Size = New System.Drawing.Size(154, 50)
+        Me.LabGameCode.TabIndex = 22
+        Me.LabGameCode.Text = "Game Code"
+        Me.LabGameCode.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         '
-        'HeaderTransparencyRight
+        'LabExplanation
         '
-        Me.HeaderTransparencyRight.BackColor = System.Drawing.Color.Maroon
-        Me.HeaderTransparencyRight.Image = Global.Mind_Wars.My.Resources.Resources.HeaderTransparencyRight
-        Me.HeaderTransparencyRight.Location = New System.Drawing.Point(63, 38)
-        Me.HeaderTransparencyRight.Name = "HeaderTransparencyRight"
-        Me.HeaderTransparencyRight.Size = New System.Drawing.Size(66, 59)
-        Me.HeaderTransparencyRight.TabIndex = 21
-        Me.HeaderTransparencyRight.TabStop = False
+        Me.LabExplanation.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.LabExplanation.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabExplanation.ForeColor = System.Drawing.Color.White
+        Me.LabExplanation.Location = New System.Drawing.Point(3, 77)
+        Me.LabExplanation.Name = "LabExplanation"
+        Me.LabExplanation.Size = New System.Drawing.Size(216, 50)
+        Me.LabExplanation.TabIndex = 23
+        Me.LabExplanation.Text = "Tell your friend to use this number when prompted for a game code"
+        Me.LabExplanation.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
-        'ChooseCodePanel
+        'LabActualCode
         '
-        Me.ChooseCodePanel.BackColor = System.Drawing.Color.Transparent
-        Me.ChooseCodePanel.Location = New System.Drawing.Point(154, 37)
-        Me.ChooseCodePanel.Name = "ChooseCodePanel"
-        Me.ChooseCodePanel.Size = New System.Drawing.Size(200, 100)
-        Me.ChooseCodePanel.TabIndex = 20
-        Me.ChooseCodePanel.Visible = False
-        '
-        'Button2
-        '
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.ForeColor = System.Drawing.Color.White
-        Me.Button2.Location = New System.Drawing.Point(113, 198)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 20
-        Me.Button2.Text = "TestEasy"
-        Me.Button2.UseVisualStyleBackColor = True
-        Me.Button2.Visible = False
+        Me.LabActualCode.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.LabActualCode.Font = New System.Drawing.Font("Courier New", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabActualCode.ForeColor = System.Drawing.Color.White
+        Me.LabActualCode.Location = New System.Drawing.Point(3, 40)
+        Me.LabActualCode.Name = "LabActualCode"
+        Me.LabActualCode.Size = New System.Drawing.Size(201, 37)
+        Me.LabActualCode.TabIndex = 23
+        Me.LabActualCode.Text = "1234"
+        Me.LabActualCode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'BWPanel
         '
         Me.BWPanel.BackColor = System.Drawing.Color.Transparent
-        Me.BWPanel.CausesValidation = False
-        Me.BWPanel.Controls.Add(Me.Button1)
-        Me.BWPanel.Controls.Add(Me.TextBox1)
+        Me.BWPanel.Controls.Add(Me.HeaderTransparencyLeft)
         Me.BWPanel.Dock = System.Windows.Forms.DockStyle.Left
         Me.BWPanel.Location = New System.Drawing.Point(0, 0)
         Me.BWPanel.Name = "BWPanel"
-        Me.BWPanel.Size = New System.Drawing.Size(42, 712)
+        Me.BWPanel.Size = New System.Drawing.Size(42, 500)
         Me.BWPanel.TabIndex = 17
         Me.BWPanel.Visible = False
         '
@@ -238,11 +222,15 @@ Partial Class PvEGame
         '
         Me.HeaderTransparencyLeft.BackColor = System.Drawing.Color.Maroon
         Me.HeaderTransparencyLeft.Image = Global.Mind_Wars.My.Resources.Resources.HeaderTransparencyLeft
-        Me.HeaderTransparencyLeft.Location = New System.Drawing.Point(71, 143)
+        Me.HeaderTransparencyLeft.Location = New System.Drawing.Point(0, 0)
         Me.HeaderTransparencyLeft.Name = "HeaderTransparencyLeft"
-        Me.HeaderTransparencyLeft.Size = New System.Drawing.Size(36, 59)
+        Me.HeaderTransparencyLeft.Size = New System.Drawing.Size(66, 59)
         Me.HeaderTransparencyLeft.TabIndex = 20
         Me.HeaderTransparencyLeft.TabStop = False
+        '
+        'ConnectionBackgroundWorker
+        '
+        Me.ConnectionBackgroundWorker.WorkerReportsProgress = True
         '
         'ShowHolesTimer
         '
@@ -260,9 +248,6 @@ Partial Class PvEGame
         '
         Me.HoleGraphicsTimer.Interval = 80
         '
-        'AIBackgroundWorkerEasy
-        '
-        '
         'VerifyRowTimer
         '
         Me.VerifyRowTimer.Interval = 30
@@ -276,89 +261,73 @@ Partial Class PvEGame
         Me.DebugTimer.Enabled = True
         Me.DebugTimer.Interval = 5000
         '
-        'StealthyPopulateBackgroundWorker
+        'CheckStatusBackgroundWorker
         '
+        Me.CheckStatusBackgroundWorker.WorkerSupportsCancellation = True
         '
-        'PvEGame
+        'Button1
+        '
+        Me.Button1.Enabled = False
+        Me.Button1.Location = New System.Drawing.Point(179, 291)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 22
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'PvPHTTP
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.Black
         Me.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.StartScreenBG1
-        Me.ClientSize = New System.Drawing.Size(251, 712)
+        Me.ClientSize = New System.Drawing.Size(264, 500)
         Me.ControlBox = False
-        Me.Controls.Add(Me.InfoPanel)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.PicCloseForm)
-        Me.Controls.Add(Me.PicMinimizeForm)
         Me.Controls.Add(Me.PicFormHeader)
-        Me.Controls.Add(Me.HeaderTransparencyLeft)
-        Me.Controls.Add(Me.ChooseCodePanel)
-        Me.Controls.Add(Me.HeaderTransparencyRight)
-        Me.Controls.Add(Me.PicInitialLoadProgress)
-        Me.Controls.Add(Me.BWPanel)
+        Me.Controls.Add(Me.GamePanel)
         Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.MaximizeBox = False
-        Me.Name = "PvEGame"
+        Me.Name = "PvPHTTP"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Mind Wars"
         Me.TransparencyKey = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(1, Byte), Integer), CType(CType(2, Byte), Integer))
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PicInitialLoadProgress, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.HeaderTransparencyRight, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GamePanel.ResumeLayout(False)
         Me.InfoPanel.ResumeLayout(False)
         CType(Me.PicInfoRight, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicInfoMiddle, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicInfoLeft, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PicCloseForm, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PicMinimizeForm, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.HeaderTransparencyRight, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GameCodePanel.ResumeLayout(False)
         Me.BWPanel.ResumeLayout(False)
-        Me.BWPanel.PerformLayout()
         CType(Me.HeaderTransparencyLeft, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
-
     Friend WithEvents PicFormHeader As PictureBox
-    Friend WithEvents AIBackgroundWorker As System.ComponentModel.BackgroundWorker
-    Public WithEvents InitializeBackgroundWorker As System.ComponentModel.BackgroundWorker
-    Public WithEvents PicInitialLoadProgress As PictureBox
-    Friend WithEvents InitializeDelay As Timer
-    Friend WithEvents LoadCompleteTimer As Timer
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents Button1 As Button
+    Friend WithEvents HeaderTransparencyRight As PictureBox
+    Friend WithEvents ChooseCodePanel As Panel
+    Friend WithEvents GamePanel As Panel
     Friend WithEvents BWPanel As Panel
+    Friend WithEvents HeaderTransparencyLeft As PictureBox
+    Public WithEvents ConnectionBackgroundWorker As System.ComponentModel.BackgroundWorker
     Friend WithEvents ShowHolesTimer As Timer
+    Friend WithEvents SelectedColorTimer As Timer
     Friend WithEvents ColorTimer As Timer
     Friend WithEvents HoleGraphicsTimer As Timer
-    Friend WithEvents Button2 As Button
-    Friend WithEvents AIBackgroundWorkerEasy As System.ComponentModel.BackgroundWorker
     Friend WithEvents VerifyRowTimer As Timer
     Friend WithEvents FillBWTimer As Timer
-    Friend WithEvents ChooseCodePanel As Panel
     Friend WithEvents DebugTimer As Timer
-    Friend WithEvents HeaderTransparencyLeft As PictureBox
-    Friend WithEvents HeaderTransparencyRight As PictureBox
-    Friend WithEvents PicCloseForm As PictureBox
-    Friend WithEvents PicMinimizeForm As PictureBox
-    Friend WithEvents LabInfo As Label
+    Friend WithEvents GameCodePanel As Panel
+    Friend WithEvents LabGameCode As Label
+    Friend WithEvents LabExplanation As Label
+    Friend WithEvents LabActualCode As Label
+    Friend WithEvents CheckStatusBackgroundWorker As System.ComponentModel.BackgroundWorker
+    Friend WithEvents InfoPanel As Panel
+    Friend WithEvents PicInfoLeft As PictureBox
     Friend WithEvents PicInfoRight As PictureBox
     Friend WithEvents PicInfoMiddle As PictureBox
-    Friend WithEvents PicInfoLeft As PictureBox
-    Friend WithEvents InfoPanel As Panel
-    Friend WithEvents StealthyPopulateBackgroundWorker As System.ComponentModel.BackgroundWorker
-
-    Public Sub New()
-
-        ' This call is required by the designer.
-        InitializeComponent()
-        Me.SetStyle(ControlStyles.OptimizedDoubleBuffer, True)
-        Me.SetStyle(ControlStyles.UserPaint, True)
-        Me.SetStyle(ControlStyles.AllPaintingInWmPaint, True)
-        ' Add any initialization after the InitializeComponent() call.
-
-    End Sub
-
-    Public WithEvents SelectedColorTimer As Timer
+    Friend WithEvents LabInfo As Label
+    Friend WithEvents Button1 As Button
 End Class

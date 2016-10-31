@@ -1,16 +1,12 @@
-﻿Class MinimaxLight
-
+﻿Option Strict On
+Class MinimaxLight
     Inherits MinimaxFunctions
-
-    Private LocalInitialList, LocalPossibleList As New ArrayList
-    Sub New(ByVal InitialList As ArrayList, ByVal PossibleList As ArrayList)
-        LocalInitialList.Clear()
-        LocalPossibleList.Clear()
-        LocalInitialList = InitialList.GetRange(0, InitialList.Count)
-        LocalPossibleList = PossibleList.GetRange(0, InitialList.Count)
-
+    Private LocalInitialList, LocalPossibleList As Integer()()
+    Sub New(ByVal InitialList As Integer()(), ByVal PossibleList As Integer()())
+        LocalInitialList = InitialList
+        LocalPossibleList = PossibleList
+        'LocalPossibleList = PossibleList.GetRange(0, InitialList.Count)
     End Sub
-
 
     Public Sub FindBestMove()
         Dim SleepCounter As Integer = 0
@@ -18,9 +14,9 @@
             SleepCounter += 1
             If SleepCounter >= 500 Then
                 Debug.Print("Error: The list is empty.")
-                MsgBox("Solution: " & ArrayToInt(solution) & ", empty")
-                If Not LocalPossibleList.Contains(ArrayToInt(solution)) Then
-                    MsgBox("List does not contain " & ArrayToInt(solution))
+                MsgBox("Solution: " & ArrayToString(solution) & ", empty")
+                If Not LocalPossibleList.Contains(solution) Then
+                    MsgBox("List does not contain " & ArrayToString(solution))
                 End If
                 Exit Sub
             End If
@@ -35,27 +31,32 @@
 
         Dim SolutionCount As Integer = LocalPossibleList.Count
         Dim InitialCount As Integer = LocalInitialList.Count
-        Dim BWList As New ArrayList
+        Dim BWList As New List(Of Integer)
+        If CInt(3 ^ holes) <= LocalPossibleList.Count Then
+            BWList.Capacity = CInt(3 ^ holes)
+        Else
+            BWList.Capacity = LocalPossibleList.Count
+        End If
 
         Do Until i = iMax
             Dim q As Integer = 0
             Dim score As Integer = Integer.MaxValue
-            Dim InitialItemiArray() As Integer = LocalInitialList.Item(i)
-            Do
-                BWCount = MiniGetBW(LocalInitialList.Item(q), InitialItemiArray)
+            Dim InitialItemiArray() As Integer = LocalInitialList(i)
+            Do Until q = SolutionCount
+                BWCount = MiniGetBW(LocalInitialList(q), InitialItemiArray)
                 Dim BWint As Integer = BWCount(0) * 10 + BWCount(1)
                 If Not BWList.Contains(BWint) Then
-                    Dim tempscore As Integer = MiniCalculateEliminated(BWCount(0), BWCount(1), InitialItemiArray, LocalPossibleList)
+                    Dim tempscore As Integer = MiniCalculateEliminated(BWCount(0), BWCount(1), InitialItemiArray)
                     If score > tempscore Then
                         score = tempscore
                     End If
                     BWList.Add(BWint)
                 End If
                 q += 1
-            Loop Until q = SolutionCount
+            Loop
             BWList.Clear()
             q = 0
-            If score > ScoreForSolution AndAlso score < Integer.MaxValue Then
+            If score > ScoreForSolution AndAlso score < LocalInitialList.Count + 1 Then
                 ScoreForSolution = score
                 HighestMinScoreIndex = i
             End If
@@ -64,4 +65,18 @@
         FourBestIndices = {HighestMinScoreIndex, HighestMinScoreIndex, HighestMinScoreIndex, HighestMinScoreIndex}
         FourBestScores = {ScoreForSolution, ScoreForSolution, ScoreForSolution, ScoreForSolution}
     End Sub
+
+    Private Function MiniCalculateEliminated(ByVal B As Integer, ByVal W As Integer, ByVal HypotheticalGuess() As Integer) As Integer
+        Dim SolutionsEliminated As Integer = 0
+        Dim ListCount As Integer = LocalPossibleList.Count - 1
+        Dim Check() As Integer
+        For q = 0 To ListCount
+            Check = MiniGetBW(LocalPossibleList(q), HypotheticalGuess)
+            If Not Check(0) = B OrElse Not Check(1) = W Then
+                SolutionsEliminated += 1
+            End If
+        Next
+        Return SolutionsEliminated
+    End Function
+
 End Class

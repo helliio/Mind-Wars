@@ -82,7 +82,9 @@ Partial Class StartScreen
         Me.PanelPvPLan = New System.Windows.Forms.Panel()
         Me.PicClosePvPLAN = New System.Windows.Forms.PictureBox()
         Me.PanelPvPHTTP = New System.Windows.Forms.Panel()
-        Me.PicClosePvPHTTP = New System.Windows.Forms.PictureBox()
+        Me.LabCode = New System.Windows.Forms.Label()
+        Me.cmdConnectHTTP = New System.Windows.Forms.Button()
+        Me.txtCode = New System.Windows.Forms.TextBox()
         Me.PanelTutorial = New System.Windows.Forms.Panel()
         Me.PicCloseTutorial = New System.Windows.Forms.PictureBox()
         Me.PicFormHeader = New System.Windows.Forms.PictureBox()
@@ -91,6 +93,9 @@ Partial Class StartScreen
         Me.PicCloseForm = New System.Windows.Forms.PictureBox()
         Me.GUITimer = New System.Windows.Forms.Timer(Me.components)
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.HTTPBackgroundWorker = New System.ComponentModel.BackgroundWorker()
+        Me.cmdNewPrivateGame = New System.Windows.Forms.Button()
+        Me.cmdNewPublicGame = New System.Windows.Forms.Button()
         CType(Me.PicStartButton_Settings, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvE, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvPLan, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -131,7 +136,6 @@ Partial Class StartScreen
         Me.PanelPvPLan.SuspendLayout()
         CType(Me.PicClosePvPLAN, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelPvPHTTP.SuspendLayout()
-        CType(Me.PicClosePvPHTTP, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelTutorial.SuspendLayout()
         CType(Me.PicCloseTutorial, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -836,22 +840,59 @@ Partial Class StartScreen
         '
         'PanelPvPHTTP
         '
-        Me.PanelPvPHTTP.Controls.Add(Me.PicClosePvPHTTP)
-        Me.PanelPvPHTTP.Location = New System.Drawing.Point(12, 432)
+        Me.PanelPvPHTTP.BackColor = System.Drawing.Color.Transparent
+        Me.PanelPvPHTTP.Controls.Add(Me.cmdNewPublicGame)
+        Me.PanelPvPHTTP.Controls.Add(Me.cmdNewPrivateGame)
+        Me.PanelPvPHTTP.Controls.Add(Me.LabCode)
+        Me.PanelPvPHTTP.Controls.Add(Me.cmdConnectHTTP)
+        Me.PanelPvPHTTP.Controls.Add(Me.txtCode)
+        Me.PanelPvPHTTP.Location = New System.Drawing.Point(491, 339)
         Me.PanelPvPHTTP.Margin = New System.Windows.Forms.Padding(0)
         Me.PanelPvPHTTP.Name = "PanelPvPHTTP"
-        Me.PanelPvPHTTP.Size = New System.Drawing.Size(226, 27)
+        Me.PanelPvPHTTP.Size = New System.Drawing.Size(226, 224)
         Me.PanelPvPHTTP.TabIndex = 12
         Me.PanelPvPHTTP.Visible = False
         '
-        'PicClosePvPHTTP
+        'LabCode
         '
-        Me.PicClosePvPHTTP.BackColor = System.Drawing.Color.DarkRed
-        Me.PicClosePvPHTTP.Location = New System.Drawing.Point(207, 11)
-        Me.PicClosePvPHTTP.Name = "PicClosePvPHTTP"
-        Me.PicClosePvPHTTP.Size = New System.Drawing.Size(16, 16)
-        Me.PicClosePvPHTTP.TabIndex = 0
-        Me.PicClosePvPHTTP.TabStop = False
+        Me.LabCode.BackColor = System.Drawing.Color.Transparent
+        Me.LabCode.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.LabCode.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabCode.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.LabCode.Image = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
+        Me.LabCode.Location = New System.Drawing.Point(0, 19)
+        Me.LabCode.Name = "LabCode"
+        Me.LabCode.Size = New System.Drawing.Size(226, 39)
+        Me.LabCode.TabIndex = 3
+        Me.LabCode.Text = "1234"
+        Me.LabCode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'cmdConnectHTTP
+        '
+        Me.cmdConnectHTTP.BackColor = System.Drawing.Color.Transparent
+        Me.cmdConnectHTTP.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBorderInactive
+        Me.cmdConnectHTTP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.cmdConnectHTTP.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.cmdConnectHTTP.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdConnectHTTP.Location = New System.Drawing.Point(0, 60)
+        Me.cmdConnectHTTP.Name = "cmdConnectHTTP"
+        Me.cmdConnectHTTP.Size = New System.Drawing.Size(226, 46)
+        Me.cmdConnectHTTP.TabIndex = 4
+        Me.cmdConnectHTTP.Text = "Connect"
+        Me.cmdConnectHTTP.UseVisualStyleBackColor = False
+        '
+        'txtCode
+        '
+        Me.txtCode.BackColor = System.Drawing.Color.Black
+        Me.txtCode.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtCode.ForeColor = System.Drawing.Color.White
+        Me.txtCode.Location = New System.Drawing.Point(10, 3)
+        Me.txtCode.MaxLength = 4
+        Me.txtCode.Name = "txtCode"
+        Me.txtCode.Size = New System.Drawing.Size(204, 13)
+        Me.txtCode.TabIndex = 1
+        Me.txtCode.Text = "1234"
+        Me.txtCode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'PanelTutorial
         '
@@ -940,6 +981,39 @@ Partial Class StartScreen
         Me.PictureBox2.TabIndex = 19
         Me.PictureBox2.TabStop = False
         '
+        'HTTPBackgroundWorker
+        '
+        Me.HTTPBackgroundWorker.WorkerReportsProgress = True
+        Me.HTTPBackgroundWorker.WorkerSupportsCancellation = True
+        '
+        'cmdNewPrivateGame
+        '
+        Me.cmdNewPrivateGame.BackColor = System.Drawing.Color.Transparent
+        Me.cmdNewPrivateGame.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBorderInactive
+        Me.cmdNewPrivateGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.cmdNewPrivateGame.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.cmdNewPrivateGame.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdNewPrivateGame.Location = New System.Drawing.Point(0, 112)
+        Me.cmdNewPrivateGame.Name = "cmdNewPrivateGame"
+        Me.cmdNewPrivateGame.Size = New System.Drawing.Size(226, 46)
+        Me.cmdNewPrivateGame.TabIndex = 5
+        Me.cmdNewPrivateGame.Text = "New private game"
+        Me.cmdNewPrivateGame.UseVisualStyleBackColor = False
+        '
+        'cmdNewPublicGame
+        '
+        Me.cmdNewPublicGame.BackColor = System.Drawing.Color.Transparent
+        Me.cmdNewPublicGame.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBorderInactive
+        Me.cmdNewPublicGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.cmdNewPublicGame.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.cmdNewPublicGame.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdNewPublicGame.Location = New System.Drawing.Point(0, 164)
+        Me.cmdNewPublicGame.Name = "cmdNewPublicGame"
+        Me.cmdNewPublicGame.Size = New System.Drawing.Size(226, 46)
+        Me.cmdNewPublicGame.TabIndex = 6
+        Me.cmdNewPublicGame.Text = "New public game"
+        Me.cmdNewPublicGame.UseVisualStyleBackColor = False
+        '
         'StartScreen
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -948,7 +1022,7 @@ Partial Class StartScreen
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.BackColor = System.Drawing.Color.Black
         Me.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.StartScreenBG
-        Me.ClientSize = New System.Drawing.Size(944, 504)
+        Me.ClientSize = New System.Drawing.Size(944, 647)
         Me.ControlBox = False
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.PicCloseForm)
@@ -964,7 +1038,6 @@ Partial Class StartScreen
         Me.ForeColor = System.Drawing.Color.White
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.MaximizeBox = False
-        Me.MinimizeBox = False
         Me.Name = "StartScreen"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Mind Wars"
@@ -1009,7 +1082,7 @@ Partial Class StartScreen
         Me.PanelPvPLan.ResumeLayout(False)
         CType(Me.PicClosePvPLAN, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelPvPHTTP.ResumeLayout(False)
-        CType(Me.PicClosePvPHTTP, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PanelPvPHTTP.PerformLayout()
         Me.PanelTutorial.ResumeLayout(False)
         CType(Me.PicCloseTutorial, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1038,7 +1111,6 @@ Partial Class StartScreen
     Friend WithEvents PanelPvPLan As Panel
     Friend WithEvents PicClosePvPLAN As PictureBox
     Friend WithEvents PanelPvPHTTP As Panel
-    Friend WithEvents PicClosePvPHTTP As PictureBox
     Friend WithEvents PanelTutorial As Panel
     Friend WithEvents PicCloseTutorial As PictureBox
     Friend WithEvents PicFormHeader As PictureBox
@@ -1089,4 +1161,10 @@ Partial Class StartScreen
     Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents cmdTestTheme As Button
     Friend WithEvents ThemeComboBox As ComboBox
+    Friend WithEvents cmdConnectHTTP As Button
+    Friend WithEvents txtCode As TextBox
+    Friend WithEvents HTTPBackgroundWorker As System.ComponentModel.BackgroundWorker
+    Friend WithEvents LabCode As Label
+    Friend WithEvents cmdNewPublicGame As Button
+    Friend WithEvents cmdNewPrivateGame As Button
 End Class

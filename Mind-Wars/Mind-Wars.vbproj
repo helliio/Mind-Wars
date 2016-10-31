@@ -72,12 +72,15 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnalysisModule.vb" />
+    <Compile Include="AudioModule.vb" />
     <Compile Include="CodeStatisticsModuleTemp.vb" />
+    <Compile Include="CreateHTTPGameClass.vb" />
+    <Compile Include="DeleteGameClass.vb" />
     <Compile Include="DrawingModule.vb" />
     <Compile Include="AIModule.vb" />
     <Compile Include="EasterEgg.vb" />
     <Compile Include="EasyComputer.vb" />
+    <Compile Include="Eliminator.vb" />
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +89,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GraphicalThemesModule.vb" />
+    <Compile Include="HTTPStatusCheckClass.vb" />
     <Compile Include="ListPopulate.vb" />
     <Compile Include="Minimax.vb" />
     <Compile Include="MinimaxFunctions.vb" />
@@ -105,7 +109,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="PvPHTTP.Designer.vb">
+      <DependentUpon>PvPHTTP.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PvPHTTP.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PvPModule.vb" />
     <Compile Include="SystemModule.vb" />
+    <Compile Include="UpdateGameClass.vb" />
     <Compile Include="VerifyModule.vb" />
     <Compile Include="PvE.Designer.vb">
       <DependentUpon>PvE.vb</DependentUpon>
@@ -113,6 +125,7 @@
     <Compile Include="PvE.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="WebModule.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form1.resx">
@@ -126,6 +139,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PvE.resx">
       <DependentUpon>PvE.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PvPHTTP.resx">
+      <DependentUpon>PvPHTTP.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +212,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\BGtema21.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HeaderBG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HeaderTransparencyLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HeaderTransparencyRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\InfoBoxLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\InfoBoxMiddle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\InfoBoxRight.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

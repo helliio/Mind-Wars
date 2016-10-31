@@ -1,50 +1,36 @@
-﻿Public Class ListPopulate
-    Public Operation As Integer = 1
-    Public Sender As Object = Nothing
+﻿Option Strict On
+
+Public Class ListPopulate
     Public Sub PopulateLists()
-        Dim ExpectedCount As Integer = colours ^ holes
-        Select Case Operation
-            Case 1
-                InitiallyPossibleSolutions.Clear()
-                CurrentlyPossibleSolutions.Clear()
-                Dim q(holes - 1) As Integer
-                For i As Integer = 0 To holes - 1
-                    q(i) = 1
-                Next
-                Dim LowestListValue As Integer = ArrayToInt(q)
-                For i As Integer = 0 To holes - 1
-                    q(i) = colours
-                Next
-                Dim HighestListValue As Integer = ArrayToInt(q)
-                Dim ReportProgressCounter As Integer = 0
+        Dim ExpectedCount As Integer = CInt(colours ^ holes)
 
-                For i As Integer = LowestListValue To HighestListValue
-                    If CheckArrRange(i, 1, colours) = True Then
-                        If CheckArrRange(i, 1, colours) = True Then
-                            CurrentlyPossibleSolutions.Add(IntToArr(i))
-                            ReportProgressCounter += 0.2
-                        End If
-                        If CurrentlyPossibleSolutions.Count < 5000 Then
+        If InitiallyPossibleSolutions.Count > 0 OrElse CurrentlyPossibleSolutions.Count > 0 Then
+            InitiallyPossibleSolutions.Clear()
+            CurrentlyPossibleSolutions.Clear()
+        End If
+        InitiallyPossibleSolutions.Capacity = ExpectedCount
+        CurrentlyPossibleSolutions.Capacity = ExpectedCount
 
-                            End If
-                        End If
-                    If ReportProgressCounter = 10 AndAlso Not IsNothing(Sender) Then
-                        Sender.ReportProgress((CurrentlyPossibleSolutions.Count / ExpectedCount) * 400)
-                        ReportProgressCounter = 0
+        Dim LowestListValue As Integer = 0
+        Dim q(holes - 1) As Integer
+        For i As Integer = 0 To holes - 1
+            q(i) = colours - 1
+        Next
+        Dim HighestListValue As Integer = ArrayToInt(q)
+        For i As Integer = LowestListValue To HighestListValue
+            If CheckArrRange(i, 0, colours - 1) = True Then
+                CurrentlyPossibleSolutions.Add(SolutionIntToArray(i))
+            End If
+        Next
+        ' For impractically slow but more intelligent decisions, replace with:
+        ' InitiallyPossibleSolutions = CurrentlyPossibleSolutions.GetRange(0, CurrentlyPossibleSolutions.Count)
+        ' or something like that. These lists are equal now, as discriminating between the two would result in
+        ' calculations several minutes long in the upper range of holes and colors, though it gives the computer
+        ' the ability to strategically pick an incorrect code in order to gain the maximum amount of information.
+        InitiallyPossibleSolutions = CurrentlyPossibleSolutions
 
-                    End If
-
-                Next
-                ' For impractically slow but more intelligent decisions, replace with:
-                ' InitiallyPossibleSolutions = CurrentlyPossibleSolutions.GetRange(0, CurrentlyPossibleSolutions.Count)
-                ' or something like that. These lists are equal now, as discriminating between the two would result in
-                ' calculations several minutes long in the upper range of holes and colors, though it gives the computer
-                ' the ability to strategically pick an incorrect code in order to gain the maximum amount of information.
-                InitiallyPossibleSolutions = CurrentlyPossibleSolutions
-
-                Debug.Print("The InitiallyPossibleSolutions list contains " & InitiallyPossibleSolutions.Count & " integers.")
-                Debug.Print("If " & InitiallyPossibleSolutions.Count & " = colours^holes = " & ExpectedCount & ", this checks out.")
-        End Select
+        Debug.Print("The InitiallyPossibleSolutions list contains " & InitiallyPossibleSolutions.Count.ToString & " integers.")
+        Debug.Print("If " & InitiallyPossibleSolutions.Count.ToString & " = colours^holes = " & ExpectedCount.ToString & ", this checks out.")
     End Sub
 
 End Class
