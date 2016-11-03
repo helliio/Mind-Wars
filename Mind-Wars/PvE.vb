@@ -308,10 +308,13 @@ Public Class PvEGame
         AIBackgroundWorker.RunWorkerAsync()
     End Sub
     Private Sub AIBackgroundWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles AIBackgroundWorker.RunWorkerCompleted
+        'Only starts the timer'
         If CurrentlyPossibleSolutions.Count > 40 Then
             Debug.Print("Running again: " & CurrentlyPossibleSolutions.Count & " left.")
             UseLightMinimax = False
             AIBackgroundWorker.RunWorkerAsync()
+            ' Instead of RunWorkerAsync, fill holes and BW holes with colors in a timer.
+            ' When timer is done, THEN RunWorkerAsync.
             ' Try above and below '
         ElseIf CurrentlyPossibleSolutions.Count > 1 Then
             UseLightMinimax = True
@@ -668,6 +671,51 @@ Public Class PvEGame
             Next
         End If
     End Sub
+
+    Dim AIStep As Integer = 0
+    Private Sub AITimer_Tick(sender As Object, e As EventArgs) Handles AITimer.Tick
+        If AIStep < holes Then
+            'fill color
+        ElseIf AIStep < holes * 2 Then
+            'fill bw
+            If UsersTurn = True Then
+                BWHolesList.Item(Attempt * holes + AIStep).Invalidate()
+                AIStep += 1
+                If AIStep = holes Then
+                    AITimer.Enabled = False
+                    AIStep = 0
+                    If BlackCount = holes Then
+                        MsgBox("Ai won")
+                        If HoleGraphicsTimer.Enabled = True Then
+                            MsgBox("Enabled")
+                        End If
+                        Call SwitchSides()
+                    Else
+                        HoleGraphicsTimer.Enabled = True
+                    End If
+                End If
+            Else
+                BWHolesList.Item(tries * holes - AIAttempts * holes - AIStep).Invalidate()
+                AIStep += 1
+                If AIStep = holes Then
+                    AITimer.Enabled = False
+                    AIStep = 0
+                    If BlackCount = holes Then
+                        HoleGraphicsTimer.Enabled = False
+                        TestGuess.Clear()
+                        MsgBox("Player Won")
+                        Call SwitchSides()
+                    Else
+                        HoleGraphicsTimer.Enabled = True
+                    End If
+                End If
+            End If
+        Else
+            'run ai
+        End If
+    End Sub
+
+    Dim BWStep As Integer = 0
     Private Sub FillBWTimer_Tick(sender As Object, e As EventArgs) Handles FillBWTimer.Tick
         If UsersTurn = True Then
             BWHolesList.Item(Attempt * holes + BWStep).Invalidate()
@@ -728,6 +776,8 @@ Public Class PvEGame
     Private Sub PicMinimizeForm_Click(sender As Object, e As EventArgs) Handles PicMinimizeForm.Click
         Me.WindowState = FormWindowState.Minimized
     End Sub
+
+
 
     Private Sub AIBackgroundWorkerEasy_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles AIBackgroundWorkerEasy.RunWorkerCompleted
         Debug.Print("EASY AI STARTED")

@@ -318,7 +318,6 @@ Module DrawingModule
             HoleRectangle.Inflate(-6, -6)
             GuessBrush.Color = ColorCodes(GuessList.Item(CInt(sender.Tag)) + 1)
             e.Graphics.FillEllipse(GuessBrush, HoleRectangle)
-            'ElseIf (PvEGame.InfoPanel.Visible = True OrElse PvPHTTP.InfoPanel.Visible = True) Then
         Else
             e.Graphics.DrawEllipse(Pens.AliceBlue, HoleRectangle)
             If CInt(sender.Tag) < GuessList.Count Then

@@ -51,6 +51,7 @@ Partial Class PvEGame
         Me.VerifyRowTimer = New System.Windows.Forms.Timer(Me.components)
         Me.FillBWTimer = New System.Windows.Forms.Timer(Me.components)
         Me.DebugTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.AITimer = New System.Windows.Forms.Timer(Me.components)
         Me.StealthyPopulateBackgroundWorker = New System.ComponentModel.BackgroundWorker()
         Me.Button3 = New System.Windows.Forms.Button()
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -279,6 +280,9 @@ Partial Class PvEGame
         Me.DebugTimer.Enabled = True
         Me.DebugTimer.Interval = 5000
         '
+        'AITimer
+        '
+        Me.AITimer.Interval = 250
         'StealthyPopulateBackgroundWorker
         '
         '
@@ -354,6 +358,7 @@ Partial Class PvEGame
     Friend WithEvents DebugTimer As Timer
     Friend WithEvents HeaderTransparencyLeft As PictureBox
     Friend WithEvents HeaderTransparencyRight As PictureBox
+    Friend WithEvents AITimer As Timer
     Friend WithEvents PicCloseForm As PictureBox
     Friend WithEvents PicMinimizeForm As PictureBox
     Friend WithEvents LabInfo As Label
