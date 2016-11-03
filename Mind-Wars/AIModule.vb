@@ -8,6 +8,9 @@ Module AIModule
     Public FourBestScores(3), FourBestIndices(3) As Integer
     Public AIAttempts As Integer = 0
 
+    Public PreviouslyGuessedList As New List(Of Integer())(5)
+    Public PreviouslyGottenBW As New List(Of Integer)(5)
+
     Dim rdm As New Random()
 
     'Returns an array of random integers of colours for each hole(array element)
@@ -17,6 +20,24 @@ Module AIModule
             ret(n) = rdm.Next(0, SystemModule.colours)
         Next
         Return ret
+    End Function
+
+    Public Function AIBestFirstGuess() As Integer()
+        Dim FirstColor As Integer = rdm.Next(0, colours)
+        Dim SecondColor As Integer = -1
+
+        Dim GuessArray(holes - 1) As Integer
+        Do Until SecondColor <> -1 AndAlso SecondColor <> FirstColor
+            SecondColor = rdm.Next(0, colours)
+        Loop
+        Dim Half As Integer = CInt(holes / 2)
+        For i As Integer = 0 To Half - 1
+            GuessArray(i) = FirstColor
+        Next
+        For i As Integer = Half To holes - 1
+            GuessArray(i) = SecondColor
+        Next
+        Return GuessArray
     End Function
 
     Public Sub PopulateLists(ByVal Operation As Integer, Optional senderX As Object = Nothing)
@@ -37,11 +58,9 @@ Module AIModule
                 q(i) = colours - 1
             Next
             Dim HighestListValue As Integer = ArrayToInt(q)
-            Debug.Print("Max value: " & CStr(ArrayToInt(q)))
             Dim ReportProgressCounter As Integer = 0
             For i As Integer = LowestListValue To HighestListValue
                 If CheckArrRange(i, 0, colours - 1) = True Then
-                    Debug.Print("Range true")
                     CurrentlyPossibleSolutions.Add(SolutionIntToArray(i))
                     InitiallyPossibleSolutions.Add(SolutionIntToArray(i))
                     ReportProgressCounter += 1
@@ -51,20 +70,13 @@ Module AIModule
                     End If
                 End If
             Next
-            If HighestListValue > ArrayToInt(solution) Then
-                MsgBox("Ja 1")
-            Else
-                MsgBox("Nei 1")
-            End If
-            If Not CurrentlyPossibleSolutions.Contains(solution) Then
-                MsgBox("Nei")
-            End If
+
             Debug.Print("The InitiallyPossibleSolutions list contains " & InitiallyPossibleSolutions.Count.ToString & " integers.")
-            Debug.Print("If " & InitiallyPossibleSolutions.Count.ToString & " = colours^holes = " & ExpectedCount.ToString & ", this checks out.")
+                Debug.Print("If " & InitiallyPossibleSolutions.Count.ToString & " = colours^holes = " & ExpectedCount.ToString & ", this checks out.")
 
-        Else
+            Else
 
-        End If
+            End If
     End Sub
 
 

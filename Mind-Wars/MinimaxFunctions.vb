@@ -22,6 +22,7 @@ Public Class MinimaxFunctions
         Dim HolesLocal As Integer = holes
         Dim ListCount As Integer = CLi.Count
         Dim CLiArray()() As Integer = CLi
+
         Parallel.For(0, ListCount, Sub(q)
                                        Dim bw(1) As Integer
                                        bw = {0, 0}

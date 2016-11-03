@@ -150,10 +150,25 @@ Public Class PvEGame
         Next
     End Sub
     Private Sub AIBackgroundWorker_DoWork(sender As Object, e As DoWorkEventArgs) Handles AIBackgroundWorker.DoWork
-        If UseLightMinimax = True Then
+        If AIAttempts = 0 Then
+            AIAttempts += 1
+            Dim FirstGuess As Integer() = AIBestFirstGuess()
+            Debug.Print("AI guesses " & ArrayToString(FirstGuess) & ". Before elimination: " & CurrentlyPossibleSolutions.Count)
+            CurrentBW = verify(solution, FirstGuess)
+            Dim EliminateClass As New Eliminator
+            EliminateClass.RealGuess = FirstGuess
+            EliminateClass.RealBW = CurrentBW
+            Dim EliminateThread As New System.Threading.Thread(AddressOf EliminateClass.Eliminate)
+            EliminateThread.Start()
+            EliminateThread.Join()
+            Debug.Print("After elimination: " & CurrentlyPossibleSolutions.Count)
+        End If
+
+        Dim DebugFalseBoolean As Boolean = False
+        If CurrentlyPossibleSolutions.Count < 4 AndAlso CurrentBW(0) < holes AndAlso DebugFalseBoolean = True Then
             Debug.Print("Using MinimaxLight...")
 
-            Dim LightMinimax As New MinimaxLight(InitiallyPossibleSolutions.ToArray, CurrentlyPossibleSolutions.ToArray)
+            Dim LightMinimax As New MinimaxLight(CurrentlyPossibleSolutions.ToArray)
             Dim LightMinimaxThread As New System.Threading.Thread(AddressOf LightMinimax.FindBestMove)
             With LightMinimaxThread
                 .Priority = Threading.ThreadPriority.AboveNormal
@@ -162,101 +177,55 @@ Public Class PvEGame
             End With
 
             Dim bestindexlight As Integer = FourBestIndices(0)
-            ' IF ERROR, REMOVE CTYPE AND TURN OPTION STRICT OFF '
-            Dim AIGuessLight() As Integer = InitiallyPossibleSolutions.Item(bestindexlight)
 
+            Dim AIGuessLight() As Integer = CurrentlyPossibleSolutions.Item(bestindexlight)
 
-            ' WE NEED TO REMOVE THE GUESS FROM THE LIST SO THAT THE AI DOESN'T GET STUCK ON PLAYING IT.
             Debug.Print("AI guesses " & ArrayToString(AIGuessLight))
+            If ArrayToInt(AIGuessLight) = 0 Then
+                Debug.Print("Oops. Guessed 0. List count: " & CurrentlyPossibleSolutions.Count)
+            End If
             AIAttempts += 1
             CurrentBW = verify(solution, AIGuessLight)
-            Debug.Print("CurrentBW: " & ArrayToString(CurrentBW) & ". Should be: " & ArrayToString(verify(solution, AIGuessLight)) & ". Solution is " & ArrayToInt(solution))
+            Debug.Print("This returns: " & ArrayToString(CurrentBW) & ". Should be: " & ArrayToString(verify(solution, AIGuessLight)) & ". Solution is " & ArrayToInt(solution))
 
-            Debug.Print("This returns " & ArrayToInt(CurrentBW))
-            Debug.Print("Before elimination: " & CurrentlyPossibleSolutions.Count)
-
-            'Call Eliminate(AIGuessLight, CurrentBW)
-            Dim EliminateClass As New Eliminator
-            EliminateClass.RealGuess = AIGuessLight
-            EliminateClass.RealBW = CurrentBW
-            Dim EliminateThread As New System.Threading.Thread(AddressOf EliminateClass.Eliminate)
-            'EliminateThread.IsBackground = True
-            EliminateThread.Start()
-            EliminateThread.Join()
-            Debug.Print("After elimination: " & CurrentlyPossibleSolutions.Count)
-            If CurrentlyPossibleSolutions.Count = 1 Then
-                Debug.Print("AI's solution: " & ArrayToString(InitiallyPossibleSolutions.Item(0)) & ", real solution: " & ArrayToString(solution))
+            If CurrentBW(0) < holes Then
+                Debug.Print("Before elimination: " & CurrentlyPossibleSolutions.Count)
+                Call Eliminate(AIGuessLight, CurrentBW)
+                Dim EliminateClass As New Eliminator
+                EliminateClass.RealGuess = AIGuessLight
+                EliminateClass.RealBW = CurrentBW
+                Dim EliminateThread As New System.Threading.Thread(AddressOf EliminateClass.Eliminate)
+                'EliminateThread.IsBackground = True
+                EliminateThread.Start()
+                EliminateThread.Join()
+                Debug.Print("After elimination: " & CurrentlyPossibleSolutions.Count)
+                If CurrentlyPossibleSolutions.Count = 1 Then
+                    Debug.Print("AI's solution: " & ArrayToString(CurrentlyPossibleSolutions.Item(0)) & ", real solution: " & ArrayToString(solution))
+                Else
+                    Debug.Print("There's " & CurrentlyPossibleSolutions.Count & " items left. Going again.")
+                End If
             Else
-                Debug.Print("There's " & CurrentlyPossibleSolutions.Count & " items left. Going again.")
+                Debug.Print("AI broke the code in " & AIAttempts & ": " & ArrayToString(CurrentlyPossibleSolutions.Item(0)) & ", real solution: " & ArrayToString(solution))
             End If
-        Else
-            Debug.Print("Starting quadruple thread")
-
-            ' <UNCOMMENT> '
-
-            'Dim Minimax1of4 As New Minimax(InitiallyPossibleSolutions, CurrentlyPossibleSolutions, 1)
-            'Dim MinimaxThread1 As New System.Threading.Thread(AddressOf Minimax1of4.FindBestMove)
-            'MinimaxThread1.Priority = Threading.ThreadPriority.AboveNormal
-            ''MinimaxThread1.IsBackground = True
-            'MinimaxThread1.Start()
-
-            'Dim Minimax2of4 As New Minimax(InitiallyPossibleSolutions, CurrentlyPossibleSolutions, 2)
-            'Dim MinimaxThread2 As New System.Threading.Thread(AddressOf Minimax2of4.FindBestMove)
-            'MinimaxThread2.Priority = Threading.ThreadPriority.AboveNormal
-            ''MinimaxThread2.IsBackground = True
-            'MinimaxThread2.Start()
-
-            'Dim Minimax3of4 As New Minimax(InitiallyPossibleSolutions, CurrentlyPossibleSolutions, 3)
-            'Dim MinimaxThread3 As New System.Threading.Thread(AddressOf Minimax3of4.FindBestMove)
-            'MinimaxThread3.Priority = Threading.ThreadPriority.AboveNormal
-            ''MinimaxThread3.IsBackground = True
-            'MinimaxThread3.Start()
-
-            'Dim Minimax4of4 As New Minimax(InitiallyPossibleSolutions, CurrentlyPossibleSolutions, 4)
-            'Dim MinimaxThread4 As New System.Threading.Thread(AddressOf Minimax4of4.FindBestMove)
-            'MinimaxThread4.Priority = Threading.ThreadPriority.AboveNormal
-            ''MinimaxThread4.IsBackground = True
-            'MinimaxThread4.Start()
-
-            'MinimaxThread1.Join()
-            'MinimaxThread2.Join()
-            'MinimaxThread3.Join()
-            'MinimaxThread4.Join()
-            'Debug.Print("Quadruple thread finished.")
-
-            'Dim bestscore As Integer = 0
-            'Dim bestindex As Integer = 0
-
-            '</UNCOMMENT>'
+        ElseIf CurrentBW(0) < holes Then
+            Debug.Print("Starting Minimax tasks.")
 
             Dim newthread As New Thread(AddressOf RunMinimaxTask)
             newthread.Start()
             newthread.Join()
 
-            '<UNCOMMENT>'
-            'For i = 0 To 3
-            '    If FourBestScores(i) > bestscore Then
-            '        bestscore = FourBestScores(i)
-            '        bestindex = FourBestIndices(i)
-            '    End If
-            'Next
-            '</UNCOMMENT>'
 
             Dim AIGuess() As Integer = InitiallyPossibleSolutions.Item(TESTBestIndex)
             Debug.Print("AI guesses " & ArrayToString(AIGuess) & ". Solution is " & ArrayToString(solution))
-
             AIAttempts += 1
             CurrentBW = verify(solution, AIGuess)
 
             If CurrentBW(0) = holes Then
-                Debug.Print("AI won;" & AIAttempts.ToString & "moves")
+                Debug.Print("AI broke the code in " & AIAttempts & ": " & ArrayToString(CurrentlyPossibleSolutions.Item(0)) & ", real solution: " & ArrayToString(solution))
             Else
                 Debug.Print("CurrentBW: " & ArrayToString(CurrentBW) & ". Should be: " & ArrayToString(verify(solution, AIGuess)) & ". Solution is " & ArrayToString(solution))
                 Debug.Print("This returns " & ArrayToString(CurrentBW))
                 Debug.Print("Before elimination: " & CurrentlyPossibleSolutions.Count)
-                If Not CurrentlyPossibleSolutions.Contains(solution) Then
-                    MsgBox("False: " & CheckArrRange(ArrayToInt(solution), 0, colours - 1).ToString)
-                End If
 
                 Dim EliminateClass As New Eliminator
                 EliminateClass.RealGuess = AIGuess
@@ -267,20 +236,46 @@ Public Class PvEGame
                 EliminateThread.Join()
                 Debug.Print("After elimination: " & CurrentlyPossibleSolutions.Count)
                 If CurrentlyPossibleSolutions.Count = 1 Then
-                    Debug.Print("AI's solution: " & ArrayToInt(InitiallyPossibleSolutions.Item(0)) & ", real solution: " & ArrayToInt(solution))
+                    Debug.Print("AI's solution: " & ArrayToInt(CurrentlyPossibleSolutions.Item(0)) & ", real solution: " & ArrayToInt(solution))
                 End If
             End If
-
         End If
+
+        'If CurrentBW(0) = holes Then
+        '    Debug.Print("AI won; " & AIAttempts & "moves!!!!!!!!!!!!!!!!!!!")
+        'Else
+        '    Debug.Print("CurrentBW: " & ArrayToString(CurrentBW) & ". Should be: " & ArrayToString(verify(solution, AIGuess)) & ". Solution is " & ArrayToString(solution))
+        '    Debug.Print("This returns " & ArrayToString(CurrentBW))
+        '    Debug.Print("Before elimination: " & CurrentlyPossibleSolutions.Count)
+
+        '    Dim EliminateClass As New Eliminator
+        '    EliminateClass.RealGuess = AIGuess
+        '    EliminateClass.RealBW = CurrentBW
+        '    Dim EliminateThread As New System.Threading.Thread(AddressOf EliminateClass.Eliminate)
+        '    'EliminateThread.IsBackground = True
+        '    EliminateThread.Start()
+        '    EliminateThread.Join()
+        '    Debug.Print("After elimination: " & CurrentlyPossibleSolutions.Count)
+        '    If CurrentlyPossibleSolutions.Count = 1 Then
+        '        Debug.Print("AI's solution: " & ArrayToInt(CurrentlyPossibleSolutions.Item(0)) & ", real solution: " & ArrayToInt(solution))
+        '    End If
+        'End If
+
+
     End Sub
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         If TextBox1.TextLength = holes And IsNumeric(TextBox1.Text) Then
             Dim Input As Integer = CInt(TextBox1.Text)
             If CheckArrRange(Input, 0, colours - 1) Then
+                PreviouslyGottenBW.Clear()
+                PreviouslyGuessedList.Clear()
+                AIAttempts = 0
+                CurrentBW = {0, 0}
+                Button1.Enabled = False
                 solution = SolutionIntToArray(Input)
                 Debug.Print("Solution is " & ArrayToString(solution))
-                Button1.Enabled = False
-                Call TestRepeatedly(solution)
+                Debug.Print("Starting BackgroundWorker.")
+                AIBackgroundWorker.RunWorkerAsync()
             Else
                 MsgBox("Maximum " & colours)
             End If
@@ -288,41 +283,24 @@ Public Class PvEGame
             MsgBox(holes & " holes")
         End If
     End Sub
-    Public Sub TestRepeatedly(ByVal code() As Integer)
-        solution = code
-        ' IF THE NEW AI DOESN'T WORK, UNCOMMENT. RIGHT NOW, IT'S WORKING SWIMMINGLY. '
-        'Dim AIGuess() As Integer = GenerateSolution()
-        'Debug.Print("AI guesses " & ArrayToInt(AIGuess))
-        'AIAttempts += 1
-        'CurrentBW = verify(solution, AIGuess)
-        'Debug.Print("This returns " & ArrayToInt(CurrentBW))
-        'Debug.Print("Number of possible solutions before elimination: " & CurrentlyPossibleSolutions.Count)
-        'Call Eliminate(AIGuess, CurrentBW)
-        'Debug.Print("Number of possible solutions after elimination: " & CurrentlyPossibleSolutions.Count)
-        If CurrentlyPossibleSolutions.Count > 40 Then
-            UseLightMinimax = False
-        Else
-            UseLightMinimax = True
-        End If
-        Debug.Print("AI uses Minimax...")
-        AIBackgroundWorker.RunWorkerAsync()
-    End Sub
+
     Private Sub AIBackgroundWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles AIBackgroundWorker.RunWorkerCompleted
-        If CurrentlyPossibleSolutions.Count > 40 Then
-            Debug.Print("Running again: " & CurrentlyPossibleSolutions.Count & " left.")
-            UseLightMinimax = False
-            AIBackgroundWorker.RunWorkerAsync()
-            ' Try above and below '
-        ElseIf CurrentlyPossibleSolutions.Count > 1 Then
-            UseLightMinimax = True
-            AIBackgroundWorker.RunWorkerAsync()
-        ElseIf CurrentlyPossibleSolutions.Count = 1 Then
-            AIAttempts += 1
-            Debug.Print("FINISHED IN " & AIAttempts & " MOVES")
-            AIAttempts = 0
-            StealthyPopulateBackgroundWorker.RunWorkerAsync()
+        If CurrentBW(0) < holes Then
+            If CurrentlyPossibleSolutions.Count > 1 Then
+                Debug.Print("Running again: " & CurrentlyPossibleSolutions.Count & " left.")
+                AIBackgroundWorker.RunWorkerAsync()
+            ElseIf CurrentlyPossibleSolutions.Count = 1 Then
+                AIAttempts += 1
+                Debug.Print("FINISHED IN " & AIAttempts & " MOVES")
+                AIAttempts = 0
+                StealthyPopulateBackgroundWorker.RunWorkerAsync()
+            Else
+                Debug.Print("Error: " & CurrentlyPossibleSolutions.Count & " remaining.")
+            End If
         Else
-            Debug.Print("Error: " & CurrentlyPossibleSolutions.Count & " remaining.")
+            Debug.Print("Black pegs = " & CurrentBW(0))
+            StealthyPopulateBackgroundWorker.RunWorkerAsync()
+            Debug.Print("Stopping BackgroundWorker.")
         End If
     End Sub
     Private Sub PicFormHeader_MouseDown(sender As Object, e As MouseEventArgs) Handles PicFormHeader.MouseDown
@@ -388,7 +366,6 @@ Public Class PvEGame
                     ChoiceList.Item(i).Invalidate()
                 End If
             Next
-
         Else
             If ChooseCodeRectangleList.Item(SelectedChooseCodeColor).Width > 16 Then
                 ChangeRect = ChooseCodeRectangleList.Item(SelectedChooseCodeColor)
@@ -417,6 +394,8 @@ Public Class PvEGame
         If TextBox1.TextLength = holes And IsNumeric(TextBox1.Text) Then
             Dim Input As Integer = Convert.ToInt32(TextBox1.Text)
             If CheckArrRange(Input, 0, colours - 1) Then
+                AIAttempts = 0
+                CurrentBW = {0, 0}
                 solution = SolutionIntToArray(Input)
                 Debug.Print("Solution is " & ArrayToString(solution))
                 Button2.Enabled = False
@@ -736,7 +715,7 @@ Public Class PvEGame
         ElseIf CurrentlyPossibleSolutions.Count = 1 Then
             AIAttempts += 1
             Debug.Print("FINISHED IN " & AIAttempts & " MOVES")
-            Debug.Print("AI's solution: " & ArrayToInt(InitiallyPossibleSolutions.Item(0)) & ", real solution: " & ArrayToInt(solution))
+            Debug.Print("AI's solution: " & ArrayToInt(CurrentlyPossibleSolutions.Item(0)) & ", real solution: " & ArrayToInt(solution))
             AIAttempts = 0
             Button2.Enabled = True
             ' USE BACKGROUNDWORKER INSTEAD
@@ -771,7 +750,6 @@ Public Class PvEGame
         PopulateListsThread.IsBackground = True
         PopulateListsThread.Start()
         PopulateListsThread.Join()
-
     End Sub
 
     Private Sub PvEGame_Resize(sender As Object, e As EventArgs) Handles Me.Resize
