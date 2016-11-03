@@ -11,10 +11,7 @@ Module WebModule
     Public CreateGameSuccess As Boolean = False
     Public HTTPGameCode As Integer
 
-    Public HTTPClient As New WebClient
-    Public HTTPConnectClient As New WebClient
-    Public HTTPCheckStatusClient As New WebClient
-
+    Public HTTPClient, HTTPConnectClient, HTTPCheckStatusClient As New WebClient
     Public ConnectionEstablished As Boolean = False
 
     Public SolutionSet As Boolean = False
