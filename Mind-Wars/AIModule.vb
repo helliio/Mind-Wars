@@ -40,7 +40,7 @@ Module AIModule
         Return GuessArray
     End Function
 
-    Public Sub PopulateLists(ByVal Operation As Integer, Optional senderX As Object = Nothing)
+    Public Sub PopulateLists(ByVal Operation As Integer, senderX As Object)
         Dim sender As System.ComponentModel.BackgroundWorker = DirectCast(senderX, System.ComponentModel.BackgroundWorker)
         Dim ExpectedCount As Integer = CInt(colours ^ holes)
 
@@ -59,24 +59,27 @@ Module AIModule
             Next
             Dim HighestListValue As Integer = ArrayToInt(q)
             Dim ReportProgressCounter As Integer = 0
+
+            Dim ReportAt As Integer = CInt(HighestListValue / 100) - 1
+
             For i As Integer = LowestListValue To HighestListValue
+                If ReportProgressCounter = ReportAt Then
+                    sender.ReportProgress(CInt((i / HighestListValue) * 100))
+                    ReportProgressCounter = 0
+                End If
+                ReportProgressCounter += 1
                 If CheckArrRange(i, 0, colours - 1) = True Then
                     CurrentlyPossibleSolutions.Add(SolutionIntToArray(i))
                     InitiallyPossibleSolutions.Add(SolutionIntToArray(i))
-                    ReportProgressCounter += 1
-                    If ReportProgressCounter = 10 AndAlso Not IsNothing(sender) Then
-                        sender.ReportProgress(CInt(i / HighestListValue) * 100)
-                        ReportProgressCounter = 0
-                    End If
                 End If
             Next
 
             Debug.Print("The InitiallyPossibleSolutions list contains " & InitiallyPossibleSolutions.Count.ToString & " integers.")
-                Debug.Print("If " & InitiallyPossibleSolutions.Count.ToString & " = colours^holes = " & ExpectedCount.ToString & ", this checks out.")
+            Debug.Print("If " & InitiallyPossibleSolutions.Count.ToString & " = colours^holes = " & ExpectedCount.ToString & ", this checks out.")
 
-            Else
+        Else
 
-            End If
+        End If
     End Sub
 
 

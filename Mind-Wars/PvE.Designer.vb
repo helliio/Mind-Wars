@@ -121,6 +121,7 @@ Partial Class PvEGame
         '
         'InfoPanel
         '
+        Me.InfoPanel.BackColor = System.Drawing.Color.Transparent
         Me.InfoPanel.Controls.Add(Me.LabInfo)
         Me.InfoPanel.Controls.Add(Me.PicInfoRight)
         Me.InfoPanel.Controls.Add(Me.PicInfoMiddle)

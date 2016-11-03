@@ -57,11 +57,9 @@ Module TaskModule
         Dim ScoreForSolution As Integer = Integer.MinValue
         Dim SolutionCount As Integer = InitialList.Count
 
-
-        Dim Capacity As Integer = 0
-        For x As Integer = holecount + 1 To 1
+        Dim Capacity As Integer = -1
+        For x As Integer = holecount + 1 To 1 Step -1
             Capacity += x
-            x -= 1
         Next
 
         Dim BWList As New List(Of Integer)(Capacity)
@@ -129,6 +127,7 @@ Module TaskModule
                                                                                       End Function) = True Then
                 ScoreForSolution = score
                 HighestMinScoreIndex = i
+
             End If
             i += 1
         Loop

@@ -54,22 +54,29 @@ Module DrawingModule
         Select Case holes
             Case 2
             Case 3
-            Case 4
+
+            Case 4, 6
+                Dim PegWidth As Integer
+                If holes = 4 Then
+                    PegWidth = 16
+                Else
+                    PegWidth = 10
+                End If
                 For m As Integer = 0 To tries - 1
                     For n As Integer = 0 To holes - 1
                         Dim BWPeg As New PictureBox
                         With BWPeg
                             .Visible = False
-                            .Width = 16
-                            .Height = 16
+                            .Width = PegWidth
+                            .Height = PegWidth
                             '.Name = "BWHole_" & m * holes + n
                             .Tag = m * holes + n
-                            If n < 2 Then
+                            If n < CInt(holes / 2) Then
                                 .Top = (38 * tries) - (38 * m)
-                                .Left = 10 + n * 16
+                                .Left = 10 + n * PegWidth
                             Else
                                 .Top = 16 + (38 * tries) - (38 * m)
-                                .Left = n * 16 - 22
+                                .Left = n * PegWidth - 22
                             End If
                         End With
                         SenderBWPanel.Controls.Add(BWPeg)
@@ -78,7 +85,8 @@ Module DrawingModule
                     Next
                 Next
             Case 5
-            Case 6
+            Case 6, 3
+                
             Case 7
             Case 8
         End Select
@@ -165,13 +173,12 @@ Module DrawingModule
             AddHandler ChooseCodeHole.Paint, AddressOf PaintChooseCodeHole
         Next
 
-        ' Moved down:
-        'Select Case GameMode
-        '    Case 1 'PvE
-        '        PvEGame.SelectedColorTimer.Enabled = True
-        '    Case 2 ' PvP HTTP
-        '        PvPHTTP.SelectedColorTimer.Enabled = True
-        'End Select
+        Select Case GameMode
+            Case 1 'PvE
+                PvEGame.SelectedColorTimer.Enabled = True
+            Case 2 ' PvP HTTP
+                PvPHTTP.SelectedColorTimer.Enabled = True
+        End Select
 
         Testrect1.Location = ChoiceList.Item(0).ClientRectangle.Location
         Testrect1.Size = ChoiceList.Item(0).ClientRectangle.Size
@@ -261,23 +268,14 @@ Module DrawingModule
         SelectedColor = 0
 
         Select Case GameMode
-            Case 1 'PvE
-                PvEGame.SelectedColorTimer.Enabled = True
+            Case 1
                 PvEGame.ColorTimer.Enabled = True
-            Case 2 ' PvP HTTP
-                PvPHTTP.SelectedColorTimer.Enabled = True
+            Case 2
                 PvPHTTP.ColorTimer.Enabled = True
         End Select
 
-        ' Merged with above:
-        'Select Case GameMode
-        '    Case 1
-        '        PvEGame.ColorTimer.Enabled = True
-        '    Case 2
-        '        PvPHTTP.ColorTimer.Enabled = True
-        'End Select
-        'Moved up
-        '        SenderChoosePanel.BringToFront()
+
+
         SenderChoosePanel.BringToFront()
     End Sub
 

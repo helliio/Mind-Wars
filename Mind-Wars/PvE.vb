@@ -26,9 +26,8 @@ Public Class PvEGame
         'GamePanel.Visible = True
         Me.Width = 60 + 32 * holes
         Me.Height = 38 * (tries + 1) + 74
-        Call GenerateBoard(1, Me, BWPanel, ChooseCodePanel)
+
         InfoPanel.Visible = False
-        InitializeDelay.Enabled = True
         With PicInitialLoadProgress
             .Visible = False
             .BackColor = Color.Transparent
@@ -63,13 +62,14 @@ Public Class PvEGame
             .Height = 12
             .BackColor = Color.Transparent
         End With
+        Call GenerateBoard(1, Me, BWPanel, ChooseCodePanel)
+        InitializeDelay.Enabled = True
     End Sub
     Private Sub InitializeBackgroundWorker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles InitializeBackgroundWorker.DoWork
         Threading.Thread.Sleep(100)
         Call PopulateLists(1, InitializeBackgroundWorker)
     End Sub
     Private Sub InitializeBackgroundWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles InitializeBackgroundWorker.RunWorkerCompleted
-        'PicInitialLoadProgress.Visible = False
         LoadCompleteTimer.Enabled = True
     End Sub
     Private Sub InitializeBackgroundWorker_ProgressChanged(sender As Object, e As ProgressChangedEventArgs) Handles InitializeBackgroundWorker.ProgressChanged
@@ -83,9 +83,11 @@ Public Class PvEGame
         e.Graphics.DrawArc(InitializeGMPPen, InitializeGMPRect, 90, InitializeGameModeProgress)
     End Sub
     Private Sub InitializeDelay_Tick(sender As Object, e As EventArgs) Handles InitializeDelay.Tick
-        Call InitializeGameMode(1)
+
         Me.Visible = True
+        PicInitialLoadProgress.Visible = True
         InitializeDelay.Enabled = False
+        Call InitializeGameMode(1)
     End Sub
     Private Sub LoadCompleteTimer_Tick(sender As Object, e As EventArgs) Handles LoadCompleteTimer.Tick
         If InitializeGMPPen.Color.A > 20 Then
@@ -284,6 +286,19 @@ Public Class PvEGame
         End If
     End Sub
 
+    Private Sub AverageTest()
+        PreviouslyGottenBW.Clear()
+        PreviouslyGuessedList.Clear()
+        AIAttempts = 0
+        CurrentBW = {0, 0}
+        'Button1.Enabled = False
+        solution = GenerateSolution()
+        Debug.Print("Solution is " & ArrayToString(solution))
+        Debug.Print("Starting BackgroundWorker.")
+        AIBackgroundWorker.RunWorkerAsync()
+    End Sub
+
+
     Private Sub AIBackgroundWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles AIBackgroundWorker.RunWorkerCompleted
         If CurrentBW(0) < holes Then
             If CurrentlyPossibleSolutions.Count > 1 Then
@@ -292,16 +307,35 @@ Public Class PvEGame
             ElseIf CurrentlyPossibleSolutions.Count = 1 Then
                 AIAttempts += 1
                 Debug.Print("FINISHED IN " & AIAttempts & " MOVES")
-                AIAttempts = 0
+
+                AttemptCountList.Add(AIAttempts)
+                Dim AttemptsSum As Integer
+                For Each attempt As Integer In AttemptCountList
+                    AttemptsSum += attempt
+                Next
+                Dim AttemptsAverage As Double = AttemptsSum / AttemptCountList.Count
+
+                Debug.Print("-------------------------------------" & vbNewLine & "AVERAGE: " & AttemptsAverage.ToString & vbNewLine & "COUNT: " & AttemptCountList.Count & "------------------------------------")
                 StealthyPopulateBackgroundWorker.RunWorkerAsync()
+
+                AIAttempts = 0
             Else
                 Debug.Print("Error: " & CurrentlyPossibleSolutions.Count & " remaining.")
             End If
         Else
-            Debug.Print("Black pegs = " & CurrentBW(0))
+            AttemptCountList.Add(AIAttempts)
+            Dim AttemptsSum As Integer
+            For Each attempt As Integer In AttemptCountList
+                AttemptsSum += attempt
+            Next
+            Dim AttemptsAverage As Double = AttemptsSum / AttemptCountList.Count
+
+            Debug.Print("-------------------------------------" & vbNewLine & "AVERAGE: " & AttemptsAverage.ToString & vbNewLine & "COUNT: " & AttemptCountList.Count & "------------------------------------")
             StealthyPopulateBackgroundWorker.RunWorkerAsync()
-            Debug.Print("Stopping BackgroundWorker.")
         End If
+
+
+
     End Sub
     Private Sub PicFormHeader_MouseDown(sender As Object, e As MouseEventArgs) Handles PicFormHeader.MouseDown
         If e.Button = MouseButtons.Left Then
@@ -750,6 +784,9 @@ Public Class PvEGame
         PopulateListsThread.IsBackground = True
         PopulateListsThread.Start()
         PopulateListsThread.Join()
+
+        ' FOR TESTING PURPOSES
+        Call AverageTest()
     End Sub
 
     Private Sub PvEGame_Resize(sender As Object, e As EventArgs) Handles Me.Resize

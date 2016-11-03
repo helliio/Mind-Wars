@@ -45,7 +45,7 @@ Public Class MinimaxFunctions
                                        Else
                                            For i As Integer = 0 To holes - 1
                                                For j As Integer = 0 To holes - 1
-                                                   If g(j) = s(i) AndAlso g(i) <> s(i) AndAlso s(i) <> -1 Then
+                                                   If g(j) = s(i) AndAlso s(i) <> -1 Then
                                                        bw(1) += 1
                                                        g(j) = -1
                                                        s(i) = -1
@@ -54,6 +54,7 @@ Public Class MinimaxFunctions
                                            Next
                                            If bw(1) <> W Then
                                                SolutionsEliminated += 1
+
                                            End If
                                        End If
                                    End Sub)
@@ -85,7 +86,8 @@ Public Class MinimaxFunctions
         Next
         For i As Integer = 0 To holes - 1
             For j As Integer = 0 To holes - 1
-                If g(j) = s(i) AndAlso g(i) <> s(i) AndAlso s(i) <> -1 Then
+                'If g(j) = s(i) AndAlso g(i) <> s(i) AndAlso s(i) <> -1 Then
+                If g(j) = s(i) AndAlso s(i) <> -1 Then
                     bw(1) += 1
                     g(j) = -1
                     s(i) = -1
@@ -93,44 +95,11 @@ Public Class MinimaxFunctions
             Next
         Next
         Return bw
+    End Function
 
-        'Dim whitepegs, blackpegs As Integer
-        'Dim counted(holes - 1) As Integer
-        'Dim correct(holes - 1) As Integer
-
-        'Dim checkcorrectindex As Integer = 0
-        'Do
-        '    If ail(checkcorrectindex) = g(checkcorrectindex) Then
-        '        blackpegs += 1
-        '        counted(checkcorrectindex) = 1
-        '        correct(checkcorrectindex) = 1
-        '    End If
-        '    checkcorrectindex += 1
-        'Loop Until checkcorrectindex = holes
-
-        'Dim currentstep As Integer = 0
-        'Do
-        '    If correct(currentstep) = 0 AndAlso ail.Contains(g(currentstep)) Then
-        '        Dim countedindex As Integer = 0
-        '        Dim foundmatch As Boolean = False
-        '        Do
-        '            If countedindex = currentstep Then
-        '                countedindex += 1
-        '                Continue Do
-        '            ElseIf ail(countedindex) = g(currentstep) AndAlso counted(countedindex) = 0 Then
-        '                counted(countedindex) = 1
-        '                whitepegs += 1
-        '                foundmatch = True
-        '            End If
-        '            countedindex += 1
-        '        Loop Until countedindex = holes Or foundmatch = True
-        '    End If
-        '    currentstep += 1
-        'Loop Until currentstep = holes
-
-        'Dim AntallBW(1) As Integer
-        'AntallBW = {blackpegs, whitepegs}
-        'Return AntallBW
+    Function IsLexical(ByVal code() As Integer) As Boolean
+        Dim Half As Integer = CInt(holes / 2)
+        '' FUNCTION TO CHECK IF LEXICAL (WIP)
     End Function
 
 End Class

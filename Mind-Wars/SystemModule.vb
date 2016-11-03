@@ -51,7 +51,6 @@ Module SystemModule
     Public Sub InitializeGameMode(ByVal GameMode As Integer)
         Select Case GameMode
             Case 1 'PvE
-                PvEGame.PicInitialLoadProgress.Visible = True
                 PvEGame.InitializeBackgroundWorker.RunWorkerAsync()
         End Select
     End Sub
