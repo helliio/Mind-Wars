@@ -54,6 +54,9 @@ Partial Class PvEGame
         Me.AITimer = New System.Windows.Forms.Timer(Me.components)
         Me.StealthyPopulateBackgroundWorker = New System.ComponentModel.BackgroundWorker()
         Me.Button3 = New System.Windows.Forms.Button()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.NewAIBackgroundWorker = New System.ComponentModel.BackgroundWorker()
+        Me.AIDelayTimer = New System.Windows.Forms.Timer(Me.components)
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicInitialLoadProgress, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.InfoPanel.SuspendLayout()
@@ -124,6 +127,7 @@ Partial Class PvEGame
         '
         'InfoPanel
         '
+        Me.InfoPanel.BackColor = System.Drawing.Color.Transparent
         Me.InfoPanel.Controls.Add(Me.LabInfo)
         Me.InfoPanel.Controls.Add(Me.PicInfoRight)
         Me.InfoPanel.Controls.Add(Me.PicInfoMiddle)
@@ -283,6 +287,7 @@ Partial Class PvEGame
         'AITimer
         '
         Me.AITimer.Interval = 250
+        '
         'StealthyPopulateBackgroundWorker
         '
         '
@@ -296,6 +301,23 @@ Partial Class PvEGame
         Me.Button3.UseVisualStyleBackColor = True
         Me.Button3.Visible = False
         '
+        'Button4
+        '
+        Me.Button4.Location = New System.Drawing.Point(134, 143)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(114, 33)
+        Me.Button4.TabIndex = 24
+        Me.Button4.Text = "Test new method"
+        Me.Button4.UseVisualStyleBackColor = True
+        Me.Button4.Visible = False
+        '
+        'NewAIBackgroundWorker
+        '
+        '
+        'AIDelayTimer
+        '
+        Me.AIDelayTimer.Interval = 250
+        '
         'PvEGame
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -304,6 +326,7 @@ Partial Class PvEGame
         Me.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.StartScreenBG1
         Me.ClientSize = New System.Drawing.Size(251, 712)
         Me.ControlBox = False
+        Me.Controls.Add(Me.Button4)
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.InfoPanel)
         Me.Controls.Add(Me.Button2)
@@ -381,4 +404,7 @@ Partial Class PvEGame
 
     Public WithEvents SelectedColorTimer As Timer
     Friend WithEvents Button3 As Button
+    Friend WithEvents Button4 As Button
+    Friend WithEvents NewAIBackgroundWorker As System.ComponentModel.BackgroundWorker
+    Friend WithEvents AIDelayTimer As Timer
 End Class

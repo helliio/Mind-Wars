@@ -5,7 +5,7 @@ Imports System.Net
 Imports System.IO
 
 Module WebModule
-    Public ServerBaseURI As String = "http://www.shufflevids.com/"
+    Public ServerBaseURI As String = "http://www.mindwars.no/"
     Private TestDirectory As String = "/test.php"
 
     Public CreateGameSuccess As Boolean = False
@@ -92,7 +92,6 @@ Module WebModule
                     'PvPHTTP.Show()
                     HTTPGameCode = CInt(code)
                     PvPHTTP.CheckStatusBackgroundWorker.RunWorkerAsync()
-
                 Case Else
                     MsgBox(ResultString)
             End Select

@@ -1,8 +1,8 @@
 ﻿Option Strict On
 Class MinimaxLight
-    Private LocalInitialList, LocalPossibleList As Integer()()
-    Sub New(ByVal InitialList As Integer()(), ByVal PossibleList As Integer()())
-        LocalInitialList = InitialList
+    Private LocalPossibleList As Integer()()
+    Sub New(ByVal PossibleList As Integer()())
+
         LocalPossibleList = PossibleList
         'LocalPossibleList = PossibleList.GetRange(0, InitialList.Count)
     End Sub
@@ -11,7 +11,7 @@ Class MinimaxLight
         Dim LocalFunctions As New MinimaxFunctions
         Dim BWCount(1) As Integer
         Dim HighestMinScoreIndex As Integer = 0
-        Dim ScoreForSolution As Integer = 0
+        Dim ScoreForSolution As Integer = Integer.MinValue
         Dim i As Integer = 0
         Dim iMax As Integer = LocalPossibleList.Count
 
@@ -25,7 +25,12 @@ Class MinimaxLight
             Do Until q = LocalPossibleList.Count
                 BWCount = LocalFunctions.MiniGetBW(LocalPossibleList(q), PossibleAttempt)
                 Dim BWint As Integer = BWCount(0) * 10 + BWCount(1)
-                If Not BWList.Contains(BWint) Then '
+                If Not BWList.Exists(Function(obj As Integer) As Boolean
+                                         If BWint = obj Then
+                                             Return True
+                                         End If
+                                         Return False
+                                     End Function) Then
                     BWList.Add(BWint)
                     Dim tempscore As Integer = CalculateEliminated(BWCount(0), BWCount(1), PossibleAttempt)
                     If score > tempscore Then
@@ -40,11 +45,18 @@ Class MinimaxLight
                 ScoreForSolution = score
                 HighestMinScoreIndex = i
             End If
+
             i += 1
         Loop
         FourBestIndices = {HighestMinScoreIndex, HighestMinScoreIndex, HighestMinScoreIndex, HighestMinScoreIndex}
         FourBestScores = {ScoreForSolution, ScoreForSolution, ScoreForSolution, ScoreForSolution}
+
+
+
     End Sub
+
+
+
 
     'Private Function MiniCalculateEliminated(ByVal B As Integer, ByVal W As Integer, ByVal HypotheticalGuess() As Integer) As Integer
     '    Dim SolutionsEliminated As Integer = 0

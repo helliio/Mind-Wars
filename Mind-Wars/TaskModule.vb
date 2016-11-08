@@ -5,37 +5,83 @@ Module TaskModule
     Public TESTBestIndex As Integer
 
     Public Sub RunMinimaxTask()
-        Dim taskArray() As Task(Of Integer()) = {Task(Of Integer()).Factory.StartNew(Function() MinimaxTask(holes, InitiallyPossibleSolutions, CurrentlyPossibleSolutions, 1)),
-                            Task(Of Integer()).Factory.StartNew(Function() MinimaxTask(holes, InitiallyPossibleSolutions, CurrentlyPossibleSolutions, 2)),
-                            Task(Of Integer()).Factory.StartNew(Function() MinimaxTask(holes, InitiallyPossibleSolutions, CurrentlyPossibleSolutions, 3))}
+        Dim highestscore As Integer = -1
+        Dim highestindex As Integer = -1
 
-        Dim results(taskArray.Length - 1)() As Integer
+        'If CurrentlyPossibleSolutions.Count > 40 Then   UNCOMMENT!!!! COMPARE SPEEDS
+        If CurrentlyPossibleSolutions.Count = 0 Then
 
-        Dim highestscore As Integer = 0
-        Dim highestindex As Integer = 0
-        For i As Integer = 0 To taskArray.Length - 1
-            results(i) = taskArray(i).Result
-            If results(i)(1) > highestscore Then
-                highestscore = results(i)(1)
-                highestindex = results(i)(0)
-            End If
-        Next
+            Dim taskArray() As Task(Of Integer()) = {Task(Of Integer()).Factory.StartNew(Function() MinimaxTask(holes, InitiallyPossibleSolutions, CurrentlyPossibleSolutions, 1)),
+                                Task(Of Integer()).Factory.StartNew(Function() MinimaxTask(holes, InitiallyPossibleSolutions, CurrentlyPossibleSolutions, 2)),
+                                Task(Of Integer()).Factory.StartNew(Function() MinimaxTask(holes, InitiallyPossibleSolutions, CurrentlyPossibleSolutions, 3))}
+            Dim results(taskArray.Length - 1)() As Integer
+
+            For i As Integer = 0 To taskArray.Length - 1
+                results(i) = taskArray(i).Result
+                If results(i)(1) > highestscore Then
+                    highestscore = results(i)(1)
+                    highestindex = results(i)(0)
+                ElseIf results(i)(1) = highestscore AndAlso CurrentlyPossibleSolutions.Exists(Function(obj As Integer()) As Boolean
+                                                                                                  For h As Integer = 0 To holes - 1
+                                                                                                      If obj(h) <> InitiallyPossibleSolutions(highestindex)(h) Then Return False
+                                                                                                  Next
+                                                                                                  Return True
+                                                                                              End Function) Then
+                    highestscore = results(i)(1)
+                    highestindex = results(i)(0)
+                End If
+            Next
+        Else
+            Dim singleTask As Task(Of Integer()) = Task(Of Integer()).Factory.StartNew(Function() MinimaxTask(holes, InitiallyPossibleSolutions, CurrentlyPossibleSolutions, 0))
+            Dim result() As Integer = singleTask.Result
+            highestscore = result(1)
+            highestindex = result(0)
+        End If
         Debug.Print("HIGHEST INDEX: " & highestindex & " WITH " & highestscore & vbNewLine)
-        TESTBestIndex = highestindex
+
+        If highestscore = 0 Then
+            Debug.Print("ZERO!")
+            TESTBestIndex = InitiallyPossibleSolutions.FindIndex(Function(obj As Integer()) As Boolean
+                                                                     Return ArrayToInt(CurrentlyPossibleSolutions(0)) = ArrayToInt(obj)
+                                                                 End Function)
+        Else
+            TESTBestIndex = highestindex
+        End If
+    End Sub
+
+
+    Public Sub RunMinimaxWithAverage()
+        Debug.Print("WITH AVERAGE")
+        Dim highestscore As Integer = -1
+        Dim highestindex As Integer = -1
+
+        Dim singleTask As Task(Of Integer()) = Task(Of Integer()).Factory.StartNew(Function() MinimaxSelectBestAverage(holes, InitiallyPossibleSolutions, CurrentlyPossibleSolutions, 0))
+        Dim result() As Integer = singleTask.Result
+        highestscore = result(1)
+        highestindex = result(0)
+
+        If highestscore = 0 Then
+            Debug.Print("ZERO!!!!!!!!!!!!!!!!!!! ATTENTION")
+            TESTBestIndex = InitiallyPossibleSolutions.FindIndex(Function(obj As Integer()) As Boolean
+                                                                     Return ArrayToInt(CurrentlyPossibleSolutions(0)) = ArrayToInt(obj)
+                                                                 End Function)
+        Else
+            TESTBestIndex = highestindex
+        End If
+
     End Sub
 
     Private Function MinimaxTask(ByVal holecount As Integer, IL As List(Of Integer()), CL As List(Of Integer()), ByVal Fourth As Integer) As Integer()
         Dim InitialList()() As Integer = IL.ToArray
         Dim CurrentList()() As Integer = CL.ToArray
 
-        Dim HighestMinScoreIndex As Integer = 0
-        Dim ScoreForSolution As Integer = 0
+        Dim HighestMinScoreIndex As Integer = Integer.MinValue
+        Dim ScoreForSolution As Integer = Integer.MinValue
         Dim SolutionCount As Integer = InitialList.Count
 
-        Dim Capacity As Integer = 0
-        For x As Integer = holecount + 1 To 1
+        Dim Capacity As Integer = -1
+        For x As Integer = holecount + 1 To 1 Step -1
             Capacity += x
-            x -= 1
         Next
 
         Dim BWList As New List(Of Integer)(Capacity)
@@ -53,6 +99,9 @@ Module TaskModule
             Case 3
                 i = quarter * 2 - 1
                 iMax = InitialList.Count
+            Case 0
+                i = 0
+                iMax = InitialList.Count
         End Select
 
         Dim LocalFunctions As New MinimaxFunctions
@@ -62,16 +111,24 @@ Module TaskModule
         Dim BWCount(1) As Integer
         Do Until i = iMax
             Dim score As Integer = Integer.MaxValue
+
             Dim InitialItemiArray() As Integer = InitialList(i)
+
             Dim q As Integer = 0
             Do Until q = CurrentList.Count
                 Dim Check() As Integer = CurrentList(q)
                 BWCount = LocalFunctions.MiniGetBW(Check, InitialItemiArray)
+
                 Dim BWint As Integer = BWCount(0) * 10 + BWCount(1)
-                If Not BWList.Contains(BWint) Then
+                If Not BWList.Exists(Function(obj As Integer) As Boolean
+                                         If BWint = obj Then
+                                             Return True
+                                         End If
+                                         Return False
+                                     End Function) Then
                     BWList.Add(BWint)
                     Dim tempscore As Integer = LocalFunctions.NewCalculateEliminated(BWCount(0), BWCount(1), InitialItemiArray, CurrentList)
-                    If score > tempscore Then
+                    If tempscore < score Then
                         score = tempscore
                     End If
                     If score < ScoreForSolution Then
@@ -81,18 +138,125 @@ Module TaskModule
                 q += 1
             Loop
             BWList.Clear()
-            q = 0
+
             If score > ScoreForSolution AndAlso score < Integer.MaxValue Then
                 ScoreForSolution = score
                 HighestMinScoreIndex = i
+            ElseIf score = ScoreForSolution AndAlso CurrentlyPossibleSolutions.Exists(Function(obj As Integer()) As Boolean
+                                                                                          For h As Integer = 0 To holes - 1
+                                                                                              If obj(h) <> InitialItemiArray(h) Then Return False
+                                                                                          Next
+                                                                                          Return True
+                                                                                      End Function) = True Then
+                ScoreForSolution = score
+                HighestMinScoreIndex = i
+
             End If
             i += 1
         Loop
         'BWList.TrimExcess()
         'BWList = Nothing
-
         Dim ReturnArray() As Integer = {HighestMinScoreIndex, ScoreForSolution}
         Return ReturnArray
     End Function
+
+    Private Function MinimaxSelectBestAverage(ByVal holecount As Integer, IL As List(Of Integer()), CL As List(Of Integer()), ByVal Fourth As Integer) As Integer()
+        Dim InitialList()() As Integer = IL.ToArray
+        Dim CurrentList()() As Integer = CL.ToArray
+
+        Dim HighestMinScoreIndex As Integer = Integer.MinValue
+        Dim ScoreForSolution As Integer = Integer.MinValue
+        Dim AverageEliminatedForSolution As Integer
+        Dim SolutionCount As Integer = InitialList.Count
+
+        Dim Capacity As Integer = -1
+        For x As Integer = holecount + 1 To 1 Step -1
+            Capacity += x
+        Next
+        Capacity -= 1
+
+        Dim BWList As New List(Of Integer)(Capacity)
+        Dim BWScoreTable As New List(Of Integer)(Capacity)
+
+        Dim i As Integer = 0
+        Dim iMax As Integer = InitialList.Count
+
+        Dim LocalFunctions As New MinimaxFunctions
+
+        Dim TopScore As Integer = 0
+
+        Dim BWCount(1) As Integer
+        Do Until i = iMax
+            Dim score As Integer = Integer.MaxValue
+            Dim ScoreSum As Integer = 0
+
+            Dim InitialItemiArray() As Integer = InitialList(i)
+
+
+            Dim q As Integer = 0
+            Do Until q = CurrentList.Count
+                Dim Check() As Integer = CurrentList(q)
+                BWCount = LocalFunctions.MiniGetBW(Check, InitialItemiArray)
+
+                Dim BWint As Integer = BWCount(0) * 10 + BWCount(1)
+                Dim BWIndex As Integer = BWList.FindIndex(Function(obj As Integer) As Boolean
+                                                              If BWint = obj Then
+                                                                  Return True
+                                                              End If
+                                                              Return False
+                                                          End Function)
+
+                If BWIndex = -1 Then
+                    BWList.Add(BWint)
+                    Dim tempscore As Integer = LocalFunctions.NewCalculateEliminated(BWCount(0), BWCount(1), InitialItemiArray, CurrentList)
+                    ScoreSum += tempscore
+                    BWScoreTable.Add(tempscore)
+                    If tempscore < score Then
+                        score = tempscore
+                    End If
+                    If tempscore < ScoreForSolution Then
+                        Exit Do
+                    End If
+                Else
+                    ScoreSum += BWScoreTable(BWIndex)
+                End If
+                q += 1
+            Loop
+            BWList.Clear()
+            BWScoreTable.Clear()
+            If score > ScoreForSolution AndAlso score < Integer.MaxValue Then
+                ScoreForSolution = score
+                HighestMinScoreIndex = i
+                If CurrentlyPossibleSolutions.Exists(Function(obj As Integer()) As Boolean
+                                                         For h As Integer = 0 To holes - 1
+                                                             If obj(h) <> InitialItemiArray(h) Then Return False
+                                                         Next
+                                                         Return True
+                                                     End Function) = True Then
+                    AverageEliminatedForSolution = ScoreSum
+                Else
+                    AverageEliminatedForSolution = 0
+                End If
+            ElseIf score = ScoreForSolution AndAlso CurrentlyPossibleSolutions.Exists(Function(obj As Integer()) As Boolean
+                                                                                          For h As Integer = 0 To holes - 1
+                                                                                              If obj(h) <> InitialItemiArray(h) Then Return False
+                                                                                          Next
+                                                                                          Return True
+                                                                                      End Function) = True Then
+
+                If ScoreSum > AverageEliminatedForSolution Then
+                    Debug.Print("Previous sum was " & AverageEliminatedForSolution & ", new sum = " & ScoreSum)
+                    HighestMinScoreIndex = i
+                    AverageEliminatedForSolution = ScoreSum
+                End If
+            End If
+            i += 1
+        Loop
+        Dim ReturnArray() As Integer = {HighestMinScoreIndex, ScoreForSolution}
+        Return ReturnArray
+    End Function
+
+
+
 
 End Module

@@ -24,7 +24,7 @@ Public Class StartScreen
 
     Dim PvEFocusedCategory As Integer = 0
     Dim SelectedPvEListIndex As Integer = 0
-    Dim FocusedPvEColorListIndex As Integer = 2
+    Dim FocusedPvEColorListIndex As Integer = 5
     Dim SelectedPvEDifficulty As Integer = 1
 
     Private Sub StartScreen_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -518,10 +518,9 @@ Public Class StartScreen
 
     Sub SelectColor()
         PvEColors = FocusedPvEColorListIndex + 1
-        'For Each ColPal As PictureBox In PvEColorList
-        '    ColPal.Invalidate()
-        'Next
-        PvEColorList.Item(FocusedPvEColorListIndex).Invalidate()
+        For Each ColPal As PictureBox In PvEColorList
+            ColPal.Invalidate()
+        Next
     End Sub
 
     Sub EnterSelected()
@@ -763,10 +762,11 @@ Public Class StartScreen
         Dim SenderTag As Integer = CInt(SenderPic.Tag)
 
         If PvEFocusedCategory = 1 Then
-            If PvEFocusedCategory = 1 AndAlso SenderTag > FocusedPvEColorListIndex + 1 Then
+            If SenderTag > FocusedPvEColorListIndex + 1 Then
+                'If SenderTag > FocusedPvEColorListIndex + 1 Then
                 ColorPaletteBrush.Color = Color.FromArgb(150, ColorCodes(SenderTag))
                 ColorPaletteRect.Inflate(-4, -4)
-            ElseIf PvEFocusedCategory = 1 AndAlso SenderTag <= FocusedPvEColorListIndex + 1 Then
+            ElseIf SenderTag <= FocusedPvEColorListIndex + 1 Then
                 ColorPaletteBrush.Color = ColorCodes(SenderTag)
                 ColorPaletteRect.Inflate(-1, -1)
             End If

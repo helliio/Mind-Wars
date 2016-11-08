@@ -26,7 +26,7 @@ Partial Class PvPHTTP
         Me.PicFormHeader = New System.Windows.Forms.PictureBox()
         Me.HeaderTransparencyRight = New System.Windows.Forms.PictureBox()
         Me.ChooseCodePanel = New System.Windows.Forms.Panel()
-        Me.GamePanel = New System.Windows.Forms.Panel()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.InfoPanel = New System.Windows.Forms.Panel()
         Me.LabInfo = New System.Windows.Forms.Label()
         Me.PicInfoRight = New System.Windows.Forms.PictureBox()
@@ -47,16 +47,13 @@ Partial Class PvPHTTP
         Me.FillBWTimer = New System.Windows.Forms.Timer(Me.components)
         Me.DebugTimer = New System.Windows.Forms.Timer(Me.components)
         Me.CheckStatusBackgroundWorker = New System.ComponentModel.BackgroundWorker()
-        Me.Button1 = New System.Windows.Forms.Button()
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.HeaderTransparencyRight, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GamePanel.SuspendLayout()
         Me.InfoPanel.SuspendLayout()
         CType(Me.PicInfoRight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicInfoMiddle, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicInfoLeft, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GameCodePanel.SuspendLayout()
-        Me.BWPanel.SuspendLayout()
         CType(Me.HeaderTransparencyLeft, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -64,7 +61,6 @@ Partial Class PvPHTTP
         '
         Me.PicFormHeader.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(1, Byte), Integer), CType(CType(2, Byte), Integer))
         Me.PicFormHeader.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.HeaderBG
-        Me.PicFormHeader.Dock = System.Windows.Forms.DockStyle.Top
         Me.PicFormHeader.Location = New System.Drawing.Point(0, 0)
         Me.PicFormHeader.Name = "PicFormHeader"
         Me.PicFormHeader.Size = New System.Drawing.Size(264, 32)
@@ -76,48 +72,40 @@ Partial Class PvPHTTP
         '
         Me.HeaderTransparencyRight.BackColor = System.Drawing.Color.Maroon
         Me.HeaderTransparencyRight.Image = Global.Mind_Wars.My.Resources.Resources.HeaderTransparencyRight
-        Me.HeaderTransparencyRight.Location = New System.Drawing.Point(150, 226)
+        Me.HeaderTransparencyRight.Location = New System.Drawing.Point(69, 53)
         Me.HeaderTransparencyRight.Name = "HeaderTransparencyRight"
-        Me.HeaderTransparencyRight.Size = New System.Drawing.Size(66, 59)
+        Me.HeaderTransparencyRight.Size = New System.Drawing.Size(24, 32)
         Me.HeaderTransparencyRight.TabIndex = 21
         Me.HeaderTransparencyRight.TabStop = False
         '
         'ChooseCodePanel
         '
         Me.ChooseCodePanel.BackColor = System.Drawing.Color.Transparent
-        Me.ChooseCodePanel.Location = New System.Drawing.Point(39, 50)
+        Me.ChooseCodePanel.Location = New System.Drawing.Point(52, 105)
         Me.ChooseCodePanel.Name = "ChooseCodePanel"
         Me.ChooseCodePanel.Size = New System.Drawing.Size(200, 100)
         Me.ChooseCodePanel.TabIndex = 20
         Me.ChooseCodePanel.Visible = False
         '
-        'GamePanel
+        'Button1
         '
-        Me.GamePanel.AutoSize = True
-        Me.GamePanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.GamePanel.BackColor = System.Drawing.Color.Transparent
-        Me.GamePanel.Controls.Add(Me.Button1)
-        Me.GamePanel.Controls.Add(Me.InfoPanel)
-        Me.GamePanel.Controls.Add(Me.GameCodePanel)
-        Me.GamePanel.Controls.Add(Me.HeaderTransparencyRight)
-        Me.GamePanel.Controls.Add(Me.ChooseCodePanel)
-        Me.GamePanel.Controls.Add(Me.BWPanel)
-        Me.GamePanel.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GamePanel.Location = New System.Drawing.Point(0, 0)
-        Me.GamePanel.Name = "GamePanel"
-        Me.GamePanel.Padding = New System.Windows.Forms.Padding(0, 0, 10, 0)
-        Me.GamePanel.Size = New System.Drawing.Size(264, 500)
-        Me.GamePanel.TabIndex = 21
-        Me.GamePanel.Visible = False
+        Me.Button1.Enabled = False
+        Me.Button1.Location = New System.Drawing.Point(107, 211)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 22
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'InfoPanel
         '
+        Me.InfoPanel.BackColor = System.Drawing.Color.Transparent
         Me.InfoPanel.Controls.Add(Me.LabInfo)
         Me.InfoPanel.Controls.Add(Me.PicInfoRight)
         Me.InfoPanel.Controls.Add(Me.PicInfoMiddle)
         Me.InfoPanel.Controls.Add(Me.PicInfoLeft)
         Me.InfoPanel.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.InfoPanel.Location = New System.Drawing.Point(54, 166)
+        Me.InfoPanel.Location = New System.Drawing.Point(48, 270)
         Me.InfoPanel.Name = "InfoPanel"
         Me.InfoPanel.Size = New System.Drawing.Size(200, 100)
         Me.InfoPanel.TabIndex = 22
@@ -163,10 +151,11 @@ Partial Class PvPHTTP
         '
         'GameCodePanel
         '
+        Me.GameCodePanel.BackColor = System.Drawing.Color.Transparent
         Me.GameCodePanel.Controls.Add(Me.LabGameCode)
         Me.GameCodePanel.Controls.Add(Me.LabExplanation)
         Me.GameCodePanel.Controls.Add(Me.LabActualCode)
-        Me.GameCodePanel.Location = New System.Drawing.Point(48, 323)
+        Me.GameCodePanel.Location = New System.Drawing.Point(48, 414)
         Me.GameCodePanel.Name = "GameCodePanel"
         Me.GameCodePanel.Size = New System.Drawing.Size(312, 150)
         Me.GameCodePanel.TabIndex = 24
@@ -210,7 +199,6 @@ Partial Class PvPHTTP
         'BWPanel
         '
         Me.BWPanel.BackColor = System.Drawing.Color.Transparent
-        Me.BWPanel.Controls.Add(Me.HeaderTransparencyLeft)
         Me.BWPanel.Dock = System.Windows.Forms.DockStyle.Left
         Me.BWPanel.Location = New System.Drawing.Point(0, 0)
         Me.BWPanel.Name = "BWPanel"
@@ -222,9 +210,9 @@ Partial Class PvPHTTP
         '
         Me.HeaderTransparencyLeft.BackColor = System.Drawing.Color.Maroon
         Me.HeaderTransparencyLeft.Image = Global.Mind_Wars.My.Resources.Resources.HeaderTransparencyLeft
-        Me.HeaderTransparencyLeft.Location = New System.Drawing.Point(0, 0)
+        Me.HeaderTransparencyLeft.Location = New System.Drawing.Point(48, 50)
         Me.HeaderTransparencyLeft.Name = "HeaderTransparencyLeft"
-        Me.HeaderTransparencyLeft.Size = New System.Drawing.Size(66, 59)
+        Me.HeaderTransparencyLeft.Size = New System.Drawing.Size(15, 35)
         Me.HeaderTransparencyLeft.TabIndex = 20
         Me.HeaderTransparencyLeft.TabStop = False
         '
@@ -265,16 +253,6 @@ Partial Class PvPHTTP
         '
         Me.CheckStatusBackgroundWorker.WorkerSupportsCancellation = True
         '
-        'Button1
-        '
-        Me.Button1.Enabled = False
-        Me.Button1.Location = New System.Drawing.Point(179, 291)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 22
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
         'PvPHTTP
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -282,8 +260,14 @@ Partial Class PvPHTTP
         Me.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.StartScreenBG1
         Me.ClientSize = New System.Drawing.Size(264, 500)
         Me.ControlBox = False
+        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.HeaderTransparencyLeft)
+        Me.Controls.Add(Me.HeaderTransparencyRight)
+        Me.Controls.Add(Me.InfoPanel)
         Me.Controls.Add(Me.PicFormHeader)
-        Me.Controls.Add(Me.GamePanel)
+        Me.Controls.Add(Me.GameCodePanel)
+        Me.Controls.Add(Me.BWPanel)
+        Me.Controls.Add(Me.ChooseCodePanel)
         Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.MaximizeBox = False
@@ -293,22 +277,18 @@ Partial Class PvPHTTP
         Me.TransparencyKey = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(1, Byte), Integer), CType(CType(2, Byte), Integer))
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.HeaderTransparencyRight, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GamePanel.ResumeLayout(False)
         Me.InfoPanel.ResumeLayout(False)
         CType(Me.PicInfoRight, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicInfoMiddle, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicInfoLeft, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GameCodePanel.ResumeLayout(False)
-        Me.BWPanel.ResumeLayout(False)
         CType(Me.HeaderTransparencyLeft, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
     Friend WithEvents PicFormHeader As PictureBox
     Friend WithEvents HeaderTransparencyRight As PictureBox
     Friend WithEvents ChooseCodePanel As Panel
-    Friend WithEvents GamePanel As Panel
     Friend WithEvents BWPanel As Panel
     Friend WithEvents HeaderTransparencyLeft As PictureBox
     Public WithEvents ConnectionBackgroundWorker As System.ComponentModel.BackgroundWorker
