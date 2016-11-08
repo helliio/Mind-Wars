@@ -8,6 +8,7 @@ Public Class PvPHTTP
 
     Private Sub PvPHTTP_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         '''' Move to SetupGame sub ''''
+        Me.Visible = False
         holes = 4
         tries = 10
         colours = 8
@@ -23,13 +24,11 @@ Public Class PvPHTTP
         SelectedChooseCodeColor = 0
         Me.BackgroundImage = Theme_FormBackground
         BWPanel.Visible = True
-        GamePanel.Visible = True
         ChooseCodePanel.Visible = False
         Me.Width = 60 + 32 * holes
         Me.Height = 38 * (tries + 1) + 74
         'Call GenerateBoard(2, GamePanel, BWPanel, ChooseCodePanel)
-        Call GenerateBoard(2, Me, BWPanel, ChooseCodePanel)
-
+        InfoPanel.Visible = False
         With ChooseCodePanel
             .Left = 0
             .Top = 0
@@ -53,6 +52,42 @@ Public Class PvPHTTP
             .Height = 12
             .BackColor = Color.Transparent
         End With
+        Call GenerateBoard(2, Me, BWPanel, ChooseCodePanel)
+        With InfoPanel
+            .Parent = Me
+            .BackColor = Color.Transparent
+            .BringToFront()
+            .Width = 32 * holes
+            .Height = PicInfoLeft.BackgroundImage.Height + 12
+            .Left = HolesList.Item(0).Left
+            .Top = HolesList.Item(0).Top + 42
+        End With
+        With PicInfoLeft
+            .Parent = InfoPanel
+            .Size = .BackgroundImage.Size
+            .Left = 0
+            .Top = 0
+        End With
+        With PicInfoMiddle
+            .Parent = InfoPanel
+            .Height = .BackgroundImage.Height
+            .Width = .Parent.Width - PicInfoLeft.Width * 2
+            .Left = PicInfoLeft.Width
+            .Top = 0
+        End With
+        With PicInfoRight
+            .Parent = InfoPanel
+            .Size = .BackgroundImage.Size
+            .Left = PicInfoLeft.Width + PicInfoMiddle.Width
+            .Top = 0
+        End With
+        With LabInfo
+            .Parent = PicInfoMiddle
+            .Size = .Parent.Size
+            .Left = 0
+            .Top = 0
+        End With
+        Me.Visible = True
     End Sub
     Private Sub ConnectionBackgroundWorker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles ConnectionBackgroundWorker.DoWork
         If HTTPConnectClient.IsBusy = False Then
@@ -68,21 +103,18 @@ Public Class PvPHTTP
             ConnectionEstablished = False
         End If
     End Sub
-    Private Sub ConnectionBackgroundWorker_ProgressChanged(sender As Object, e As ProgressChangedEventArgs) Handles ConnectionBackgroundWorker.ProgressChanged
-
-    End Sub
     Private Sub ConnectionBackgroundWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles ConnectionBackgroundWorker.RunWorkerCompleted
         If ConnectionEstablished = True Then
-            solution = GenerateSolution()
-            GamePanel.Visible = True
-            BWPanel.Visible = True
             GameCodePanel.Visible = False
-            ShowHolesTimer.Enabled = True
+            solution = GenerateSolution()
+            BWPanel.Visible = True
+            UsersTurn = True
             If IsGameStarter = 2 Then
                 ' 0 = not set, 1 = false, 2 = true
                 Debug.Print("IS GAME STARTER. STARTER CHOOSES CODE.")
-                UsersTurn = True
                 Call SwitchSides()
+            Else
+                ShowHolesTimer.Enabled = True
             End If
         Else
             ConnectionBackgroundWorker.RunWorkerAsync()
@@ -105,6 +137,9 @@ Public Class PvPHTTP
         If ShowHolesCounter < HolesList.Count Then
             HolesList.Item(ShowHolesCounter).Visible = True
             ShowHolesCounter += 1
+            If BWPanel.Visible = False Then
+                BWPanel.Visible = True
+            End If
         ElseIf ShowHolesCounter < HolesList.Count + BWHolesList.Count Then
             ShowHolesTimer.Interval = 80
             BWHolesList.Item(ShowHolesCounter - HolesList.Count).Visible = True
@@ -113,19 +148,50 @@ Public Class PvPHTTP
             BWHolesList.Item(ShowHolesCounter + 3 - HolesList.Count).Visible = True
             ShowHolesCounter += 4
         Else
-            With InfoPanel
-                .Parent = Me
-                .BackColor = Color.Transparent
-                .BringToFront()
-                .Width = 32 * holes
-                .Height = PicInfoLeft.BackgroundImage.Height
-                .Left = HolesList.Item(0).Left
-                .Top = HolesList.Item(0).Top + 44
-            End With
+            'With InfoPanel
+            '    .Parent = Me
+            '    .BackColor = Color.Transparent
+            '    .BringToFront()
+            '    .Width = 32 * holes
+            '    .Height = PicInfoLeft.BackgroundImage.Height + 12
+            '    .Left = HolesList.Item(0).Left
+            '    .Top = HolesList.Item(0).Top + 42
+            'End With
+            'With PicInfoLeft
+            '    .Parent = InfoPanel
+            '    .Size = .BackgroundImage.Size
+            '    .Left = 0
+            '    .Top = 0
+            'End With
+            'With PicInfoMiddle
+            '    .Parent = InfoPanel
+            '    .Height = .BackgroundImage.Height
+            '    .Width = .Parent.Width - PicInfoLeft.Width * 2
+            '    .Left = PicInfoLeft.Width
+            '    .Top = 0
+            'End With
+            'With PicInfoRight
+            '    .Parent = InfoPanel
+            '    .Size = .BackgroundImage.Size
+            '    .Left = PicInfoLeft.Width + PicInfoMiddle.Width
+            '    .Top = 0
+            'End With
+            'With LabInfo
+            '    .Parent = PicInfoMiddle
+            '    .Size = .Parent.Size
+            '    .Left = 0
+            '    .Top = 0
+            'End With
             ShowHolesTimer.Enabled = False
             ShowHolesCounter = 0
             HoleGraphicsTimer.Enabled = True
         End If
+
+
+
+
+
+
     End Sub
     Private Sub HoleGraphicsTimer_Tick(sender As Object, e As EventArgs) Handles HoleGraphicsTimer.Tick
         If VerifyRowAlphaIncreasing Then
@@ -198,7 +264,7 @@ Public Class PvPHTTP
 
 
                                 'BUGGY'
-                                InfoPanel.Parent = GamePanel
+                                InfoPanel.Parent = Me
                                 InfoPanel.Show()
                                 '/BUGGY'
 
@@ -243,6 +309,7 @@ Public Class PvPHTTP
                             ChosenCodeList.Clear()
                             ChooseCodePanel.Hide()
                             InfoPanel.Show()
+                            ShowHolesTimer.Enabled = True
 
                             Dim UpdateSolutionString As String = ArrayToString(solution)
                             Dim UpdateGame As New UpdateGameClass
@@ -399,14 +466,14 @@ Public Class PvPHTTP
         Attempt = 0
         BWCountList.Clear()
         GuessList.Clear()
+        InfoPanel.Visible = False
+        VerifyRowTimer.Enabled = False
         If UsersTurn = True Then
-            VerifyRowTimer.Enabled = False
             HoleGraphicsTimer.Enabled = True
             ChooseCodePanel.Visible = True
             UsersTurn = False
         Else
             UsersTurn = True
-            InfoPanel.Visible = False
         End If
         Call ClearBoard()
     End Sub
@@ -525,43 +592,6 @@ Public Class PvPHTTP
         IsGameStarter = 0
     End Sub
 
-    Private Sub InfoPanel_Paint(sender As Object, e As PaintEventArgs) Handles InfoPanel.Paint
-        With PicInfoLeft
-            .Hide()
-            .Parent = InfoPanel
-            .Size = .BackgroundImage.Size
-            .Left = 0
-            .Top = 0
-            .Show()
-        End With
-        With PicInfoMiddle
-            .Hide()
-            .Parent = InfoPanel
-            .Height = .BackgroundImage.Height
-            .Width = .Parent.Width - PicInfoLeft.Width * 2
-            .Left = PicInfoLeft.Width
-            .Top = 0
-            .Show()
-        End With
-        With PicInfoRight
-            .Hide()
-            .Parent = InfoPanel
-            .Size = .BackgroundImage.Size
-            .Left = PicInfoLeft.Width + PicInfoMiddle.Width
-            .Top = 0
-            .Show()
-        End With
-        With LabInfo
-            .Hide()
-            .Parent = PicInfoMiddle
-            .Size = .Parent.Size
-            .Left = 0
-            .Top = 0
-            .Text = "Your opponent is breaking your code."
-            .Show()
-        End With
-    End Sub
-
     Private Sub CheckStatusBackgroundWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles CheckStatusBackgroundWorker.RunWorkerCompleted
         If SolutionSet = True Then
             Debug.Print("Ready to play")
@@ -576,6 +606,10 @@ Public Class PvPHTTP
         Else
             InfoPanel.Hide()
         End If
+    End Sub
+
+    Private Sub BWPanel_Paint(sender As Object, e As PaintEventArgs) Handles BWPanel.Paint
+
     End Sub
 
     Private Sub PvPHTTP_Resize(sender As Object, e As EventArgs) Handles Me.Resize

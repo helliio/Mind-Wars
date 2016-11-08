@@ -140,6 +140,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PvE.resx">
       <DependentUpon>PvE.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PvPHTTP.resx">
       <DependentUpon>PvPHTTP.vb</DependentUpon>

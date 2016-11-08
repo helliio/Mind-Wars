@@ -95,7 +95,6 @@ Module WebModule
                     'PvPHTTP.Show()
                     HTTPGameCode = CInt(code)
                     PvPHTTP.CheckStatusBackgroundWorker.RunWorkerAsync()
-
                 Case Else
                     MsgBox(ResultString)
             End Select

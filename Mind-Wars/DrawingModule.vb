@@ -43,7 +43,9 @@ Module DrawingModule
     Public WhitePegBrush As New SolidBrush(Color.White)
     Public NothingBrush As New SolidBrush(Color.DarkGray)
 
-    'Public Sub GenerateBoard(ByVal GameMode As Integer, SenderPanel As Panel, ByVal SenderBWPanel As Panel, SenderChoosePanel As Panel)
+    Public AIStep As Integer = 0
+    Public InvalidatedSteps As Integer = 1
+
     Public Sub GenerateBoard(ByVal GameMode As Integer, SenderForm As Form, SenderBWPanel As Panel, SenderChoosePanel As Panel)
         With SenderChoosePanel
             .Height = SenderForm.ClientRectangle.Height
@@ -99,7 +101,6 @@ Module DrawingModule
                     .Height = 32
                     .Top = 38 * tries - 38 * y
                     .Left = 50 + 32 * x
-                    '.BorderStyle = BorderStyle.None
                     .BackColor = Color.Transparent
                     .Tag = y * holes + x
                 End With
@@ -123,8 +124,6 @@ Module DrawingModule
                     .Left = 50 + 32 * (i - 4)
                 End If
                 .BackColor = Color.Transparent
-                .BorderStyle = BorderStyle.None
-                .Name = "Choice_" & i
                 .Tag = i
                 AddHandler Choice.Paint, AddressOf PaintChoice
                 SenderForm.Controls.Add(Choice)
@@ -139,7 +138,7 @@ Module DrawingModule
                 .Height = 32
                 If i < 4 Then
                     .Top = CInt(SenderChoosePanel.ClientRectangle.Height / 2)
-                    .Left = CInt(SenderForm.ClientRectangle.Width / 2 - (2 + i) * 32)
+                    .Left = CInt(SenderForm.ClientRectangle.Width / 2 + i * 32 - 64)
                 Else
                     .Top = CInt(SenderChoosePanel.ClientRectangle.Height / 2 + 32)
                     .Left = CInt(SenderForm.ClientRectangle.Width / 2 + (i - 4) * 32 - 64)
@@ -147,13 +146,13 @@ Module DrawingModule
                 .BackColor = Color.Transparent
                 .Tag = i
                 If i < colours Then
-                    'Remove at a later point
+                    AddHandler ChooseCode.Paint, AddressOf PaintChooseCode
+                    SenderChoosePanel.Controls.Add(ChooseCode)
+                    ChooseCodeList.Add(ChooseCode)
                     .Visible = True
                 End If
             End With
-            AddHandler ChooseCode.Paint, AddressOf PaintChooseCode
-            SenderChoosePanel.Controls.Add(ChooseCode)
-            ChooseCodeList.Add(ChooseCode)
+
         Next
         For j As Integer = 0 To holes - 1
             Dim ChooseCodeHole As New PictureBox
@@ -164,7 +163,6 @@ Module DrawingModule
                 .Top = CInt(SenderChoosePanel.ClientRectangle.Height / 2) - 42
                 .Left = CInt(SenderForm.ClientRectangle.Width / 2 - (holes * 32) / 2 + 32 * j)
                 .BackColor = Color.Transparent
-                '.BorderStyle = BorderStyle.None
                 .Tag = j
                 .Visible = True
             End With
@@ -273,9 +271,6 @@ Module DrawingModule
             Case 2
                 PvPHTTP.ColorTimer.Enabled = True
         End Select
-
-
-
         SenderChoosePanel.BringToFront()
     End Sub
 
@@ -292,9 +287,8 @@ Module DrawingModule
         e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
         HoleRectangle = sender.ClientRectangle
         HoleRectangle.Inflate(-2, -2)
-
         If PvEGame.VerifyRowTimer.Enabled = False AndAlso PvPHTTP.VerifyRowTimer.Enabled = False Then
-            If CInt(sender.Tag) = GuessList.Count AndAlso UsersTurn = True Then
+            If CInt(sender.Tag) = GuessList.Count AndAlso UsersTurn = True AndAlso (PvEGame.HoleGraphicsTimer.Enabled = True OrElse PvPHTTP.HoleGraphicsTimer.Enabled = True) Then
                 e.Graphics.DrawEllipse(FocusedHolePen, HoleRectangle)
             Else
                 e.Graphics.DrawEllipse(Pens.AliceBlue, HoleRectangle)
@@ -305,8 +299,10 @@ Module DrawingModule
                         e.Graphics.FillEllipse(GuessBrush, HoleRectangle)
                     End If
                 Else
-                    If CInt(sender.Tag) >= holes * tries - AIGuessList.Count Then
-                        GuessBrush.Color = ColorCodes(AIGuessList.Item(holes * tries - CInt(sender.Tag)) - 1)
+                    Dim InversePosition As Integer = (holes * tries) - ((holes + CInt(sender.Tag)) - ((holes + CInt(sender.Tag)) Mod holes)) + (CInt(sender.Tag) Mod holes)
+                    '16-((4+8)-((4+8) mod 4))+(8 mod 4)
+                    If InversePosition <= (AIAttempts - 1) * holes + AIStep Then ' AndAlso InversePosition < AIGuessList.Count
+                        GuessBrush.Color = ColorCodes(AIGuessList.Item(InversePosition) + 1)
                         e.Graphics.FillEllipse(GuessBrush, HoleRectangle)
                     End If
                 End If
@@ -316,7 +312,6 @@ Module DrawingModule
             HoleRectangle.Inflate(-6, -6)
             GuessBrush.Color = ColorCodes(GuessList.Item(CInt(sender.Tag)) + 1)
             e.Graphics.FillEllipse(GuessBrush, HoleRectangle)
-            'ElseIf (PvEGame.InfoPanel.Visible = True OrElse PvPHTTP.InfoPanel.Visible = True) Then
         Else
             e.Graphics.DrawEllipse(Pens.AliceBlue, HoleRectangle)
             If CInt(sender.Tag) < GuessList.Count Then
@@ -332,17 +327,33 @@ Module DrawingModule
         BWRectangle = sender.ClientRectangle
         BWRectangle.Inflate(-2, -2)
 
-        If CInt(sender.Tag) >= BWCountList.Count Then
-            e.Graphics.FillEllipse(Brushes.Red, BWRectangle)
+        If UsersTurn = True Then
+            If CInt(sender.Tag) >= BWCountList.Count Then
+                e.Graphics.FillEllipse(Brushes.Red, BWRectangle)
+            Else
+                Select Case BWCountList.Item(CInt(sender.Tag))
+                    Case 0
+                        e.Graphics.FillEllipse(NothingBrush, BWRectangle)
+                    Case 1
+                        e.Graphics.FillEllipse(WhitePegBrush, BWRectangle)
+                    Case 2
+                        e.Graphics.FillEllipse(BlackPegBrush, BWRectangle)
+                End Select
+            End If
         Else
-            Select Case BWCountList.Item(CInt(sender.Tag))
-                Case 0
-                    e.Graphics.FillEllipse(NothingBrush, BWRectangle)
-                Case 1
-                    e.Graphics.FillEllipse(WhitePegBrush, BWRectangle)
-                Case 2
-                    e.Graphics.FillEllipse(BlackPegBrush, BWRectangle)
-            End Select
+            Dim InversePosition As Integer = (holes * tries) - ((holes + CInt(sender.Tag)) - ((holes + CInt(sender.Tag)) Mod holes)) + (CInt(sender.Tag) Mod holes)
+            If InversePosition >= AIBWList.Count OrElse InversePosition >= (AIAttempts - 1) * holes + AIStep Then
+                e.Graphics.FillEllipse(Brushes.Red, BWRectangle)
+            Else
+                Select Case AIBWList.Item(InversePosition)
+                    Case 0
+                        e.Graphics.FillEllipse(NothingBrush, BWRectangle)
+                    Case 1
+                        e.Graphics.FillEllipse(WhitePegBrush, BWRectangle)
+                    Case 2
+                        e.Graphics.FillEllipse(BlackPegBrush, BWRectangle)
+                End Select
+            End If
         End If
     End Sub
     Public Sub PaintChoice(senderX As Object, e As PaintEventArgs)
@@ -408,33 +419,4 @@ Module DrawingModule
             e.Graphics.FillEllipse(GuessBrush, HoleRectangle)
         End If
     End Sub
-
-    'Public SelectedColorGUIPort As New IO.Ports.SerialPort
-
-    'Public Async Sub SomeButton_Click()
-    '    Task.Run(Async Function()
-    '                 Await SendAndWait()
-    '             End Function)
-    'End Sub
-
-    'Public Async Function SendAndWait() As Task
-    '    If SelectedSpinning = True Then
-    '        SelectedArcRotation += 2
-    '        If PvEGame.ChooseCodePanel.Visible = False Then
-    '            ChoiceList.Item(SelectedColor).Invalidate()
-    '        Else
-    '            ChooseCodeList.Item(SelectedChooseCodeColor).Invalidate()
-    '        End If
-    '        If SelectedArcRotation = 360 Then
-    '            SelectedArcRotation = 0
-    '        End If
-    '    End If
-    '    Await Task.Delay(40)
-    '    _port.WriteLine("Second")
-    '    Await Task.Delay(300)
-    '    _port.WriteLine("Third")
-    'End Function
-
-
-
 End Module
