@@ -32,6 +32,7 @@ Module WebModule
 
     Public Sub DisplayCode(ByVal LAN As Boolean)
         If LAN = False Then
+            PvPHTTP.Show()
             With PvPHTTP.GameCodePanel
                 .Width = PvPHTTP.ClientRectangle.Width
                 .Height = PvPHTTP.ClientRectangle.Height - PvPHTTP.PicFormHeader.Height
@@ -71,7 +72,6 @@ Module WebModule
                 .Left += 20
                 .BackColor = Color.Transparent
             End With
-            PvPHTTP.Show()
             If PvPHTTP.ConnectionBackgroundWorker.IsBusy = False Then
                 PvPHTTP.ConnectionBackgroundWorker.RunWorkerAsync()
             End If
