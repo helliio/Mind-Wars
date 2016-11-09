@@ -46,7 +46,31 @@ Module DrawingModule
     Public AIStep As Integer = 0
     Public InvalidatedSteps As Integer = 1
 
-    Public Sub GenerateBoard(ByVal GameMode As Integer, SenderForm As Form, SenderBWPanel As Panel, SenderChoosePanel As Panel)
+    Public Sub ShowHideChooseCodePanel(SenderBWPanel As Panel, SenderCodePanel As PictureBox)
+        If SenderCodePanel.Visible = False Then
+            For Each pic As PictureBox In ChooseCodeList
+                pic.Show()
+            Next
+            For Each pic As PictureBox In ChooseCodeHolesList
+                pic.Show()
+            Next
+            SenderCodePanel.Show()
+            For Each pic As PictureBox In HolesList
+                pic.Hide()
+            Next
+            SenderBWPanel.Hide()
+        Else
+            For Each pic As PictureBox In ChooseCodeList
+                pic.Hide()
+            Next
+            For Each pic As PictureBox In ChooseCodeHolesList
+                pic.Hide()
+            Next
+        End If
+    End Sub
+
+
+    Public Sub GenerateBoard(ByVal GameMode As Integer, SenderForm As Form, SenderBWPanel As Panel, SenderChoosePanel As PictureBox)
         With SenderChoosePanel
             .Height = SenderForm.ClientRectangle.Height
             .Width = SenderForm.ClientRectangle.Width
@@ -88,7 +112,7 @@ Module DrawingModule
                 Next
             Case 5
             Case 6, 3
-                
+
             Case 7
             Case 8
         End Select
@@ -148,9 +172,9 @@ Module DrawingModule
                 If i < colours Then
                     AddHandler ChooseCode.Paint, AddressOf PaintChooseCode
                     SenderChoosePanel.Controls.Add(ChooseCode)
-                    ChooseCodeList.Add(ChooseCode)
                     .Visible = True
                 End If
+                ChooseCodeList.Add(ChooseCode)
             End With
 
         Next
@@ -301,7 +325,7 @@ Module DrawingModule
                 Else
                     Dim InversePosition As Integer = (holes * tries) - ((holes + CInt(sender.Tag)) - ((holes + CInt(sender.Tag)) Mod holes)) + (CInt(sender.Tag) Mod holes)
                     '16-((4+8)-((4+8) mod 4))+(8 mod 4)
-                    If InversePosition <= (AIAttempts - 1) * holes + AIStep Then ' AndAlso InversePosition < AIGuessList.Count
+                    If InversePosition <= (AIAttempts - 1) * holes + AIStep Then
                         GuessBrush.Color = ColorCodes(AIGuessList.Item(InversePosition) + 1)
                         e.Graphics.FillEllipse(GuessBrush, HoleRectangle)
                     End If

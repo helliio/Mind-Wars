@@ -1,53 +1,67 @@
 ﻿Module GraphicalThemesModule
-    Public Theme_FormBackground As Image = My.Resources.StartScreenBG
-    Public Theme_ButtonBorderActive As Image = My.Resources.ButtonBorderActive1
-    Public Theme_ButtonBorderInactive As Image = My.Resources.ButtonBorderInactive
-    Public Theme_ButtonBackActive As Image = My.Resources.ButtonBackActive1
-    Public Theme_ButtonBackInactive As Image = My.Resources.ButtonBackInactive
-    Public Theme_SettingsButtonActive As Image = My.Resources.SettingsButtonActive
-    Public Theme_SettingsButtonInactive As Image = My.Resources.SettingsButtonInactive
+    'Public Theme_FormBackground As Image = My.Resources.StartScreenBG
+    'Public Theme_ButtonBorderActive As Image = My.Resources.ButtonBorderActive1
+    'Public Theme_ButtonBorderInactive As Image = My.Resources.ButtonBorderInactive
+    'Public Theme_ButtonBackActive As Image = My.Resources.ButtonBackActive1
+    'Public Theme_ButtonBackInactive As Image = My.Resources.ButtonBackInactive
+    'Public Theme_SettingsButtonActive As Image = My.Resources.SettingsButtonActive
+    'Public Theme_SettingsButtonInactive As Image = My.Resources.SettingsButtonInactive
 
-    Public Sub InitiateTheme()
-        StartScreen.PicStartButton_Settings.Tag = "StartButton"
-        StartScreen.PicStartButton_PvE.Tag = "StartButton"
-        StartScreen.PicStartButton_PvPLan.Tag = "StartButton"
-        StartScreen.PicStartButton_PvPHTTP.Tag = "StartButton"
-        StartScreen.PicStartButton_Tutorial.Tag = "StartButton"
+    Public ButtonPvEList, PvEColorList, ButtonSettingsList As New List(Of PictureBox)
+    Public PvEDifficultyList, ButtonLabList, SettingsLabList As New List(Of Label)
 
-        StartScreen.PicClosePvE.Tag = "ClosePanel"
-        StartScreen.PicClosePvPLAN.Tag = "ClosePanel"
-        StartScreen.PicCloseSettings.Tag = "ClosePanel"
-        StartScreen.PicCloseTutorial.Tag = "ClosePanel"
+    Public ImageList As New List(Of System.Drawing.Bitmap)
 
-        StartScreen.PicSettingsTheme.Tag = "SettingsButton"
-        StartScreen.PicPvEChooseColors.Tag = "SettingsButton"
-        StartScreen.PicPvEStartGame.Tag = "SettingsButton"
-
-        StartScreen.PicPvEChooseHoles.Tag = "SettingsButtonSplit"
-        StartScreen.PicPvEChooseAttempts.Tag = "SettingsButtonSplit"
-    End Sub
-
-
-    Public Sub ChangeTheme(ByVal Theme As Integer)
-
-        Select Case Theme
+    Public Sub PopulateImageList(ByVal theme As Integer)
+        ImageList.Clear()
+        Select Case theme
             Case 0
-                Theme_FormBackground = My.Resources.StartScreenBG
-            Case 1
-                Theme_FormBackground = My.Resources.BGtema1
-            Case 2
-                Theme_FormBackground = My.Resources.BGtema2
-            Case 3
-                Theme_FormBackground = My.Resources.BGtema3
-
-            Case 4
-            Case 5
+                ImageList.Add(My.Resources.StartScreenBG)
+                ImageList.Add(My.Resources.ButtonBorderActive1)
+                ImageList.Add(My.Resources.ButtonBorderInactive)
+                ImageList.Add(My.Resources.ButtonBackActive1)
+                ImageList.Add(My.Resources.ButtonBackInactive)
+                ImageList.Add(My.Resources.SettingsButtonActive)
+                ImageList.Add(My.Resources.SettingsButtonInactive)
+                ImageList.Add(My.Resources.NumberSettings00)
+                ImageList.Add(My.Resources.NumberSettings10)
+                ImageList.Add(My.Resources.NumberSettings11)
         End Select
-        StartScreen.BackgroundImage = Theme_FormBackground
     End Sub
 
-    Public Sub UpdateTheme()
-        StartScreen.BackgroundImage = Theme_FormBackground
+    Public Sub InitializeTheme()
+        For Each MainLab As Label In ButtonLabList
+            Dim ParentPic As PictureBox = DirectCast(MainLab.Parent, PictureBox)
+            ParentPic.Image = ImageList(2)
+        Next
+        StartScreen.PicClosePvE.Image = ImageList(3)
+        StartScreen.PicPvEChooseColors.Image = ImageList(6)
+        StartScreen.PicPvEChooseHoles.Image = ImageList(7)
+        StartScreen.PicPvEChooseAttempts.Image = ImageList(7)
+        StartScreen.PicPvEStartGame.Image = ImageList(6)
     End Sub
+
+
+    'Public Sub ChangeTheme(ByVal Theme As Integer)
+
+    '    Select Case Theme
+    '        Case 0
+    '            Theme_FormBackground = My.Resources.StartScreenBG
+    '        Case 1
+    '            Theme_FormBackground = My.Resources.BGtema1
+    '        Case 2
+    '            Theme_FormBackground = My.Resources.BGtema2
+    '        Case 3
+    '            Theme_FormBackground = My.Resources.BGtema3
+
+    '        Case 4
+    '        Case 5
+    '    End Select
+    '    StartScreen.BackgroundImage = Theme_FormBackground
+    'End Sub
+
+    'Public Sub UpdateTheme()
+    '    StartScreen.BackgroundImage = Theme_FormBackground
+    'End Sub
 
 End Module

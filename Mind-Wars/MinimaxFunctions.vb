@@ -96,10 +96,4 @@ Public Class MinimaxFunctions
         Next
         Return bw
     End Function
-
-    Function IsLexical(ByVal code() As Integer) As Boolean
-        Dim Half As Integer = CInt(holes / 2)
-        '' FUNCTION TO CHECK IF LEXICAL (WIP)
-    End Function
-
 End Class

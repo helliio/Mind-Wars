@@ -1,128 +1,31 @@
-﻿Imports System.ComponentModel
+﻿Option Strict On
+Option Explicit On
+Option Infer Off
+
+Imports System.ComponentModel
 
 Public Class StartScreen
 
-    Dim ButtonPvEList, PvEColorList, ButtonSettingsList As New List(Of PictureBox)
-    Dim PvEDifficultyList, ButtonLabList As New List(Of Label)
+    Dim PanelList As New List(Of Panel)
 
-    Dim PvEHoles As Integer = 4
-    Dim PvEColors As Integer = 6
-    Dim PvEAttempts As Integer = 10
+    Dim PvEHoles As Integer = 4, PvEColors As Integer = 6, PvEAttempts As Integer = 10, FocusedPvEColorListIndex As Integer = 5, SelectedPvEDifficulty As Integer = 1
+    Dim SelectedButtonListIndex, SelectedSettingsListIndex, VisiblePanel, CursorX, CursorY, FocusedLabelAddColor, PvEFocusedCategory, SelectedPvEListIndex As Integer
 
-    Dim SelectedButtonListIndex As Integer = 0
-    Dim SelectedSettingsListIndex As Integer = 0
-
-    Dim VisiblePanel As Integer = 0
-
-    Dim CursorX As Integer, CursorY As Integer
-    Dim DragForm As Boolean = False
-
-    Dim FocusedLabelAddColor As Integer = 0
-    Dim FocusedLabelColorIncreasing As Boolean = True
+    Dim DragForm As Boolean = False, FocusedLabelColorIncreasing As Boolean = True
     Dim FocusedLabel As Label
 
 
-    Dim PvEFocusedCategory As Integer = 0
-    Dim SelectedPvEListIndex As Integer = 0
-    Dim FocusedPvEColorListIndex As Integer = 5
-    Dim SelectedPvEDifficulty As Integer = 1
 
     Private Sub StartScreen_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        txtCode.Top = -100
-        Call InitializeGUI()
-
-        Call PlayLoopingBackgroundSoundFile(1)
-    End Sub
-
-    Private Sub InitializeGUI()
-        With LabSettings
-            .Parent = PicStartButton_Settings
-            .Height = .Parent.Height
-            .Width = .Parent.Width
-            .Left = 0
-            .Top = 0
+        Me.Hide()
+        Call PopulateImageList(0)
+        With PanelList
+            .Add(PanelSettings)
+            .Add(PanelPvE)
+            .Add(PanelPvPLan)
+            .Add(PanelPvPHTTP)
+            .Add(PanelTutorial)
         End With
-        With LabPvE
-            .Parent = PicStartButton_PvE
-            .Height = .Parent.Height
-            .Width = .Parent.Width
-            .Left = 0
-            .Top = 0
-        End With
-        With LabPvPLan
-            .Parent = PicStartButton_PvPLan
-            .Height = .Parent.Height
-            .Width = .Parent.Width
-            .Left = 0
-            .Top = 0
-        End With
-        With LabPvPHTTP
-            .Parent = PicStartButton_PvPHTTP
-            .Height = .Parent.Height
-            .Width = .Parent.Width
-            .Left = 0
-            .Top = 0
-        End With
-        With LabTutorial
-            .Parent = PicStartButton_Tutorial
-            .Height = .Parent.Height
-            .Width = .Parent.Width
-            .Left = 0
-            .Top = 0
-        End With
-        With LabSettingsTheme
-            .Parent = PicSettingsTheme
-            .Height = .Parent.Height
-            .Width = .Parent.Width
-            .Left = 0
-            .Top = 0
-        End With
-        With LabSettingsSound
-            .Parent = PicSettingSound
-            .Height = .Parent.Height
-            .Width = .Parent.Width
-            .Left = 0
-            .Top = 0
-        End With
-        With ButtonLabList
-            .Add(LabSettings)
-            .Add(LabPvE)
-            .Add(LabPvPLan)
-            .Add(LabPvPHTTP)
-            .Add(LabTutorial)
-        End With
-        Debug.Print(ButtonLabList.Count)
-        With ButtonSettingsList
-            .Add(PicCloseSettings)
-        End With
-
-        With ButtonPvEList
-            .Add(PicClosePvE)
-            .Add(PicDifficulty1)
-            .Add(PicDifficulty2)
-            .Add(PicDifficulty3)
-            .Add(PicPvEChooseColors)
-            .Add(PicPvEChooseHoles)
-            .Add(PicPvEChooseAttempts)
-            .Add(PicPvEStartGame)
-        End With
-
-        With PvEDifficultyList
-            .Add(LabPvEEasy)
-            .Add(LabPvEHard)
-            .Add(LabPvEImpossible)
-        End With
-        For Each lab As Label In PvEDifficultyList
-            lab.ForeColor = Color.White
-        Next
-
-        With PicCloseForm
-            .Parent = PicFormHeader
-        End With
-        With PicMinimizeForm
-            .Parent = PicFormHeader
-        End With
-
         With PvEColorList
             .Add(PicPvEColor1)
             .Add(PicPvEColor2)
@@ -133,15 +36,79 @@ Public Class StartScreen
             .Add(PicPvEColor7)
             .Add(PicPvEColor8)
         End With
-        For Each ColPal As PictureBox In PvEColorList
-            ColPal.Parent = PanelPvEColors
-            ColPal.Invalidate()
+        With ButtonLabList
+            .Add(LabSettings)
+            .Add(LabPvE)
+            .Add(LabPvPLan)
+            .Add(LabPvPHTTP)
+            .Add(LabTutorial)
+        End With
+        With ButtonPvEList
+            .Add(PicClosePvE)
+            .Add(PicDifficulty1)
+            .Add(PicDifficulty2)
+            .Add(PicDifficulty3)
+            .Add(PicPvEChooseColors)
+            .Add(PicPvEChooseHoles)
+            .Add(PicPvEChooseAttempts)
+            .Add(PicPvEStartGame)
+        End With
+        With PvEDifficultyList
+            .Add(LabPvEEasy)
+            .Add(LabPvEHard)
+            .Add(LabPvEImpossible)
+        End With
+        With ButtonSettingsList
+            .Add(PicCloseSettings)
+        End With
+        With SettingsLabList
+            .Add(LabSettingsSound)
+            .Add(LabSettingsTheme)
+        End With
+        Call InitializeGUI()
+        Call PlayLoopingBackgroundSoundFile(1)
+    End Sub
+
+    Private Sub InitializeGUI()
+        Me.Hide()
+        Me.MinimumSize = ButtonsPanel.Size
+        txtCode.Top = -100
+        txtCode.Text = "CODE"
+
+        LabSettings.Parent = PicStartButton_Settings
+        LabPvE.Parent = PicStartButton_PvE
+        LabPvPLan.Parent = PicStartButton_PvPLan
+        LabPvPHTTP.Parent = PicStartButton_PvPHTTP
+        LabTutorial.Parent = PicStartButton_Tutorial
+        LabSettingsTheme.Parent = PicSettingsTheme
+        LabSettingsSound.Parent = PicSettingSound
+        For Each lab As Label In ButtonLabList
+            With lab
+                .Left = 0
+                .Top = 0
+                .Size = .Parent.ClientSize
+            End With
+        Next
+        For Each lab As Label In SettingsLabList
+            With lab
+                .Left = 0
+                .Top = 0
+                .Size = .Parent.ClientSize
+            End With
         Next
 
+        PicCloseForm.Parent = PicFormHeader
+        PicMinimizeForm.Parent = PicFormHeader
 
-        PicSettingsButton2.Dock = DockStyle.Fill
-        PicSettingsButton2.BringToFront()
+        For Each ColPal As PictureBox In PvEColorList
+            ColPal.Parent = PanelPvEColors
+        Next
+
+        PanelSettings.Dock = DockStyle.Fill
+        PanelSettings.BringToFront()
+
         PanelPvE.Dock = DockStyle.Fill
+        PanelPvE.Parent = Me
         PanelPvE.BringToFront()
         PanelPvPLan.Dock = DockStyle.Fill
         PanelPvPLan.BringToFront()
@@ -161,27 +128,18 @@ Public Class StartScreen
         PicDifficulty3.BringToFront()
         PicDifficulty3.Parent = PvEDifficultyPanel
 
-        With LabPvEEasy
-            .Parent = PicDifficulty1
-            .BringToFront()
-            .Location = PicDifficulty1.Location
-            .TextAlign = ContentAlignment.MiddleCenter
-            .Dock = DockStyle.Fill
-        End With
-        With LabPvEHard
-            .Parent = PicDifficulty2
-            .BringToFront()
-            .Location = PicDifficulty1.Location
-            .TextAlign = ContentAlignment.MiddleCenter
-            .Dock = DockStyle.Fill
-        End With
-        With LabPvEImpossible
-            .Parent = PicDifficulty3
-            .BringToFront()
-            .Location = PicDifficulty1.Location
-            .TextAlign = ContentAlignment.MiddleCenter
-            .Dock = DockStyle.Fill
-        End With
+        LabPvEEasy.Parent = PicDifficulty1
+        LabPvEHard.Parent = PicDifficulty2
+        LabPvEImpossible.Parent = PicDifficulty3
+        For Each lab As Label In PvEDifficultyList
+            With lab
+                .ForeColor = Color.White
+                .Location = .Parent.Location
+                .BringToFront()
+                .TextAlign = ContentAlignment.MiddleCenter
+                .Dock = DockStyle.Fill
+            End With
+        Next
         With LabPvEColors
             .Parent = PicPvEChooseColors
             .BringToFront()
@@ -248,9 +206,26 @@ Public Class StartScreen
             .Top = cmdNewPrivateGame.Height + cmdNewPrivateGame.Top + 10
             .Left = 0
         End With
-
-
+        With HeaderTransparencyLeft
+            .Parent = PicFormHeader
+            .Left = 0
+            .Top = 0
+            .BringToFront()
+            .Width = 12
+            .Height = 12
+            .BackColor = Color.Transparent
+        End With
+        With HeaderTransparencyRight
+            .Parent = PicFormHeader
+            .Left = Me.ClientRectangle.Width - 12
+            .Top = 0
+            .BringToFront()
+            .Width = 12
+            .Height = 12
+            .BackColor = Color.Transparent
+        End With
         Call SelectButton(False)
+        Call InitializeTheme()
         GUITimer.Enabled = True
     End Sub
 
@@ -258,32 +233,34 @@ Public Class StartScreen
         Select Case VisiblePanel
             Case 0
                 Dim Selection As Label = ButtonLabList.Item(SelectedButtonListIndex)
+                Dim ParentPic As PictureBox = DirectCast(Selection.Parent, PictureBox)
                 If deselect = True Then
                     With Selection
-                        .Parent.BackgroundImage = My.Resources.ButtonBorderInactive
+                        ParentPic.Image = ImageList(2)
                         .ForeColor = Color.SteelBlue
                     End With
                 Else
                     With Selection
-                        .Parent.BackgroundImage = My.Resources.ButtonBorderActive1
+                        ParentPic.Image = ImageList(1)
                         .ForeColor = Color.LightCyan
                     End With
                 End If
+                'Selection.Invalidate()
             Case 1
                 Dim Selection As PictureBox = ButtonSettingsList.Item(SelectedSettingsListIndex)
                 If deselect = True Then
                     With Selection
                         If SelectedSettingsListIndex = 0 Then
-                            .BackgroundImage = My.Resources.ButtonBackInactive
+                            .Image = ImageList(4)
                         Else
-                            .BackgroundImage = My.Resources.ButtonBorderInactive
+                            .Image = ImageList(3)
                             .ForeColor = Color.SteelBlue
                         End If
                     End With
                 Else
                     With Selection
                         If SelectedSettingsListIndex = 0 Then
-                            .BackgroundImage = My.Resources.ButtonBackActive
+                            .Image = ImageList(1)
                         Else
                             .ForeColor = Color.LightCyan
                         End If
@@ -295,37 +272,37 @@ Public Class StartScreen
                     Selection.Invalidate()
                 ElseIf SelectedPvEListIndex = 0 Then
                     If deselect = True Then
-                        Selection.BackgroundImage = My.Resources.ButtonBackInactive
+                        Selection.Image = ImageList(4)
                     Else
-                        Selection.BackgroundImage = My.Resources.ButtonBackActive1
+                        Selection.Image = ImageList(3)
                     End If
                 ElseIf SelectedPvEListIndex = 4 OrElse SelectedPvEListIndex = 7 Then
                     If deselect = True Then
-                        Selection.BackgroundImage = My.Resources.SettingsButtonInactive
+                        Selection.Image = ImageList(6)
                     Else
-                        Selection.BackgroundImage = My.Resources.SettingsButtonActive
+                        Selection.Image = ImageList(5)
                     End If
                 ElseIf SelectedPvEListIndex = 5 Then
                     If deselect = True Then
-                        Selection.BackgroundImage = My.Resources.NumberSettings00
+                        Selection.Image = ImageList(7)
                         LabPvENumberOfHolesButton.ForeColor = Color.LightSkyBlue
                     Else
                         LabPvENumberOfHolesButton.ForeColor = Color.LightCyan
-                        Selection.BackgroundImage = My.Resources.NumberSettings10
+                        Selection.Image = ImageList(8)
                     End If
                 ElseIf SelectedPvEListIndex = 6 Then
                     If deselect = True Then
                         LabPvENumberOfAttemptsButton.ForeColor = Color.LightSkyBlue
-                        Selection.BackgroundImage = My.Resources.NumberSettings00
+                        Selection.Image = ImageList(7)
                     Else
                         LabPvENumberOfAttemptsButton.ForeColor = Color.LightCyan
-                        Selection.BackgroundImage = My.Resources.NumberSettings10
+                        Selection.Image = ImageList(8)
                     End If
                 End If
         End Select
     End Sub
 
-    Sub ButtonMouseEnter(sender As Object, e As EventArgs) Handles LabSettings.MouseEnter, LabPvE.MouseEnter, LabPvPLan.MouseEnter, LabPvPHTTP.MouseEnter, PicCloseSettings.MouseEnter
+    Sub ButtonMouseEnter(sender As Object, e As EventArgs) Handles LabSettings.MouseEnter, LabPvE.MouseEnter, LabPvPLan.MouseEnter, LabPvPHTTP.MouseEnter
         Dim SenderLab As Label = DirectCast(sender, Label)
         Select Case VisiblePanel
             Case 0
@@ -335,9 +312,9 @@ Public Class StartScreen
                     Call SelectButton(False)
                 End If
             Case 1
-                If Not SenderLab.Tag = SelectedSettingsListIndex Then
+                If Not CInt(SenderLab.Tag) = SelectedSettingsListIndex Then
                     Call SelectButton(True)
-                    SelectedSettingsListIndex = SenderLab.Tag
+                    SelectedSettingsListIndex = CInt(SenderLab.Tag)
                     Call SelectButton(False)
                 End If
         End Select
@@ -348,11 +325,7 @@ Public Class StartScreen
     Private Sub StartScreen_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If e.KeyCode = Keys.Escape Then
             If Not VisiblePanel = 0 Then
-                PicSettingsButton2.Hide()
-                PanelPvE.Hide()
-                PanelPvPLan.Hide()
-                PanelPvPHTTP.Hide()
-                PanelTutorial.Hide()
+                TogglePanels(PanelList(VisiblePanel))
                 VisiblePanel = 0
                 e.Handled = True
             Else
@@ -363,9 +336,6 @@ Public Class StartScreen
         Select Case VisiblePanel
             Case 0
                 Select Case e.KeyCode
-                    Case Keys.LWin
-                        e.SuppressKeyPress = True
-                        e.Handled = True
                     Case Keys.Up
                         If Not SelectedButtonListIndex = 0 Then
                             Call SelectButton(True)
@@ -417,12 +387,12 @@ Public Class StartScreen
                             Case 2
                                 If PvEHoles > 3 Then
                                     PvEHoles -= 1
-                                    LabPvENumberOfHoles.Text = PvEHoles
+                                    LabPvENumberOfHoles.Text = CStr(PvEHoles)
                                 End If
                             Case 3
                                 If PvEAttempts > 4 Then
                                     PvEAttempts -= 1
-                                    LabPvENumberOfAttempts.Text = PvEAttempts
+                                    LabPvENumberOfAttempts.Text = CStr(PvEAttempts)
                                 End If
                         End Select
                     Case Keys.Up
@@ -448,12 +418,12 @@ Public Class StartScreen
                         ElseIf PvEFocusedCategory = 2 Then
                             If PvEHoles < 8 Then
                                 PvEHoles += 1
-                                LabPvENumberOfHoles.Text = PvEHoles
+                                LabPvENumberOfHoles.Text = CStr(PvEHoles)
                             End If
                         ElseIf PvEFocusedCategory = 3 Then
                             If PvEAttempts < 14 Then
                                 PvEAttempts += 1
-                                LabPvENumberOfAttempts.Text = PvEAttempts
+                                LabPvENumberOfAttempts.Text = CStr(PvEAttempts)
                             End If
                         End If
                     Case Keys.Left
@@ -526,34 +496,39 @@ Public Class StartScreen
     Sub EnterSelected()
         Select Case VisiblePanel
             Case 0
-                Select Case SelectedButtonListIndex
-                    Case 0
-                        VisiblePanel = 1
-                        PicSettingsButton2.Show()
-                    Case 1
-                        VisiblePanel = 2
-                        PanelPvE.Show()
-                    Case 2
-                        VisiblePanel = 3
-                        PanelPvPLan.Show()
-                    Case 3
-                        VisiblePanel = 4
-                        PanelPvPHTTP.Show()
-                    Case 4
-                        VisiblePanel = 5
-                        PanelTutorial.Show()
-                End Select
+                TogglePanels(PanelList(SelectedButtonListIndex))
+                Debug.Print("TOGGLING " & CStr(SelectedButtonListIndex))
+                'Select Case SelectedButtonListIndex
+                '    Case 0
+                '        VisiblePanel = 1
+                '        TogglePanels(PanelSettings)
+                '        'PanelSettings.Show()
+                '    Case 1
+                '        VisiblePanel = 2
+                '        TogglePanels(PanelPvE)
+                '        'PanelPvE.Show()
+                '    Case 2
+                '        VisiblePanel = 3
+                '        PanelPvPLan.Show()
+                '    Case 3
+                '        VisiblePanel = 4
+                '        PanelPvPHTTP.Show()
+                '    Case 4
+                '        VisiblePanel = 5
+                '        PanelTutorial.Show()
+                'End Select
             Case 1
                 Select Case SelectedSettingsListIndex
                     Case 0
-                        PicSettingsButton2.Hide()
+                        PanelSettings.Hide()
                         VisiblePanel = 0
                 End Select
             Case 2
                 Select Case SelectedPvEListIndex
                     Case 0
-                        PanelPvE.Hide()
-                        VisiblePanel = 0
+                        TogglePanels(PanelPvE)
+                        'PanelPvE.Hide()
+                        'VisiblePanel = 0
                     Case 1, 2, 3
                         SelectButton(True)
                         SelectedPvEListIndex = 7
@@ -574,24 +549,24 @@ Public Class StartScreen
                     Case 5
                         If Not PvEFocusedCategory = 2 Then
                             PvEFocusedCategory = 2
-                            PicPvEChooseHoles.BackgroundImage = My.Resources.NumberSettings11
+                            PicPvEChooseHoles.Image = ImageList(9)
                             LabPvENumberOfHolesButton.ForeColor = Color.LightSkyBlue
                             LabPvENumberOfHoles.ForeColor = Color.LightCyan
                         Else
                             PvEFocusedCategory = 0
-                            PicPvEChooseHoles.BackgroundImage = My.Resources.NumberSettings10
+                            PicPvEChooseHoles.Image = ImageList(8)
                             LabPvENumberOfHolesButton.ForeColor = Color.LightCyan
                             LabPvENumberOfHoles.ForeColor = Color.LightSkyBlue
                         End If
                     Case 6
                         If Not PvEFocusedCategory = 3 Then
                             PvEFocusedCategory = 3
-                            PicPvEChooseAttempts.BackgroundImage = My.Resources.NumberSettings11
+                            PicPvEChooseAttempts.Image = ImageList(9)
                             LabPvENumberOfAttemptsButton.ForeColor = Color.LightSkyBlue
                             LabPvENumberOfAttempts.ForeColor = Color.LightCyan
                         Else
                             PvEFocusedCategory = 0
-                            PicPvEChooseAttempts.BackgroundImage = My.Resources.NumberSettings10
+                            PicPvEChooseAttempts.Image = ImageList(8)
                             LabPvENumberOfAttemptsButton.ForeColor = Color.LightCyan
                             LabPvENumberOfAttempts.ForeColor = Color.LightSkyBlue
                         End If
@@ -613,9 +588,59 @@ Public Class StartScreen
         Call EnterSelected()
     End Sub
 
-    Private Sub ClosePanel(sender As Object, e As EventArgs) Handles PicClosePvE.Click, PicClosePvPLAN.Click, PicCloseTutorial.Click
-        VisiblePanel = 0
-        sender.Parent.Hide()
+    Private Sub ClosePanel(senderX As Object, e As EventArgs) Handles PicClosePvE.Click, PicClosePvPLAN.Click, PicCloseTutorial.Click
+        Dim sender As PictureBox = DirectCast(senderX, PictureBox)
+        Dim sender_Panel As Panel = DirectCast(sender.Parent, Panel)
+        Call TogglePanels(sender_Panel)
+        'sender.Parent.Hide()
+    End Sub
+
+    Dim PanelInvalidated As Boolean = False, PanelControlsVisible As Boolean = True
+    Private Sub ShowMainOnPaint(senderX As Object, e As PaintEventArgs) Handles PanelPvE.Paint, PanelPvPHTTP.Paint, PanelSettings.Paint, PanelTutorial.Paint, PanelPvPLan.Paint
+        If PanelControlsVisible = False Then
+            Dim sender As Panel = DirectCast(senderX, Panel)
+            If PanelInvalidated = False Then
+                'For Each obj As Control In ButtonsPanel.Controls
+                '    obj.Show()
+                'Next
+                PanelInvalidated = True
+                sender.Invalidate()
+            Else
+                VisiblePanel = 0
+                sender.Hide()
+                For Each obj As Control In ButtonsPanel.Controls
+                    obj.Show()
+                Next
+                PanelInvalidated = False
+            End If
+        End If
+    End Sub
+
+    Private Sub TogglePanels(SenderPanel As Panel)
+        If SenderPanel.Visible = False Then
+            VisiblePanel = CInt(SenderPanel.Tag)
+            ButtonsPanel.Hide()
+            For Each obj As Control In ButtonsPanel.Controls
+                obj.Hide()
+            Next
+            ButtonsPanel.Show()
+            PanelControlsVisible = True
+            SenderPanel.Hide()
+
+            For Each obj As Control In SenderPanel.Controls
+                obj.Show()
+            Next
+            SenderPanel.Show()
+            'ButtonsPanel.Hide()
+        Else
+            ButtonsPanel.Show()
+            SenderPanel.Hide()
+            For Each obj As Control In SenderPanel.Controls
+                obj.Hide()
+            Next
+            PanelControlsVisible = False
+            SenderPanel.Show()
+        End If
     End Sub
 
     Private Sub PicFormHeader_MouseDown(sender As Object, e As MouseEventArgs) Handles PicFormHeader.MouseDown
@@ -635,9 +660,10 @@ Public Class StartScreen
 
     Private Sub GUITimer_Tick(sender As Object, e As EventArgs) Handles GUITimer.Tick
         FocusedLabel = ButtonLabList.Item(SelectedButtonListIndex)
-        FocusedLabel.ForeColor = Color.FromArgb(255, 150 + (FocusedLabelAddColor / 1.5), 230 + (FocusedLabelAddColor / 4), 255)
+        FocusedLabel.ForeColor = Color.FromArgb(255, 150 + CInt((FocusedLabelAddColor / 1.5)), 230 + CInt((FocusedLabelAddColor / 4)), 255)
         If FocusedLabelColorIncreasing = True Then
             If FocusedLabelAddColor >= 100 Then
+                FocusedLabelAddColor = 100
                 FocusedLabelColorIncreasing = False
             Else
                 FocusedLabelAddColor += 5
@@ -661,45 +687,45 @@ Public Class StartScreen
     End Sub
 
     Private Sub PicMinimizeForm_MouseEnter(sender As Object, e As EventArgs) Handles PicMinimizeForm.MouseEnter
-        PicMinimizeForm.BackgroundImage = My.Resources.MinimizeHover
+        PicMinimizeForm.Image = My.Resources.MinimizeHover
     End Sub
 
     Private Sub PicMinimizeForm_MouseLeave(sender As Object, e As EventArgs) Handles PicMinimizeForm.MouseLeave
-        PicMinimizeForm.BackgroundImage = My.Resources.Minimize
+        PicMinimizeForm.Image = My.Resources.Minimize
     End Sub
 
     Private Sub PicCloseForm_MouseEnter(sender As Object, e As EventArgs) Handles PicCloseForm.MouseEnter
-        PicCloseForm.BackgroundImage = My.Resources.ExitHover
+        PicCloseForm.Image = My.Resources.ExitHover
     End Sub
 
     Private Sub PicCloseForm_MouseLeave(sender As Object, e As EventArgs) Handles PicCloseForm.MouseLeave
-        PicCloseForm.BackgroundImage = My.Resources.Exit1
+        PicCloseForm.Image = My.Resources.Exit1
     End Sub
 
-    Private Sub PicDifficulty_Paint(sender As Object, e As PaintEventArgs) Handles PicDifficulty1.Paint, PicDifficulty2.Paint, PicDifficulty3.Paint
-
+    Private Sub PicDifficulty_Paint(senderX As Object, e As PaintEventArgs) Handles PicDifficulty1.Paint, PicDifficulty2.Paint, PicDifficulty3.Paint
+        Dim sender As PictureBox = DirectCast(senderX, PictureBox)
+        e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
         DifficultyDrawRect = sender.DisplayRectangle
         DifficultyDrawRect.Inflate(-1, -1)
-        e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+        Dim SenderTag As Integer = CInt(sender.Tag)
 
-        If sender.Tag = SelectedPvEListIndex Then
+        If CInt(SenderTag) = SelectedPvEListIndex Then
             EasyBrush.Color = Color.FromArgb(50, Color.Cyan)
             e.Graphics.FillRectangle(EasyBrush, DifficultyDrawRect)
-        ElseIf sender.Tag = SelectedPvEDifficulty Then
+        ElseIf CInt(SenderTag) = SelectedPvEDifficulty Then
             EasyBrush.Color = Color.FromArgb(30, Color.Cyan)
             e.Graphics.FillRectangle(EasyBrush, DifficultyDrawRect)
-            'Else
-            ' e.Graphics.DrawRectangle(Pens.Cyan, DifficultyDrawRect)
         End If
+        ' What?
 
     End Sub
 
     Private Sub PicTheme_Paint(sender As Object, e As PaintEventArgs) Handles PicTheme1.Paint, PicTheme2.Paint, PicTheme3.Paint
         Dim SenderPic As PictureBox = DirectCast(sender, PictureBox)
+        e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
         ThemeDrawRect = SenderPic.DisplayRectangle
         ThemeDrawRect.Inflate(-1, -1)
-        e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
-        If SenderPic.Tag = "test" Then
+        If CStr(SenderPic.Tag) = "test" Then
             e.Graphics.DrawEllipse(Pens.Red, ThemeDrawRect)
         Else
             e.Graphics.DrawEllipse(Pens.LightCyan, ThemeDrawRect)
@@ -724,12 +750,12 @@ Public Class StartScreen
         NewGameThread.Join()
     End Sub
 
-    Private Sub PicSound_Paint(sender As Object, e As PaintEventArgs) Handles PicSound1.Paint, PicSound2.Paint, PicSound3.Paint
-
+    Private Sub PicSound_Paint(senderX As Object, e As PaintEventArgs) Handles PicSound1.Paint, PicSound2.Paint, PicSound3.Paint
+        Dim sender As PictureBox = DirectCast(senderX, PictureBox)
+        e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
         SoundDrawRect = sender.DisplayRectangle
         SoundDrawRect.Inflate(-1, -1)
-        e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
-        If sender.Tag = "test" Then
+        If CStr(sender.Tag) = "test" Then
             e.Graphics.DrawEllipse(Pens.Red, SoundDrawRect)
         Else
             e.Graphics.DrawEllipse(Pens.LightCyan, SoundDrawRect)
@@ -741,11 +767,11 @@ Public Class StartScreen
     End Sub
 
     Private Sub cmdTestTheme_Click(sender As Object, e As EventArgs) Handles cmdTestTheme.Click
-        Dim themeint As Integer = ThemeComboBox.SelectedValue
-        Call ChangeTheme(0)
+        Dim themeint As Integer = CInt(ThemeComboBox.SelectedValue)
+        'Call ChangeTheme(0)
     End Sub
 
-    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles LabCode.Click
+    Private Sub LabCode_Click(sender As Object, e As EventArgs) Handles LabCode.Click
         txtCode.Clear()
         txtCode.Focus()
     End Sub
@@ -763,15 +789,14 @@ Public Class StartScreen
 
         If PvEFocusedCategory = 1 Then
             If SenderTag > FocusedPvEColorListIndex + 1 Then
-                'If SenderTag > FocusedPvEColorListIndex + 1 Then
                 ColorPaletteBrush.Color = Color.FromArgb(150, ColorCodes(SenderTag))
                 ColorPaletteRect.Inflate(-4, -4)
-            ElseIf SenderTag <= FocusedPvEColorListIndex + 1 Then
+            Else 'If SenderTag <= FocusedPvEColorListIndex + 1 Then
                 ColorPaletteBrush.Color = ColorCodes(SenderTag)
                 ColorPaletteRect.Inflate(-1, -1)
             End If
         Else
-            If CInt(SenderPic.Tag) > FocusedPvEColorListIndex + 1 Then
+            If SenderTag > FocusedPvEColorListIndex + 1 Then
                 ColorPaletteBrush.Color = Color.FromArgb(40, ColorCodes(SenderTag))
                 ColorPaletteRect.Inflate(-4, -4)
             Else
@@ -784,10 +809,6 @@ Public Class StartScreen
 
     Private Sub StartScreen_Closed(sender As Object, e As EventArgs) Handles Me.Closed
         End
-    End Sub
-
-    Private Sub PanelPvPHTTP_Paint(sender As Object, e As PaintEventArgs) Handles PanelPvPHTTP.Paint
-
     End Sub
 
     Private Sub HTTPBackgroundWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles HTTPBackgroundWorker.RunWorkerCompleted
@@ -813,38 +834,6 @@ Public Class StartScreen
             txtCode.Text = "CODE"
         End If
     End Sub
-
-    Private Sub PanelPvPHTTP_Resize(sender As Object, e As EventArgs) Handles PanelPvPHTTP.Resize
-        'With LabCode
-        '    .Parent = PanelPvPHTTP
-        '    .Width = .Parent.ClientRectangle.Width
-        '    .Height = My.Resources.SettingsButtonActive.Height
-        '    .Top = 10
-        '    .Left = 0
-        'End With
-        'With cmdConnectHTTP
-        '    .Parent = PanelPvPHTTP
-        '    .Width = .Parent.ClientRectangle.Width
-        '    .Height = My.Resources.ButtonBorderInactive.Height
-        '    .Top = LabCode.Height + LabCode.Top + 10
-        '    .Left = 0
-        'End With
-        'With cmdNewPrivateGame
-        '    .Parent = PanelPvPHTTP
-        '    .Width = .Parent.ClientRectangle.Width
-        '    .Height = My.Resources.ButtonBorderInactive.Height
-        '    .Top = cmdConnectHTTP.Height + cmdConnectHTTP.Top + 10
-        '    .Left = 0
-        'End With
-        'With cmdNewPublicGame
-        '    .Parent = PanelPvPHTTP
-        '    .Width = .Parent.ClientRectangle.Width
-        '    .Height = My.Resources.ButtonBorderInactive.Height
-        '    .Top = cmdNewPrivateGame.Height + cmdNewPrivateGame.Top + 10
-        '    .Left = 0
-        'End With
-    End Sub
-
     Private Sub LabCode_MouseEnter(sender As Object, e As EventArgs) Handles LabCode.MouseEnter
         LabCode.Image = My.Resources.SettingsButtonActive
     End Sub
