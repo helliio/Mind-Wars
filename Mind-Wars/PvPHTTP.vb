@@ -283,7 +283,6 @@ Public Class PvPHTTP
                                 TestGuess.Add(SelectedColor)
                                 HolesList.Item(GuessList.Count - 1).Invalidate()
                                 Debug.Print("GuessList count: " & GuessList.Count & ", TestGuess count: " & TestGuess.Count & ", HolesList count: " & HolesList.Count)
-                                GuessListNeedsUpdating = True
                             End If
 
                             If GuessList.Count = (Attempt + 1) * holes AndAlso UsersTurn = True Then
@@ -313,13 +312,17 @@ Public Class PvPHTTP
                             For i As Integer = 0 To holes - 1
                                 HolesList.Item(i + Attempt * holes).Invalidate()
                             Next
-                            If GuessList.Count <= tries * holes - 1 Then
+                            If GuessList.Count < tries * holes Then
                                 HoleGraphicsTimer.Enabled = True
                                 'HolesList.Item(GuessList.Count).Invalidate()
                                 If GuessList.Count - Attempt * holes = holes Then
                                     HoleGraphicsTimer.Enabled = False
-                                    FillBWTimer.Enabled = True
+                                    Dim UpdateGame As New UpdateGameClass
+                                    Dim UpdateGameString As New System.Threading.Thread(AddressOf UpdateGame.UpdateGuess)
+                                    UpdateGameString.IsBackground = True
+                                    UpdateGameString.Start()
                                     Call verify_guess()
+                                    FillBWTimer.Enabled = True
                                 End If
                             End If
                             InfoPanel.Hide()
@@ -364,7 +367,6 @@ Public Class PvPHTTP
                             Else
                                 HolesList.Item(GuessList.Count).Invalidate()
                             End If
-                            GuessListNeedsUpdating = True
                         End If
                     Else
                         If Not ChosenCodeList.Count = 0 Then
@@ -483,7 +485,7 @@ Public Class PvPHTTP
     End Sub
     Private Sub SwitchSides()
         Attempt = 0
-        InvalidatedSteps = 0
+        DrawingModule.InvalidatedSteps = 0
         BWCountList.Clear()
         GuessList.Clear()
         InfoPanel.Hide()
@@ -495,9 +497,7 @@ Public Class PvPHTTP
         Else
             UsersTurn = True
             If SolutionSet = True Then
-                Debug.Print("Starting UpdateGuessTimer")
                 HoleGraphicsTimer.Enabled = True
-                UpdateGuessTimer.Enabled = True
             End If
         End If
         Call ClearBoard()
@@ -567,8 +567,7 @@ Public Class PvPHTTP
         Call ShowHideChooseCodePanel(BWPanel, ChooseCodePanel)
 
         StartScreen.Show()
-        UpdateGuessTimer.Enabled = False
-        GuessListNeedsUpdating = False
+
         CurrentlyPossibleSolutions.Clear()
         InitiallyPossibleSolutions.Clear()
         GuessList.Clear()
@@ -671,21 +670,13 @@ Public Class PvPHTTP
     Private Sub PicCloseForm_MouseEnter(sender As Object, e As EventArgs) Handles PicCloseForm.MouseEnter
         PicCloseForm.Image = My.Resources.ExitHover
     End Sub
-    Private Sub UpdateGuessTimer_Tick(sender As Object, e As EventArgs) Handles UpdateGuessTimer.Tick
-        If GuessListNeedsUpdating = True Then
-            Dim UpdateSolutionString As String = ArrayToString(solution)
-            Dim UpdateGame As New UpdateGameClass
-            Dim UpdateGameString As New System.Threading.Thread(AddressOf UpdateGame.UpdateGuess)
-            UpdateGameString.IsBackground = True
-            UpdateGameString.Start()
-            GuessListNeedsUpdating = False
-            UpdateGuessTimer.Enabled = False
-        End If
+    Private Sub UpdateGuessTimer_Tick(sender As Object, e As EventArgs)
+        Debug.Print("Delete the UpdateGuessTimer")
     End Sub
 
     Private Sub LoadGuessTimer_Tick(sender As Object, e As EventArgs) Handles LoadGuessTimer.Tick
         If ShowHolesTimer.Enabled = False Then
-            Dim UpdateSolutionString As String = ArrayToString(solution)
+            LoadGuessTimer.Enabled = False
             Dim UpdateGame As New UpdateGameClass
             Dim UpdateGameString As New System.Threading.Thread(AddressOf UpdateGame.LoadGuess)
             UpdateGameString.IsBackground = True
@@ -693,22 +684,60 @@ Public Class PvPHTTP
         End If
     End Sub
 
-    Dim OpponentStep As Integer = 0
     Private Sub ShowOpponentGuessTimer_Tick(sender As Object, e As EventArgs) Handles ShowOpponentGuessTimer.Tick
-        Dim InvalidateRow As Integer = holes * tries - InvalidatedSteps * holes
-        If OpponentStep < holes Then
-            HolesList(InvalidateRow + OpponentStep).Invalidate()
-            OpponentStep += 1
-        ElseIf OpponentStep < holes * 2 Then
-            BWHolesList.Item(InvalidateRow + OpponentStep - holes).Invalidate()
-            OpponentStep += 1
-        Else
-            OpponentStep = 0
-            If InvalidatedSteps * holes < AIGuessList.Count Then
-                InvalidatedSteps += 1
+        If AIGuessList.Count >= InvalidatedSteps * holes Then
+            Dim ArrBW() As Integer = {0, 0}
+            Dim InvalidateRow As Integer = holes * tries - InvalidatedSteps * holes
+            If AIStep < holes Then
+                HolesList(InvalidateRow + AIStep).Invalidate()
+                AIStep += 1
+            ElseIf AIStep < holes * 2 Then
+                If AIStep = holes Then
+                    Dim CheckBWArr(holes - 1) As Integer
+                    For i As Integer = 0 To holes - 1
+                        CheckBWArr(i) = AIGuessList(holes * (InvalidatedSteps - 1) + i)
+                    Next
+                    ArrBW = verify(solution, CheckBWArr)
+                    For n As Integer = 0 To holes - 1
+                        If n < ArrBW(0) Then
+                            AIBWList.Add(2)
+                        ElseIf n - ArrBW(0) < ArrBW(1) Then
+                            AIBWList.Add(1)
+                        Else
+                            AIBWList.Add(0)
+                        End If
+                    Next
+                End If
+                BWHolesList.Item(InvalidateRow + AIStep - holes).Invalidate()
+                AIStep += 1
             Else
-                InvalidatedSteps += 1
-                ShowOpponentGuessTimer.Enabled = False
+                AIStep = 0
+                If ArrBW(0) = holes Then
+                    Debug.Print("Opponent won")
+
+                    AttemptCountList.Add(CInt(AIGuessList.Count / holes))
+                    Dim UserWins As Integer = 0
+                    Dim OpponentWins As Integer = 0
+                    For i As Integer = 0 To AttemptCountList.Count - 1
+                        If AttemptCountList(i) < UserAttemptCountList(i) Then
+                            OpponentWins += 1
+                        ElseIf AttemptCountList(i) > UserAttemptCountList(i) Then
+                            UserWins += 1
+                        End If
+                    Next
+                    Attempt = 0
+                    LabInfo.Text = "You: " & UserWins & ", Opponent: " & OpponentWins & vbNewLine & "Press [space] to continue playing."
+                    InfoPanel.Show()
+                    GameFinished = True
+                    InvalidatedSteps = 1
+                    ShowOpponentGuessTimer.Enabled = False
+                ElseIf DrawingModule.InvalidatedSteps * holes < AIGuessList.Count Then
+                    InvalidatedSteps += 1
+                Else
+                    InvalidatedSteps += 1
+                    LoadGuessTimer.Enabled = True
+                    ShowOpponentGuessTimer.Enabled = False
+                End If
             End If
         End If
     End Sub
