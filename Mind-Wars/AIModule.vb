@@ -56,36 +56,6 @@ Module AIModule
         PvEGame.AITimer.Enabled = True
     End Sub
 
-    Public Function FindFirstMaxSets() As Integer()
-        Dim GuessFound As Boolean = False
-        Dim Rand As New Random
-        Dim LoopCounter As Integer = 0
-        Dim arr((holes + 1) * holes) As Integer
-        Do Until GuessFound = True
-            LoopCounter += 1
-            Dim i As Integer = Rand.Next(0, InitiallyPossibleSolutions.Count)
-            For Each s As Integer() In CurrentlyPossibleSolutions
-                Dim bwresult() As Integer = verify(s, InitiallyPossibleSolutions(i))
-                Dim ConvertToIndex As Integer = bwresult(0) * (holes + 1) + bwresult(1)
-                arr(ConvertToIndex) += 1
-            Next
-            Dim EmptyCounter As Integer = 0
-            For x As Integer = 0 To (holes + 1) * holes
-                If arr(x) = 0 Then
-                    EmptyCounter += 1
-                End If
-            Next
-            If arr.GetUpperBound(0) - EmptyCounter >= (holes + 1) * holes - holes * 2 Then
-                GuessFound = True
-                Return InitiallyPossibleSolutions(i)
-            End If
-            If LoopCounter = InitiallyPossibleSolutions.Count - 1 Then
-                MsgBox("Nei")
-                Exit Do
-            End If
-        Loop
-    End Function
-
     Public Function AIBestFirstGuess() As Integer()
         Dim counter As Integer = 0
         Dim FirstColor As Integer = rdm.Next(0, colours - 1)

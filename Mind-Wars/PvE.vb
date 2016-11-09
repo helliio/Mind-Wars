@@ -1,4 +1,6 @@
 ﻿Option Strict On
+Option Explicit On
+Option Infer Off
 
 Imports System.ComponentModel
 Imports System.Threading
@@ -41,9 +43,12 @@ Public Class PvEGame
         InitializeGMPRect.Inflate(-2, -2)
 
         With ChooseCodePanel
+            .Visible = False
             .Left = 0
             .Top = 0
+            .BackColor = Color.Transparent
             .Size = Me.ClientRectangle.Size
+            .Parent = Me
         End With
         With HeaderTransparencyLeft
             .Parent = PicFormHeader
@@ -63,7 +68,23 @@ Public Class PvEGame
             .Height = 12
             .BackColor = Color.Transparent
         End With
+        With PicMinimizeForm
+            .Parent = PicFormHeader
+            .Visible = True
+            .BringToFront()
+            .Left = 32 * holes + 20
+            .Top = 10
+        End With
+        With PicCloseForm
+            .Visible = True
+            .Parent = PicFormHeader
+            .BringToFront()
+            .Left = 32 * holes + 36
+            .Top = 10
+        End With
+
         Call GenerateBoard(1, Me, BWPanel, ChooseCodePanel)
+
         InitializeDelay.Enabled = True
     End Sub
     Private Sub InitializeBackgroundWorker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles InitializeBackgroundWorker.DoWork
@@ -108,7 +129,7 @@ Public Class PvEGame
         Me.Visible = False
 
         InitializeDelay.Enabled = False
-        ChooseCodePanel.Visible = False
+        Call ShowHideChooseCodePanel(BWPanel, ChooseCodePanel)
 
         CurrentlyPossibleSolutions.Clear()
         InitiallyPossibleSolutions.Clear()
@@ -266,7 +287,7 @@ Public Class PvEGame
                 SelectedSpinning = False
             End If
 
-            For i = 0 To ChoiceList.Count - 1
+            For i As Integer = 0 To ChoiceList.Count - 1
                 If ChoiceRectangleList.Item(i).Width < 24 AndAlso i <> SelectedColor Then
                     Dim GrowRect As Rectangle = ChoiceRectangleList.Item(i)
                     GrowRect.Inflate(1, 1)
@@ -399,9 +420,43 @@ Public Class PvEGame
             End If
         End If
     End Sub
+
+
+
     Private Sub PvEGame_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
 
         'If SelectedSpinning = True Then
+        If e.KeyCode = Keys.I Then
+            'If ChooseCodePanel.Visible = False Then
+            '    For Each pic As PictureBox In ChooseCodeList
+            '        pic.Show()
+            '    Next
+            '    For Each pic As PictureBox In ChooseCodeHolesList
+            '        pic.Show()
+            '    Next
+            '    With ChooseCodePanel
+            '        .Size = Me.ClientSize
+            '        .Left = 0
+            '        .Top = 0
+            '        .BackColor = Color.Transparent
+            '        .Parent = Me
+            '        .BringToFront()
+            '    End With
+            '    ChooseCodePanel.Show()
+            '    For Each pic As PictureBox In HolesList
+            '        pic.Hide()
+            '    Next
+            '    BWPanel.Hide()
+            'Else
+            '    For Each pic As PictureBox In ChooseCodeList
+            '        pic.Hide()
+            '    Next
+            '    For Each pic As PictureBox In ChooseCodeHolesList
+            '        pic.Hide()
+            '    Next
+            'End If
+        End If
+
         Select Case e.KeyCode
             Case Keys.Left
                 If Not SelectedColor = 0 AndAlso Not SelectedColor = 4 Then
@@ -427,78 +482,71 @@ Public Class PvEGame
                     SelectedSpinning = False
                 End If
             Case Keys.Space, Keys.Enter
-                If FillBWTimer.Enabled = False Then
-                    If VerifyRowTimer.Enabled = False Then
-                        If ChooseCodePanel.Visible = False Then
-                            If GuessList.Count < holes * tries AndAlso HoleGraphicsTimer.Enabled = True Then
-                                GuessList.Add(SelectedColor)
-                                TestGuess.Add(SelectedColor)
-                                HolesList.Item(GuessList.Count - 1).Invalidate()
+                If GameFinished = False Then
+                    If FillBWTimer.Enabled = False Then
+                        If VerifyRowTimer.Enabled = False Then
+                            If ChooseCodePanel.Visible = False Then
+                                If GuessList.Count < holes * tries AndAlso HoleGraphicsTimer.Enabled = True Then
+                                    GuessList.Add(SelectedColor)
+                                    TestGuess.Add(SelectedColor)
+                                    HolesList.Item(GuessList.Count - 1).Invalidate()
 
-                                If GuessList.Count = (Attempt + 1) * holes AndAlso UsersTurn = True Then
+                                    If GuessList.Count = (Attempt + 1) * holes AndAlso UsersTurn = True Then
+                                        VerifyRowTimer.Enabled = True
+                                        HoleGraphicsTimer.Enabled = False
+                                        LabInfo.Text = "[enter] to guess, [backspace] to modify."
+
+                                        InfoPanel.Show()
+                                    Else
+                                        HolesList.Item(GuessList.Count).Invalidate()
+                                    End If
+                                End If
+                            Else
+                                If ChosenCodeList.Count < holes Then 'AndAlso HoleGraphicsTimer.Enabled = True
+                                    ChosenCodeList.Add(SelectedChooseCodeColor)
+                                    ChooseCodeHolesList.Item(ChosenCodeList.Count - 1).Invalidate()
+                                End If
+
+                                If ChosenCodeList.Count = holes Then
                                     VerifyRowTimer.Enabled = True
                                     HoleGraphicsTimer.Enabled = False
-                                    LabInfo.Text = "[enter] to guess, [backspace] to modify."
-
-                                    InfoPanel.Show()
-                                Else
-                                    HolesList.Item(GuessList.Count).Invalidate()
+                                ElseIf HoleGraphicsTimer.Enabled = True Then
+                                    ChooseCodeHolesList.Item(ChosenCodeList.Count).Invalidate()
                                 End If
                             End If
                         Else
-                            If ChosenCodeList.Count < holes Then 'AndAlso HoleGraphicsTimer.Enabled = True
-                                ChosenCodeList.Add(SelectedChooseCodeColor)
-                                ChooseCodeHolesList.Item(ChosenCodeList.Count - 1).Invalidate()
-                            End If
-
-                            If ChosenCodeList.Count = holes Then
-                                VerifyRowTimer.Enabled = True
-                                HoleGraphicsTimer.Enabled = False
-                            ElseIf HoleGraphicsTimer.Enabled = True Then
-                                ChooseCodeHolesList.Item(ChosenCodeList.Count).Invalidate()
-                            End If
-                        End If
-                    Else
-                        If ChooseCodePanel.Visible = False Then
-                            VerifyRowTimer.Enabled = False
-                            For i As Integer = 0 To holes - 1
-                                HolesList.Item(i + Attempt * holes).Invalidate()
-                            Next
-                            If GuessList.Count <= tries * holes - 1 Then
-                                HoleGraphicsTimer.Enabled = True
-                                'HolesList.Item(GuessList.Count).Invalidate()
-                                If GuessList.Count - Attempt * holes = holes Then
-                                    HoleGraphicsTimer.Enabled = False
-                                    FillBWTimer.Enabled = True
-                                    Call verify_guess()
+                            If ChooseCodePanel.Visible = False Then
+                                VerifyRowTimer.Enabled = False
+                                For i As Integer = 0 To holes - 1
+                                    HolesList.Item(i + Attempt * holes).Invalidate()
+                                Next
+                                If GuessList.Count <= tries * holes - 1 Then
+                                    HoleGraphicsTimer.Enabled = True
+                                    'HolesList.Item(GuessList.Count).Invalidate()
+                                    If GuessList.Count - Attempt * holes = holes Then
+                                        HoleGraphicsTimer.Enabled = False
+                                        FillBWTimer.Enabled = True
+                                        Call verify_guess()
+                                    End If
                                 End If
+                                InfoPanel.Hide()
+                            Else
+                                For i As Integer = 0 To holes - 1
+                                    solution(i) = ChosenCodeList.Item(i)
+                                Next
+                                VerifyRowTimer.Enabled = False
+                                Call ShowHideChooseCodePanel(BWPanel, ChooseCodePanel)
+                                ChosenCodeList.Clear()
+                                LabInfo.Text = "The computer is breaking your code."
+                                InfoPanel.Show()
+                                AIDelayTimer.Enabled = True
+                                Debug.Print("SOLUTION IS " & ArrayToInt(solution))
                             End If
-                            InfoPanel.Hide()
-                        Else
-                            For i As Integer = 0 To holes - 1
-                                solution(i) = ChosenCodeList.Item(i)
-                            Next
-                            VerifyRowTimer.Enabled = False
-                            ChosenCodeList.Clear()
-                            For Each pic As PictureBox In HolesList
-                                pic.Hide()
-                            Next
-                            For Each pic As PictureBox In BWHolesList
-                                pic.Hide()
-                            Next
-                            ChooseCodePanel.Hide()
-                            For Each pic As PictureBox In HolesList
-                                pic.Show()
-                            Next
-                            For Each pic As PictureBox In BWHolesList
-                                pic.Show()
-                            Next
-                            LabInfo.Text = "The computer is breaking your code."
-                            InfoPanel.Show()
-                            AIDelayTimer.Enabled = True
-                            Debug.Print("SOLUTION IS " & ArrayToInt(solution))
                         End If
                     End If
+                Else
+                    Call SwitchSides()
+                    Debug.Print("Hole timer: " & HoleGraphicsTimer.Enabled.ToString & ", color timer: " & ColorTimer.Enabled.ToString)
                 End If
             Case Keys.Back
                 If VerifyRowTimer.Enabled = True Then
@@ -583,8 +631,21 @@ Public Class PvEGame
             Next
             If BWSum = 2 * holes Then
                 Debug.Print("AI won")
-                LabInfo.Text = "Play again?"
+
+                Dim UserWins As Integer = 0
+                Dim AIWins As Integer = 0
+                For i As Integer = 0 To AttemptCountList.Count - 1
+                    If AttemptCountList(i) < UserAttemptCountList(i) Then
+                        AIWins += 1
+                    ElseIf AttemptCountList(i) > UserAttemptCountList(i) Then
+                        UserWins += 1
+                    End If
+                Next
+                AIAttempts = 0
+                Attempt = 0
+                LabInfo.Text = "You: " & UserWins & ", AI: " & AIWins & vbNewLine & "Press [space] to continue playing."
                 InfoPanel.Show()
+                GameFinished = True
                 InvalidatedSteps = 1
                 Button4.Enabled = True
                 AITimer.Enabled = False
@@ -608,52 +669,52 @@ Public Class PvEGame
             BWStep = 0
             'InfoPanel.Hide()
             If BlackCount = holes Then
+                Attempt += 1
+                UserAttemptCountList.Add(Attempt)
                 MsgBox("You won")
                 If HoleGraphicsTimer.Enabled = True Then
                     MsgBox("Enabled")
                 End If
                 Call SwitchSides()
             Else
-                HoleGraphicsTimer.Enabled = True
                 Attempt += 1
+                HoleGraphicsTimer.Enabled = True
             End If
         End If
         'End If
     End Sub
     Private Sub SwitchSides()
+        GameFinished = False
+        Dim GuessCount As Integer = AIGuessList.Count
+        BWCountList.Clear()
+        GuessList.Clear()
+        AIGuessList.Clear()
+        AIBWList.Clear()
         If UsersTurn = True Then
             VerifyRowTimer.Enabled = False
             HoleGraphicsTimer.Enabled = True
-            ChooseCodePanel.Visible = True
+            For Each pic As PictureBox In ChooseCodeList
+                pic.Visible = True
+            Next
+            ChooseCodePanel.BringToFront()
+            Call ShowHideChooseCodePanel(BWPanel, ChooseCodePanel)
             UsersTurn = False
-            Dim GuessCount As Integer = AIGuessList.Count
-            AIGuessList.Clear()
-            AIBWList.Clear()
             AIAttempts = 0
             CurrentBW = {0, 0}
-            For i As Integer = GuessCount To 0 Step -1
-                HolesList(holes * tries - (i + 1)).Invalidate()
-                BWHolesList(holes * tries - (i + 1)).Invalidate()
-            Next
-        Else
             Call ClearBoard()
+        Else
             Attempt = 0
-            BWCountList.Clear()
-            GuessList.Clear()
-            InfoPanel.Visible = False
+            Call ClearBoard()
+            HoleGraphicsTimer.Enabled = True
+            InfoPanel.Hide()
             UsersTurn = True
+            solution = GenerateSolution()
+            Debug.Print("Solution is " & ArrayToString(solution))
         End If
     End Sub
-    Private Sub DebugTimer_Tick(sender As Object, e As EventArgs) Handles DebugTimer.Tick
-
-    End Sub
-
     Private Sub PicMinimizeForm_Click(sender As Object, e As EventArgs) Handles PicMinimizeForm.Click
         Me.WindowState = FormWindowState.Minimized
     End Sub
-
-
-
     Private Sub AIBackgroundWorkerEasy_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles AIBackgroundWorkerEasy.RunWorkerCompleted
         Debug.Print("EASY AI STARTED")
         If CurrentlyPossibleSolutions.Count > 1 Then
@@ -874,6 +935,10 @@ Public Class PvEGame
         AIDelayTimer.Enabled = False
     End Sub
 
+    Private Sub ChooseCodePanel_Click(sender As Object, e As EventArgs) Handles ChooseCodePanel.Click
+
+    End Sub
+
     Private Sub NewAIBackgroundWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles NewAIBackgroundWorker.RunWorkerCompleted
         If AITimer.Enabled = False Then
             AITimer.Enabled = True
@@ -881,8 +946,35 @@ Public Class PvEGame
         If AISolvedCode = False Then
             NewAIBackgroundWorker.RunWorkerAsync()
         Else
+            AttemptCountList.Add(AIAttempts)
             Debug.Print("AI won; not going again. " & AIAttempts & " attempts.")
         End If
     End Sub
 
+    Dim PanelInvalidated As Boolean = False
+    Private Sub ChooseCodePanel_Paint(sender As Object, e As PaintEventArgs) Handles ChooseCodePanel.Paint
+        If ChooseCodeHolesList(holes - 1).Visible = False Then
+            If PanelInvalidated = False Then
+                For Each pic As PictureBox In HolesList
+                    pic.Show()
+                Next
+                Debug.Print("TEST")
+                BWPanel.Show()
+                PanelInvalidated = True
+                ChooseCodePanel.Invalidate()
+            Else
+                ChooseCodePanel.Hide()
+                PanelInvalidated = False
+            End If
+            'ElseIf BWPanel.Visible = True Then
+            '    BWPanel.Hide()
+            '    For Each pic As PictureBox In HolesList
+            '        pic.Hide()
+            '    Next
+        End If
+    End Sub
+
+    Private Sub ChooseCodePanel_VisibleChanged(sender As Object, e As EventArgs) Handles ChooseCodePanel.VisibleChanged
+        PicFormHeader.BringToFront()
+    End Sub
 End Class

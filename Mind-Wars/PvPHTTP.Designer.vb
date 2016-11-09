@@ -25,8 +25,6 @@ Partial Class PvPHTTP
         Me.components = New System.ComponentModel.Container()
         Me.PicFormHeader = New System.Windows.Forms.PictureBox()
         Me.HeaderTransparencyRight = New System.Windows.Forms.PictureBox()
-        Me.ChooseCodePanel = New System.Windows.Forms.Panel()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.InfoPanel = New System.Windows.Forms.Panel()
         Me.LabInfo = New System.Windows.Forms.Label()
         Me.PicInfoRight = New System.Windows.Forms.PictureBox()
@@ -47,6 +45,10 @@ Partial Class PvPHTTP
         Me.FillBWTimer = New System.Windows.Forms.Timer(Me.components)
         Me.DebugTimer = New System.Windows.Forms.Timer(Me.components)
         Me.CheckStatusBackgroundWorker = New System.ComponentModel.BackgroundWorker()
+        Me.ChooseCodePanel = New System.Windows.Forms.PictureBox()
+        Me.PicCloseForm = New System.Windows.Forms.PictureBox()
+        Me.PicMinimizeForm = New System.Windows.Forms.PictureBox()
+        Me.UpdateGuessTimer = New System.Windows.Forms.Timer(Me.components)
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.HeaderTransparencyRight, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.InfoPanel.SuspendLayout()
@@ -55,6 +57,9 @@ Partial Class PvPHTTP
         CType(Me.PicInfoLeft, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GameCodePanel.SuspendLayout()
         CType(Me.HeaderTransparencyLeft, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ChooseCodePanel, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicCloseForm, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicMinimizeForm, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PicFormHeader
@@ -77,25 +82,6 @@ Partial Class PvPHTTP
         Me.HeaderTransparencyRight.Size = New System.Drawing.Size(24, 32)
         Me.HeaderTransparencyRight.TabIndex = 21
         Me.HeaderTransparencyRight.TabStop = False
-        '
-        'ChooseCodePanel
-        '
-        Me.ChooseCodePanel.BackColor = System.Drawing.Color.Transparent
-        Me.ChooseCodePanel.Location = New System.Drawing.Point(52, 105)
-        Me.ChooseCodePanel.Name = "ChooseCodePanel"
-        Me.ChooseCodePanel.Size = New System.Drawing.Size(200, 100)
-        Me.ChooseCodePanel.TabIndex = 20
-        Me.ChooseCodePanel.Visible = False
-        '
-        'Button1
-        '
-        Me.Button1.Enabled = False
-        Me.Button1.Location = New System.Drawing.Point(107, 211)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 22
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
         '
         'InfoPanel
         '
@@ -253,6 +239,41 @@ Partial Class PvPHTTP
         '
         Me.CheckStatusBackgroundWorker.WorkerSupportsCancellation = True
         '
+        'ChooseCodePanel
+        '
+        Me.ChooseCodePanel.BackColor = System.Drawing.Color.Transparent
+        Me.ChooseCodePanel.Location = New System.Drawing.Point(113, 49)
+        Me.ChooseCodePanel.Name = "ChooseCodePanel"
+        Me.ChooseCodePanel.Size = New System.Drawing.Size(100, 50)
+        Me.ChooseCodePanel.TabIndex = 25
+        Me.ChooseCodePanel.TabStop = False
+        Me.ChooseCodePanel.Visible = False
+        '
+        'PicCloseForm
+        '
+        Me.PicCloseForm.BackColor = System.Drawing.Color.Transparent
+        Me.PicCloseForm.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.Exit1
+        Me.PicCloseForm.Location = New System.Drawing.Point(239, 8)
+        Me.PicCloseForm.Name = "PicCloseForm"
+        Me.PicCloseForm.Size = New System.Drawing.Size(16, 16)
+        Me.PicCloseForm.TabIndex = 27
+        Me.PicCloseForm.TabStop = False
+        '
+        'PicMinimizeForm
+        '
+        Me.PicMinimizeForm.BackColor = System.Drawing.Color.Transparent
+        Me.PicMinimizeForm.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.Minimize
+        Me.PicMinimizeForm.Location = New System.Drawing.Point(220, 8)
+        Me.PicMinimizeForm.Margin = New System.Windows.Forms.Padding(0)
+        Me.PicMinimizeForm.Name = "PicMinimizeForm"
+        Me.PicMinimizeForm.Size = New System.Drawing.Size(16, 16)
+        Me.PicMinimizeForm.TabIndex = 26
+        Me.PicMinimizeForm.TabStop = False
+        '
+        'UpdateGuessTimer
+        '
+        Me.UpdateGuessTimer.Interval = 2000
+        '
         'PvPHTTP
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -260,14 +281,15 @@ Partial Class PvPHTTP
         Me.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.StartScreenBG1
         Me.ClientSize = New System.Drawing.Size(264, 500)
         Me.ControlBox = False
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.PicCloseForm)
+        Me.Controls.Add(Me.PicMinimizeForm)
+        Me.Controls.Add(Me.ChooseCodePanel)
         Me.Controls.Add(Me.HeaderTransparencyLeft)
         Me.Controls.Add(Me.HeaderTransparencyRight)
         Me.Controls.Add(Me.InfoPanel)
         Me.Controls.Add(Me.PicFormHeader)
         Me.Controls.Add(Me.GameCodePanel)
         Me.Controls.Add(Me.BWPanel)
-        Me.Controls.Add(Me.ChooseCodePanel)
         Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.MaximizeBox = False
@@ -283,12 +305,14 @@ Partial Class PvPHTTP
         CType(Me.PicInfoLeft, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GameCodePanel.ResumeLayout(False)
         CType(Me.HeaderTransparencyLeft, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ChooseCodePanel, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicCloseForm, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicMinimizeForm, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents PicFormHeader As PictureBox
     Friend WithEvents HeaderTransparencyRight As PictureBox
-    Friend WithEvents ChooseCodePanel As Panel
     Friend WithEvents BWPanel As Panel
     Friend WithEvents HeaderTransparencyLeft As PictureBox
     Public WithEvents ConnectionBackgroundWorker As System.ComponentModel.BackgroundWorker
@@ -309,5 +333,8 @@ Partial Class PvPHTTP
     Friend WithEvents PicInfoRight As PictureBox
     Friend WithEvents PicInfoMiddle As PictureBox
     Friend WithEvents LabInfo As Label
-    Friend WithEvents Button1 As Button
+    Friend WithEvents ChooseCodePanel As PictureBox
+    Friend WithEvents PicCloseForm As PictureBox
+    Friend WithEvents PicMinimizeForm As PictureBox
+    Friend WithEvents UpdateGuessTimer As Timer
 End Class

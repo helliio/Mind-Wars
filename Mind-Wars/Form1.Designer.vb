@@ -34,7 +34,7 @@ Partial Class StartScreen
         Me.PicStartButton_PvPHTTP = New System.Windows.Forms.PictureBox()
         Me.LabTutorial = New System.Windows.Forms.Label()
         Me.PicStartButton_Tutorial = New System.Windows.Forms.PictureBox()
-        Me.PicSettingsButton2 = New System.Windows.Forms.Panel()
+        Me.PanelSettings = New System.Windows.Forms.Panel()
         Me.cmdTestTheme = New System.Windows.Forms.Button()
         Me.ThemeComboBox = New System.Windows.Forms.ComboBox()
         Me.PanelSound = New System.Windows.Forms.Panel()
@@ -82,6 +82,8 @@ Partial Class StartScreen
         Me.PanelPvPLan = New System.Windows.Forms.Panel()
         Me.PicClosePvPLAN = New System.Windows.Forms.PictureBox()
         Me.PanelPvPHTTP = New System.Windows.Forms.Panel()
+        Me.cmdNewPublicGame = New System.Windows.Forms.Button()
+        Me.cmdNewPrivateGame = New System.Windows.Forms.Button()
         Me.LabCode = New System.Windows.Forms.Label()
         Me.cmdConnectHTTP = New System.Windows.Forms.Button()
         Me.txtCode = New System.Windows.Forms.TextBox()
@@ -94,14 +96,14 @@ Partial Class StartScreen
         Me.GUITimer = New System.Windows.Forms.Timer(Me.components)
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.HTTPBackgroundWorker = New System.ComponentModel.BackgroundWorker()
-        Me.cmdNewPrivateGame = New System.Windows.Forms.Button()
-        Me.cmdNewPublicGame = New System.Windows.Forms.Button()
+        Me.HeaderTransparencyLeft = New System.Windows.Forms.PictureBox()
+        Me.HeaderTransparencyRight = New System.Windows.Forms.PictureBox()
         CType(Me.PicStartButton_Settings, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvE, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvPLan, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvPHTTP, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_Tutorial, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.PicSettingsButton2.SuspendLayout()
+        Me.PanelSettings.SuspendLayout()
         Me.PanelSound.SuspendLayout()
         CType(Me.PicSound3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicSound2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -143,19 +145,22 @@ Partial Class StartScreen
         CType(Me.PicMinimizeForm, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicCloseForm, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.HeaderTransparencyLeft, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.HeaderTransparencyRight, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PicStartButton_Settings
         '
         Me.PicStartButton_Settings.BackColor = System.Drawing.Color.Transparent
-        Me.PicStartButton_Settings.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBorderActive1
         Me.PicStartButton_Settings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.PicStartButton_Settings.Location = New System.Drawing.Point(8, 8)
         Me.PicStartButton_Settings.Margin = New System.Windows.Forms.Padding(0)
         Me.PicStartButton_Settings.Name = "PicStartButton_Settings"
         Me.PicStartButton_Settings.Size = New System.Drawing.Size(222, 41)
+        Me.PicStartButton_Settings.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.PicStartButton_Settings.TabIndex = 0
         Me.PicStartButton_Settings.TabStop = False
+        Me.PicStartButton_Settings.Tag = "0"
         '
         'LabSettings
         '
@@ -184,14 +189,15 @@ Partial Class StartScreen
         'PicStartButton_PvE
         '
         Me.PicStartButton_PvE.BackColor = System.Drawing.Color.Transparent
-        Me.PicStartButton_PvE.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBorderInactive
         Me.PicStartButton_PvE.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.PicStartButton_PvE.Location = New System.Drawing.Point(8, 55)
         Me.PicStartButton_PvE.Margin = New System.Windows.Forms.Padding(0, 8, 0, 0)
         Me.PicStartButton_PvE.Name = "PicStartButton_PvE"
         Me.PicStartButton_PvE.Size = New System.Drawing.Size(222, 41)
+        Me.PicStartButton_PvE.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.PicStartButton_PvE.TabIndex = 2
         Me.PicStartButton_PvE.TabStop = False
+        Me.PicStartButton_PvE.Tag = "1"
         '
         'LabPvPLan
         '
@@ -208,14 +214,15 @@ Partial Class StartScreen
         'PicStartButton_PvPLan
         '
         Me.PicStartButton_PvPLan.BackColor = System.Drawing.Color.Transparent
-        Me.PicStartButton_PvPLan.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBorderInactive
         Me.PicStartButton_PvPLan.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.PicStartButton_PvPLan.Location = New System.Drawing.Point(8, 102)
         Me.PicStartButton_PvPLan.Margin = New System.Windows.Forms.Padding(0, 8, 0, 0)
         Me.PicStartButton_PvPLan.Name = "PicStartButton_PvPLan"
         Me.PicStartButton_PvPLan.Size = New System.Drawing.Size(222, 41)
+        Me.PicStartButton_PvPLan.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.PicStartButton_PvPLan.TabIndex = 4
         Me.PicStartButton_PvPLan.TabStop = False
+        Me.PicStartButton_PvPLan.Tag = "2"
         '
         'LabPvPHTTP
         '
@@ -232,20 +239,21 @@ Partial Class StartScreen
         'PicStartButton_PvPHTTP
         '
         Me.PicStartButton_PvPHTTP.BackColor = System.Drawing.Color.Transparent
-        Me.PicStartButton_PvPHTTP.BackgroundImage = CType(resources.GetObject("PicStartButton_PvPHTTP.BackgroundImage"), System.Drawing.Image)
         Me.PicStartButton_PvPHTTP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.PicStartButton_PvPHTTP.Location = New System.Drawing.Point(8, 149)
         Me.PicStartButton_PvPHTTP.Margin = New System.Windows.Forms.Padding(0, 8, 0, 0)
         Me.PicStartButton_PvPHTTP.Name = "PicStartButton_PvPHTTP"
         Me.PicStartButton_PvPHTTP.Size = New System.Drawing.Size(222, 41)
+        Me.PicStartButton_PvPHTTP.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.PicStartButton_PvPHTTP.TabIndex = 6
         Me.PicStartButton_PvPHTTP.TabStop = False
+        Me.PicStartButton_PvPHTTP.Tag = "3"
         '
         'LabTutorial
         '
         Me.LabTutorial.BackColor = System.Drawing.Color.Transparent
         Me.LabTutorial.ForeColor = System.Drawing.Color.SteelBlue
-        Me.LabTutorial.Location = New System.Drawing.Point(8, 212)
+        Me.LabTutorial.Location = New System.Drawing.Point(8, 204)
         Me.LabTutorial.Margin = New System.Windows.Forms.Padding(0)
         Me.LabTutorial.Name = "LabTutorial"
         Me.LabTutorial.Size = New System.Drawing.Size(222, 28)
@@ -256,33 +264,36 @@ Partial Class StartScreen
         'PicStartButton_Tutorial
         '
         Me.PicStartButton_Tutorial.BackColor = System.Drawing.Color.Transparent
-        Me.PicStartButton_Tutorial.BackgroundImage = CType(resources.GetObject("PicStartButton_Tutorial.BackgroundImage"), System.Drawing.Image)
         Me.PicStartButton_Tutorial.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.PicStartButton_Tutorial.Location = New System.Drawing.Point(8, 196)
         Me.PicStartButton_Tutorial.Margin = New System.Windows.Forms.Padding(0, 8, 0, 0)
         Me.PicStartButton_Tutorial.Name = "PicStartButton_Tutorial"
         Me.PicStartButton_Tutorial.Size = New System.Drawing.Size(222, 41)
+        Me.PicStartButton_Tutorial.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.PicStartButton_Tutorial.TabIndex = 8
         Me.PicStartButton_Tutorial.TabStop = False
+        Me.PicStartButton_Tutorial.Tag = "4"
         '
-        'PicSettingsButton2
+        'PanelSettings
         '
-        Me.PicSettingsButton2.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.StartScreenBG
-        Me.PicSettingsButton2.Controls.Add(Me.cmdTestTheme)
-        Me.PicSettingsButton2.Controls.Add(Me.ThemeComboBox)
-        Me.PicSettingsButton2.Controls.Add(Me.PanelSound)
-        Me.PicSettingsButton2.Controls.Add(Me.LabSettingsSound)
-        Me.PicSettingsButton2.Controls.Add(Me.PicSettingSound)
-        Me.PicSettingsButton2.Controls.Add(Me.PanelTheme)
-        Me.PicSettingsButton2.Controls.Add(Me.LabSettingsTheme)
-        Me.PicSettingsButton2.Controls.Add(Me.PictureBox1)
-        Me.PicSettingsButton2.Controls.Add(Me.PicSettingsTheme)
-        Me.PicSettingsButton2.Controls.Add(Me.PicCloseSettings)
-        Me.PicSettingsButton2.Location = New System.Drawing.Point(262, 57)
-        Me.PicSettingsButton2.Name = "PicSettingsButton2"
-        Me.PicSettingsButton2.Size = New System.Drawing.Size(226, 260)
-        Me.PicSettingsButton2.TabIndex = 9
-        Me.PicSettingsButton2.Visible = False
+        Me.PanelSettings.BackColor = System.Drawing.Color.Transparent
+        Me.PanelSettings.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.StartScreenBG
+        Me.PanelSettings.Controls.Add(Me.cmdTestTheme)
+        Me.PanelSettings.Controls.Add(Me.ThemeComboBox)
+        Me.PanelSettings.Controls.Add(Me.PanelSound)
+        Me.PanelSettings.Controls.Add(Me.LabSettingsSound)
+        Me.PanelSettings.Controls.Add(Me.PicSettingSound)
+        Me.PanelSettings.Controls.Add(Me.PanelTheme)
+        Me.PanelSettings.Controls.Add(Me.LabSettingsTheme)
+        Me.PanelSettings.Controls.Add(Me.PictureBox1)
+        Me.PanelSettings.Controls.Add(Me.PicSettingsTheme)
+        Me.PanelSettings.Controls.Add(Me.PicCloseSettings)
+        Me.PanelSettings.Location = New System.Drawing.Point(259, 57)
+        Me.PanelSettings.Name = "PanelSettings"
+        Me.PanelSettings.Size = New System.Drawing.Size(226, 260)
+        Me.PanelSettings.TabIndex = 9
+        Me.PanelSettings.Tag = "1"
+        Me.PanelSettings.Visible = False
         '
         'cmdTestTheme
         '
@@ -466,8 +477,7 @@ Partial Class StartScreen
         'PanelPvE
         '
         Me.PanelPvE.AutoSize = True
-        Me.PanelPvE.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.PanelPvE.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.StartScreenBG
+        Me.PanelPvE.BackColor = System.Drawing.Color.Transparent
         Me.PanelPvE.Controls.Add(Me.LabPvEStart)
         Me.PanelPvE.Controls.Add(Me.PicPvEStartGame)
         Me.PanelPvE.Controls.Add(Me.LabPvEColors)
@@ -486,29 +496,30 @@ Partial Class StartScreen
         Me.PanelPvE.Name = "PanelPvE"
         Me.PanelPvE.Size = New System.Drawing.Size(226, 259)
         Me.PanelPvE.TabIndex = 10
+        Me.PanelPvE.Tag = "2"
         Me.PanelPvE.Visible = False
         '
         'LabPvEStart
         '
         Me.LabPvEStart.BackColor = System.Drawing.Color.Transparent
         Me.LabPvEStart.ForeColor = System.Drawing.Color.LightSkyBlue
-        Me.LabPvEStart.Location = New System.Drawing.Point(27, 222)
+        Me.LabPvEStart.Location = New System.Drawing.Point(28, 221)
         Me.LabPvEStart.Margin = New System.Windows.Forms.Padding(0)
         Me.LabPvEStart.Name = "LabPvEStart"
-        Me.LabPvEStart.Size = New System.Drawing.Size(175, 26)
+        Me.LabPvEStart.Size = New System.Drawing.Size(175, 37)
         Me.LabPvEStart.TabIndex = 12
         Me.LabPvEStart.Text = "Start game"
         Me.LabPvEStart.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'PicPvEStartGame
         '
-        Me.PicPvEStartGame.BackColor = System.Drawing.Color.Transparent
-        Me.PicPvEStartGame.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
+        Me.PicPvEStartGame.BackColor = System.Drawing.Color.DarkRed
         Me.PicPvEStartGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.PicPvEStartGame.Dock = System.Windows.Forms.DockStyle.Top
         Me.PicPvEStartGame.Location = New System.Drawing.Point(0, 219)
         Me.PicPvEStartGame.Name = "PicPvEStartGame"
         Me.PicPvEStartGame.Size = New System.Drawing.Size(226, 40)
+        Me.PicPvEStartGame.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.PicPvEStartGame.TabIndex = 11
         Me.PicPvEStartGame.TabStop = False
         Me.PicPvEStartGame.Tag = "4"
@@ -517,10 +528,10 @@ Partial Class StartScreen
         '
         Me.LabPvEColors.BackColor = System.Drawing.Color.Transparent
         Me.LabPvEColors.ForeColor = System.Drawing.Color.LightSkyBlue
-        Me.LabPvEColors.Location = New System.Drawing.Point(0, 80)
+        Me.LabPvEColors.Location = New System.Drawing.Point(31, 80)
         Me.LabPvEColors.Margin = New System.Windows.Forms.Padding(0)
         Me.LabPvEColors.Name = "LabPvEColors"
-        Me.LabPvEColors.Size = New System.Drawing.Size(226, 21)
+        Me.LabPvEColors.Size = New System.Drawing.Size(159, 21)
         Me.LabPvEColors.TabIndex = 10
         Me.LabPvEColors.Text = "Colors"
         Me.LabPvEColors.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -541,7 +552,7 @@ Partial Class StartScreen
         '
         Me.LabPvENumberOfAttemptsButton.BackColor = System.Drawing.Color.Transparent
         Me.LabPvENumberOfAttemptsButton.ForeColor = System.Drawing.Color.LightSkyBlue
-        Me.LabPvENumberOfAttemptsButton.Location = New System.Drawing.Point(0, 185)
+        Me.LabPvENumberOfAttemptsButton.Location = New System.Drawing.Point(0, 187)
         Me.LabPvENumberOfAttemptsButton.Margin = New System.Windows.Forms.Padding(0)
         Me.LabPvENumberOfAttemptsButton.Name = "LabPvENumberOfAttemptsButton"
         Me.LabPvENumberOfAttemptsButton.Size = New System.Drawing.Size(175, 26)
@@ -565,7 +576,7 @@ Partial Class StartScreen
         '
         Me.LabPvENumberOfHolesButton.BackColor = System.Drawing.Color.Transparent
         Me.LabPvENumberOfHolesButton.ForeColor = System.Drawing.Color.LightSkyBlue
-        Me.LabPvENumberOfHolesButton.Location = New System.Drawing.Point(0, 145)
+        Me.LabPvENumberOfHolesButton.Location = New System.Drawing.Point(0, 147)
         Me.LabPvENumberOfHolesButton.Margin = New System.Windows.Forms.Padding(0)
         Me.LabPvENumberOfHolesButton.Name = "LabPvENumberOfHolesButton"
         Me.LabPvENumberOfHolesButton.Size = New System.Drawing.Size(175, 26)
@@ -576,12 +587,12 @@ Partial Class StartScreen
         'PicPvEChooseAttempts
         '
         Me.PicPvEChooseAttempts.BackColor = System.Drawing.Color.Transparent
-        Me.PicPvEChooseAttempts.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.NumberSettings00
         Me.PicPvEChooseAttempts.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.PicPvEChooseAttempts.Dock = System.Windows.Forms.DockStyle.Top
         Me.PicPvEChooseAttempts.Location = New System.Drawing.Point(0, 179)
         Me.PicPvEChooseAttempts.Name = "PicPvEChooseAttempts"
         Me.PicPvEChooseAttempts.Size = New System.Drawing.Size(226, 40)
+        Me.PicPvEChooseAttempts.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.PicPvEChooseAttempts.TabIndex = 5
         Me.PicPvEChooseAttempts.TabStop = False
         Me.PicPvEChooseAttempts.Tag = "3"
@@ -589,12 +600,12 @@ Partial Class StartScreen
         'PicPvEChooseHoles
         '
         Me.PicPvEChooseHoles.BackColor = System.Drawing.Color.Transparent
-        Me.PicPvEChooseHoles.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.NumberSettings00
         Me.PicPvEChooseHoles.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.PicPvEChooseHoles.Dock = System.Windows.Forms.DockStyle.Top
         Me.PicPvEChooseHoles.Location = New System.Drawing.Point(0, 139)
         Me.PicPvEChooseHoles.Name = "PicPvEChooseHoles"
         Me.PicPvEChooseHoles.Size = New System.Drawing.Size(226, 40)
+        Me.PicPvEChooseHoles.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.PicPvEChooseHoles.TabIndex = 4
         Me.PicPvEChooseHoles.TabStop = False
         Me.PicPvEChooseHoles.Tag = "2"
@@ -708,12 +719,12 @@ Partial Class StartScreen
         'PicPvEChooseColors
         '
         Me.PicPvEChooseColors.BackColor = System.Drawing.Color.Transparent
-        Me.PicPvEChooseColors.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
         Me.PicPvEChooseColors.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.PicPvEChooseColors.Dock = System.Windows.Forms.DockStyle.Top
         Me.PicPvEChooseColors.Location = New System.Drawing.Point(0, 72)
         Me.PicPvEChooseColors.Name = "PicPvEChooseColors"
         Me.PicPvEChooseColors.Size = New System.Drawing.Size(226, 40)
+        Me.PicPvEChooseColors.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.PicPvEChooseColors.TabIndex = 3
         Me.PicPvEChooseColors.TabStop = False
         Me.PicPvEChooseColors.Tag = "1"
@@ -809,24 +820,26 @@ Partial Class StartScreen
         'PicClosePvE
         '
         Me.PicClosePvE.BackColor = System.Drawing.Color.Transparent
-        Me.PicClosePvE.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBackActive1
         Me.PicClosePvE.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.PicClosePvE.Dock = System.Windows.Forms.DockStyle.Top
         Me.PicClosePvE.Location = New System.Drawing.Point(0, 0)
         Me.PicClosePvE.Name = "PicClosePvE"
         Me.PicClosePvE.Size = New System.Drawing.Size(226, 40)
+        Me.PicClosePvE.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.PicClosePvE.TabIndex = 0
         Me.PicClosePvE.TabStop = False
         Me.PicClosePvE.Tag = "0"
         '
         'PanelPvPLan
         '
+        Me.PanelPvPLan.BackColor = System.Drawing.Color.Transparent
         Me.PanelPvPLan.Controls.Add(Me.PicClosePvPLAN)
         Me.PanelPvPLan.Location = New System.Drawing.Point(12, 399)
         Me.PanelPvPLan.Margin = New System.Windows.Forms.Padding(0)
         Me.PanelPvPLan.Name = "PanelPvPLan"
         Me.PanelPvPLan.Size = New System.Drawing.Size(226, 27)
         Me.PanelPvPLan.TabIndex = 11
+        Me.PanelPvPLan.Tag = "3"
         Me.PanelPvPLan.Visible = False
         '
         'PicClosePvPLAN
@@ -851,7 +864,36 @@ Partial Class StartScreen
         Me.PanelPvPHTTP.Name = "PanelPvPHTTP"
         Me.PanelPvPHTTP.Size = New System.Drawing.Size(226, 224)
         Me.PanelPvPHTTP.TabIndex = 12
+        Me.PanelPvPHTTP.Tag = "4"
         Me.PanelPvPHTTP.Visible = False
+        '
+        'cmdNewPublicGame
+        '
+        Me.cmdNewPublicGame.BackColor = System.Drawing.Color.Transparent
+        Me.cmdNewPublicGame.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBorderInactive
+        Me.cmdNewPublicGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.cmdNewPublicGame.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.cmdNewPublicGame.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdNewPublicGame.Location = New System.Drawing.Point(0, 164)
+        Me.cmdNewPublicGame.Name = "cmdNewPublicGame"
+        Me.cmdNewPublicGame.Size = New System.Drawing.Size(226, 46)
+        Me.cmdNewPublicGame.TabIndex = 6
+        Me.cmdNewPublicGame.Text = "New public game"
+        Me.cmdNewPublicGame.UseVisualStyleBackColor = False
+        '
+        'cmdNewPrivateGame
+        '
+        Me.cmdNewPrivateGame.BackColor = System.Drawing.Color.Transparent
+        Me.cmdNewPrivateGame.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBorderInactive
+        Me.cmdNewPrivateGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.cmdNewPrivateGame.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.cmdNewPrivateGame.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdNewPrivateGame.Location = New System.Drawing.Point(0, 112)
+        Me.cmdNewPrivateGame.Name = "cmdNewPrivateGame"
+        Me.cmdNewPrivateGame.Size = New System.Drawing.Size(226, 46)
+        Me.cmdNewPrivateGame.TabIndex = 5
+        Me.cmdNewPrivateGame.Text = "New private game"
+        Me.cmdNewPrivateGame.UseVisualStyleBackColor = False
         '
         'LabCode
         '
@@ -896,12 +938,14 @@ Partial Class StartScreen
         '
         'PanelTutorial
         '
+        Me.PanelTutorial.BackColor = System.Drawing.Color.Transparent
         Me.PanelTutorial.Controls.Add(Me.PicCloseTutorial)
         Me.PanelTutorial.Location = New System.Drawing.Point(12, 465)
         Me.PanelTutorial.Margin = New System.Windows.Forms.Padding(0)
         Me.PanelTutorial.Name = "PanelTutorial"
         Me.PanelTutorial.Size = New System.Drawing.Size(226, 27)
         Me.PanelTutorial.TabIndex = 13
+        Me.PanelTutorial.Tag = "5"
         Me.PanelTutorial.Visible = False
         '
         'PicCloseTutorial
@@ -915,19 +959,17 @@ Partial Class StartScreen
         '
         'PicFormHeader
         '
-        Me.PicFormHeader.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(1, Byte), Integer), CType(CType(2, Byte), Integer))
-        Me.PicFormHeader.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.FormHeader
-        Me.PicFormHeader.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.PicFormHeader.BackColor = System.Drawing.Color.Transparent
+        Me.PicFormHeader.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.HeaderBG
         Me.PicFormHeader.Dock = System.Windows.Forms.DockStyle.Top
         Me.PicFormHeader.Location = New System.Drawing.Point(0, 0)
         Me.PicFormHeader.Name = "PicFormHeader"
-        Me.PicFormHeader.Size = New System.Drawing.Size(944, 32)
+        Me.PicFormHeader.Size = New System.Drawing.Size(924, 32)
         Me.PicFormHeader.TabIndex = 14
         Me.PicFormHeader.TabStop = False
         '
         'ButtonsPanel
         '
-        Me.ButtonsPanel.AutoSize = True
         Me.ButtonsPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.ButtonsPanel.BackColor = System.Drawing.Color.Transparent
         Me.ButtonsPanel.Controls.Add(Me.LabSettings)
@@ -944,7 +986,7 @@ Partial Class StartScreen
         Me.ButtonsPanel.Margin = New System.Windows.Forms.Padding(0)
         Me.ButtonsPanel.Name = "ButtonsPanel"
         Me.ButtonsPanel.Padding = New System.Windows.Forms.Padding(8)
-        Me.ButtonsPanel.Size = New System.Drawing.Size(238, 248)
+        Me.ButtonsPanel.Size = New System.Drawing.Size(238, 249)
         Me.ButtonsPanel.TabIndex = 15
         '
         'PicMinimizeForm
@@ -986,33 +1028,25 @@ Partial Class StartScreen
         Me.HTTPBackgroundWorker.WorkerReportsProgress = True
         Me.HTTPBackgroundWorker.WorkerSupportsCancellation = True
         '
-        'cmdNewPrivateGame
+        'HeaderTransparencyLeft
         '
-        Me.cmdNewPrivateGame.BackColor = System.Drawing.Color.Transparent
-        Me.cmdNewPrivateGame.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBorderInactive
-        Me.cmdNewPrivateGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.cmdNewPrivateGame.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.cmdNewPrivateGame.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdNewPrivateGame.Location = New System.Drawing.Point(0, 112)
-        Me.cmdNewPrivateGame.Name = "cmdNewPrivateGame"
-        Me.cmdNewPrivateGame.Size = New System.Drawing.Size(226, 46)
-        Me.cmdNewPrivateGame.TabIndex = 5
-        Me.cmdNewPrivateGame.Text = "New private game"
-        Me.cmdNewPrivateGame.UseVisualStyleBackColor = False
+        Me.HeaderTransparencyLeft.BackColor = System.Drawing.Color.Maroon
+        Me.HeaderTransparencyLeft.Image = Global.Mind_Wars.My.Resources.Resources.HeaderTransparencyLeft
+        Me.HeaderTransparencyLeft.Location = New System.Drawing.Point(815, 183)
+        Me.HeaderTransparencyLeft.Name = "HeaderTransparencyLeft"
+        Me.HeaderTransparencyLeft.Size = New System.Drawing.Size(36, 59)
+        Me.HeaderTransparencyLeft.TabIndex = 22
+        Me.HeaderTransparencyLeft.TabStop = False
         '
-        'cmdNewPublicGame
+        'HeaderTransparencyRight
         '
-        Me.cmdNewPublicGame.BackColor = System.Drawing.Color.Transparent
-        Me.cmdNewPublicGame.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBorderInactive
-        Me.cmdNewPublicGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.cmdNewPublicGame.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.cmdNewPublicGame.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdNewPublicGame.Location = New System.Drawing.Point(0, 164)
-        Me.cmdNewPublicGame.Name = "cmdNewPublicGame"
-        Me.cmdNewPublicGame.Size = New System.Drawing.Size(226, 46)
-        Me.cmdNewPublicGame.TabIndex = 6
-        Me.cmdNewPublicGame.Text = "New public game"
-        Me.cmdNewPublicGame.UseVisualStyleBackColor = False
+        Me.HeaderTransparencyRight.BackColor = System.Drawing.Color.Maroon
+        Me.HeaderTransparencyRight.Image = Global.Mind_Wars.My.Resources.Resources.HeaderTransparencyRight
+        Me.HeaderTransparencyRight.Location = New System.Drawing.Point(807, 78)
+        Me.HeaderTransparencyRight.Name = "HeaderTransparencyRight"
+        Me.HeaderTransparencyRight.Size = New System.Drawing.Size(66, 59)
+        Me.HeaderTransparencyRight.TabIndex = 23
+        Me.HeaderTransparencyRight.TabStop = False
         '
         'StartScreen
         '
@@ -1022,8 +1056,11 @@ Partial Class StartScreen
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.BackColor = System.Drawing.Color.Black
         Me.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.StartScreenBG
-        Me.ClientSize = New System.Drawing.Size(944, 647)
+        Me.CausesValidation = False
+        Me.ClientSize = New System.Drawing.Size(924, 426)
         Me.ControlBox = False
+        Me.Controls.Add(Me.HeaderTransparencyLeft)
+        Me.Controls.Add(Me.HeaderTransparencyRight)
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.PicCloseForm)
         Me.Controls.Add(Me.PicMinimizeForm)
@@ -1033,11 +1070,12 @@ Partial Class StartScreen
         Me.Controls.Add(Me.PanelPvPHTTP)
         Me.Controls.Add(Me.PanelPvPLan)
         Me.Controls.Add(Me.PanelPvE)
-        Me.Controls.Add(Me.PicSettingsButton2)
+        Me.Controls.Add(Me.PanelSettings)
         Me.DoubleBuffered = True
         Me.ForeColor = System.Drawing.Color.White
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.MaximizeBox = False
+        Me.MinimumSize = New System.Drawing.Size(238, 0)
         Me.Name = "StartScreen"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Mind Wars"
@@ -1047,7 +1085,7 @@ Partial Class StartScreen
         CType(Me.PicStartButton_PvPLan, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicStartButton_PvPHTTP, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicStartButton_Tutorial, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.PicSettingsButton2.ResumeLayout(False)
+        Me.PanelSettings.ResumeLayout(False)
         Me.PanelSound.ResumeLayout(False)
         CType(Me.PicSound3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicSound2, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1090,6 +1128,8 @@ Partial Class StartScreen
         CType(Me.PicMinimizeForm, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicCloseForm, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.HeaderTransparencyLeft, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.HeaderTransparencyRight, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1105,7 +1145,7 @@ Partial Class StartScreen
     Friend WithEvents PicStartButton_PvPHTTP As PictureBox
     Friend WithEvents LabTutorial As Label
     Friend WithEvents PicStartButton_Tutorial As PictureBox
-    Friend WithEvents PicSettingsButton2 As Panel
+    Friend WithEvents PanelSettings As Panel
     Friend WithEvents PanelPvE As Panel
     Friend WithEvents PicClosePvE As PictureBox
     Friend WithEvents PanelPvPLan As Panel
@@ -1167,4 +1207,15 @@ Partial Class StartScreen
     Friend WithEvents LabCode As Label
     Friend WithEvents cmdNewPublicGame As Button
     Friend WithEvents cmdNewPrivateGame As Button
+    Friend WithEvents HeaderTransparencyLeft As PictureBox
+    Friend WithEvents HeaderTransparencyRight As PictureBox
+
+    Public Sub New()
+        ' This call is required by the designer.
+        InitializeComponent()
+        Me.SetStyle(ControlStyles.OptimizedDoubleBuffer, True)
+        Me.SetStyle(ControlStyles.UserPaint, True)
+        Me.SetStyle(ControlStyles.AllPaintingInWmPaint, True)
+        ' Add any initialization after the InitializeComponent() call.
+    End Sub
 End Class

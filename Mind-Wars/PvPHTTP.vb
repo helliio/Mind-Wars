@@ -1,4 +1,7 @@
-﻿Imports System.ComponentModel
+﻿Option Strict On
+Option Explicit On
+Option Infer Off
+Imports System.ComponentModel
 
 Public Class PvPHTTP
     Dim CursorX As Integer, CursorY As Integer
@@ -22,17 +25,19 @@ Public Class PvPHTTP
 
         SelectedColor = 0
         SelectedChooseCodeColor = 0
-        Me.BackgroundImage = Theme_FormBackground
-        BWPanel.Visible = True
-        ChooseCodePanel.Visible = False
+        Me.BackgroundImage = ImageList(0)
+        BWPanel.Hide()
         Me.Width = 60 + 32 * holes
         Me.Height = 38 * (tries + 1) + 74
         'Call GenerateBoard(2, GamePanel, BWPanel, ChooseCodePanel)
         InfoPanel.Visible = False
         With ChooseCodePanel
+            .Visible = False
             .Left = 0
             .Top = 0
+            .BackColor = Color.Transparent
             .Size = Me.ClientRectangle.Size
+            .Parent = Me
         End With
         With HeaderTransparencyLeft
             .Parent = PicFormHeader
@@ -51,6 +56,20 @@ Public Class PvPHTTP
             .Width = 12
             .Height = 12
             .BackColor = Color.Transparent
+        End With
+        With PicMinimizeForm
+            .Parent = PicFormHeader
+            .Visible = True
+            .BringToFront()
+            .Left = 32 * holes + 20
+            .Top = 10
+        End With
+        With PicCloseForm
+            .Visible = True
+            .Parent = PicFormHeader
+            .BringToFront()
+            .Left = 32 * holes + 36
+            .Top = 10
         End With
         Call GenerateBoard(2, Me, BWPanel, ChooseCodePanel)
         With InfoPanel
@@ -92,7 +111,7 @@ Public Class PvPHTTP
     Private Sub ConnectionBackgroundWorker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles ConnectionBackgroundWorker.DoWork
         If HTTPConnectClient.IsBusy = False Then
             Dim result As Integer = CheckOpponentConnection(HTTPGameCode)
-            Debug.Print(result)
+            Debug.Print(CStr(result))
             If result > 0 Then
                 ConnectionEstablished = True
             Else
@@ -114,6 +133,7 @@ Public Class PvPHTTP
                 Debug.Print("IS GAME STARTER. STARTER CHOOSES CODE.")
                 Call SwitchSides()
             Else
+                UpdateGuessTimer.Enabled = True
                 ShowHolesTimer.Enabled = True
             End If
         Else
@@ -256,19 +276,16 @@ Public Class PvPHTTP
                                 TestGuess.Add(SelectedColor)
                                 HolesList.Item(GuessList.Count - 1).Invalidate()
                                 Debug.Print("GuessList count: " & GuessList.Count & ", TestGuess count: " & TestGuess.Count & ", HolesList count: " & HolesList.Count)
+                                GuessListNeedsUpdating = True
                             End If
 
                             If GuessList.Count = (Attempt + 1) * holes AndAlso UsersTurn = True Then
                                 VerifyRowTimer.Enabled = True
                                 HoleGraphicsTimer.Enabled = False
-
-
                                 'BUGGY'
                                 InfoPanel.Parent = Me
                                 InfoPanel.Show()
                                 '/BUGGY'
-
-
                             ElseIf HoleGraphicsTimer.Enabled = True Then
                                 HolesList.Item(GuessList.Count).Invalidate()
                             End If
@@ -307,7 +324,7 @@ Public Class PvPHTTP
                                 solution(i) = ChosenCodeList.Item(i)
                             Next
                             ChosenCodeList.Clear()
-                            ChooseCodePanel.Hide()
+                            Call ShowHideChooseCodePanel(BWPanel, ChooseCodePanel)
                             InfoPanel.Show()
                             ShowHolesTimer.Enabled = True
 
@@ -317,7 +334,6 @@ Public Class PvPHTTP
                             Dim UpdateGameString As New System.Threading.Thread(AddressOf UpdateGame.Update)
                             UpdateGameString.IsBackground = True
                             UpdateGameString.Start()
-
                             Debug.Print("SOLUTION IS " & ArrayToInt(solution))
                         End If
                     End If
@@ -339,12 +355,12 @@ Public Class PvPHTTP
                         If Not GuessList.Count - Attempt * holes = 0 Then
                             GuessList.RemoveAt(GuessList.Count - 1)
                             TestGuess.RemoveAt(TestGuess.Count - 1)
-
                             If GuessList.Count < holes * tries - 1 Then
                                 HolesList.Item(GuessList.Count + 1).Invalidate()
                             Else
                                 HolesList.Item(GuessList.Count).Invalidate()
                             End If
+                            GuessListNeedsUpdating = True
                         End If
                     Else
                         If Not ChosenCodeList.Count = 0 Then
@@ -354,7 +370,6 @@ Public Class PvPHTTP
                                 ChooseCodeHolesList.Item(ChosenCodeList.Count + 1).Invalidate()
                             Else
                                 ChooseCodeHolesList.Item(ChosenCodeList.Count).Invalidate()
-
                             End If
                         End If
                     End If
@@ -470,10 +485,12 @@ Public Class PvPHTTP
         VerifyRowTimer.Enabled = False
         If UsersTurn = True Then
             HoleGraphicsTimer.Enabled = True
-            ChooseCodePanel.Visible = True
+            Call ShowHideChooseCodePanel(BWPanel, ChooseCodePanel)
             UsersTurn = False
         Else
+            HoleGraphicsTimer.Enabled = True
             UsersTurn = True
+            UpdateGuessTimer.Enabled = True
         End If
         Call ClearBoard()
     End Sub
@@ -538,7 +555,7 @@ Public Class PvPHTTP
 
     Private Sub PvPHTTP_Closed(sender As Object, e As EventArgs) Handles Me.Closed
         Me.Visible = False
-        ChooseCodePanel.Visible = False
+        Call ShowHideChooseCodePanel(BWPanel, ChooseCodePanel)
 
         StartScreen.Show()
 
@@ -600,15 +617,11 @@ Public Class PvPHTTP
         End If
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        If InfoPanel.Visible = False Then
-            InfoPanel.Show()
-        Else
-            InfoPanel.Hide()
-        End If
+    Private Sub BWPanel_Paint(sender As Object, e As PaintEventArgs) Handles BWPanel.Paint
+
     End Sub
 
-    Private Sub BWPanel_Paint(sender As Object, e As PaintEventArgs) Handles BWPanel.Paint
+    Private Sub ChooseCodePanel_Click(sender As Object, e As EventArgs) Handles ChooseCodePanel.Click
 
     End Sub
 
@@ -616,5 +629,68 @@ Public Class PvPHTTP
         If Me.WindowState = FormWindowState.Maximized Then
             Me.WindowState = FormWindowState.Normal
         End If
+    End Sub
+
+    Dim PanelInvalidated As Boolean = False
+    Private Sub ChooseCodePanel_Paint(sender As Object, e As PaintEventArgs) Handles ChooseCodePanel.Paint
+        If ChooseCodeHolesList(holes - 1).Visible = False Then
+            If PanelInvalidated = False Then
+                If ShowHolesTimer.Enabled = False Then
+                    For Each pic As PictureBox In HolesList
+                        pic.Show()
+                    Next
+                    Debug.Print("TEST")
+                End If
+                BWPanel.Show()
+                PanelInvalidated = True
+                ChooseCodePanel.Invalidate()
+                Else
+                    ChooseCodePanel.Hide()
+                PanelInvalidated = False
+            End If
+            'ElseIf BWPanel.Visible = True Then
+            '    BWPanel.Hide()
+            '    For Each pic As PictureBox In HolesList
+            '        pic.Hide()
+            '    Next
+        End If
+    End Sub
+
+    Private Sub PicMinimizeForm_Click(sender As Object, e As EventArgs) Handles PicMinimizeForm.Click
+        Me.WindowState = FormWindowState.Minimized
+    End Sub
+
+    Private Sub ChooseCodePanel_VisibleChanged(sender As Object, e As EventArgs) Handles ChooseCodePanel.VisibleChanged
+        PicFormHeader.BringToFront()
+    End Sub
+
+    Private Sub PicMinimizeForm_MouseEnter(sender As Object, e As EventArgs) Handles PicMinimizeForm.MouseEnter
+        PicMinimizeForm.Image = My.Resources.MinimizeHover
+    End Sub
+
+    Private Sub PicCloseForm_Click(sender As Object, e As EventArgs) Handles PicCloseForm.Click
+        Me.Close()
+    End Sub
+
+    Private Sub PicMinimizeForm_MouseLeave(sender As Object, e As EventArgs) Handles PicMinimizeForm.MouseLeave
+        PicMinimizeForm.Image = My.Resources.Minimize
+    End Sub
+
+    Private Sub PicCloseForm_MouseEnter(sender As Object, e As EventArgs) Handles PicCloseForm.MouseEnter
+        PicCloseForm.Image = My.Resources.ExitHover
+    End Sub
+
+    Private Sub UpdateGuessTimer_Tick(sender As Object, e As EventArgs) Handles UpdateGuessTimer.Tick
+        If GuessListNeedsUpdating = True Then
+            Dim UpdateSolutionString As String = ArrayToString(solution)
+            Dim UpdateGame As New UpdateGameClass
+            Dim UpdateGameString As New System.Threading.Thread(AddressOf UpdateGame.UpdateGuess)
+            UpdateGameString.IsBackground = True
+            UpdateGameString.Start()
+        End If
+    End Sub
+
+    Private Sub PicCloseForm_MouseLeave(sender As Object, e As EventArgs) Handles PicCloseForm.MouseLeave
+        PicCloseForm.Image = My.Resources.Exit1
     End Sub
 End Class

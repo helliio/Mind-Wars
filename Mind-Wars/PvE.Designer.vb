@@ -39,7 +39,6 @@ Partial Class PvEGame
         Me.PicCloseForm = New System.Windows.Forms.PictureBox()
         Me.PicMinimizeForm = New System.Windows.Forms.PictureBox()
         Me.HeaderTransparencyRight = New System.Windows.Forms.PictureBox()
-        Me.ChooseCodePanel = New System.Windows.Forms.Panel()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.BWPanel = New System.Windows.Forms.Panel()
         Me.HeaderTransparencyLeft = New System.Windows.Forms.PictureBox()
@@ -57,6 +56,7 @@ Partial Class PvEGame
         Me.Button4 = New System.Windows.Forms.Button()
         Me.NewAIBackgroundWorker = New System.ComponentModel.BackgroundWorker()
         Me.AIDelayTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.ChooseCodePanel = New System.Windows.Forms.PictureBox()
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicInitialLoadProgress, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.InfoPanel.SuspendLayout()
@@ -68,6 +68,7 @@ Partial Class PvEGame
         CType(Me.HeaderTransparencyRight, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.BWPanel.SuspendLayout()
         CType(Me.HeaderTransparencyLeft, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ChooseCodePanel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PicFormHeader
@@ -208,15 +209,6 @@ Partial Class PvEGame
         Me.HeaderTransparencyRight.TabIndex = 21
         Me.HeaderTransparencyRight.TabStop = False
         '
-        'ChooseCodePanel
-        '
-        Me.ChooseCodePanel.BackColor = System.Drawing.Color.Transparent
-        Me.ChooseCodePanel.Location = New System.Drawing.Point(154, 37)
-        Me.ChooseCodePanel.Name = "ChooseCodePanel"
-        Me.ChooseCodePanel.Size = New System.Drawing.Size(200, 100)
-        Me.ChooseCodePanel.TabIndex = 20
-        Me.ChooseCodePanel.Visible = False
-        '
         'Button2
         '
         Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -318,6 +310,16 @@ Partial Class PvEGame
         '
         Me.AIDelayTimer.Interval = 250
         '
+        'ChooseCodePanel
+        '
+        Me.ChooseCodePanel.BackColor = System.Drawing.Color.Transparent
+        Me.ChooseCodePanel.Location = New System.Drawing.Point(57, 103)
+        Me.ChooseCodePanel.Name = "ChooseCodePanel"
+        Me.ChooseCodePanel.Size = New System.Drawing.Size(100, 50)
+        Me.ChooseCodePanel.TabIndex = 0
+        Me.ChooseCodePanel.TabStop = False
+        Me.ChooseCodePanel.Visible = False
+        '
         'PvEGame
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -326,6 +328,7 @@ Partial Class PvEGame
         Me.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.StartScreenBG1
         Me.ClientSize = New System.Drawing.Size(251, 712)
         Me.ControlBox = False
+        Me.Controls.Add(Me.ChooseCodePanel)
         Me.Controls.Add(Me.Button4)
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.InfoPanel)
@@ -334,7 +337,6 @@ Partial Class PvEGame
         Me.Controls.Add(Me.PicMinimizeForm)
         Me.Controls.Add(Me.PicFormHeader)
         Me.Controls.Add(Me.HeaderTransparencyLeft)
-        Me.Controls.Add(Me.ChooseCodePanel)
         Me.Controls.Add(Me.HeaderTransparencyRight)
         Me.Controls.Add(Me.PicInitialLoadProgress)
         Me.Controls.Add(Me.BWPanel)
@@ -357,6 +359,7 @@ Partial Class PvEGame
         Me.BWPanel.ResumeLayout(False)
         Me.BWPanel.PerformLayout()
         CType(Me.HeaderTransparencyLeft, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ChooseCodePanel, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -377,7 +380,6 @@ Partial Class PvEGame
     Friend WithEvents AIBackgroundWorkerEasy As System.ComponentModel.BackgroundWorker
     Friend WithEvents VerifyRowTimer As Timer
     Friend WithEvents FillBWTimer As Timer
-    Friend WithEvents ChooseCodePanel As Panel
     Friend WithEvents DebugTimer As Timer
     Friend WithEvents HeaderTransparencyLeft As PictureBox
     Friend WithEvents HeaderTransparencyRight As PictureBox
@@ -392,14 +394,12 @@ Partial Class PvEGame
     Friend WithEvents StealthyPopulateBackgroundWorker As System.ComponentModel.BackgroundWorker
 
     Public Sub New()
-
         ' This call is required by the designer.
         InitializeComponent()
         Me.SetStyle(ControlStyles.OptimizedDoubleBuffer, True)
         Me.SetStyle(ControlStyles.UserPaint, True)
         Me.SetStyle(ControlStyles.AllPaintingInWmPaint, True)
         ' Add any initialization after the InitializeComponent() call.
-
     End Sub
 
     Public WithEvents SelectedColorTimer As Timer
@@ -407,4 +407,5 @@ Partial Class PvEGame
     Friend WithEvents Button4 As Button
     Friend WithEvents NewAIBackgroundWorker As System.ComponentModel.BackgroundWorker
     Friend WithEvents AIDelayTimer As Timer
+    Friend WithEvents ChooseCodePanel As PictureBox
 End Class

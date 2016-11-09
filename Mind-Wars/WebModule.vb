@@ -15,6 +15,8 @@ Module WebModule
     Public ConnectionEstablished As Boolean = False
 
     Public SolutionSet As Boolean = False
+    Public GuessListNeedsUpdating As Boolean = False
+    Public LatestSeriesString As String
 
 
     Public Function CheckOpponentConnection(ByVal code As Integer) As Integer
@@ -26,8 +28,8 @@ Module WebModule
     End Function
 
     Public Sub DisplayCode(ByVal LAN As Boolean)
-        PvPHTTP.Show()
         If LAN = False Then
+            PvPHTTP.Show()
             With PvPHTTP.GameCodePanel
                 .Width = PvPHTTP.ClientRectangle.Width
                 .Height = PvPHTTP.ClientRectangle.Height - PvPHTTP.PicFormHeader.Height

@@ -7,6 +7,7 @@ Module SystemModule
     Public solution(), guess() As Integer
     Public CurrentBW(1) As Integer
     Public TestGuess, ChosenCodeList, GuessList, BWCountList As New List(Of Integer)
+    Public GameFinished As Boolean = False
 
     Public SelectedColor As Integer = 0
     Public SelectedChooseCodeColor As Integer = 0
