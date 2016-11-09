@@ -115,7 +115,6 @@
     <Compile Include="PvPHTTP.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PvPModule.vb" />
     <Compile Include="SystemModule.vb" />
     <Compile Include="TaskModule.vb" />
     <Compile Include="UpdateGameClass.vb" />

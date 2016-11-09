@@ -742,7 +742,7 @@ Public Class StartScreen
 
     Private Sub cmdConnectHTTP_Click(sender As Object, e As EventArgs) Handles cmdConnectHTTP.Click
         ' SHOW "STAND BY" MESSAGE
-        If IsNumeric(txtCode.Text) AndAlso txtCode.Text.Length = 4 Then
+        If IsNumeric(txtCode.Text) AndAlso txtCode.Text.Length = 4 AndAlso Not JoinBackgroundWorker.IsBusy Then
             ConnectionCode = txtCode.Text
             JoinBackgroundWorker.RunWorkerAsync()
         End If
@@ -770,7 +770,7 @@ Public Class StartScreen
                 ConnectionEstablished = True
                 IsGameStarter = 1
             Case Else
-                MsgBox(ResultString)
+                MsgBox(ResultString & " !!! Form1")
         End Select
 
     End Sub

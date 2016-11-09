@@ -7,7 +7,7 @@ Imports System.IO
 Module WebModule
     Public ServerBaseURI As String = "http://www.mindwars.no/"
     Private TestDirectory As String = "/test.php"
-
+    Public IsGameStarter As Integer = 0
     Public CreateGameSuccess As Boolean = False
     Public HTTPGameCode As Integer
 
