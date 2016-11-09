@@ -332,7 +332,6 @@ Public Class PvPHTTP
                             Call ShowHideChooseCodePanel(BWPanel, ChooseCodePanel)
                             InfoPanel.Show()
                             ShowHolesTimer.Enabled = True
-
                             Dim UpdateSolutionString As String = ArrayToString(solution)
                             Dim UpdateGame As New UpdateGameClass
                             UpdateGame.ParametersString = "?code=" & HTTPGameCode & "&action=setsolution&solution=" & UpdateSolutionString
@@ -679,15 +678,19 @@ Public Class PvPHTTP
             Dim UpdateGameString As New System.Threading.Thread(AddressOf UpdateGame.UpdateGuess)
             UpdateGameString.IsBackground = True
             UpdateGameString.Start()
+            GuessListNeedsUpdating = False
+            UpdateGuessTimer.Enabled = False
         End If
     End Sub
 
     Private Sub LoadGuessTimer_Tick(sender As Object, e As EventArgs) Handles LoadGuessTimer.Tick
-        Dim UpdateSolutionString As String = ArrayToString(solution)
-        Dim UpdateGame As New UpdateGameClass
-        Dim UpdateGameString As New System.Threading.Thread(AddressOf UpdateGame.LoadGuess)
-        UpdateGameString.IsBackground = True
-        UpdateGameString.Start()
+        If ShowHolesTimer.Enabled = False Then
+            Dim UpdateSolutionString As String = ArrayToString(solution)
+            Dim UpdateGame As New UpdateGameClass
+            Dim UpdateGameString As New System.Threading.Thread(AddressOf UpdateGame.LoadGuess)
+            UpdateGameString.IsBackground = True
+            UpdateGameString.Start()
+        End If
     End Sub
 
     Dim OpponentStep As Integer = 0
