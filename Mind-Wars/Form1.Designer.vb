@@ -98,6 +98,7 @@ Partial Class StartScreen
         Me.HTTPBackgroundWorker = New System.ComponentModel.BackgroundWorker()
         Me.HeaderTransparencyLeft = New System.Windows.Forms.PictureBox()
         Me.HeaderTransparencyRight = New System.Windows.Forms.PictureBox()
+        Me.JoinBackgroundWorker = New System.ComponentModel.BackgroundWorker()
         CType(Me.PicStartButton_Settings, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvE, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvPLan, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1048,6 +1049,9 @@ Partial Class StartScreen
         Me.HeaderTransparencyRight.TabIndex = 23
         Me.HeaderTransparencyRight.TabStop = False
         '
+        'JoinBackgroundWorker
+        '
+        '
         'StartScreen
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1218,4 +1222,6 @@ Partial Class StartScreen
         Me.SetStyle(ControlStyles.AllPaintingInWmPaint, True)
         ' Add any initialization after the InitializeComponent() call.
     End Sub
+
+    Friend WithEvents JoinBackgroundWorker As System.ComponentModel.BackgroundWorker
 End Class
