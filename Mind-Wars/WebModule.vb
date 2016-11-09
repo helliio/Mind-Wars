@@ -15,7 +15,7 @@ Module WebModule
     Public ConnectionEstablished As Boolean = False
 
     Public SolutionSet As Boolean = False
-    Public GuessListNeedsUpdating As Boolean = False
+
     Public LatestSeriesString As String
 
 

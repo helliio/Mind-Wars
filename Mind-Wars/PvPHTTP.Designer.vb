@@ -48,7 +48,6 @@ Partial Class PvPHTTP
         Me.ChooseCodePanel = New System.Windows.Forms.PictureBox()
         Me.PicCloseForm = New System.Windows.Forms.PictureBox()
         Me.PicMinimizeForm = New System.Windows.Forms.PictureBox()
-        Me.UpdateGuessTimer = New System.Windows.Forms.Timer(Me.components)
         Me.LoadGuessTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ShowOpponentGuessTimer = New System.Windows.Forms.Timer(Me.components)
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -272,10 +271,6 @@ Partial Class PvPHTTP
         Me.PicMinimizeForm.TabIndex = 26
         Me.PicMinimizeForm.TabStop = False
         '
-        'UpdateGuessTimer
-        '
-        Me.UpdateGuessTimer.Interval = 2000
-        '
         'LoadGuessTimer
         '
         Me.LoadGuessTimer.Interval = 2000
@@ -346,7 +341,6 @@ Partial Class PvPHTTP
     Friend WithEvents ChooseCodePanel As PictureBox
     Friend WithEvents PicCloseForm As PictureBox
     Friend WithEvents PicMinimizeForm As PictureBox
-    Friend WithEvents UpdateGuessTimer As Timer
     Friend WithEvents LoadGuessTimer As Timer
     Friend WithEvents ShowOpponentGuessTimer As Timer
 End Class
