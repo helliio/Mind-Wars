@@ -3,6 +3,7 @@ Option Explicit On
 Option Infer Off
 
 Imports System.ComponentModel
+Imports System.Net
 
 Public Class StartScreen
 
@@ -13,6 +14,7 @@ Public Class StartScreen
 
     Dim DragForm As Boolean = False, FocusedLabelColorIncreasing As Boolean = True
     Dim FocusedLabel As Label
+    Dim ConnectionCode As String
 
 
 
@@ -739,7 +741,11 @@ Public Class StartScreen
     End Sub
 
     Private Sub cmdConnectHTTP_Click(sender As Object, e As EventArgs) Handles cmdConnectHTTP.Click
-        Call ConnectToHTTP(txtCode.Text)
+        ' SHOW "STAND BY" MESSAGE
+        If IsNumeric(txtCode.Text) AndAlso txtCode.Text.Length = 4 Then
+            ConnectionCode = txtCode.Text
+            JoinBackgroundWorker.RunWorkerAsync()
+        End If
     End Sub
 
     Private Sub HTTPBackgroundWorker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles HTTPBackgroundWorker.DoWork
@@ -748,6 +754,25 @@ Public Class StartScreen
         NewGameThread.IsBackground = True
         NewGameThread.Start()
         NewGameThread.Join()
+    End Sub
+
+    Private Sub JoinBackgroundWorker_DoWork(sender As Object, e As DoWorkEventArgs) Handles JoinBackgroundWorker.DoWork
+        Dim JoinWebClient As New WebClient
+        Dim ResultString As String = JoinWebClient.DownloadString(ServerBaseURI & "/joingame.php" & "?code=" & ConnectionCode)
+        Select Case ResultString
+            Case "Error 1", "Error 2", "Error 3"
+                MsgBox("We're sorry; the server is experiencing problems right now. Please try again later.")
+            Case "none"
+                MsgBox("No game with that code.")
+            Case "occupied"
+                MsgBox("This game has already started.")
+            Case "found"
+                ConnectionEstablished = True
+                IsGameStarter = 1
+            Case Else
+                MsgBox(ResultString)
+        End Select
+
     End Sub
 
     Private Sub PicSound_Paint(senderX As Object, e As PaintEventArgs) Handles PicSound1.Paint, PicSound2.Paint, PicSound3.Paint
@@ -842,5 +867,16 @@ Public Class StartScreen
         If txtCode.Focused = False Then
             LabCode.Image = My.Resources.SettingsButtonInactive
         End If
+    End Sub
+
+    Private Sub JoinBackgroundWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles JoinBackgroundWorker.RunWorkerCompleted
+        If ConnectionEstablished = True Then
+            PvPHTTP.Show()
+            HTTPGameCode = CInt(ConnectionCode)
+            Call PvPHTTP.InitializePvPGame()
+        Else
+            JoinBackgroundWorker.RunWorkerAsync()
+        End If
+
     End Sub
 End Class

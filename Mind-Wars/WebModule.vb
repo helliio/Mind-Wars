@@ -32,77 +32,64 @@ Module WebModule
 
     Public Sub DisplayCode(ByVal LAN As Boolean)
         If LAN = False Then
+            PvPHTTP.GameCodePanel.Hide()
+            PvPHTTP.LabGameCode.Hide()
+            PvPHTTP.LabActualCode.Hide()
+            PvPHTTP.LabExplanation.Hide()
             PvPHTTP.Show()
             With PvPHTTP.GameCodePanel
+                .BackColor = Color.Transparent
                 .Width = PvPHTTP.ClientRectangle.Width
                 .Height = PvPHTTP.ClientRectangle.Height - PvPHTTP.PicFormHeader.Height
                 .Top = PvPHTTP.PicFormHeader.Height
                 .Left = 0
                 .Parent = PvPHTTP
                 .BringToFront()
-                .BackColor = Color.Transparent
             End With
             With PvPHTTP.LabGameCode
+                .BackColor = Color.Transparent
                 .Parent = PvPHTTP.GameCodePanel
                 .Width = .Parent.ClientRectangle.Width
                 .Height = .Parent.ClientRectangle.Height / 2 - PvPHTTP.LabActualCode.Height / 2 - 50
                 .Top = 0
                 .Left = 0
                 .BringToFront()
-                .BackColor = Color.Transparent
             End With
             With PvPHTTP.LabActualCode
+                .BackColor = Color.Transparent
                 .Parent = PvPHTTP.GameCodePanel
                 .Height = 50
                 .Width = .Parent.Width
                 .Top = PvPHTTP.LabGameCode.Height
                 .Left = 0
                 .BringToFront()
-                .BackColor = Color.Transparent
                 .Text = HTTPGameCode
             End With
             With PvPHTTP.LabExplanation
+                .BackColor = Color.Transparent
                 .Parent = PvPHTTP.GameCodePanel
                 .Height = .Parent.ClientRectangle.Height / 2 - PvPHTTP.LabActualCode.Height / 2
-                .Width = .Parent.ClientRectangle.Width
+                .Width = .Parent.ClientRectangle.Width - 40
                 .Top = PvPHTTP.LabGameCode.Height + PvPHTTP.LabActualCode.Height
-                .Left = 0
+                .Left = 20
                 .BringToFront()
-                .Width -= 40
-                .Left += 20
-                .BackColor = Color.Transparent
             End With
+            PvPHTTP.GameCodePanel.Show()
+            PvPHTTP.LabGameCode.Show()
+            PvPHTTP.LabActualCode.Show()
+            PvPHTTP.LabExplanation.Show()
             If PvPHTTP.ConnectionBackgroundWorker.IsBusy = False Then
                 PvPHTTP.ConnectionBackgroundWorker.RunWorkerAsync()
+            Else
+                MsgBox("CBW Busy")
             End If
         Else
         End If
     End Sub
 
-    Public Sub ConnectToHTTP(ByVal code As String)
-        If IsNumeric(code) Then
-            Dim ResultString As String = HTTPClient.DownloadString(ServerBaseURI & "/joingame.php" & "?code=" & code)
-            Select Case ResultString
-                Case "Error 1", "Error 2", "Error 3"
-                    MsgBox("We're sorry; the server is experiencing problems right now. Please try again later.")
-                Case "none"
-                    MsgBox("No game with that code.")
-                Case "occupied"
-                    MsgBox("This game has already started.")
-                Case "found"
-                    'IsGameStarter = 1
-                    'PvPHTTP.GamePanel.Show()
-                    'PvPHTTP.BWPanel.Show()
-                    'PvPHTTP.GameCodePanel.Hide()
-                    'PvPHTTP.Show()
-                    HTTPGameCode = CInt(code)
-                    PvPHTTP.CheckStatusBackgroundWorker.RunWorkerAsync()
-                Case Else
-                    MsgBox(ResultString)
-            End Select
-        Else
-            MsgBox("The code must be numeric.")
-        End If
-    End Sub
+    Public Function ConnectToHTTP(ByVal ConnectionCode As String)
+        Dim ResultString As String = HTTPClient.DownloadString(ServerBaseURI & "/joingame.php" & "?code=" & ConnectionCode)
+        Return ResultString
+    End Function
 
 End Module
