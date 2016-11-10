@@ -10,7 +10,7 @@ Public Class StartScreen
     Dim PanelList As New List(Of Panel)
 
     Dim PvEHoles As Integer = 4, PvEColors As Integer = 6, PvEAttempts As Integer = 10, FocusedPvEColorListIndex As Integer = 5, SelectedPvEDifficulty As Integer = 1
-    Dim SelectedButtonListIndex, SelectedSettingsListIndex, VisiblePanel, CursorX, CursorY, FocusedLabelAddColor, PvEFocusedCategory, SelectedPvEListIndex As Integer
+    Dim SelectedButtonListIndex, SelectedSettingsListIndex, VisiblePanel, CursorX, CursorY, FocusedLabelAddColor, PvEFocusedCategory, HTTPFocusedCategory, HTTPFocusedSubCategory, HTTPSelectedMode, SelectedHTTPListIndex, SelectedPvEListIndex As Integer
 
     Dim DragForm As Boolean = False, FocusedLabelColorIncreasing As Boolean = True
     Dim FocusedLabel As Label
@@ -24,7 +24,7 @@ Public Class StartScreen
         With PanelList
             .Add(PanelSettings)
             .Add(PanelPvE)
-            .Add(PanelPvPLan)
+            .Add(PanelPvP2)
             .Add(PanelPvPHTTP)
             .Add(PanelTutorial)
         End With
@@ -37,6 +37,16 @@ Public Class StartScreen
             .Add(PicPvEColor6)
             .Add(PicPvEColor7)
             .Add(PicPvEColor8)
+        End With
+        With PvPColorList
+            .Add(HTTPCol1)
+            .Add(HTTPCol2)
+            .Add(HTTPCol3)
+            .Add(HTTPCol4)
+            .Add(HTTPCol5)
+            .Add(HTTPCol6)
+            .Add(HTTPCol7)
+            .Add(HTTPCol8)
         End With
         With ButtonLabList
             .Add(LabSettings)
@@ -54,6 +64,14 @@ Public Class StartScreen
             .Add(PicPvEChooseHoles)
             .Add(PicPvEChooseAttempts)
             .Add(PicPvEStartGame)
+        End With
+        With PvPLabList
+            .Add(LabHTTPJoin2)
+            .Add(LabCode2)
+            .Add(LabHTTPConnect2)
+            .Add(LabHTTPNewGame)
+            .Add(LabHTTPColors2)
+            .Add(LabHTTPCreate2)
         End With
         With PvEDifficultyList
             .Add(LabPvEEasy)
@@ -76,6 +94,8 @@ Public Class StartScreen
         Me.MinimumSize = ButtonsPanel.Size
         txtCode.Top = -100
         txtCode.Text = "CODE"
+        txtCode2.Top = -100
+        txtCode2.Text = "CODE"
 
         LabSettings.Parent = PicStartButton_Settings
         LabPvE.Parent = PicStartButton_PvE
@@ -105,19 +125,26 @@ Public Class StartScreen
         For Each ColPal As PictureBox In PvEColorList
             ColPal.Parent = PanelPvEColors
         Next
+        For Each ColPal As PictureBox In PvPColorList
+            ColPal.Parent = HTTPColorsPanel
+        Next
 
-        PanelSettings.Dock = DockStyle.Fill
-        PanelSettings.BringToFront()
+        'PanelPvE.Dock = DockStyle.Fill
+        'PanelPvE.Parent = Me
+        'PanelPvE.BringToFront()
+        'PanelPvPLan.Dock = DockStyle.Fill
+        'PanelPvPLan.BringToFront()
+        'PanelPvPHTTP.Dock = DockStyle.Fill
+        'PanelPvPHTTP.BringToFront()
+        'PanelPvP2.Dock = DockStyle.Fill
 
-        PanelPvE.Dock = DockStyle.Fill
-        PanelPvE.Parent = Me
-        PanelPvE.BringToFront()
-        PanelPvPLan.Dock = DockStyle.Fill
-        PanelPvPLan.BringToFront()
-        PanelPvPHTTP.Dock = DockStyle.Fill
-        PanelPvPHTTP.BringToFront()
-        PanelTutorial.Dock = DockStyle.Fill
-        PanelTutorial.BringToFront()
+        'PanelTutorial.Dock = DockStyle.Fill
+        'PanelTutorial.BringToFront()
+        For Each P As Panel In PanelList
+            P.Dock = DockStyle.Fill
+            P.Parent = Me
+            P.BringToFront()
+        Next
         PicFormHeader.Dock = DockStyle.Top
         ButtonsPanel.SendToBack()
 
@@ -149,27 +176,59 @@ Public Class StartScreen
             .TextAlign = ContentAlignment.MiddleCenter
             .Dock = DockStyle.Fill
         End With
-        With LabPvENumberOfHolesButton
-            .Parent = PicPvEChooseHoles
-            .BringToFront()
-            .Dock = DockStyle.Left
-            .TextAlign = ContentAlignment.MiddleCenter
-        End With
         With LabPvENumberOfHoles
             .Parent = PicPvEChooseHoles
             .BringToFront()
+            .Width = 50
             .Dock = DockStyle.Right
             .TextAlign = ContentAlignment.MiddleCenter
+        End With
+        With LabPvENumberOfHolesButton
+            .Parent = PicPvEChooseHoles
+            .BringToFront()
+            .Width = .Parent.ClientRectangle.Width - 52
+            .Dock = DockStyle.Left
+            .TextAlign = ContentAlignment.MiddleCenter
+        End With
+        With LabHTTPHoles
+            .Parent = PicHTTPHoles
+            .BringToFront()
+            .Width = 60
+            .Dock = DockStyle.Right
+            .TextAlign = ContentAlignment.MiddleCenter
+        End With
+        With LabHTTPHolesCaption
+            .Parent = PicHTTPHoles
+            .BringToFront()
+            .Width = .Parent.ClientRectangle.Width - 52
+            .Dock = DockStyle.Left
+            .TextAlign = ContentAlignment.MiddleRight
         End With
         With LabPvENumberOfAttemptsButton
             .Parent = PicPvEChooseAttempts
             .BringToFront()
+            .Width = .Parent.ClientRectangle.Width - 52
             .Dock = DockStyle.Left
             .TextAlign = ContentAlignment.MiddleCenter
         End With
         With LabPvENumberOfAttempts
             .Parent = PicPvEChooseAttempts
             .BringToFront()
+            .Width = 50
+            .Dock = DockStyle.Right
+            .TextAlign = ContentAlignment.MiddleCenter
+        End With
+        With LabHTTPAttemptsCaption
+            .Parent = PicHTTPAttempts
+            .BringToFront()
+            .Width = .Parent.ClientRectangle.Width - 52
+            .Dock = DockStyle.Left
+            .TextAlign = ContentAlignment.MiddleRight
+        End With
+        With LabHTTPAttempts
+            .Parent = PicHTTPAttempts
+            .BringToFront()
+            .Width = 60
             .Dock = DockStyle.Right
             .TextAlign = ContentAlignment.MiddleCenter
         End With
@@ -231,80 +290,165 @@ Public Class StartScreen
         GUITimer.Enabled = True
     End Sub
 
-    Sub SelectButton(ByVal deselect As Boolean)
+    Dim HoveredControlIndex As Integer = 0
+    Sub SelectButton(ByVal deselect As Boolean, Optional ByVal HoverMode As Boolean = False)
+        Dim ChangeIndex As Integer = 0
         Select Case VisiblePanel
             Case 0
-                Dim Selection As Label = ButtonLabList.Item(SelectedButtonListIndex)
+                ChangeIndex = SelectedButtonListIndex
+                Dim Selection As Label = ButtonLabList.Item(ChangeIndex)
                 Dim ParentPic As PictureBox = DirectCast(Selection.Parent, PictureBox)
                 If deselect = True Then
                     With Selection
                         ParentPic.Image = ImageList(2)
-                        .ForeColor = Color.SteelBlue
+                        .ForeColor = DefaultLabelColor
                     End With
                 Else
                     With Selection
                         ParentPic.Image = ImageList(1)
-                        .ForeColor = Color.LightCyan
+                        .ForeColor = DefaultSelectedLabelColor
                     End With
                 End If
                 'Selection.Invalidate()
             Case 1
-                Dim Selection As PictureBox = ButtonSettingsList.Item(SelectedSettingsListIndex)
+                If HoverMode = True Then
+                    ChangeIndex = HoveredControlIndex
+                Else
+                    ChangeIndex = SelectedSettingsListIndex
+                End If
+
+                Dim Selection As PictureBox = ButtonSettingsList.Item(ChangeIndex)
                 If deselect = True Then
                     With Selection
-                        If SelectedSettingsListIndex = 0 Then
+                        If ChangeIndex = 0 Then
                             .Image = ImageList(4)
                         Else
                             .Image = ImageList(3)
-                            .ForeColor = Color.SteelBlue
+                            .ForeColor = DefaultLabelColor
                         End If
                     End With
                 Else
                     With Selection
-                        If SelectedSettingsListIndex = 0 Then
+                        If ChangeIndex = 0 Then
                             .Image = ImageList(1)
                         Else
-                            .ForeColor = Color.LightCyan
+                            .ForeColor = DefaultSelectedLabelColor
                         End If
                     End With
                 End If
             Case 2
-                Dim Selection As PictureBox = ButtonPvEList.Item(SelectedPvEListIndex)
-                If SelectedPvEListIndex = 1 Or SelectedPvEListIndex = 2 Or SelectedPvEListIndex = 3 Then
+                If HoverMode = True Then
+                    ChangeIndex = HoveredControlIndex
+                Else
+                    ChangeIndex = SelectedPvEListIndex
+                End If
+                Dim Selection As PictureBox = ButtonPvEList.Item(ChangeIndex)
+                If ChangeIndex = 1 Or ChangeIndex = 2 Or ChangeIndex = 3 Then
                     Selection.Invalidate()
-                ElseIf SelectedPvEListIndex = 0 Then
+                ElseIf ChangeIndex = 0 Then
                     If deselect = True Then
                         Selection.Image = ImageList(4)
                     Else
                         Selection.Image = ImageList(3)
                     End If
-                ElseIf SelectedPvEListIndex = 4 OrElse SelectedPvEListIndex = 7 Then
+                ElseIf ChangeIndex = 4 OrElse ChangeIndex = 7 Then
                     If deselect = True Then
                         Selection.Image = ImageList(6)
                     Else
                         Selection.Image = ImageList(5)
                     End If
-                ElseIf SelectedPvEListIndex = 5 Then
+                ElseIf ChangeIndex = 5 Then
                     If deselect = True Then
                         Selection.Image = ImageList(7)
-                        LabPvENumberOfHolesButton.ForeColor = Color.LightSkyBlue
+                        LabPvENumberOfHolesButton.ForeColor = DefaultLabelColor
                     Else
-                        LabPvENumberOfHolesButton.ForeColor = Color.LightCyan
+                        LabPvENumberOfHolesButton.ForeColor = DefaultSelectedLabelColor
                         Selection.Image = ImageList(8)
                     End If
-                ElseIf SelectedPvEListIndex = 6 Then
+                ElseIf ChangeIndex = 6 Then
                     If deselect = True Then
-                        LabPvENumberOfAttemptsButton.ForeColor = Color.LightSkyBlue
+                        LabPvENumberOfAttemptsButton.ForeColor = DefaultLabelColor
                         Selection.Image = ImageList(7)
                     Else
-                        LabPvENumberOfAttemptsButton.ForeColor = Color.LightCyan
+                        LabPvENumberOfAttemptsButton.ForeColor = DefaultSelectedLabelColor
                         Selection.Image = ImageList(8)
                     End If
                 End If
+            Case 4
+                If HoverMode = True Then
+                    ChangeIndex = HoveredControlIndex
+                Else
+                    ChangeIndex = SelectedHTTPListIndex
+                End If
+                Select Case HTTPFocusedCategory
+                    Case 0
+                        Select Case ChangeIndex
+                            Case 0
+                                If deselect = True Then
+                                    PicHTTPClose.Image = ImageList(4)
+                                Else
+                                    PicHTTPClose.Image = ImageList(3)
+                                End If
+                            Case 1, 4
+                                If deselect = True Then
+                                    PvPLabList(ChangeIndex - 1).Image = ImageList(6)
+                                Else
+                                    PvPLabList(ChangeIndex - 1).Image = ImageList(5)
+                                End If
+                        End Select
+                    Case 1
+                        Select Case ChangeIndex
+                            Case 1
+                                If deselect = True Then
+                                    LabHTTPJoin2.Image = ImageList(4)
+                                Else
+                                    LabHTTPJoin2.Image = ImageList(3)
+                                End If
+                            Case 2, 3
+                                If deselect = True Then
+                                    PvPLabList(ChangeIndex - 1).Image = ImageList(6)
+                                Else
+                                    PvPLabList(ChangeIndex - 1).Image = ImageList(5)
+                                End If
+                        End Select
+                    Case 2
+                        Select Case ChangeIndex
+                            Case 4
+                                If deselect = True Then
+                                    LabHTTPNewGame.Image = ImageList(4)
+                                Else
+                                    LabHTTPNewGame.Image = ImageList(3)
+                                End If
+                            Case 5
+                                If deselect = True Then
+                                    LabHTTPColors2.Image = ImageList(6)
+                                Else
+                                    LabHTTPColors2.Image = ImageList(5)
+                                End If
+                            Case 6
+                                If deselect = True Then
+                                    PicHTTPHoles.Image = ImageList(7)
+                                Else
+                                    PicHTTPHoles.Image = ImageList(8)
+                                End If
+                            Case 7
+                                If deselect = True Then
+                                    PicHTTPAttempts.Image = ImageList(7)
+                                Else
+                                    PicHTTPAttempts.Image = ImageList(8)
+                                End If
+                            Case 8
+                                If deselect = True Then
+                                    LabHTTPCreate2.Image = ImageList(6)
+                                Else
+                                    LabHTTPCreate2.Image = ImageList(5)
+                                End If
+                        End Select
+                End Select
         End Select
     End Sub
 
-    Sub ButtonMouseEnter(sender As Object, e As EventArgs) Handles LabSettings.MouseEnter, LabPvE.MouseEnter, LabPvPLan.MouseEnter, LabPvPHTTP.MouseEnter
+    Sub ButtonMouseEnter(sender As Object, e As EventArgs) Handles LabSettings.MouseEnter, LabPvE.MouseEnter, LabPvPLan.MouseEnter, LabPvPHTTP.MouseEnter, LabHTTPJoin2.MouseEnter, LabCode2.MouseEnter, LabHTTPConnect2.MouseEnter, LabHTTPNewGame.MouseEnter, LabHTTPColors2.MouseEnter, LabHTTPCreate2.MouseEnter, LabHTTPHoles.MouseEnter, LabHTTPHolesCaption.MouseEnter, LabHTTPAttempts.MouseEnter, LabHTTPAttemptsCaption.MouseEnter
         Dim SenderLab As Label = DirectCast(sender, Label)
         Select Case VisiblePanel
             Case 0
@@ -315,13 +459,51 @@ Public Class StartScreen
                 End If
             Case 1
                 If Not CInt(SenderLab.Tag) = SelectedSettingsListIndex Then
-                    Call SelectButton(True)
-                    SelectedSettingsListIndex = CInt(SenderLab.Tag)
-                    Call SelectButton(False)
+                    If Not HoveredControlIndex = SelectedSettingsListIndex Then
+                        Call SelectButton(True, True)
+                    End If
+                    HoveredControlIndex = CInt(SenderLab.Tag)
+                    Call SelectButton(False, True)
+                End If
+                    Case 4
+                If Not CInt(SenderLab.Tag) = 0 Then
+                    If Not CInt(SenderLab.Tag) = SelectedHTTPListIndex Then
+                        If Not HoveredControlIndex = SelectedHTTPListIndex Then
+                            Call SelectButton(True, True)
+                        End If
+                        HoveredControlIndex = CInt(SenderLab.Tag)
+                        Call SelectButton(False, True)
+                    End If
+                Else
+                    Dim ParentPic As PictureBox = DirectCast(SenderLab.Parent, PictureBox)
+                    If Not CInt(ParentPic.Tag) = SelectedHTTPListIndex Then
+                        If Not HoveredControlIndex = SelectedHTTPListIndex Then
+                            Call SelectButton(True, True)
+                        End If
+                        HoveredControlIndex = CInt(ParentPic.Tag)
+                        Call SelectButton(False, True)
+                    End If
                 End If
         End Select
     End Sub
 
+    Sub PicMouseEnter(sender As Object, e As EventArgs) Handles PicHTTPClose.MouseEnter, PicHTTPHoles.MouseEnter, PicHTTPAttempts.MouseEnter
+        Dim SenderPic As PictureBox = DirectCast(sender, PictureBox)
+        Select Case VisiblePanel
+            Case 1
+                If Not CInt(SenderPic.Tag) = SelectedSettingsListIndex Then
+                    Call SelectButton(True)
+                    SelectedSettingsListIndex = CInt(SenderPic.Tag)
+                    Call SelectButton(False)
+                End If
+            Case 4
+                If Not CInt(SenderPic.Tag) = SelectedHTTPListIndex Then
+                    Call SelectButton(True)
+                    SelectedHTTPListIndex = CInt(SenderPic.Tag)
+                    Call SelectButton(False)
+                End If
+        End Select
+    End Sub
 
 
     Private Sub StartScreen_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
@@ -367,7 +549,6 @@ Public Class StartScreen
                     Case Keys.Down
                         Select Case PvEFocusedCategory
                             Case 0
-
                                 If Not SelectedPvEListIndex = ButtonPvEList.Count - 1 Then
                                     Call SelectButton(True)
                                     If SelectedPvEListIndex = 1 Then
@@ -485,40 +666,161 @@ Public Class StartScreen
                                 Call EnterSelected()
                         End Select
                 End Select
+            Case 4
+                Debug.Print(CStr(SelectedHTTPListIndex))
+                Select Case e.KeyCode
+                    Case Keys.Down
+                        Select Case HTTPFocusedCategory
+                            Case 0
+                                Select Case SelectedHTTPListIndex
+                                    Case 0
+                                        Call SelectButton(True)
+                                        SelectedHTTPListIndex = 1
+                                        Call SelectButton(False)
+                                    Case 1
+                                        Call SelectButton(True)
+                                        SelectedHTTPListIndex = 4
+                                        Call SelectButton(False)
+                                End Select
+                            Case 1
+                                If SelectedHTTPListIndex < 3 Then
+                                    Call SelectButton(True)
+                                    SelectedHTTPListIndex += 1
+                                    Call SelectButton(False)
+                                End If
+                            Case 2
+                                Select Case HTTPFocusedSubCategory
+                                    Case 0
+                                        If Not SelectedHTTPListIndex = 8 Then
+                                            Debug.Print("Deselecting " & SelectedHTTPListIndex)
+                                            Call SelectButton(True)
+                                            SelectedHTTPListIndex += 1
+                                            Call SelectButton(False)
+                                            Debug.Print("Selecting " & SelectedHTTPListIndex)
+                                        End If
+                                    Case 1
+                                        Debug.Print("Entering/exiting " & SelectedHTTPListIndex)
+                                        Call EnterSelected()
+                                        Call SelectButton(True)
+                                        SelectedHTTPListIndex += 1
+                                        Call SelectButton(False)
+                                    Case 2
+                                        If PvEHoles > 3 Then
+                                            PvEHoles -= 1
+                                            LabHTTPHoles.Text = CStr(PvEHoles)
+                                        End If
+                                    Case 3
+                                        If PvEAttempts > 4 Then
+                                            PvEAttempts -= 1
+                                            LabHTTPAttempts.Text = CStr(PvEAttempts)
+                                        End If
+                                End Select
+                        End Select
+                    Case Keys.Up
+                        Select Case HTTPFocusedCategory
+                            Case 0
+                                Select Case SelectedHTTPListIndex
+                                    Case 1
+                                        Call SelectButton(True)
+                                        SelectedHTTPListIndex = 0
+                                        Call SelectButton(False)
+                                    Case 4
+                                        Call SelectButton(True)
+                                        SelectedHTTPListIndex = 1
+                                        Call SelectButton(False)
+                                End Select
+                            Case 1
+                                If SelectedHTTPListIndex > 1 Then
+                                    Call SelectButton(True)
+                                    SelectedHTTPListIndex -= 1
+                                    Call SelectButton(False)
+                                End If
+                            Case 2
+                                Select Case HTTPFocusedSubCategory
+                                    Case 0
+                                        If Not SelectedHTTPListIndex = 4 Then
+                                            Call SelectButton(True)
+                                            SelectedHTTPListIndex -= 1
+                                            Call SelectButton(False)
+                                        End If
+                                    Case 1
+                                        Call EnterSelected()
+                                    Case 2
+                                        If PvEHoles < 8 Then
+                                            PvEHoles += 1
+                                            LabHTTPHoles.Text = CStr(PvEHoles)
+                                        End If
+                                    Case 3
+                                        If PvEAttempts < 12 Then
+                                            PvEAttempts += 1
+                                            LabHTTPAttempts.Text = CStr(PvEAttempts)
+                                        End If
+                                End Select
+                        End Select
+                    Case Keys.Left
+                        Select Case HTTPFocusedSubCategory
+                            Case 0
+                                Select Case SelectedHTTPListIndex
+                                    Case 5
+                                        Call EnterSelected()
+                                        If FocusedPvEColorListIndex > 3 Then
+                                            FocusedPvEColorListIndex -= 1
+                                            Call SelectColor()
+                                        End If
+                                End Select
+                            Case 1
+                                If FocusedPvEColorListIndex > 3 Then
+                                    FocusedPvEColorListIndex -= 1
+                                    Call SelectColor()
+                                End If
+                            Case 2, 3
+                                Call EnterSelected()
+                        End Select
+                    Case Keys.Right
+                        Select Case HTTPFocusedSubCategory
+                            Case 0
+                                Select Case SelectedHTTPListIndex
+                                    Case 5
+                                        Call EnterSelected()
+                                        If FocusedPvEColorListIndex < 7 Then
+                                            FocusedPvEColorListIndex += 1
+                                            Call SelectColor()
+                                        End If
+                                    Case 6, 7
+                                        Call EnterSelected()
+                                End Select
+                            Case 1
+                                If FocusedPvEColorListIndex < 7 Then
+                                    FocusedPvEColorListIndex += 1
+                                    Call SelectColor()
+                                End If
+                        End Select
+                    Case Keys.Space, Keys.Enter
+                        Call EnterSelected()
+                End Select
         End Select
     End Sub
 
     Sub SelectColor()
         PvEColors = FocusedPvEColorListIndex + 1
-        For Each ColPal As PictureBox In PvEColorList
-            ColPal.Invalidate()
-        Next
+        If VisiblePanel = 2 Then
+            For Each ColPal As PictureBox In PvEColorList
+                ColPal.Invalidate()
+            Next
+        ElseIf VisiblePanel = 4 Then
+            For Each ColPal As PictureBox In PvPColorList
+                ColPal.Invalidate()
+            Next
+        End If
     End Sub
+
 
     Sub EnterSelected()
         Select Case VisiblePanel
             Case 0
                 TogglePanels(PanelList(SelectedButtonListIndex))
                 Debug.Print("TOGGLING " & CStr(SelectedButtonListIndex))
-                'Select Case SelectedButtonListIndex
-                '    Case 0
-                '        VisiblePanel = 1
-                '        TogglePanels(PanelSettings)
-                '        'PanelSettings.Show()
-                '    Case 1
-                '        VisiblePanel = 2
-                '        TogglePanels(PanelPvE)
-                '        'PanelPvE.Show()
-                '    Case 2
-                '        VisiblePanel = 3
-                '        PanelPvPLan.Show()
-                '    Case 3
-                '        VisiblePanel = 4
-                '        PanelPvPHTTP.Show()
-                '    Case 4
-                '        VisiblePanel = 5
-                '        PanelTutorial.Show()
-                'End Select
+                Debug.Print("VisiblePanel = " & VisiblePanel)
             Case 1
                 Select Case SelectedSettingsListIndex
                     Case 0
@@ -529,8 +831,6 @@ Public Class StartScreen
                 Select Case SelectedPvEListIndex
                     Case 0
                         TogglePanels(PanelPvE)
-                        'PanelPvE.Hide()
-                        'VisiblePanel = 0
                     Case 1, 2, 3
                         SelectButton(True)
                         SelectedPvEListIndex = 7
@@ -538,9 +838,6 @@ Public Class StartScreen
                     Case 4
                         If Not PvEFocusedCategory = 1 Then
                             PvEFocusedCategory = 1
-                            'For Each ColPal As PictureBox In PvEColorList
-                            '    ColPal.Invalidate()
-                            'Next
                             PanelPvEColors.Invalidate()
                         Else
                             PvEFocusedCategory = 0
@@ -582,23 +879,117 @@ Public Class StartScreen
                         VisiblePanel = 0
                         PvEGame.Show()
                 End Select
-
+            Case 4
+                Select Case SelectedHTTPListIndex
+                    Case 0
+                        TogglePanels(PanelPvP2)
+                    Case 1
+                        If Not HTTPFocusedCategory = 1 Then
+                            LabHTTPJoin2.Text = ""
+                            LabHTTPJoin2.Image = ImageList(3)
+                            LabHTTPNewGame.Hide()
+                            HTTPJoinPanel.Show()
+                            PicHTTPClose.Hide()
+                            HTTPFocusedCategory = 1
+                        Else
+                            LabHTTPJoin2.Text = "Join existing game"
+                            LabHTTPJoin2.Image = ImageList(5)
+                            LabHTTPNewGame.Show()
+                            HTTPJoinPanel.Hide()
+                            PicHTTPClose.Show()
+                            HTTPFocusedCategory = 0
+                        End If
+                    Case 2
+                        txtCode2.Focus()
+                    Case 3
+                        Call JoinGame()
+                    Case 4
+                        If Not HTTPFocusedCategory = 2 Then
+                            PicHTTPClose.Hide()
+                            LabHTTPJoin2.Hide()
+                            HTTPCreateGamePanel.Show()
+                            LabHTTPNewGame.Text = ""
+                            LabHTTPNewGame.Image = ImageList(3)
+                            HTTPFocusedCategory = 2
+                        Else
+                            HTTPCreateGamePanel.Hide()
+                            PicHTTPClose.Show()
+                            LabHTTPJoin2.Show()
+                            LabHTTPNewGame.Text = "Create new game"
+                            LabHTTPNewGame.Image = ImageList(5)
+                            HTTPFocusedCategory = 0
+                        End If
+                    Case 5
+                        If Not HTTPFocusedSubCategory = 1 Then
+                            HTTPFocusedSubCategory = 1
+                            HTTPColorsPanel.Invalidate()
+                        Else
+                            HTTPFocusedSubCategory = 0
+                            HTTPColorsPanel.Invalidate()
+                        End If
+                    Case 6
+                        If Not HTTPFocusedSubCategory = 2 Then
+                            HTTPFocusedSubCategory = 2
+                            PicHTTPHoles.Image = ImageList(9)
+                            LabHTTPHolesCaption.ForeColor = Color.LightSkyBlue
+                            LabHTTPHoles.ForeColor = DefaultSelectedLabelColor
+                        Else
+                            HTTPFocusedSubCategory = 0
+                            PicHTTPHoles.Image = ImageList(8)
+                            LabHTTPHolesCaption.ForeColor = DefaultLabelColor
+                            LabHTTPHoles.ForeColor = Color.LightSkyBlue
+                        End If
+                    Case 7
+                        If Not HTTPFocusedSubCategory = 3 Then
+                            HTTPFocusedSubCategory = 3
+                            PicHTTPAttempts.Image = ImageList(9)
+                            LabHTTPAttemptsCaption.ForeColor = Color.LightSkyBlue
+                            LabHTTPAttempts.ForeColor = DefaultSelectedLabelColor
+                        Else
+                            HTTPFocusedSubCategory = 0
+                            PicHTTPAttempts.Image = ImageList(8)
+                            LabHTTPAttemptsCaption.ForeColor = DefaultLabelColor
+                            LabHTTPAttempts.ForeColor = Color.LightSkyBlue
+                        End If
+                    Case 8
+                        PvEAttempts = CInt(LabPvENumberOfAttempts.Text)
+                        holes = PvEHoles
+                        colours = PvEColors
+                        tries = PvEAttempts
+                        If HTTPBackgroundWorker.IsBusy = False Then
+                            HTTPBackgroundWorker.RunWorkerAsync()
+                        End If
+                End Select
         End Select
     End Sub
+    Sub ResetCurrentlyEntered()
+        Select Case HTTPFocusedSubCategory
+            Case 1
+                HTTPColorsPanel.Invalidate()
+            Case 2
+                PicHTTPHoles.Image = ImageList(8)
+                LabHTTPHolesCaption.ForeColor = DefaultLabelColor
+                LabHTTPHoles.ForeColor = Color.LightSkyBlue
+            Case 3
+                PicHTTPAttempts.Image = ImageList(8)
+                LabHTTPAttemptsCaption.ForeColor = DefaultLabelColor
+                LabHTTPAttempts.ForeColor = Color.LightSkyBlue
+        End Select
+        HTTPFocusedSubCategory = 0
+    End Sub
 
-    Private Sub ButtonClick(sender As Object, e As EventArgs) Handles LabSettings.Click, LabPvE.Click, LabPvPLan.Click, LabPvPHTTP.Click
+    Private Sub ButtonClick(sender As Object, e As EventArgs) Handles LabSettings.Click, LabPvE.Click, LabPvPLan.Click, LabPvPHTTP.Click, LabHTTPJoin2.Click, LabCode2.Click, LabHTTPConnect2.Click, LabHTTPNewGame.Click, LabHTTPColors2.Click, LabHTTPCreate2.Click, PicHTTPAttempts.Click, PicHTTPHoles.Click, LabHTTPAttempts.Click, LabHTTPAttemptsCaption.Click, LabHTTPHoles.Click, LabHTTPHolesCaption.Click
+        Call ResetCurrentlyEntered()
         Call EnterSelected()
     End Sub
 
-    Private Sub ClosePanel(senderX As Object, e As EventArgs) Handles PicClosePvE.Click, PicClosePvPLAN.Click, PicCloseTutorial.Click
-        Dim sender As PictureBox = DirectCast(senderX, PictureBox)
-        Dim sender_Panel As Panel = DirectCast(sender.Parent, Panel)
-        Call TogglePanels(sender_Panel)
+    Private Sub ClosePanel(senderX As Object, e As EventArgs) Handles PicClosePvE.Click, PicClosePvPLAN.Click, PicCloseTutorial.Click, PicClosePvPHTTP.Click
+        Call TogglePanels(PanelList(VisiblePanel))
         'sender.Parent.Hide()
     End Sub
 
     Dim PanelInvalidated As Boolean = False, PanelControlsVisible As Boolean = True
-    Private Sub ShowMainOnPaint(senderX As Object, e As PaintEventArgs) Handles PanelPvE.Paint, PanelPvPHTTP.Paint, PanelSettings.Paint, PanelTutorial.Paint, PanelPvPLan.Paint
+    Private Sub ShowMainOnPaint(senderX As Object, e As PaintEventArgs) Handles PanelPvE.Paint, PanelPvPHTTP.Paint, PanelSettings.Paint, PanelTutorial.Paint, PanelPvPLan.Paint, PanelPvP2.Paint
         If PanelControlsVisible = False Then
             Dim sender As Panel = DirectCast(senderX, Panel)
             If PanelInvalidated = False Then
@@ -629,9 +1020,15 @@ Public Class StartScreen
             PanelControlsVisible = True
             SenderPanel.Hide()
 
-            For Each obj As Control In SenderPanel.Controls
-                obj.Show()
-            Next
+            If Not VisiblePanel = 4 Then
+                For Each obj As Control In SenderPanel.Controls
+                    obj.Show()
+                Next
+            Else
+                PicHTTPClose.Show()
+                LabHTTPJoin2.Show()
+                LabHTTPNewGame.Show()
+            End If
             SenderPanel.Show()
             'ButtonsPanel.Hide()
         Else
@@ -748,6 +1145,31 @@ Public Class StartScreen
         End If
     End Sub
 
+    Sub JoinGame()
+        If IsNumeric(txtCode2.Text) AndAlso txtCode2.Text.Length = 4 AndAlso Not JoinBackgroundWorker.IsBusy Then
+            With PicLoading
+                .Visible = False
+                .BackColor = Color.Transparent
+                .Parent = PanelPvP2
+                .Left = 0
+                .Top = 0
+                .Dock = DockStyle.Bottom
+                .Height = 120
+                .BringToFront()
+            End With
+            With LoadingGraphicsRect
+                .Width = 80
+                .Height = 80
+                .X = CInt(PanelPvP2.ClientRectangle.Width / 2 - 40)
+                .Y = PicLoading.Top + 1
+            End With
+            ConnectionCode = txtCode2.Text
+            LoadingSpinTimer.Enabled = True
+            PicLoading.Show()
+            JoinBackgroundWorker.RunWorkerAsync()
+        End If
+    End Sub
+
     Private Sub HTTPBackgroundWorker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles HTTPBackgroundWorker.DoWork
         Dim NewGame As New CreateHTTPGameClass
         Dim NewGameThread As New System.Threading.Thread(AddressOf NewGame.Create)
@@ -756,17 +1178,30 @@ Public Class StartScreen
         NewGameThread.Join()
     End Sub
 
+    Private Sub LoadingSpinTimer_Tick(sender As Object, e As EventArgs) Handles LoadingSpinTimer.Tick
+        PicLoading.Invalidate()
+        LoadingSpinRotation += 5
+        If LoadingSpinRotation > 360 Then
+            LoadingSpinRotation -= 360
+        End If
+    End Sub
+
+    Private Sub PicLoading_Click(sender As Object, e As EventArgs) Handles PicLoading.Click
+
+    End Sub
+
     Private Sub JoinBackgroundWorker_DoWork(sender As Object, e As DoWorkEventArgs) Handles JoinBackgroundWorker.DoWork
         Dim JoinWebClient As New WebClient
         Dim ResultString As String = JoinWebClient.DownloadString(ServerBaseURI & "/joingame.php" & "?code=" & ConnectionCode)
         Select Case ResultString
             Case "Error 1", "Error 2", "Error 3"
-                MsgBox("We're sorry; the server is experiencing problems right now. Please try again later.")
+                ConnectionErrorString = "Could not connect"
             Case "none"
-                MsgBox("No game with that code.")
+                ConnectionErrorString = "Game not found"
             Case "occupied"
-                MsgBox("This game has already started.")
+                ConnectionErrorString = "Game already started"
             Case "found"
+                ConnectionErrorString = ""
                 ConnectionEstablished = True
                 IsGameStarter = 1
             Case Else
@@ -787,6 +1222,10 @@ Public Class StartScreen
         End If
     End Sub
 
+    Private Sub PicClosePvPHTTP_Click(sender As Object, e As EventArgs) Handles PicClosePvPHTTP.Click
+
+    End Sub
+
     Private Sub PicMinimizeForm_Click(sender As Object, e As EventArgs) Handles PicMinimizeForm.Click
         Me.WindowState = FormWindowState.Minimized
     End Sub
@@ -803,6 +1242,9 @@ Public Class StartScreen
 
     Private Sub txtCode_TextChanged(sender As Object, e As EventArgs) Handles txtCode.TextChanged
         LabCode.Text = txtCode.Text
+    End Sub
+    Private Sub txtCode2_TextChanged(sender As Object, e As EventArgs) Handles txtCode2.TextChanged
+        LabCode2.Text = txtCode2.Text
     End Sub
 
     Private Sub PicPvEColorPalette_Paint(sender As Object, e As PaintEventArgs) Handles PicPvEColor1.Paint, PicPvEColor2.Paint, PicPvEColor3.Paint, PicPvEColor4.Paint, PicPvEColor5.Paint, PicPvEColor6.Paint, PicPvEColor7.Paint, PicPvEColor8.Paint
@@ -826,6 +1268,43 @@ Public Class StartScreen
                 ColorPaletteRect.Inflate(-4, -4)
             Else
                 ColorPaletteBrush.Color = Color.FromArgb(170, ColorCodes(SenderTag))
+                ColorPaletteRect.Inflate(-1, -1)
+            End If
+        End If
+        e.Graphics.FillEllipse(ColorPaletteBrush, ColorPaletteRect)
+    End Sub
+
+    Private Sub PicHTTPColorPalette_Paint(sender As Object, e As PaintEventArgs) Handles HTTPCol1.Paint, HTTPCol2.Paint, HTTPCol3.Paint, HTTPCol4.Paint, HTTPCol5.Paint, HTTPCol6.Paint, HTTPCol7.Paint, HTTPCol8.Paint
+        Dim SenderPic As PictureBox = DirectCast(sender, PictureBox)
+        e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+        ColorPaletteRect.Size = SenderPic.DisplayRectangle.Size
+        ColorPaletteRect.Location = SenderPic.DisplayRectangle.Location
+        Dim SenderTag As Integer = CInt(SenderPic.Tag)
+
+        If HTTPSelectedMode = 2 Then
+            If HTTPFocusedCategory = 1 Then
+                If SenderTag > FocusedPvEColorListIndex + 1 Then
+                    ColorPaletteBrush.Color = Color.FromArgb(150, ColorCodes(SenderTag))
+                    ColorPaletteRect.Inflate(-4, -4)
+                Else 'If SenderTag <= FocusedPvEColorListIndex + 1 Then
+                    ColorPaletteBrush.Color = ColorCodes(SenderTag)
+                    ColorPaletteRect.Inflate(-1, -1)
+                End If
+            Else
+                If SenderTag > FocusedPvEColorListIndex + 1 Then
+                    ColorPaletteBrush.Color = Color.FromArgb(40, ColorCodes(SenderTag))
+                    ColorPaletteRect.Inflate(-4, -4)
+                Else
+                    ColorPaletteBrush.Color = Color.FromArgb(170, ColorCodes(SenderTag))
+                    ColorPaletteRect.Inflate(-1, -1)
+                End If
+            End If
+        Else
+            If SenderTag > FocusedPvEColorListIndex + 1 Then
+                ColorPaletteBrush.Color = Color.FromArgb(30, ColorCodes(SenderTag))
+                ColorPaletteRect.Inflate(-4, -4)
+            Else
+                ColorPaletteBrush.Color = Color.FromArgb(120, ColorCodes(SenderTag))
                 ColorPaletteRect.Inflate(-1, -1)
             End If
         End If
@@ -871,12 +1350,24 @@ Public Class StartScreen
 
     Private Sub JoinBackgroundWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles JoinBackgroundWorker.RunWorkerCompleted
         If ConnectionEstablished = True Then
+            ConnectionFailureCounter = 0
+            LoadingSpinTimer.Enabled = False
+            PicLoading.Hide()
+            Me.Hide()
             PvPHTTP.Show()
             HTTPGameCode = CInt(ConnectionCode)
             Call PvPHTTP.InitializePvPGame()
         Else
-            JoinBackgroundWorker.RunWorkerAsync()
+            If ConnectionErrorString = "Could not connect" Then
+                JoinBackgroundWorker.RunWorkerAsync()
+            End If
         End If
 
+    End Sub
+
+    Private Sub PicLoading_Paint(sender As Object, e As PaintEventArgs) Handles PicLoading.Paint
+        e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+        e.Graphics.DrawArc(InitializeGMPPen, LoadingGraphicsRect, LoadingSpinRotation, 170)
+        e.Graphics.DrawArc(InitializeGMPPen, LoadingGraphicsRect, LoadingSpinRotation + 180, 170)
     End Sub
 End Class

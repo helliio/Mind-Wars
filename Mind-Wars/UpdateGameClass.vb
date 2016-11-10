@@ -46,7 +46,7 @@ Public Class UpdateGameClass
         Dim GetSeriesClient As New WebClient
         Dim ResultString As String = GetSeriesClient.DownloadString(ServerBaseURI & "/getseries.php?code=" & CStr(HTTPGameCode))
         GetSeriesClient.Dispose()
-        If ResultString.Length > 0 AndAlso Not ResultString = LatestSeriesString Then
+        If Not ResultString = LatestSeriesString AndAlso ResultString.Length > 0 Then
             LatestSeriesString = ResultString
             Debug.Print("Previous: " & LatestSeriesString & vbNewLine & "New: " & ResultString)
             AIGuessList.Clear()

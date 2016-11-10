@@ -1,4 +1,6 @@
-﻿Option Strict Off
+﻿Option Strict On
+Option Explicit On
+Option Infer Off
 
 Imports System
 Imports System.Net
@@ -18,6 +20,10 @@ Module WebModule
     Public ConnectionEstablished As Boolean = False
 
     Public SolutionSet As Boolean = False
+
+    Public ConnectionErrorString As String = ""
+    Public ConnectionErrorDescription As String = ""
+    Public ConnectionFailureCounter As Integer = 0
 
     Public LatestSeriesString As String
 
@@ -50,7 +56,7 @@ Module WebModule
                 .BackColor = Color.Transparent
                 .Parent = PvPHTTP.GameCodePanel
                 .Width = .Parent.ClientRectangle.Width
-                .Height = .Parent.ClientRectangle.Height / 2 - PvPHTTP.LabActualCode.Height / 2 - 50
+                .Height = CInt(.Parent.ClientRectangle.Height / 2 - PvPHTTP.LabActualCode.Height / 2 - 50)
                 .Top = 0
                 .Left = 0
                 .BringToFront()
@@ -63,12 +69,12 @@ Module WebModule
                 .Top = PvPHTTP.LabGameCode.Height
                 .Left = 0
                 .BringToFront()
-                .Text = HTTPGameCode
+                .Text = CStr(HTTPGameCode)
             End With
             With PvPHTTP.LabExplanation
                 .BackColor = Color.Transparent
                 .Parent = PvPHTTP.GameCodePanel
-                .Height = .Parent.ClientRectangle.Height / 2 - PvPHTTP.LabActualCode.Height / 2
+                .Height = CInt(.Parent.ClientRectangle.Height / 2 - PvPHTTP.LabActualCode.Height / 2)
                 .Width = .Parent.ClientRectangle.Width - 40
                 .Top = PvPHTTP.LabGameCode.Height + PvPHTTP.LabActualCode.Height
                 .Left = 20
@@ -87,7 +93,7 @@ Module WebModule
         End If
     End Sub
 
-    Public Function ConnectToHTTP(ByVal ConnectionCode As String)
+    Public Function ConnectToHTTP(ByVal ConnectionCode As String) As String
         Dim ResultString As String = HTTPClient.DownloadString(ServerBaseURI & "/joingame.php" & "?code=" & ConnectionCode)
         Return ResultString
     End Function

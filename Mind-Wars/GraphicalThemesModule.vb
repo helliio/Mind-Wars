@@ -1,15 +1,9 @@
 ﻿Module GraphicalThemesModule
-    'Public Theme_FormBackground As Image = My.Resources.StartScreenBG
-    'Public Theme_ButtonBorderActive As Image = My.Resources.ButtonBorderActive1
-    'Public Theme_ButtonBorderInactive As Image = My.Resources.ButtonBorderInactive
-    'Public Theme_ButtonBackActive As Image = My.Resources.ButtonBackActive1
-    'Public Theme_ButtonBackInactive As Image = My.Resources.ButtonBackInactive
-    'Public Theme_SettingsButtonActive As Image = My.Resources.SettingsButtonActive
-    'Public Theme_SettingsButtonInactive As Image = My.Resources.SettingsButtonInactive
 
-    Public ButtonPvEList, PvEColorList, ButtonSettingsList As New List(Of PictureBox)
-    Public PvEDifficultyList, ButtonLabList, SettingsLabList As New List(Of Label)
-
+    Public ButtonPvEList, PvEColorList, ButtonSettingsList, PvPColorList As New List(Of PictureBox)
+    Public PvEDifficultyList, ButtonLabList, SettingsLabList, PvPLabList As New List(Of Label)
+    Public DefaultLabelColor As Color = Color.FromArgb(255, 192, 255, 255)
+    Public DefaultSelectedLabelColor As Color = Color.LightCyan
     Public ImageList As New List(Of System.Drawing.Bitmap)
 
     Public Sub PopulateImageList(ByVal theme As Integer)
@@ -33,14 +27,24 @@
         For Each MainLab As Label In ButtonLabList
             Dim ParentPic As PictureBox = DirectCast(MainLab.Parent, PictureBox)
             ParentPic.Image = ImageList(2)
+            MainLab.ForeColor = DefaultLabelColor
         Next
         StartScreen.PicClosePvE.Image = ImageList(3)
         StartScreen.PicPvEChooseColors.Image = ImageList(6)
         StartScreen.PicPvEChooseHoles.Image = ImageList(7)
         StartScreen.PicPvEChooseAttempts.Image = ImageList(7)
         StartScreen.PicPvEStartGame.Image = ImageList(6)
-    End Sub
 
+        StartScreen.PicHTTPClose.Image = ImageList(3)
+        For Each HTTPLab As Label In PvPLabList
+            HTTPLab.Image = ImageList(6)
+            HTTPLab.ForeColor = DefaultLabelColor
+        Next
+        StartScreen.LabHTTPAttempts.ForeColor = DefaultLabelColor
+        StartScreen.LabHTTPHoles.ForeColor = DefaultLabelColor
+        StartScreen.PicHTTPHoles.Image = ImageList(7)
+        StartScreen.PicHTTPAttempts.Image = ImageList(7)
+    End Sub
 
     'Public Sub ChangeTheme(ByVal Theme As Integer)
 

@@ -82,11 +82,16 @@ Partial Class StartScreen
         Me.PanelPvPLan = New System.Windows.Forms.Panel()
         Me.PicClosePvPLAN = New System.Windows.Forms.PictureBox()
         Me.PanelPvPHTTP = New System.Windows.Forms.Panel()
+        Me.PicClosePvPHTTP = New System.Windows.Forms.PictureBox()
+        Me.LabHTTPCreate = New System.Windows.Forms.Label()
+        Me.LabHTTPJoin = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.txtCode = New System.Windows.Forms.TextBox()
+        Me.LabHTTPConnect = New System.Windows.Forms.Label()
+        Me.LabCode = New System.Windows.Forms.Label()
         Me.cmdNewPublicGame = New System.Windows.Forms.Button()
         Me.cmdNewPrivateGame = New System.Windows.Forms.Button()
-        Me.LabCode = New System.Windows.Forms.Label()
         Me.cmdConnectHTTP = New System.Windows.Forms.Button()
-        Me.txtCode = New System.Windows.Forms.TextBox()
         Me.PanelTutorial = New System.Windows.Forms.Panel()
         Me.PicCloseTutorial = New System.Windows.Forms.PictureBox()
         Me.PicFormHeader = New System.Windows.Forms.PictureBox()
@@ -99,6 +104,34 @@ Partial Class StartScreen
         Me.HeaderTransparencyLeft = New System.Windows.Forms.PictureBox()
         Me.HeaderTransparencyRight = New System.Windows.Forms.PictureBox()
         Me.JoinBackgroundWorker = New System.ComponentModel.BackgroundWorker()
+        Me.PanelPvP2 = New System.Windows.Forms.Panel()
+        Me.txtCode2 = New System.Windows.Forms.TextBox()
+        Me.HTTPCreateGamePanel = New System.Windows.Forms.Panel()
+        Me.LabHTTPCreate2 = New System.Windows.Forms.Label()
+        Me.LabHTTPAttempts = New System.Windows.Forms.Label()
+        Me.LabHTTPAttemptsCaption = New System.Windows.Forms.Label()
+        Me.PicHTTPAttempts = New System.Windows.Forms.PictureBox()
+        Me.LabHTTPHoles = New System.Windows.Forms.Label()
+        Me.LabHTTPHolesCaption = New System.Windows.Forms.Label()
+        Me.PicHTTPHoles = New System.Windows.Forms.PictureBox()
+        Me.HTTPColorsPanel = New System.Windows.Forms.Panel()
+        Me.HTTPCol8 = New System.Windows.Forms.PictureBox()
+        Me.HTTPCol7 = New System.Windows.Forms.PictureBox()
+        Me.HTTPCol6 = New System.Windows.Forms.PictureBox()
+        Me.HTTPCol5 = New System.Windows.Forms.PictureBox()
+        Me.HTTPCol4 = New System.Windows.Forms.PictureBox()
+        Me.HTTPCol3 = New System.Windows.Forms.PictureBox()
+        Me.HTTPCol2 = New System.Windows.Forms.PictureBox()
+        Me.HTTPCol1 = New System.Windows.Forms.PictureBox()
+        Me.LabHTTPColors2 = New System.Windows.Forms.Label()
+        Me.LabHTTPNewGame = New System.Windows.Forms.Label()
+        Me.HTTPJoinPanel = New System.Windows.Forms.Panel()
+        Me.LabHTTPConnect2 = New System.Windows.Forms.Label()
+        Me.LabCode2 = New System.Windows.Forms.Label()
+        Me.LabHTTPJoin2 = New System.Windows.Forms.Label()
+        Me.PicHTTPClose = New System.Windows.Forms.PictureBox()
+        Me.PicLoading = New System.Windows.Forms.PictureBox()
+        Me.LoadingSpinTimer = New System.Windows.Forms.Timer(Me.components)
         CType(Me.PicStartButton_Settings, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvE, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvPLan, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -139,6 +172,8 @@ Partial Class StartScreen
         Me.PanelPvPLan.SuspendLayout()
         CType(Me.PicClosePvPLAN, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelPvPHTTP.SuspendLayout()
+        CType(Me.PicClosePvPHTTP, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
         Me.PanelTutorial.SuspendLayout()
         CType(Me.PicCloseTutorial, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -148,6 +183,22 @@ Partial Class StartScreen
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.HeaderTransparencyLeft, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.HeaderTransparencyRight, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PanelPvP2.SuspendLayout()
+        Me.HTTPCreateGamePanel.SuspendLayout()
+        CType(Me.PicHTTPAttempts, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicHTTPHoles, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.HTTPColorsPanel.SuspendLayout()
+        CType(Me.HTTPCol8, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.HTTPCol7, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.HTTPCol6, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.HTTPCol5, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.HTTPCol4, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.HTTPCol3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.HTTPCol2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.HTTPCol1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.HTTPJoinPanel.SuspendLayout()
+        CType(Me.PicHTTPClose, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicLoading, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PicStartButton_Settings
@@ -514,7 +565,7 @@ Partial Class StartScreen
         '
         'PicPvEStartGame
         '
-        Me.PicPvEStartGame.BackColor = System.Drawing.Color.DarkRed
+        Me.PicPvEStartGame.BackColor = System.Drawing.Color.Transparent
         Me.PicPvEStartGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.PicPvEStartGame.Dock = System.Windows.Forms.DockStyle.Top
         Me.PicPvEStartGame.Location = New System.Drawing.Point(0, 219)
@@ -544,7 +595,7 @@ Partial Class StartScreen
         Me.LabPvENumberOfAttempts.Location = New System.Drawing.Point(175, 186)
         Me.LabPvENumberOfAttempts.Margin = New System.Windows.Forms.Padding(0)
         Me.LabPvENumberOfAttempts.Name = "LabPvENumberOfAttempts"
-        Me.LabPvENumberOfAttempts.Size = New System.Drawing.Size(48, 26)
+        Me.LabPvENumberOfAttempts.Size = New System.Drawing.Size(41, 26)
         Me.LabPvENumberOfAttempts.TabIndex = 9
         Me.LabPvENumberOfAttempts.Text = "10"
         Me.LabPvENumberOfAttempts.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -855,74 +906,70 @@ Partial Class StartScreen
         'PanelPvPHTTP
         '
         Me.PanelPvPHTTP.BackColor = System.Drawing.Color.Transparent
-        Me.PanelPvPHTTP.Controls.Add(Me.cmdNewPublicGame)
-        Me.PanelPvPHTTP.Controls.Add(Me.cmdNewPrivateGame)
-        Me.PanelPvPHTTP.Controls.Add(Me.LabCode)
-        Me.PanelPvPHTTP.Controls.Add(Me.cmdConnectHTTP)
-        Me.PanelPvPHTTP.Controls.Add(Me.txtCode)
-        Me.PanelPvPHTTP.Location = New System.Drawing.Point(491, 339)
+        Me.PanelPvPHTTP.Controls.Add(Me.PicClosePvPHTTP)
+        Me.PanelPvPHTTP.Controls.Add(Me.LabHTTPCreate)
+        Me.PanelPvPHTTP.Controls.Add(Me.LabHTTPJoin)
+        Me.PanelPvPHTTP.Controls.Add(Me.Panel1)
+        Me.PanelPvPHTTP.Location = New System.Drawing.Point(255, 465)
         Me.PanelPvPHTTP.Margin = New System.Windows.Forms.Padding(0)
         Me.PanelPvPHTTP.Name = "PanelPvPHTTP"
-        Me.PanelPvPHTTP.Size = New System.Drawing.Size(226, 224)
+        Me.PanelPvPHTTP.Size = New System.Drawing.Size(226, 247)
         Me.PanelPvPHTTP.TabIndex = 12
         Me.PanelPvPHTTP.Tag = "4"
         Me.PanelPvPHTTP.Visible = False
         '
-        'cmdNewPublicGame
+        'PicClosePvPHTTP
         '
-        Me.cmdNewPublicGame.BackColor = System.Drawing.Color.Transparent
-        Me.cmdNewPublicGame.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBorderInactive
-        Me.cmdNewPublicGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.cmdNewPublicGame.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.cmdNewPublicGame.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdNewPublicGame.Location = New System.Drawing.Point(0, 164)
-        Me.cmdNewPublicGame.Name = "cmdNewPublicGame"
-        Me.cmdNewPublicGame.Size = New System.Drawing.Size(226, 46)
-        Me.cmdNewPublicGame.TabIndex = 6
-        Me.cmdNewPublicGame.Text = "New public game"
-        Me.cmdNewPublicGame.UseVisualStyleBackColor = False
+        Me.PicClosePvPHTTP.BackColor = System.Drawing.Color.DimGray
+        Me.PicClosePvPHTTP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.PicClosePvPHTTP.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PicClosePvPHTTP.Location = New System.Drawing.Point(0, 167)
+        Me.PicClosePvPHTTP.Name = "PicClosePvPHTTP"
+        Me.PicClosePvPHTTP.Size = New System.Drawing.Size(226, 48)
+        Me.PicClosePvPHTTP.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
+        Me.PicClosePvPHTTP.TabIndex = 25
+        Me.PicClosePvPHTTP.TabStop = False
+        Me.PicClosePvPHTTP.Tag = "0"
         '
-        'cmdNewPrivateGame
+        'LabHTTPCreate
         '
-        Me.cmdNewPrivateGame.BackColor = System.Drawing.Color.Transparent
-        Me.cmdNewPrivateGame.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBorderInactive
-        Me.cmdNewPrivateGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.cmdNewPrivateGame.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.cmdNewPrivateGame.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdNewPrivateGame.Location = New System.Drawing.Point(0, 112)
-        Me.cmdNewPrivateGame.Name = "cmdNewPrivateGame"
-        Me.cmdNewPrivateGame.Size = New System.Drawing.Size(226, 46)
-        Me.cmdNewPrivateGame.TabIndex = 5
-        Me.cmdNewPrivateGame.Text = "New private game"
-        Me.cmdNewPrivateGame.UseVisualStyleBackColor = False
+        Me.LabHTTPCreate.BackColor = System.Drawing.Color.Transparent
+        Me.LabHTTPCreate.Dock = System.Windows.Forms.DockStyle.Top
+        Me.LabHTTPCreate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabHTTPCreate.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.LabHTTPCreate.Image = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
+        Me.LabHTTPCreate.Location = New System.Drawing.Point(0, 128)
+        Me.LabHTTPCreate.Name = "LabHTTPCreate"
+        Me.LabHTTPCreate.Size = New System.Drawing.Size(226, 39)
+        Me.LabHTTPCreate.TabIndex = 27
+        Me.LabHTTPCreate.Text = "Create new game"
+        Me.LabHTTPCreate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'LabCode
+        'LabHTTPJoin
         '
-        Me.LabCode.BackColor = System.Drawing.Color.Transparent
-        Me.LabCode.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.LabCode.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabCode.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.LabCode.Image = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
-        Me.LabCode.Location = New System.Drawing.Point(0, 19)
-        Me.LabCode.Name = "LabCode"
-        Me.LabCode.Size = New System.Drawing.Size(226, 39)
-        Me.LabCode.TabIndex = 3
-        Me.LabCode.Text = "1234"
-        Me.LabCode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.LabHTTPJoin.BackColor = System.Drawing.Color.Transparent
+        Me.LabHTTPJoin.Dock = System.Windows.Forms.DockStyle.Top
+        Me.LabHTTPJoin.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabHTTPJoin.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.LabHTTPJoin.Image = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
+        Me.LabHTTPJoin.Location = New System.Drawing.Point(0, 89)
+        Me.LabHTTPJoin.Name = "LabHTTPJoin"
+        Me.LabHTTPJoin.Size = New System.Drawing.Size(226, 39)
+        Me.LabHTTPJoin.TabIndex = 2
+        Me.LabHTTPJoin.Text = "Join existing game"
+        Me.LabHTTPJoin.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'cmdConnectHTTP
+        'Panel1
         '
-        Me.cmdConnectHTTP.BackColor = System.Drawing.Color.Transparent
-        Me.cmdConnectHTTP.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBorderInactive
-        Me.cmdConnectHTTP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.cmdConnectHTTP.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.cmdConnectHTTP.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdConnectHTTP.Location = New System.Drawing.Point(0, 60)
-        Me.cmdConnectHTTP.Name = "cmdConnectHTTP"
-        Me.cmdConnectHTTP.Size = New System.Drawing.Size(226, 46)
-        Me.cmdConnectHTTP.TabIndex = 4
-        Me.cmdConnectHTTP.Text = "Connect"
-        Me.cmdConnectHTTP.UseVisualStyleBackColor = False
+        Me.Panel1.BackColor = System.Drawing.Color.Black
+        Me.Panel1.Controls.Add(Me.txtCode)
+        Me.Panel1.Controls.Add(Me.LabHTTPConnect)
+        Me.Panel1.Controls.Add(Me.LabCode)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel1.Location = New System.Drawing.Point(0, 0)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(226, 89)
+        Me.Panel1.TabIndex = 26
         '
         'txtCode
         '
@@ -936,6 +983,75 @@ Partial Class StartScreen
         Me.txtCode.TabIndex = 1
         Me.txtCode.Text = "1234"
         Me.txtCode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'LabHTTPConnect
+        '
+        Me.LabHTTPConnect.BackColor = System.Drawing.Color.Transparent
+        Me.LabHTTPConnect.Dock = System.Windows.Forms.DockStyle.Top
+        Me.LabHTTPConnect.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.LabHTTPConnect.Image = Global.Mind_Wars.My.Resources.Resources.ButtonBorderInactive
+        Me.LabHTTPConnect.Location = New System.Drawing.Point(0, 41)
+        Me.LabHTTPConnect.Name = "LabHTTPConnect"
+        Me.LabHTTPConnect.Size = New System.Drawing.Size(226, 44)
+        Me.LabHTTPConnect.TabIndex = 4
+        Me.LabHTTPConnect.Text = "Connect"
+        Me.LabHTTPConnect.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'LabCode
+        '
+        Me.LabCode.BackColor = System.Drawing.Color.Transparent
+        Me.LabCode.Dock = System.Windows.Forms.DockStyle.Top
+        Me.LabCode.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabCode.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.LabCode.Image = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
+        Me.LabCode.Location = New System.Drawing.Point(0, 0)
+        Me.LabCode.Name = "LabCode"
+        Me.LabCode.Size = New System.Drawing.Size(226, 41)
+        Me.LabCode.TabIndex = 1
+        Me.LabCode.Text = "1234"
+        Me.LabCode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'cmdNewPublicGame
+        '
+        Me.cmdNewPublicGame.BackColor = System.Drawing.Color.Transparent
+        Me.cmdNewPublicGame.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBorderInactive
+        Me.cmdNewPublicGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.cmdNewPublicGame.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.cmdNewPublicGame.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdNewPublicGame.Location = New System.Drawing.Point(-15, 648)
+        Me.cmdNewPublicGame.Name = "cmdNewPublicGame"
+        Me.cmdNewPublicGame.Size = New System.Drawing.Size(226, 46)
+        Me.cmdNewPublicGame.TabIndex = 6
+        Me.cmdNewPublicGame.Text = "New public game"
+        Me.cmdNewPublicGame.UseVisualStyleBackColor = False
+        '
+        'cmdNewPrivateGame
+        '
+        Me.cmdNewPrivateGame.BackColor = System.Drawing.Color.Transparent
+        Me.cmdNewPrivateGame.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBorderInactive
+        Me.cmdNewPrivateGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.cmdNewPrivateGame.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.cmdNewPrivateGame.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdNewPrivateGame.Location = New System.Drawing.Point(12, 506)
+        Me.cmdNewPrivateGame.Name = "cmdNewPrivateGame"
+        Me.cmdNewPrivateGame.Size = New System.Drawing.Size(226, 46)
+        Me.cmdNewPrivateGame.TabIndex = 5
+        Me.cmdNewPrivateGame.Text = "New private game"
+        Me.cmdNewPrivateGame.UseVisualStyleBackColor = False
+        '
+        'cmdConnectHTTP
+        '
+        Me.cmdConnectHTTP.BackColor = System.Drawing.Color.Transparent
+        Me.cmdConnectHTTP.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBorderInactive
+        Me.cmdConnectHTTP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.cmdConnectHTTP.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.cmdConnectHTTP.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdConnectHTTP.Location = New System.Drawing.Point(0, 558)
+        Me.cmdConnectHTTP.Name = "cmdConnectHTTP"
+        Me.cmdConnectHTTP.Size = New System.Drawing.Size(226, 46)
+        Me.cmdConnectHTTP.TabIndex = 4
+        Me.cmdConnectHTTP.Text = "Connect"
+        Me.cmdConnectHTTP.UseVisualStyleBackColor = False
         '
         'PanelTutorial
         '
@@ -965,7 +1081,7 @@ Partial Class StartScreen
         Me.PicFormHeader.Dock = System.Windows.Forms.DockStyle.Top
         Me.PicFormHeader.Location = New System.Drawing.Point(0, 0)
         Me.PicFormHeader.Name = "PicFormHeader"
-        Me.PicFormHeader.Size = New System.Drawing.Size(924, 32)
+        Me.PicFormHeader.Size = New System.Drawing.Size(1056, 32)
         Me.PicFormHeader.TabIndex = 14
         Me.PicFormHeader.TabStop = False
         '
@@ -1043,7 +1159,7 @@ Partial Class StartScreen
         '
         Me.HeaderTransparencyRight.BackColor = System.Drawing.Color.Maroon
         Me.HeaderTransparencyRight.Image = Global.Mind_Wars.My.Resources.Resources.HeaderTransparencyRight
-        Me.HeaderTransparencyRight.Location = New System.Drawing.Point(807, 78)
+        Me.HeaderTransparencyRight.Location = New System.Drawing.Point(926, 63)
         Me.HeaderTransparencyRight.Name = "HeaderTransparencyRight"
         Me.HeaderTransparencyRight.Size = New System.Drawing.Size(66, 59)
         Me.HeaderTransparencyRight.TabIndex = 23
@@ -1051,6 +1167,373 @@ Partial Class StartScreen
         '
         'JoinBackgroundWorker
         '
+        '
+        'PanelPvP2
+        '
+        Me.PanelPvP2.AutoSize = True
+        Me.PanelPvP2.BackColor = System.Drawing.Color.Transparent
+        Me.PanelPvP2.Controls.Add(Me.txtCode2)
+        Me.PanelPvP2.Controls.Add(Me.HTTPCreateGamePanel)
+        Me.PanelPvP2.Controls.Add(Me.LabHTTPNewGame)
+        Me.PanelPvP2.Controls.Add(Me.HTTPJoinPanel)
+        Me.PanelPvP2.Controls.Add(Me.LabHTTPJoin2)
+        Me.PanelPvP2.Controls.Add(Me.PicHTTPClose)
+        Me.PanelPvP2.Location = New System.Drawing.Point(730, 140)
+        Me.PanelPvP2.Margin = New System.Windows.Forms.Padding(0)
+        Me.PanelPvP2.Name = "PanelPvP2"
+        Me.PanelPvP2.Size = New System.Drawing.Size(226, 371)
+        Me.PanelPvP2.TabIndex = 24
+        Me.PanelPvP2.Tag = "4"
+        Me.PanelPvP2.Visible = False
+        '
+        'txtCode2
+        '
+        Me.txtCode2.BackColor = System.Drawing.Color.Black
+        Me.txtCode2.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtCode2.ForeColor = System.Drawing.Color.White
+        Me.txtCode2.Location = New System.Drawing.Point(12, 5)
+        Me.txtCode2.MaxLength = 4
+        Me.txtCode2.Name = "txtCode2"
+        Me.txtCode2.Size = New System.Drawing.Size(204, 13)
+        Me.txtCode2.TabIndex = 1
+        Me.txtCode2.Text = "1234"
+        Me.txtCode2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'HTTPCreateGamePanel
+        '
+        Me.HTTPCreateGamePanel.AutoSize = True
+        Me.HTTPCreateGamePanel.BackColor = System.Drawing.Color.Transparent
+        Me.HTTPCreateGamePanel.Controls.Add(Me.LabHTTPCreate2)
+        Me.HTTPCreateGamePanel.Controls.Add(Me.LabHTTPAttempts)
+        Me.HTTPCreateGamePanel.Controls.Add(Me.LabHTTPAttemptsCaption)
+        Me.HTTPCreateGamePanel.Controls.Add(Me.PicHTTPAttempts)
+        Me.HTTPCreateGamePanel.Controls.Add(Me.LabHTTPHoles)
+        Me.HTTPCreateGamePanel.Controls.Add(Me.LabHTTPHolesCaption)
+        Me.HTTPCreateGamePanel.Controls.Add(Me.PicHTTPHoles)
+        Me.HTTPCreateGamePanel.Controls.Add(Me.HTTPColorsPanel)
+        Me.HTTPCreateGamePanel.Controls.Add(Me.LabHTTPColors2)
+        Me.HTTPCreateGamePanel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.HTTPCreateGamePanel.Location = New System.Drawing.Point(0, 196)
+        Me.HTTPCreateGamePanel.Name = "HTTPCreateGamePanel"
+        Me.HTTPCreateGamePanel.Size = New System.Drawing.Size(226, 175)
+        Me.HTTPCreateGamePanel.TabIndex = 30
+        Me.HTTPCreateGamePanel.Tag = "4"
+        Me.HTTPCreateGamePanel.Visible = False
+        '
+        'LabHTTPCreate2
+        '
+        Me.LabHTTPCreate2.BackColor = System.Drawing.Color.Transparent
+        Me.LabHTTPCreate2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.LabHTTPCreate2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabHTTPCreate2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.LabHTTPCreate2.Image = Global.Mind_Wars.My.Resources.Resources.ButtonBorderInactive
+        Me.LabHTTPCreate2.Location = New System.Drawing.Point(0, 138)
+        Me.LabHTTPCreate2.Name = "LabHTTPCreate2"
+        Me.LabHTTPCreate2.Size = New System.Drawing.Size(226, 37)
+        Me.LabHTTPCreate2.TabIndex = 28
+        Me.LabHTTPCreate2.Tag = "8"
+        Me.LabHTTPCreate2.Text = "&Create new game"
+        Me.LabHTTPCreate2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'LabHTTPAttempts
+        '
+        Me.LabHTTPAttempts.BackColor = System.Drawing.Color.Transparent
+        Me.LabHTTPAttempts.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.LabHTTPAttempts.Location = New System.Drawing.Point(181, 109)
+        Me.LabHTTPAttempts.Margin = New System.Windows.Forms.Padding(0)
+        Me.LabHTTPAttempts.Name = "LabHTTPAttempts"
+        Me.LabHTTPAttempts.Size = New System.Drawing.Size(35, 16)
+        Me.LabHTTPAttempts.TabIndex = 13
+        Me.LabHTTPAttempts.Tag = "0"
+        Me.LabHTTPAttempts.Text = "4"
+        Me.LabHTTPAttempts.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'LabHTTPAttemptsCaption
+        '
+        Me.LabHTTPAttemptsCaption.BackColor = System.Drawing.Color.Transparent
+        Me.LabHTTPAttemptsCaption.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.LabHTTPAttemptsCaption.Location = New System.Drawing.Point(10, 109)
+        Me.LabHTTPAttemptsCaption.Margin = New System.Windows.Forms.Padding(0)
+        Me.LabHTTPAttemptsCaption.Name = "LabHTTPAttemptsCaption"
+        Me.LabHTTPAttemptsCaption.Size = New System.Drawing.Size(154, 15)
+        Me.LabHTTPAttemptsCaption.TabIndex = 12
+        Me.LabHTTPAttemptsCaption.Tag = "0"
+        Me.LabHTTPAttemptsCaption.Text = "Attempts per round"
+        Me.LabHTTPAttemptsCaption.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'PicHTTPAttempts
+        '
+        Me.PicHTTPAttempts.BackColor = System.Drawing.Color.Transparent
+        Me.PicHTTPAttempts.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PicHTTPAttempts.Image = Global.Mind_Wars.My.Resources.Resources.NumberSettings00
+        Me.PicHTTPAttempts.Location = New System.Drawing.Point(0, 101)
+        Me.PicHTTPAttempts.Name = "PicHTTPAttempts"
+        Me.PicHTTPAttempts.Size = New System.Drawing.Size(226, 37)
+        Me.PicHTTPAttempts.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
+        Me.PicHTTPAttempts.TabIndex = 11
+        Me.PicHTTPAttempts.TabStop = False
+        Me.PicHTTPAttempts.Tag = "7"
+        '
+        'LabHTTPHoles
+        '
+        Me.LabHTTPHoles.BackColor = System.Drawing.Color.Transparent
+        Me.LabHTTPHoles.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.LabHTTPHoles.Location = New System.Drawing.Point(175, 70)
+        Me.LabHTTPHoles.Margin = New System.Windows.Forms.Padding(0)
+        Me.LabHTTPHoles.Name = "LabHTTPHoles"
+        Me.LabHTTPHoles.Size = New System.Drawing.Size(50, 19)
+        Me.LabHTTPHoles.TabIndex = 10
+        Me.LabHTTPHoles.Tag = "0"
+        Me.LabHTTPHoles.Text = "4"
+        Me.LabHTTPHoles.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'LabHTTPHolesCaption
+        '
+        Me.LabHTTPHolesCaption.BackColor = System.Drawing.Color.Transparent
+        Me.LabHTTPHolesCaption.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.LabHTTPHolesCaption.Location = New System.Drawing.Point(10, 71)
+        Me.LabHTTPHolesCaption.Margin = New System.Windows.Forms.Padding(0)
+        Me.LabHTTPHolesCaption.Name = "LabHTTPHolesCaption"
+        Me.LabHTTPHolesCaption.Size = New System.Drawing.Size(154, 18)
+        Me.LabHTTPHolesCaption.TabIndex = 9
+        Me.LabHTTPHolesCaption.Tag = "0"
+        Me.LabHTTPHolesCaption.Text = "Number of holes"
+        Me.LabHTTPHolesCaption.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'PicHTTPHoles
+        '
+        Me.PicHTTPHoles.BackColor = System.Drawing.Color.Transparent
+        Me.PicHTTPHoles.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.PicHTTPHoles.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PicHTTPHoles.Image = Global.Mind_Wars.My.Resources.Resources.NumberSettings00
+        Me.PicHTTPHoles.Location = New System.Drawing.Point(0, 64)
+        Me.PicHTTPHoles.Name = "PicHTTPHoles"
+        Me.PicHTTPHoles.Size = New System.Drawing.Size(226, 37)
+        Me.PicHTTPHoles.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
+        Me.PicHTTPHoles.TabIndex = 8
+        Me.PicHTTPHoles.TabStop = False
+        Me.PicHTTPHoles.Tag = "6"
+        '
+        'HTTPColorsPanel
+        '
+        Me.HTTPColorsPanel.BackColor = System.Drawing.Color.Transparent
+        Me.HTTPColorsPanel.Controls.Add(Me.HTTPCol8)
+        Me.HTTPColorsPanel.Controls.Add(Me.HTTPCol7)
+        Me.HTTPColorsPanel.Controls.Add(Me.HTTPCol6)
+        Me.HTTPColorsPanel.Controls.Add(Me.HTTPCol5)
+        Me.HTTPColorsPanel.Controls.Add(Me.HTTPCol4)
+        Me.HTTPColorsPanel.Controls.Add(Me.HTTPCol3)
+        Me.HTTPColorsPanel.Controls.Add(Me.HTTPCol2)
+        Me.HTTPColorsPanel.Controls.Add(Me.HTTPCol1)
+        Me.HTTPColorsPanel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.HTTPColorsPanel.Location = New System.Drawing.Point(0, 37)
+        Me.HTTPColorsPanel.Margin = New System.Windows.Forms.Padding(0)
+        Me.HTTPColorsPanel.Name = "HTTPColorsPanel"
+        Me.HTTPColorsPanel.Size = New System.Drawing.Size(226, 27)
+        Me.HTTPColorsPanel.TabIndex = 6
+        '
+        'HTTPCol8
+        '
+        Me.HTTPCol8.BackColor = System.Drawing.Color.Transparent
+        Me.HTTPCol8.Location = New System.Drawing.Point(196, 3)
+        Me.HTTPCol8.Margin = New System.Windows.Forms.Padding(3, 0, 3, 0)
+        Me.HTTPCol8.Name = "HTTPCol8"
+        Me.HTTPCol8.Size = New System.Drawing.Size(20, 20)
+        Me.HTTPCol8.TabIndex = 26
+        Me.HTTPCol8.TabStop = False
+        Me.HTTPCol8.Tag = "8"
+        '
+        'HTTPCol7
+        '
+        Me.HTTPCol7.BackColor = System.Drawing.Color.Transparent
+        Me.HTTPCol7.Location = New System.Drawing.Point(170, 3)
+        Me.HTTPCol7.Margin = New System.Windows.Forms.Padding(3, 0, 3, 0)
+        Me.HTTPCol7.Name = "HTTPCol7"
+        Me.HTTPCol7.Size = New System.Drawing.Size(20, 20)
+        Me.HTTPCol7.TabIndex = 25
+        Me.HTTPCol7.TabStop = False
+        Me.HTTPCol7.Tag = "7"
+        '
+        'HTTPCol6
+        '
+        Me.HTTPCol6.BackColor = System.Drawing.Color.Transparent
+        Me.HTTPCol6.Location = New System.Drawing.Point(144, 3)
+        Me.HTTPCol6.Margin = New System.Windows.Forms.Padding(3, 0, 3, 0)
+        Me.HTTPCol6.Name = "HTTPCol6"
+        Me.HTTPCol6.Size = New System.Drawing.Size(20, 20)
+        Me.HTTPCol6.TabIndex = 24
+        Me.HTTPCol6.TabStop = False
+        Me.HTTPCol6.Tag = "6"
+        '
+        'HTTPCol5
+        '
+        Me.HTTPCol5.BackColor = System.Drawing.Color.Transparent
+        Me.HTTPCol5.Location = New System.Drawing.Point(118, 3)
+        Me.HTTPCol5.Margin = New System.Windows.Forms.Padding(3, 0, 3, 0)
+        Me.HTTPCol5.Name = "HTTPCol5"
+        Me.HTTPCol5.Size = New System.Drawing.Size(20, 20)
+        Me.HTTPCol5.TabIndex = 23
+        Me.HTTPCol5.TabStop = False
+        Me.HTTPCol5.Tag = "5"
+        '
+        'HTTPCol4
+        '
+        Me.HTTPCol4.BackColor = System.Drawing.Color.Transparent
+        Me.HTTPCol4.Location = New System.Drawing.Point(92, 3)
+        Me.HTTPCol4.Margin = New System.Windows.Forms.Padding(3, 0, 3, 0)
+        Me.HTTPCol4.Name = "HTTPCol4"
+        Me.HTTPCol4.Size = New System.Drawing.Size(20, 20)
+        Me.HTTPCol4.TabIndex = 22
+        Me.HTTPCol4.TabStop = False
+        Me.HTTPCol4.Tag = "4"
+        '
+        'HTTPCol3
+        '
+        Me.HTTPCol3.BackColor = System.Drawing.Color.Transparent
+        Me.HTTPCol3.Location = New System.Drawing.Point(66, 3)
+        Me.HTTPCol3.Margin = New System.Windows.Forms.Padding(3, 0, 3, 0)
+        Me.HTTPCol3.Name = "HTTPCol3"
+        Me.HTTPCol3.Size = New System.Drawing.Size(20, 20)
+        Me.HTTPCol3.TabIndex = 21
+        Me.HTTPCol3.TabStop = False
+        Me.HTTPCol3.Tag = "3"
+        '
+        'HTTPCol2
+        '
+        Me.HTTPCol2.BackColor = System.Drawing.Color.Transparent
+        Me.HTTPCol2.Location = New System.Drawing.Point(40, 3)
+        Me.HTTPCol2.Margin = New System.Windows.Forms.Padding(3, 0, 3, 0)
+        Me.HTTPCol2.Name = "HTTPCol2"
+        Me.HTTPCol2.Size = New System.Drawing.Size(20, 20)
+        Me.HTTPCol2.TabIndex = 20
+        Me.HTTPCol2.TabStop = False
+        Me.HTTPCol2.Tag = "2"
+        '
+        'HTTPCol1
+        '
+        Me.HTTPCol1.BackColor = System.Drawing.Color.Transparent
+        Me.HTTPCol1.Location = New System.Drawing.Point(14, 3)
+        Me.HTTPCol1.Margin = New System.Windows.Forms.Padding(0, 0, 3, 0)
+        Me.HTTPCol1.Name = "HTTPCol1"
+        Me.HTTPCol1.Size = New System.Drawing.Size(20, 20)
+        Me.HTTPCol1.TabIndex = 19
+        Me.HTTPCol1.TabStop = False
+        Me.HTTPCol1.Tag = "1"
+        '
+        'LabHTTPColors2
+        '
+        Me.LabHTTPColors2.BackColor = System.Drawing.Color.Transparent
+        Me.LabHTTPColors2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.LabHTTPColors2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabHTTPColors2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.LabHTTPColors2.Image = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
+        Me.LabHTTPColors2.Location = New System.Drawing.Point(0, 0)
+        Me.LabHTTPColors2.Name = "LabHTTPColors2"
+        Me.LabHTTPColors2.Size = New System.Drawing.Size(226, 37)
+        Me.LabHTTPColors2.TabIndex = 5
+        Me.LabHTTPColors2.Tag = "5"
+        Me.LabHTTPColors2.Text = "Colors"
+        Me.LabHTTPColors2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'LabHTTPNewGame
+        '
+        Me.LabHTTPNewGame.BackColor = System.Drawing.Color.Transparent
+        Me.LabHTTPNewGame.Dock = System.Windows.Forms.DockStyle.Top
+        Me.LabHTTPNewGame.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabHTTPNewGame.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.LabHTTPNewGame.Image = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
+        Me.LabHTTPNewGame.Location = New System.Drawing.Point(0, 155)
+        Me.LabHTTPNewGame.Margin = New System.Windows.Forms.Padding(3)
+        Me.LabHTTPNewGame.Name = "LabHTTPNewGame"
+        Me.LabHTTPNewGame.Size = New System.Drawing.Size(226, 41)
+        Me.LabHTTPNewGame.TabIndex = 29
+        Me.LabHTTPNewGame.Tag = "4"
+        Me.LabHTTPNewGame.Text = "Create new game"
+        Me.LabHTTPNewGame.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'HTTPJoinPanel
+        '
+        Me.HTTPJoinPanel.AutoSize = True
+        Me.HTTPJoinPanel.BackColor = System.Drawing.Color.Transparent
+        Me.HTTPJoinPanel.Controls.Add(Me.LabHTTPConnect2)
+        Me.HTTPJoinPanel.Controls.Add(Me.LabCode2)
+        Me.HTTPJoinPanel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.HTTPJoinPanel.Location = New System.Drawing.Point(0, 81)
+        Me.HTTPJoinPanel.Name = "HTTPJoinPanel"
+        Me.HTTPJoinPanel.Size = New System.Drawing.Size(226, 74)
+        Me.HTTPJoinPanel.TabIndex = 28
+        Me.HTTPJoinPanel.Visible = False
+        '
+        'LabHTTPConnect2
+        '
+        Me.LabHTTPConnect2.BackColor = System.Drawing.Color.Transparent
+        Me.LabHTTPConnect2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.LabHTTPConnect2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.LabHTTPConnect2.Image = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
+        Me.LabHTTPConnect2.Location = New System.Drawing.Point(0, 37)
+        Me.LabHTTPConnect2.Name = "LabHTTPConnect2"
+        Me.LabHTTPConnect2.Size = New System.Drawing.Size(226, 37)
+        Me.LabHTTPConnect2.TabIndex = 4
+        Me.LabHTTPConnect2.Tag = "3"
+        Me.LabHTTPConnect2.Text = "Connect"
+        Me.LabHTTPConnect2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'LabCode2
+        '
+        Me.LabCode2.BackColor = System.Drawing.Color.Transparent
+        Me.LabCode2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.LabCode2.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabCode2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.LabCode2.Image = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
+        Me.LabCode2.Location = New System.Drawing.Point(0, 0)
+        Me.LabCode2.Name = "LabCode2"
+        Me.LabCode2.Size = New System.Drawing.Size(226, 37)
+        Me.LabCode2.TabIndex = 1
+        Me.LabCode2.Tag = "2"
+        Me.LabCode2.Text = "1234"
+        Me.LabCode2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'LabHTTPJoin2
+        '
+        Me.LabHTTPJoin2.BackColor = System.Drawing.Color.Transparent
+        Me.LabHTTPJoin2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.LabHTTPJoin2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabHTTPJoin2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.LabHTTPJoin2.Image = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
+        Me.LabHTTPJoin2.Location = New System.Drawing.Point(0, 40)
+        Me.LabHTTPJoin2.Margin = New System.Windows.Forms.Padding(3)
+        Me.LabHTTPJoin2.Name = "LabHTTPJoin2"
+        Me.LabHTTPJoin2.Size = New System.Drawing.Size(226, 41)
+        Me.LabHTTPJoin2.TabIndex = 27
+        Me.LabHTTPJoin2.Tag = "1"
+        Me.LabHTTPJoin2.Text = "Join existing game"
+        Me.LabHTTPJoin2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'PicHTTPClose
+        '
+        Me.PicHTTPClose.BackColor = System.Drawing.Color.Transparent
+        Me.PicHTTPClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.PicHTTPClose.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PicHTTPClose.Location = New System.Drawing.Point(0, 0)
+        Me.PicHTTPClose.Name = "PicHTTPClose"
+        Me.PicHTTPClose.Size = New System.Drawing.Size(226, 40)
+        Me.PicHTTPClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
+        Me.PicHTTPClose.TabIndex = 26
+        Me.PicHTTPClose.TabStop = False
+        Me.PicHTTPClose.Tag = "0"
+        '
+        'PicLoading
+        '
+        Me.PicLoading.Location = New System.Drawing.Point(536, 373)
+        Me.PicLoading.Name = "PicLoading"
+        Me.PicLoading.Size = New System.Drawing.Size(100, 100)
+        Me.PicLoading.TabIndex = 29
+        Me.PicLoading.TabStop = False
+        Me.PicLoading.Visible = False
+        '
+        'LoadingSpinTimer
+        '
+        Me.LoadingSpinTimer.Interval = 20
         '
         'StartScreen
         '
@@ -1061,11 +1544,16 @@ Partial Class StartScreen
         Me.BackColor = System.Drawing.Color.Black
         Me.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.StartScreenBG
         Me.CausesValidation = False
-        Me.ClientSize = New System.Drawing.Size(924, 426)
+        Me.ClientSize = New System.Drawing.Size(1056, 780)
         Me.ControlBox = False
+        Me.Controls.Add(Me.PicLoading)
+        Me.Controls.Add(Me.PanelPvP2)
         Me.Controls.Add(Me.HeaderTransparencyLeft)
         Me.Controls.Add(Me.HeaderTransparencyRight)
+        Me.Controls.Add(Me.cmdConnectHTTP)
+        Me.Controls.Add(Me.cmdNewPublicGame)
         Me.Controls.Add(Me.PictureBox2)
+        Me.Controls.Add(Me.cmdNewPrivateGame)
         Me.Controls.Add(Me.PicCloseForm)
         Me.Controls.Add(Me.PicMinimizeForm)
         Me.Controls.Add(Me.ButtonsPanel)
@@ -1124,7 +1612,9 @@ Partial Class StartScreen
         Me.PanelPvPLan.ResumeLayout(False)
         CType(Me.PicClosePvPLAN, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelPvPHTTP.ResumeLayout(False)
-        Me.PanelPvPHTTP.PerformLayout()
+        CType(Me.PicClosePvPHTTP, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.PanelTutorial.ResumeLayout(False)
         CType(Me.PicCloseTutorial, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1134,6 +1624,23 @@ Partial Class StartScreen
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.HeaderTransparencyLeft, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.HeaderTransparencyRight, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PanelPvP2.ResumeLayout(False)
+        Me.PanelPvP2.PerformLayout()
+        Me.HTTPCreateGamePanel.ResumeLayout(False)
+        CType(Me.PicHTTPAttempts, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicHTTPHoles, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.HTTPColorsPanel.ResumeLayout(False)
+        CType(Me.HTTPCol8, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.HTTPCol7, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.HTTPCol6, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.HTTPCol5, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.HTTPCol4, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.HTTPCol3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.HTTPCol2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.HTTPCol1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.HTTPJoinPanel.ResumeLayout(False)
+        CType(Me.PicHTTPClose, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicLoading, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1224,4 +1731,37 @@ Partial Class StartScreen
     End Sub
 
     Friend WithEvents JoinBackgroundWorker As System.ComponentModel.BackgroundWorker
+    Friend WithEvents PicClosePvPHTTP As PictureBox
+    Friend WithEvents LabHTTPCreate As Label
+    Friend WithEvents LabHTTPJoin As Label
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents LabHTTPConnect As Label
+    Friend WithEvents PanelPvP2 As Panel
+    Friend WithEvents txtCode2 As TextBox
+    Friend WithEvents HTTPCreateGamePanel As Panel
+    Friend WithEvents LabHTTPCreate2 As Label
+    Friend WithEvents LabHTTPAttempts As Label
+    Friend WithEvents LabHTTPAttemptsCaption As Label
+    Friend WithEvents PicHTTPAttempts As PictureBox
+    Friend WithEvents LabHTTPHoles As Label
+    Friend WithEvents LabHTTPHolesCaption As Label
+    Friend WithEvents PicHTTPHoles As PictureBox
+    Friend WithEvents LabHTTPColors2 As Label
+    Friend WithEvents LabHTTPNewGame As Label
+    Friend WithEvents HTTPJoinPanel As Panel
+    Friend WithEvents LabHTTPConnect2 As Label
+    Friend WithEvents LabCode2 As Label
+    Friend WithEvents LabHTTPJoin2 As Label
+    Friend WithEvents PicHTTPClose As PictureBox
+    Friend WithEvents HTTPColorsPanel As Panel
+    Friend WithEvents HTTPCol8 As PictureBox
+    Friend WithEvents HTTPCol7 As PictureBox
+    Friend WithEvents HTTPCol6 As PictureBox
+    Friend WithEvents HTTPCol5 As PictureBox
+    Friend WithEvents HTTPCol4 As PictureBox
+    Friend WithEvents HTTPCol3 As PictureBox
+    Friend WithEvents HTTPCol2 As PictureBox
+    Friend WithEvents HTTPCol1 As PictureBox
+    Friend WithEvents PicLoading As PictureBox
+    Friend WithEvents LoadingSpinTimer As Timer
 End Class
