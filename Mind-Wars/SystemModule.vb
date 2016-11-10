@@ -1,4 +1,7 @@
 ﻿Option Strict On
+Option Explicit On
+Option Infer Off
+
 Imports System.IO
 Imports System.Xml.Serialization
 
@@ -34,7 +37,7 @@ Module SystemModule
         '    g(i) = CInt(TestGuess(i))
         'Next
         TestGuess.Clear()
-        Dim verifiedguess() = verify(solution, g)
+        Dim verifiedguess() As Integer = verify(solution, g)
         BlackCount = verifiedguess(0)
         For i As Integer = 0 To holes - 1
             If verifiedguess(0) > 0 Then

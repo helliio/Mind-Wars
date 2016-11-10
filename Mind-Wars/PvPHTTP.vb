@@ -739,6 +739,9 @@ Public Class PvPHTTP
                     ShowOpponentGuessTimer.Enabled = False
                 End If
             End If
+        Else
+            LoadGuessTimer.Enabled = True
+            ShowOpponentGuessTimer.Enabled = False
         End If
     End Sub
 

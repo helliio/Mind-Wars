@@ -1,4 +1,7 @@
 ﻿Option Strict On
+Option Explicit On
+Option Infer Off
+
 Module DrawingModule
     Public BWStep As Integer = 0
     Public ColorCodes() As Color = {Color.Transparent, Color.Red, Color.Green, Color.Yellow, Color.Blue, Color.Cyan, Color.Orange, Color.DeepPink, Color.Purple}
@@ -23,7 +26,7 @@ Module DrawingModule
     Public InitializeGameModeProgress As Integer = 0
     Public InitializeGMPRect As Rectangle
     Public InitializeGMPPen As New Pen(Color.LimeGreen, 3)
-
+    Public LoadingSpinRotation As Integer = 0
 
     Public HoleRectangle, BWRectangle, ChoiceRectangle, ChooseCodeRectangle As New Rectangle
 
@@ -33,7 +36,7 @@ Module DrawingModule
 
 
     Public ChooseCodeRect1, ChooseCodeRect2, ChooseCodeRect3, ChooseCodeRect4, ChooseCodeRect5, ChooseCodeRect6, ChooseCodeRect7, ChooseCodeRect8 As New Rectangle
-
+    Public LoadingGraphicsRect As New Rectangle(0, 0, 80, 80)
     Public SelectedSpinning As Boolean = True
 
     Public GuessBrush As New SolidBrush(Color.Gray)
@@ -300,7 +303,7 @@ Module DrawingModule
 
     Public Sub ClearBoard()
         Dim iMax As Integer = HolesList.Count - 1
-        For i = 0 To iMax
+        For i As Integer = 0 To iMax
             ' This is a test
             HolesList.Item(i).Invalidate()
             BWHolesList.Item(i).Invalidate()
