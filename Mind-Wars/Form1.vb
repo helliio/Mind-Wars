@@ -92,11 +92,7 @@ Public Class StartScreen
     Private Sub InitializeGUI()
         Me.Hide()
         Me.MinimumSize = ButtonsPanel.Size
-        txtCode.Top = -100
-        txtCode.Text = "CODE"
-        txtCode2.Top = -100
-        txtCode2.Text = "CODE"
-
+        LabCode2.Text = "CODE"
         LabSettings.Parent = PicStartButton_Settings
         LabPvE.Parent = PicStartButton_PvE
         LabPvPLan.Parent = PicStartButton_PvPLan
@@ -104,6 +100,10 @@ Public Class StartScreen
         LabTutorial.Parent = PicStartButton_Tutorial
         LabSettingsTheme.Parent = PicSettingsTheme
         LabSettingsSound.Parent = PicSettingSound
+        With LabStatusTitle
+            .ForeColor = Color.LimeGreen
+            .Hide()
+        End With
         For Each lab As Label In ButtonLabList
             With lab
                 .Left = 0
@@ -291,7 +291,7 @@ Public Class StartScreen
     End Sub
 
     Dim HoveredControlIndex As Integer = 0
-    Sub SelectButton(ByVal deselect As Boolean, Optional ByVal HoverMode As Boolean = False)
+    Sub SelectButton(ByVal deselect As Boolean)
         Dim ChangeIndex As Integer = 0
         Select Case VisiblePanel
             Case 0
@@ -311,11 +311,8 @@ Public Class StartScreen
                 End If
                 'Selection.Invalidate()
             Case 1
-                If HoverMode = True Then
-                    ChangeIndex = HoveredControlIndex
-                Else
-                    ChangeIndex = SelectedSettingsListIndex
-                End If
+                ChangeIndex = SelectedSettingsListIndex
+
 
                 Dim Selection As PictureBox = ButtonSettingsList.Item(ChangeIndex)
                 If deselect = True Then
@@ -337,11 +334,7 @@ Public Class StartScreen
                     End With
                 End If
             Case 2
-                If HoverMode = True Then
-                    ChangeIndex = HoveredControlIndex
-                Else
-                    ChangeIndex = SelectedPvEListIndex
-                End If
+                ChangeIndex = SelectedPvEListIndex
                 Dim Selection As PictureBox = ButtonPvEList.Item(ChangeIndex)
                 If ChangeIndex = 1 Or ChangeIndex = 2 Or ChangeIndex = 3 Then
                     Selection.Invalidate()
@@ -375,11 +368,7 @@ Public Class StartScreen
                     End If
                 End If
             Case 4
-                If HoverMode = True Then
-                    ChangeIndex = HoveredControlIndex
-                Else
-                    ChangeIndex = SelectedHTTPListIndex
-                End If
+                ChangeIndex = SelectedHTTPListIndex
                 Select Case HTTPFocusedCategory
                     Case 0
                         Select Case ChangeIndex
@@ -404,11 +393,20 @@ Public Class StartScreen
                                 Else
                                     LabHTTPJoin2.Image = ImageList(3)
                                 End If
-                            Case 2, 3
+                            Case 2
                                 If deselect = True Then
-                                    PvPLabList(ChangeIndex - 1).Image = ImageList(6)
+                                    LabCode2.Image = ImageList(6)
+                                    If LabCode2.Text = "" Then
+                                        LabCode2.Text = "CODE"
+                                    End If
                                 Else
-                                    PvPLabList(ChangeIndex - 1).Image = ImageList(5)
+                                    LabCode2.Image = ImageList(5)
+                                End If
+                            Case 3
+                                If deselect = True Then
+                                    LabHTTPConnect2.Image = ImageList(6)
+                                Else
+                                    LabHTTPConnect2.Image = ImageList(5)
                                 End If
                         End Select
                     Case 2
@@ -448,63 +446,14 @@ Public Class StartScreen
         End Select
     End Sub
 
-    Sub ButtonMouseEnter(sender As Object, e As EventArgs) Handles LabSettings.MouseEnter, LabPvE.MouseEnter, LabPvPLan.MouseEnter, LabPvPHTTP.MouseEnter, LabHTTPJoin2.MouseEnter, LabCode2.MouseEnter, LabHTTPConnect2.MouseEnter, LabHTTPNewGame.MouseEnter, LabHTTPColors2.MouseEnter, LabHTTPCreate2.MouseEnter, LabHTTPHoles.MouseEnter, LabHTTPHolesCaption.MouseEnter, LabHTTPAttempts.MouseEnter, LabHTTPAttemptsCaption.MouseEnter
+    Sub ButtonMouseEnter(sender As Object, e As EventArgs) Handles LabSettings.MouseEnter, LabPvE.MouseEnter, LabPvPLan.MouseEnter, LabPvPHTTP.MouseEnter
         Dim SenderLab As Label = DirectCast(sender, Label)
-        Select Case VisiblePanel
-            Case 0
-                If Not SenderLab.TabIndex = SelectedButtonListIndex Then
-                    Call SelectButton(True)
-                    SelectedButtonListIndex = SenderLab.TabIndex
-                    Call SelectButton(False)
-                End If
-            Case 1
-                If Not CInt(SenderLab.Tag) = SelectedSettingsListIndex Then
-                    If Not HoveredControlIndex = SelectedSettingsListIndex Then
-                        Call SelectButton(True, True)
-                    End If
-                    HoveredControlIndex = CInt(SenderLab.Tag)
-                    Call SelectButton(False, True)
-                End If
-                    Case 4
-                If Not CInt(SenderLab.Tag) = 0 Then
-                    If Not CInt(SenderLab.Tag) = SelectedHTTPListIndex Then
-                        If Not HoveredControlIndex = SelectedHTTPListIndex Then
-                            Call SelectButton(True, True)
-                        End If
-                        HoveredControlIndex = CInt(SenderLab.Tag)
-                        Call SelectButton(False, True)
-                    End If
-                Else
-                    Dim ParentPic As PictureBox = DirectCast(SenderLab.Parent, PictureBox)
-                    If Not CInt(ParentPic.Tag) = SelectedHTTPListIndex Then
-                        If Not HoveredControlIndex = SelectedHTTPListIndex Then
-                            Call SelectButton(True, True)
-                        End If
-                        HoveredControlIndex = CInt(ParentPic.Tag)
-                        Call SelectButton(False, True)
-                    End If
-                End If
-        End Select
+        If Not SenderLab.TabIndex = SelectedButtonListIndex Then
+            Call SelectButton(True)
+            SelectedButtonListIndex = SenderLab.TabIndex
+            Call SelectButton(False)
+        End If
     End Sub
-
-    Sub PicMouseEnter(sender As Object, e As EventArgs) Handles PicHTTPClose.MouseEnter, PicHTTPHoles.MouseEnter, PicHTTPAttempts.MouseEnter
-        Dim SenderPic As PictureBox = DirectCast(sender, PictureBox)
-        Select Case VisiblePanel
-            Case 1
-                If Not CInt(SenderPic.Tag) = SelectedSettingsListIndex Then
-                    Call SelectButton(True)
-                    SelectedSettingsListIndex = CInt(SenderPic.Tag)
-                    Call SelectButton(False)
-                End If
-            Case 4
-                If Not CInt(SenderPic.Tag) = SelectedHTTPListIndex Then
-                    Call SelectButton(True)
-                    SelectedHTTPListIndex = CInt(SenderPic.Tag)
-                    Call SelectButton(False)
-                End If
-        End Select
-    End Sub
-
 
     Private Sub StartScreen_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If e.KeyCode = Keys.Escape Then
@@ -669,6 +618,10 @@ Public Class StartScreen
             Case 4
                 Debug.Print(CStr(SelectedHTTPListIndex))
                 Select Case e.KeyCode
+                    Case Keys.Back
+                        If SelectedHTTPListIndex = 2 AndAlso LabCode2.Text.Length > 0 Then
+                            LabCode2.Text = LabCode2.Text.Remove(LabCode2.Text.Length - 1)
+                        End If
                     Case Keys.Down
                         Select Case HTTPFocusedCategory
                             Case 0
@@ -683,11 +636,18 @@ Public Class StartScreen
                                         Call SelectButton(False)
                                 End Select
                             Case 1
-                                If SelectedHTTPListIndex < 3 Then
-                                    Call SelectButton(True)
-                                    SelectedHTTPListIndex += 1
-                                    Call SelectButton(False)
-                                End If
+                                Select Case SelectedHTTPListIndex
+                                    Case 1
+                                        Call SelectButton(True)
+                                        SelectedHTTPListIndex = 2
+                                        Call SelectButton(False)
+                                        'LabCode2.Focus()
+                                    Case 2
+                                        Call SelectButton(True)
+                                        SelectedHTTPListIndex = 3
+                                        Call SelectButton(False)
+                                        'LabHTTPConnect2.Focus()
+                                End Select
                             Case 2
                                 Select Case HTTPFocusedSubCategory
                                     Case 0
@@ -730,11 +690,18 @@ Public Class StartScreen
                                         Call SelectButton(False)
                                 End Select
                             Case 1
-                                If SelectedHTTPListIndex > 1 Then
-                                    Call SelectButton(True)
-                                    SelectedHTTPListIndex -= 1
-                                    Call SelectButton(False)
-                                End If
+                                Select Case SelectedHTTPListIndex
+                                    Case 3
+                                        Call SelectButton(True)
+                                        SelectedHTTPListIndex = 2
+                                        'LabCode2.Focus()
+                                        Call SelectButton(False)
+                                    Case 2
+                                        Call SelectButton(True)
+                                        SelectedHTTPListIndex = 1
+                                        Call SelectButton(False)
+                                        'LabHTTPJoin2.Focus()
+                                End Select
                             Case 2
                                 Select Case HTTPFocusedSubCategory
                                     Case 0
@@ -797,6 +764,34 @@ Public Class StartScreen
                         End Select
                     Case Keys.Space, Keys.Enter
                         Call EnterSelected()
+                    Case Keys.D0, Keys.D1, Keys.D2, Keys.D3, Keys.D4, Keys.D5, Keys.D6, Keys.D7, Keys.D8, Keys.D9
+                        If Not IsNumeric(LabCode2.Text) Then
+                            LabCode2.Text = ""
+                        End If
+                        If SelectedHTTPListIndex = 2 AndAlso LabCode2.Text.Length < 4 Then
+                            Select Case e.KeyCode
+                                Case Keys.D0
+                                    LabCode2.Text &= 0
+                                Case Keys.D1
+                                    LabCode2.Text &= 1
+                                Case Keys.D2
+                                    LabCode2.Text &= 2
+                                Case Keys.D3
+                                    LabCode2.Text &= 3
+                                Case Keys.D4
+                                    LabCode2.Text &= 4
+                                Case Keys.D5
+                                    LabCode2.Text &= 5
+                                Case Keys.D6
+                                    LabCode2.Text &= 6
+                                Case Keys.D7
+                                    LabCode2.Text &= 7
+                                Case Keys.D8
+                                    LabCode2.Text &= 8
+                                Case Keys.D9
+                                    LabCode2.Text &= 9
+                            End Select
+                        End If
                 End Select
         End Select
     End Sub
@@ -900,7 +895,7 @@ Public Class StartScreen
                             HTTPFocusedCategory = 0
                         End If
                     Case 2
-                        txtCode2.Focus()
+                        'LabCode2.Focus()
                     Case 3
                         Call JoinGame()
                     Case 4
@@ -978,8 +973,12 @@ Public Class StartScreen
         HTTPFocusedSubCategory = 0
     End Sub
 
-    Private Sub ButtonClick(sender As Object, e As EventArgs) Handles LabSettings.Click, LabPvE.Click, LabPvPLan.Click, LabPvPHTTP.Click, LabHTTPJoin2.Click, LabCode2.Click, LabHTTPConnect2.Click, LabHTTPNewGame.Click, LabHTTPColors2.Click, LabHTTPCreate2.Click, PicHTTPAttempts.Click, PicHTTPHoles.Click, LabHTTPAttempts.Click, LabHTTPAttemptsCaption.Click, LabHTTPHoles.Click, LabHTTPHolesCaption.Click
+    Private Sub ButtonClick(sender As Object, e As EventArgs) Handles LabSettings.Click, LabPvE.Click, LabPvPLan.Click, LabPvPHTTP.Click, LabHTTPJoin2.Click, LabHTTPConnect2.Click, LabHTTPNewGame.Click, LabHTTPColors2.Click, LabHTTPCreate2.Click, LabHTTPAttempts.Click, LabHTTPAttemptsCaption.Click, LabHTTPHoles.Click, LabHTTPHolesCaption.Click
         Call ResetCurrentlyEntered()
+        Select Case VisiblePanel
+            Case 4
+                SelectedHTTPListIndex = HoveredControlIndex
+        End Select
         Call EnterSelected()
     End Sub
 
@@ -1146,7 +1145,7 @@ Public Class StartScreen
     End Sub
 
     Sub JoinGame()
-        If IsNumeric(txtCode2.Text) AndAlso txtCode2.Text.Length = 4 AndAlso Not JoinBackgroundWorker.IsBusy Then
+        If IsNumeric(LabCode2.Text) AndAlso LabCode2.Text.Length = 4 AndAlso Not JoinBackgroundWorker.IsBusy Then
             With PicLoading
                 .Visible = False
                 .BackColor = Color.Transparent
@@ -1163,7 +1162,19 @@ Public Class StartScreen
                 .X = CInt(PanelPvP2.ClientRectangle.Width / 2 - 40)
                 .Y = PicLoading.Top + 1
             End With
-            ConnectionCode = txtCode2.Text
+            With LabStatusTitle
+                .Hide()
+                .Dock = DockStyle.None
+                .ForeColor = Color.LimeGreen
+                .Parent = PicLoading
+                .Width = PanelPvP2.Width
+                .Left = 0
+                .Height = 40
+                .Top = 20
+                .Text = "Connecting"
+                .Show()
+            End With
+            ConnectionCode = LabCode2.Text
             LoadingSpinTimer.Enabled = True
             PicLoading.Show()
             JoinBackgroundWorker.RunWorkerAsync()
@@ -1196,10 +1207,13 @@ Public Class StartScreen
         Select Case ResultString
             Case "Error 1", "Error 2", "Error 3"
                 ConnectionErrorString = "Could not connect"
+                ConnectionErrorDescription = "Please notify us about this error: " & ResultString
             Case "none"
                 ConnectionErrorString = "Game not found"
+                ConnectionErrorDescription = "There is no game with that code"
             Case "occupied"
-                ConnectionErrorString = "Game already started"
+                ConnectionErrorString = "Oops!"
+                ConnectionErrorDescription = "This game has already started"
             Case "found"
                 ConnectionErrorString = ""
                 ConnectionEstablished = True
@@ -1235,16 +1249,15 @@ Public Class StartScreen
         'Call ChangeTheme(0)
     End Sub
 
-    Private Sub LabCode_Click(sender As Object, e As EventArgs) Handles LabCode.Click
-        txtCode.Clear()
-        txtCode.Focus()
+    Private Sub LabCode2_Click(sender As Object, e As EventArgs) Handles LabCode2.Click
+        'LabCode2.Text = ""
+        'LabCode2.Focus()
+        Call SelectButton(True)
+        SelectedHTTPListIndex = 2
+        Call SelectButton(False)
     End Sub
-
     Private Sub txtCode_TextChanged(sender As Object, e As EventArgs) Handles txtCode.TextChanged
         LabCode.Text = txtCode.Text
-    End Sub
-    Private Sub txtCode2_TextChanged(sender As Object, e As EventArgs) Handles txtCode2.TextChanged
-        LabCode2.Text = txtCode2.Text
     End Sub
 
     Private Sub PicPvEColorPalette_Paint(sender As Object, e As PaintEventArgs) Handles PicPvEColor1.Paint, PicPvEColor2.Paint, PicPvEColor3.Paint, PicPvEColor4.Paint, PicPvEColor5.Paint, PicPvEColor6.Paint, PicPvEColor7.Paint, PicPvEColor8.Paint
@@ -1328,26 +1341,6 @@ Public Class StartScreen
         End If
     End Sub
 
-    Private Sub txtCode_GotFocus(sender As Object, e As EventArgs) Handles txtCode.GotFocus
-        LabCode.Image = My.Resources.SettingsButtonActive
-    End Sub
-
-    Private Sub txtCode_LostFocus(sender As Object, e As EventArgs) Handles txtCode.LostFocus
-        LabCode.Image = My.Resources.SettingsButtonInactive
-        If txtCode.Text = "" Then
-            txtCode.Text = "CODE"
-        End If
-    End Sub
-    Private Sub LabCode_MouseEnter(sender As Object, e As EventArgs) Handles LabCode.MouseEnter
-        LabCode.Image = My.Resources.SettingsButtonActive
-    End Sub
-
-    Private Sub LabCode_MouseLeave(sender As Object, e As EventArgs) Handles LabCode.MouseLeave
-        If txtCode.Focused = False Then
-            LabCode.Image = My.Resources.SettingsButtonInactive
-        End If
-    End Sub
-
     Private Sub JoinBackgroundWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles JoinBackgroundWorker.RunWorkerCompleted
         If ConnectionEstablished = True Then
             ConnectionFailureCounter = 0
@@ -1355,16 +1348,48 @@ Public Class StartScreen
             PicLoading.Hide()
             Me.Hide()
             PvPHTTP.Show()
+            PicLoading.Hide()
+            LabStatusTitle.Hide()
             HTTPGameCode = CInt(ConnectionCode)
             Call PvPHTTP.InitializePvPGame()
         Else
+            ConnectionFailureCounter += 1
             If ConnectionErrorString = "Could not connect" Then
-                JoinBackgroundWorker.RunWorkerAsync()
+                If ConnectionFailureCounter >= 3 Then
+                    With LabStatusTitle
+                        .Hide()
+                        .Parent = PanelPvP2
+                        '.Top = LoadingGraphicsRect.Y
+                        .Height = LoadingGraphicsRect.Height
+                        '.Width = 200
+                        '.Left = CInt(.Parent.Width / 2 - 100)
+                        .Dock = DockStyle.Bottom
+                        .Text = "Could not connect: " & vbNewLine & "Please check your internet connection"
+                        .BringToFront()
+                        .ForeColor = Color.Red
+                        .Show()
+                    End With
+                    LoadingSpinTimer.Enabled = False
+                    PicLoading.Hide()
+                Else
+                    JoinBackgroundWorker.RunWorkerAsync()
+                End If
+            Else
+                ConnectionFailureCounter = 0
+                PicLoading.Hide()
+                LoadingSpinTimer.Enabled = False
+                With LabStatusTitle
+                    .Hide()
+                    .Parent = PanelPvP2
+                    .Text = ConnectionErrorString & vbNewLine & ConnectionErrorDescription
+                    .BringToFront()
+                    .ForeColor = Color.Red
+                    .Dock = DockStyle.Bottom
+                    .Show()
+                End With
             End If
         End If
-
     End Sub
-
     Private Sub PicLoading_Paint(sender As Object, e As PaintEventArgs) Handles PicLoading.Paint
         e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
         e.Graphics.DrawArc(InitializeGMPPen, LoadingGraphicsRect, LoadingSpinRotation, 170)

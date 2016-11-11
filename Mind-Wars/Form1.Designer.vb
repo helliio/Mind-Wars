@@ -105,7 +105,6 @@ Partial Class StartScreen
         Me.HeaderTransparencyRight = New System.Windows.Forms.PictureBox()
         Me.JoinBackgroundWorker = New System.ComponentModel.BackgroundWorker()
         Me.PanelPvP2 = New System.Windows.Forms.Panel()
-        Me.txtCode2 = New System.Windows.Forms.TextBox()
         Me.HTTPCreateGamePanel = New System.Windows.Forms.Panel()
         Me.LabHTTPCreate2 = New System.Windows.Forms.Label()
         Me.LabHTTPAttempts = New System.Windows.Forms.Label()
@@ -132,6 +131,7 @@ Partial Class StartScreen
         Me.PicHTTPClose = New System.Windows.Forms.PictureBox()
         Me.PicLoading = New System.Windows.Forms.PictureBox()
         Me.LoadingSpinTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.LabStatusTitle = New System.Windows.Forms.Label()
         CType(Me.PicStartButton_Settings, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvE, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvPLan, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1172,7 +1172,6 @@ Partial Class StartScreen
         '
         Me.PanelPvP2.AutoSize = True
         Me.PanelPvP2.BackColor = System.Drawing.Color.Transparent
-        Me.PanelPvP2.Controls.Add(Me.txtCode2)
         Me.PanelPvP2.Controls.Add(Me.HTTPCreateGamePanel)
         Me.PanelPvP2.Controls.Add(Me.LabHTTPNewGame)
         Me.PanelPvP2.Controls.Add(Me.HTTPJoinPanel)
@@ -1185,19 +1184,6 @@ Partial Class StartScreen
         Me.PanelPvP2.TabIndex = 24
         Me.PanelPvP2.Tag = "4"
         Me.PanelPvP2.Visible = False
-        '
-        'txtCode2
-        '
-        Me.txtCode2.BackColor = System.Drawing.Color.Black
-        Me.txtCode2.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtCode2.ForeColor = System.Drawing.Color.White
-        Me.txtCode2.Location = New System.Drawing.Point(12, 5)
-        Me.txtCode2.MaxLength = 4
-        Me.txtCode2.Name = "txtCode2"
-        Me.txtCode2.Size = New System.Drawing.Size(204, 13)
-        Me.txtCode2.TabIndex = 1
-        Me.txtCode2.Text = "1234"
-        Me.txtCode2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'HTTPCreateGamePanel
         '
@@ -1455,6 +1441,7 @@ Partial Class StartScreen
         '
         Me.HTTPJoinPanel.AutoSize = True
         Me.HTTPJoinPanel.BackColor = System.Drawing.Color.Transparent
+        Me.HTTPJoinPanel.Controls.Add(Me.LabStatusTitle)
         Me.HTTPJoinPanel.Controls.Add(Me.LabHTTPConnect2)
         Me.HTTPJoinPanel.Controls.Add(Me.LabCode2)
         Me.HTTPJoinPanel.Dock = System.Windows.Forms.DockStyle.Top
@@ -1534,6 +1521,15 @@ Partial Class StartScreen
         'LoadingSpinTimer
         '
         Me.LoadingSpinTimer.Interval = 20
+        '
+        'LabStatusTitle
+        '
+        Me.LabStatusTitle.Location = New System.Drawing.Point(99, 33)
+        Me.LabStatusTitle.Name = "LabStatusTitle"
+        Me.LabStatusTitle.Size = New System.Drawing.Size(100, 23)
+        Me.LabStatusTitle.TabIndex = 30
+        Me.LabStatusTitle.Text = "Loading..."
+        Me.LabStatusTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'StartScreen
         '
@@ -1737,7 +1733,6 @@ Partial Class StartScreen
     Friend WithEvents Panel1 As Panel
     Friend WithEvents LabHTTPConnect As Label
     Friend WithEvents PanelPvP2 As Panel
-    Friend WithEvents txtCode2 As TextBox
     Friend WithEvents HTTPCreateGamePanel As Panel
     Friend WithEvents LabHTTPCreate2 As Label
     Friend WithEvents LabHTTPAttempts As Label
@@ -1764,4 +1759,5 @@ Partial Class StartScreen
     Friend WithEvents HTTPCol1 As PictureBox
     Friend WithEvents PicLoading As PictureBox
     Friend WithEvents LoadingSpinTimer As Timer
+    Friend WithEvents LabStatusTitle As Label
 End Class
