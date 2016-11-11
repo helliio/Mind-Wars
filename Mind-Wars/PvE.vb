@@ -421,42 +421,7 @@ Public Class PvEGame
         End If
     End Sub
 
-
-
     Private Sub PvEGame_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
-
-        'If SelectedSpinning = True Then
-        If e.KeyCode = Keys.I Then
-            'If ChooseCodePanel.Visible = False Then
-            '    For Each pic As PictureBox In ChooseCodeList
-            '        pic.Show()
-            '    Next
-            '    For Each pic As PictureBox In ChooseCodeHolesList
-            '        pic.Show()
-            '    Next
-            '    With ChooseCodePanel
-            '        .Size = Me.ClientSize
-            '        .Left = 0
-            '        .Top = 0
-            '        .BackColor = Color.Transparent
-            '        .Parent = Me
-            '        .BringToFront()
-            '    End With
-            '    ChooseCodePanel.Show()
-            '    For Each pic As PictureBox In HolesList
-            '        pic.Hide()
-            '    Next
-            '    BWPanel.Hide()
-            'Else
-            '    For Each pic As PictureBox In ChooseCodeList
-            '        pic.Hide()
-            '    Next
-            '    For Each pic As PictureBox In ChooseCodeHolesList
-            '        pic.Hide()
-            '    Next
-            'End If
-        End If
-
         Select Case e.KeyCode
             Case Keys.Left
                 If Not SelectedColor = 0 AndAlso Not SelectedColor = 4 Then
@@ -525,14 +490,22 @@ Public Class PvEGame
                                     'HolesList.Item(GuessList.Count).Invalidate()
                                     If GuessList.Count - Attempt * holes = holes Then
                                         HoleGraphicsTimer.Enabled = False
-                                        FillBWTimer.Enabled = True
                                         Call verify_guess()
+                                        FillBWTimer.Enabled = True
+                                    End If
+                                Else
+                                    HoleGraphicsTimer.Enabled = True
+                                    'HolesList.Item(GuessList.Count).Invalidate()
+                                    If GuessList.Count - Attempt * holes = holes Then
+                                        HoleGraphicsTimer.Enabled = False
+                                        Call verify_guess()
+                                        FillBWTimer.Enabled = True
                                     End If
                                 End If
                                 InfoPanel.Hide()
                             Else
                                 For i As Integer = 0 To holes - 1
-                                    solution(i) = ChosenCodeList.Item(i)
+                                    Solution(i) = ChosenCodeList.Item(i)
                                 Next
                                 VerifyRowTimer.Enabled = False
                                 Call ShowHideChooseCodePanel(BWPanel, ChooseCodePanel)
@@ -540,7 +513,7 @@ Public Class PvEGame
                                 LabInfo.Text = "The computer is breaking your code."
                                 InfoPanel.Show()
                                 AIDelayTimer.Enabled = True
-                                Debug.Print("SOLUTION IS " & ArrayToInt(solution))
+                                Debug.Print("SOLUTION IS " & ArrayToInt(Solution))
                             End If
                         End If
                     End If
@@ -677,8 +650,30 @@ Public Class PvEGame
                 End If
                 Call SwitchSides()
             Else
-                Attempt += 1
-                HoleGraphicsTimer.Enabled = True
+                If Attempt = tries - 1 Then
+                    AIAttempts = 0
+                    Attempt = 0
+
+                    Dim UserWins As Integer = 0
+                    Dim AIWins As Integer = 0
+                    For i As Integer = 0 To AttemptCountList.Count - 1
+                        If AttemptCountList(i) < UserAttemptCountList(i) Then
+                            AIWins += 1
+                        ElseIf AttemptCountList(i) > UserAttemptCountList(i) Then
+                            UserWins += 1
+                        End If
+                    Next
+
+                    LabInfo.Text = "You: " & UserWins & ", AI: " & AIWins & vbNewLine & "Press [space] to continue playing."
+                    InfoPanel.Show()
+                    GameFinished = True
+                    InvalidatedSteps = 1
+                    Button4.Enabled = True
+                    AITimer.Enabled = False
+                Else
+                    Attempt += 1
+                    HoleGraphicsTimer.Enabled = True
+                End If
             End If
         End If
         'End If
