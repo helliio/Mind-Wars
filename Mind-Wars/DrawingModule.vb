@@ -334,7 +334,7 @@ Module DrawingModule
                     End If
                 End If
             End If
-        ElseIf CInt(sender.Tag) >= Attempt * holes AndAlso CInt(sender.Tag) < (Attempt + 1) * holes Then
+        ElseIf CInt(sender.Tag) >= Attempt * holes AndAlso CInt(sender.Tag) < (Attempt + 1) * holes AndAlso CInt(sender.Tag) + 1 < GuessList.Count Then
             e.Graphics.DrawEllipse(VerifyRowPen, HoleRectangle)
             HoleRectangle.Inflate(-6, -6)
             GuessBrush.Color = ColorCodes(GuessList.Item(CInt(sender.Tag)) + 1)
