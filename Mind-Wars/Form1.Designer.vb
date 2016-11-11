@@ -34,23 +34,6 @@ Partial Class StartScreen
         Me.PicStartButton_PvPHTTP = New System.Windows.Forms.PictureBox()
         Me.LabTutorial = New System.Windows.Forms.Label()
         Me.PicStartButton_Tutorial = New System.Windows.Forms.PictureBox()
-        Me.PanelSettings = New System.Windows.Forms.Panel()
-        Me.cmdTestTheme = New System.Windows.Forms.Button()
-        Me.ThemeComboBox = New System.Windows.Forms.ComboBox()
-        Me.PanelSound = New System.Windows.Forms.Panel()
-        Me.PicSound3 = New System.Windows.Forms.PictureBox()
-        Me.PicSound2 = New System.Windows.Forms.PictureBox()
-        Me.PicSound1 = New System.Windows.Forms.PictureBox()
-        Me.LabSettingsSound = New System.Windows.Forms.Label()
-        Me.PicSettingSound = New System.Windows.Forms.PictureBox()
-        Me.PanelTheme = New System.Windows.Forms.Panel()
-        Me.PicTheme3 = New System.Windows.Forms.PictureBox()
-        Me.PicTheme2 = New System.Windows.Forms.PictureBox()
-        Me.PicTheme1 = New System.Windows.Forms.PictureBox()
-        Me.LabSettingsTheme = New System.Windows.Forms.Label()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.PicSettingsTheme = New System.Windows.Forms.PictureBox()
-        Me.PicCloseSettings = New System.Windows.Forms.PictureBox()
         Me.PanelPvE = New System.Windows.Forms.Panel()
         Me.LabPvEStart = New System.Windows.Forms.Label()
         Me.PicPvEStartGame = New System.Windows.Forms.PictureBox()
@@ -79,21 +62,7 @@ Partial Class StartScreen
         Me.LabPvEHard = New System.Windows.Forms.Label()
         Me.LabPvEImpossible = New System.Windows.Forms.Label()
         Me.PicClosePvE = New System.Windows.Forms.PictureBox()
-        Me.PanelPvPLan = New System.Windows.Forms.Panel()
-        Me.PicClosePvPLAN = New System.Windows.Forms.PictureBox()
-        Me.PanelPvPHTTP = New System.Windows.Forms.Panel()
-        Me.PicClosePvPHTTP = New System.Windows.Forms.PictureBox()
-        Me.LabHTTPCreate = New System.Windows.Forms.Label()
-        Me.LabHTTPJoin = New System.Windows.Forms.Label()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.txtCode = New System.Windows.Forms.TextBox()
-        Me.LabHTTPConnect = New System.Windows.Forms.Label()
-        Me.LabCode = New System.Windows.Forms.Label()
-        Me.cmdNewPublicGame = New System.Windows.Forms.Button()
-        Me.cmdNewPrivateGame = New System.Windows.Forms.Button()
-        Me.cmdConnectHTTP = New System.Windows.Forms.Button()
         Me.PanelTutorial = New System.Windows.Forms.Panel()
-        Me.PicCloseTutorial = New System.Windows.Forms.PictureBox()
         Me.PicFormHeader = New System.Windows.Forms.PictureBox()
         Me.ButtonsPanel = New System.Windows.Forms.Panel()
         Me.PicMinimizeForm = New System.Windows.Forms.PictureBox()
@@ -132,24 +101,13 @@ Partial Class StartScreen
         Me.PicHTTPClose = New System.Windows.Forms.PictureBox()
         Me.PicLoading = New System.Windows.Forms.PictureBox()
         Me.LoadingSpinTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.PicCloseTutorial = New System.Windows.Forms.PictureBox()
+        Me.LabTutorialText = New System.Windows.Forms.Label()
         CType(Me.PicStartButton_Settings, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvE, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvPLan, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvPHTTP, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_Tutorial, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.PanelSettings.SuspendLayout()
-        Me.PanelSound.SuspendLayout()
-        CType(Me.PicSound3, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PicSound2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PicSound1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PicSettingSound, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.PanelTheme.SuspendLayout()
-        CType(Me.PicTheme3, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PicTheme2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PicTheme1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PicSettingsTheme, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PicCloseSettings, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelPvE.SuspendLayout()
         CType(Me.PicPvEStartGame, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicPvEChooseAttempts, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -169,13 +127,7 @@ Partial Class StartScreen
         CType(Me.PicDifficulty3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicDifficulty1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicClosePvE, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.PanelPvPLan.SuspendLayout()
-        CType(Me.PicClosePvPLAN, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.PanelPvPHTTP.SuspendLayout()
-        CType(Me.PicClosePvPHTTP, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel1.SuspendLayout()
         Me.PanelTutorial.SuspendLayout()
-        CType(Me.PicCloseTutorial, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ButtonsPanel.SuspendLayout()
         CType(Me.PicMinimizeForm, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -199,6 +151,7 @@ Partial Class StartScreen
         Me.HTTPJoinPanel.SuspendLayout()
         CType(Me.PicHTTPClose, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicLoading, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicCloseTutorial, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PicStartButton_Settings
@@ -260,7 +213,7 @@ Partial Class StartScreen
         Me.LabPvPLan.Name = "LabPvPLan"
         Me.LabPvPLan.Size = New System.Drawing.Size(222, 28)
         Me.LabPvPLan.TabIndex = 2
-        Me.LabPvPLan.Text = "PvP (LAN)"
+        Me.LabPvPLan.Text = "PvP - WIP!"
         Me.LabPvPLan.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'PicStartButton_PvPLan
@@ -285,7 +238,7 @@ Partial Class StartScreen
         Me.LabPvPHTTP.Name = "LabPvPHTTP"
         Me.LabPvPHTTP.Size = New System.Drawing.Size(222, 28)
         Me.LabPvPHTTP.TabIndex = 3
-        Me.LabPvPHTTP.Text = "PvP (internet)"
+        Me.LabPvPHTTP.Text = "READ ME"
         Me.LabPvPHTTP.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'PicStartButton_PvPHTTP
@@ -304,13 +257,14 @@ Partial Class StartScreen
         'LabTutorial
         '
         Me.LabTutorial.BackColor = System.Drawing.Color.Transparent
+        Me.LabTutorial.Enabled = False
         Me.LabTutorial.ForeColor = System.Drawing.Color.SteelBlue
         Me.LabTutorial.Location = New System.Drawing.Point(8, 204)
         Me.LabTutorial.Margin = New System.Windows.Forms.Padding(0)
         Me.LabTutorial.Name = "LabTutorial"
         Me.LabTutorial.Size = New System.Drawing.Size(222, 28)
         Me.LabTutorial.TabIndex = 4
-        Me.LabTutorial.Text = "Tutorial"
+        Me.LabTutorial.Text = "PvP (LAN) - Coming soon"
         Me.LabTutorial.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'PicStartButton_Tutorial
@@ -325,206 +279,6 @@ Partial Class StartScreen
         Me.PicStartButton_Tutorial.TabIndex = 8
         Me.PicStartButton_Tutorial.TabStop = False
         Me.PicStartButton_Tutorial.Tag = "4"
-        '
-        'PanelSettings
-        '
-        Me.PanelSettings.BackColor = System.Drawing.Color.Transparent
-        Me.PanelSettings.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.StartScreenBG
-        Me.PanelSettings.Controls.Add(Me.cmdTestTheme)
-        Me.PanelSettings.Controls.Add(Me.ThemeComboBox)
-        Me.PanelSettings.Controls.Add(Me.PanelSound)
-        Me.PanelSettings.Controls.Add(Me.LabSettingsSound)
-        Me.PanelSettings.Controls.Add(Me.PicSettingSound)
-        Me.PanelSettings.Controls.Add(Me.PanelTheme)
-        Me.PanelSettings.Controls.Add(Me.LabSettingsTheme)
-        Me.PanelSettings.Controls.Add(Me.PictureBox1)
-        Me.PanelSettings.Controls.Add(Me.PicSettingsTheme)
-        Me.PanelSettings.Controls.Add(Me.PicCloseSettings)
-        Me.PanelSettings.Location = New System.Drawing.Point(259, 57)
-        Me.PanelSettings.Name = "PanelSettings"
-        Me.PanelSettings.Size = New System.Drawing.Size(226, 260)
-        Me.PanelSettings.TabIndex = 9
-        Me.PanelSettings.Tag = "1"
-        Me.PanelSettings.Visible = False
-        '
-        'cmdTestTheme
-        '
-        Me.cmdTestTheme.ForeColor = System.Drawing.Color.Black
-        Me.cmdTestTheme.Location = New System.Drawing.Point(125, 189)
-        Me.cmdTestTheme.Name = "cmdTestTheme"
-        Me.cmdTestTheme.Size = New System.Drawing.Size(97, 25)
-        Me.cmdTestTheme.TabIndex = 15
-        Me.cmdTestTheme.Text = "Test theme"
-        Me.cmdTestTheme.UseVisualStyleBackColor = True
-        '
-        'ThemeComboBox
-        '
-        Me.ThemeComboBox.FormattingEnabled = True
-        Me.ThemeComboBox.Items.AddRange(New Object() {"1", "2", "3", "4", "5"})
-        Me.ThemeComboBox.Location = New System.Drawing.Point(0, 191)
-        Me.ThemeComboBox.Name = "ThemeComboBox"
-        Me.ThemeComboBox.Size = New System.Drawing.Size(119, 21)
-        Me.ThemeComboBox.TabIndex = 14
-        '
-        'PanelSound
-        '
-        Me.PanelSound.BackColor = System.Drawing.Color.Transparent
-        Me.PanelSound.Controls.Add(Me.PicSound3)
-        Me.PanelSound.Controls.Add(Me.PicSound2)
-        Me.PanelSound.Controls.Add(Me.PicSound1)
-        Me.PanelSound.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelSound.Location = New System.Drawing.Point(0, 152)
-        Me.PanelSound.Margin = New System.Windows.Forms.Padding(0)
-        Me.PanelSound.Name = "PanelSound"
-        Me.PanelSound.Size = New System.Drawing.Size(226, 32)
-        Me.PanelSound.TabIndex = 13
-        '
-        'PicSound3
-        '
-        Me.PicSound3.BackColor = System.Drawing.Color.Transparent
-        Me.PicSound3.Location = New System.Drawing.Point(143, 0)
-        Me.PicSound3.Name = "PicSound3"
-        Me.PicSound3.Size = New System.Drawing.Size(32, 32)
-        Me.PicSound3.TabIndex = 21
-        Me.PicSound3.TabStop = False
-        '
-        'PicSound2
-        '
-        Me.PicSound2.BackColor = System.Drawing.Color.Transparent
-        Me.PicSound2.Location = New System.Drawing.Point(98, 0)
-        Me.PicSound2.Margin = New System.Windows.Forms.Padding(10, 3, 10, 3)
-        Me.PicSound2.Name = "PicSound2"
-        Me.PicSound2.Size = New System.Drawing.Size(32, 32)
-        Me.PicSound2.TabIndex = 20
-        Me.PicSound2.TabStop = False
-        Me.PicSound2.Tag = "test"
-        '
-        'PicSound1
-        '
-        Me.PicSound1.BackColor = System.Drawing.Color.Transparent
-        Me.PicSound1.Location = New System.Drawing.Point(53, 0)
-        Me.PicSound1.Name = "PicSound1"
-        Me.PicSound1.Size = New System.Drawing.Size(32, 32)
-        Me.PicSound1.TabIndex = 19
-        Me.PicSound1.TabStop = False
-        '
-        'LabSettingsSound
-        '
-        Me.LabSettingsSound.BackColor = System.Drawing.Color.Transparent
-        Me.LabSettingsSound.ForeColor = System.Drawing.Color.LightCyan
-        Me.LabSettingsSound.Location = New System.Drawing.Point(0, 137)
-        Me.LabSettingsSound.Margin = New System.Windows.Forms.Padding(0)
-        Me.LabSettingsSound.Name = "LabSettingsSound"
-        Me.LabSettingsSound.Size = New System.Drawing.Size(222, 28)
-        Me.LabSettingsSound.TabIndex = 12
-        Me.LabSettingsSound.Text = "Sound"
-        Me.LabSettingsSound.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'PicSettingSound
-        '
-        Me.PicSettingSound.BackColor = System.Drawing.Color.Transparent
-        Me.PicSettingSound.BackgroundImage = CType(resources.GetObject("PicSettingSound.BackgroundImage"), System.Drawing.Image)
-        Me.PicSettingSound.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.PicSettingSound.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PicSettingSound.Location = New System.Drawing.Point(0, 112)
-        Me.PicSettingSound.Name = "PicSettingSound"
-        Me.PicSettingSound.Size = New System.Drawing.Size(226, 40)
-        Me.PicSettingSound.TabIndex = 11
-        Me.PicSettingSound.TabStop = False
-        Me.PicSettingSound.Tag = "0"
-        '
-        'PanelTheme
-        '
-        Me.PanelTheme.BackColor = System.Drawing.Color.Transparent
-        Me.PanelTheme.Controls.Add(Me.PicTheme3)
-        Me.PanelTheme.Controls.Add(Me.PicTheme2)
-        Me.PanelTheme.Controls.Add(Me.PicTheme1)
-        Me.PanelTheme.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelTheme.Location = New System.Drawing.Point(0, 80)
-        Me.PanelTheme.Margin = New System.Windows.Forms.Padding(0)
-        Me.PanelTheme.Name = "PanelTheme"
-        Me.PanelTheme.Size = New System.Drawing.Size(226, 32)
-        Me.PanelTheme.TabIndex = 10
-        '
-        'PicTheme3
-        '
-        Me.PicTheme3.BackColor = System.Drawing.Color.Transparent
-        Me.PicTheme3.Location = New System.Drawing.Point(143, 0)
-        Me.PicTheme3.Name = "PicTheme3"
-        Me.PicTheme3.Size = New System.Drawing.Size(32, 32)
-        Me.PicTheme3.TabIndex = 21
-        Me.PicTheme3.TabStop = False
-        '
-        'PicTheme2
-        '
-        Me.PicTheme2.BackColor = System.Drawing.Color.Transparent
-        Me.PicTheme2.Location = New System.Drawing.Point(98, 0)
-        Me.PicTheme2.Margin = New System.Windows.Forms.Padding(10, 3, 10, 3)
-        Me.PicTheme2.Name = "PicTheme2"
-        Me.PicTheme2.Size = New System.Drawing.Size(32, 32)
-        Me.PicTheme2.TabIndex = 20
-        Me.PicTheme2.TabStop = False
-        Me.PicTheme2.Tag = "test"
-        '
-        'PicTheme1
-        '
-        Me.PicTheme1.BackColor = System.Drawing.Color.Transparent
-        Me.PicTheme1.Location = New System.Drawing.Point(53, 0)
-        Me.PicTheme1.Name = "PicTheme1"
-        Me.PicTheme1.Size = New System.Drawing.Size(32, 32)
-        Me.PicTheme1.TabIndex = 19
-        Me.PicTheme1.TabStop = False
-        '
-        'LabSettingsTheme
-        '
-        Me.LabSettingsTheme.BackColor = System.Drawing.Color.Transparent
-        Me.LabSettingsTheme.ForeColor = System.Drawing.Color.LightCyan
-        Me.LabSettingsTheme.Location = New System.Drawing.Point(4, 65)
-        Me.LabSettingsTheme.Margin = New System.Windows.Forms.Padding(0)
-        Me.LabSettingsTheme.Name = "LabSettingsTheme"
-        Me.LabSettingsTheme.Size = New System.Drawing.Size(222, 28)
-        Me.LabSettingsTheme.TabIndex = 9
-        Me.LabSettingsTheme.Text = "Theme"
-        Me.LabSettingsTheme.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox1.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
-        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.PictureBox1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.PictureBox1.Location = New System.Drawing.Point(0, 220)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(226, 40)
-        Me.PictureBox1.TabIndex = 3
-        Me.PictureBox1.TabStop = False
-        Me.PictureBox1.Tag = "0"
-        '
-        'PicSettingsTheme
-        '
-        Me.PicSettingsTheme.BackColor = System.Drawing.Color.Transparent
-        Me.PicSettingsTheme.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
-        Me.PicSettingsTheme.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.PicSettingsTheme.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PicSettingsTheme.Location = New System.Drawing.Point(0, 40)
-        Me.PicSettingsTheme.Name = "PicSettingsTheme"
-        Me.PicSettingsTheme.Size = New System.Drawing.Size(226, 40)
-        Me.PicSettingsTheme.TabIndex = 2
-        Me.PicSettingsTheme.TabStop = False
-        Me.PicSettingsTheme.Tag = "0"
-        '
-        'PicCloseSettings
-        '
-        Me.PicCloseSettings.BackColor = System.Drawing.Color.Transparent
-        Me.PicCloseSettings.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBackActive1
-        Me.PicCloseSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.PicCloseSettings.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PicCloseSettings.Location = New System.Drawing.Point(0, 0)
-        Me.PicCloseSettings.Name = "PicCloseSettings"
-        Me.PicCloseSettings.Size = New System.Drawing.Size(226, 40)
-        Me.PicCloseSettings.TabIndex = 1
-        Me.PicCloseSettings.TabStop = False
-        Me.PicCloseSettings.Tag = "0"
         '
         'PanelPvE
         '
@@ -882,197 +636,19 @@ Partial Class StartScreen
         Me.PicClosePvE.TabStop = False
         Me.PicClosePvE.Tag = "0"
         '
-        'PanelPvPLan
-        '
-        Me.PanelPvPLan.BackColor = System.Drawing.Color.Transparent
-        Me.PanelPvPLan.Controls.Add(Me.PicClosePvPLAN)
-        Me.PanelPvPLan.Location = New System.Drawing.Point(12, 399)
-        Me.PanelPvPLan.Margin = New System.Windows.Forms.Padding(0)
-        Me.PanelPvPLan.Name = "PanelPvPLan"
-        Me.PanelPvPLan.Size = New System.Drawing.Size(226, 27)
-        Me.PanelPvPLan.TabIndex = 11
-        Me.PanelPvPLan.Tag = "3"
-        Me.PanelPvPLan.Visible = False
-        '
-        'PicClosePvPLAN
-        '
-        Me.PicClosePvPLAN.BackColor = System.Drawing.Color.DarkRed
-        Me.PicClosePvPLAN.Location = New System.Drawing.Point(207, 11)
-        Me.PicClosePvPLAN.Name = "PicClosePvPLAN"
-        Me.PicClosePvPLAN.Size = New System.Drawing.Size(16, 16)
-        Me.PicClosePvPLAN.TabIndex = 0
-        Me.PicClosePvPLAN.TabStop = False
-        '
-        'PanelPvPHTTP
-        '
-        Me.PanelPvPHTTP.BackColor = System.Drawing.Color.Transparent
-        Me.PanelPvPHTTP.Controls.Add(Me.PicClosePvPHTTP)
-        Me.PanelPvPHTTP.Controls.Add(Me.LabHTTPCreate)
-        Me.PanelPvPHTTP.Controls.Add(Me.LabHTTPJoin)
-        Me.PanelPvPHTTP.Controls.Add(Me.Panel1)
-        Me.PanelPvPHTTP.Location = New System.Drawing.Point(255, 465)
-        Me.PanelPvPHTTP.Margin = New System.Windows.Forms.Padding(0)
-        Me.PanelPvPHTTP.Name = "PanelPvPHTTP"
-        Me.PanelPvPHTTP.Size = New System.Drawing.Size(226, 247)
-        Me.PanelPvPHTTP.TabIndex = 12
-        Me.PanelPvPHTTP.Tag = "4"
-        Me.PanelPvPHTTP.Visible = False
-        '
-        'PicClosePvPHTTP
-        '
-        Me.PicClosePvPHTTP.BackColor = System.Drawing.Color.DimGray
-        Me.PicClosePvPHTTP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.PicClosePvPHTTP.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PicClosePvPHTTP.Location = New System.Drawing.Point(0, 167)
-        Me.PicClosePvPHTTP.Name = "PicClosePvPHTTP"
-        Me.PicClosePvPHTTP.Size = New System.Drawing.Size(226, 48)
-        Me.PicClosePvPHTTP.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
-        Me.PicClosePvPHTTP.TabIndex = 25
-        Me.PicClosePvPHTTP.TabStop = False
-        Me.PicClosePvPHTTP.Tag = "0"
-        '
-        'LabHTTPCreate
-        '
-        Me.LabHTTPCreate.BackColor = System.Drawing.Color.Transparent
-        Me.LabHTTPCreate.Dock = System.Windows.Forms.DockStyle.Top
-        Me.LabHTTPCreate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabHTTPCreate.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.LabHTTPCreate.Image = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
-        Me.LabHTTPCreate.Location = New System.Drawing.Point(0, 128)
-        Me.LabHTTPCreate.Name = "LabHTTPCreate"
-        Me.LabHTTPCreate.Size = New System.Drawing.Size(226, 39)
-        Me.LabHTTPCreate.TabIndex = 27
-        Me.LabHTTPCreate.Text = "Create new game"
-        Me.LabHTTPCreate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'LabHTTPJoin
-        '
-        Me.LabHTTPJoin.BackColor = System.Drawing.Color.Transparent
-        Me.LabHTTPJoin.Dock = System.Windows.Forms.DockStyle.Top
-        Me.LabHTTPJoin.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabHTTPJoin.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.LabHTTPJoin.Image = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
-        Me.LabHTTPJoin.Location = New System.Drawing.Point(0, 89)
-        Me.LabHTTPJoin.Name = "LabHTTPJoin"
-        Me.LabHTTPJoin.Size = New System.Drawing.Size(226, 39)
-        Me.LabHTTPJoin.TabIndex = 2
-        Me.LabHTTPJoin.Text = "Join existing game"
-        Me.LabHTTPJoin.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Panel1
-        '
-        Me.Panel1.BackColor = System.Drawing.Color.Black
-        Me.Panel1.Controls.Add(Me.txtCode)
-        Me.Panel1.Controls.Add(Me.LabHTTPConnect)
-        Me.Panel1.Controls.Add(Me.LabCode)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel1.Location = New System.Drawing.Point(0, 0)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(226, 89)
-        Me.Panel1.TabIndex = 26
-        '
-        'txtCode
-        '
-        Me.txtCode.BackColor = System.Drawing.Color.Black
-        Me.txtCode.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtCode.ForeColor = System.Drawing.Color.White
-        Me.txtCode.Location = New System.Drawing.Point(10, 3)
-        Me.txtCode.MaxLength = 4
-        Me.txtCode.Name = "txtCode"
-        Me.txtCode.Size = New System.Drawing.Size(204, 13)
-        Me.txtCode.TabIndex = 1
-        Me.txtCode.Text = "1234"
-        Me.txtCode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'LabHTTPConnect
-        '
-        Me.LabHTTPConnect.BackColor = System.Drawing.Color.Transparent
-        Me.LabHTTPConnect.Dock = System.Windows.Forms.DockStyle.Top
-        Me.LabHTTPConnect.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.LabHTTPConnect.Image = Global.Mind_Wars.My.Resources.Resources.ButtonBorderInactive
-        Me.LabHTTPConnect.Location = New System.Drawing.Point(0, 41)
-        Me.LabHTTPConnect.Name = "LabHTTPConnect"
-        Me.LabHTTPConnect.Size = New System.Drawing.Size(226, 44)
-        Me.LabHTTPConnect.TabIndex = 4
-        Me.LabHTTPConnect.Text = "Connect"
-        Me.LabHTTPConnect.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'LabCode
-        '
-        Me.LabCode.BackColor = System.Drawing.Color.Transparent
-        Me.LabCode.Dock = System.Windows.Forms.DockStyle.Top
-        Me.LabCode.Font = New System.Drawing.Font("Courier New", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabCode.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.LabCode.Image = Global.Mind_Wars.My.Resources.Resources.SettingsButtonInactive
-        Me.LabCode.Location = New System.Drawing.Point(0, 0)
-        Me.LabCode.Name = "LabCode"
-        Me.LabCode.Size = New System.Drawing.Size(226, 41)
-        Me.LabCode.TabIndex = 1
-        Me.LabCode.Text = "1234"
-        Me.LabCode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'cmdNewPublicGame
-        '
-        Me.cmdNewPublicGame.BackColor = System.Drawing.Color.Transparent
-        Me.cmdNewPublicGame.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBorderInactive
-        Me.cmdNewPublicGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.cmdNewPublicGame.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.cmdNewPublicGame.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdNewPublicGame.Location = New System.Drawing.Point(-15, 648)
-        Me.cmdNewPublicGame.Name = "cmdNewPublicGame"
-        Me.cmdNewPublicGame.Size = New System.Drawing.Size(226, 46)
-        Me.cmdNewPublicGame.TabIndex = 6
-        Me.cmdNewPublicGame.Text = "New public game"
-        Me.cmdNewPublicGame.UseVisualStyleBackColor = False
-        '
-        'cmdNewPrivateGame
-        '
-        Me.cmdNewPrivateGame.BackColor = System.Drawing.Color.Transparent
-        Me.cmdNewPrivateGame.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBorderInactive
-        Me.cmdNewPrivateGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.cmdNewPrivateGame.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.cmdNewPrivateGame.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdNewPrivateGame.Location = New System.Drawing.Point(12, 506)
-        Me.cmdNewPrivateGame.Name = "cmdNewPrivateGame"
-        Me.cmdNewPrivateGame.Size = New System.Drawing.Size(226, 46)
-        Me.cmdNewPrivateGame.TabIndex = 5
-        Me.cmdNewPrivateGame.Text = "New private game"
-        Me.cmdNewPrivateGame.UseVisualStyleBackColor = False
-        '
-        'cmdConnectHTTP
-        '
-        Me.cmdConnectHTTP.BackColor = System.Drawing.Color.Transparent
-        Me.cmdConnectHTTP.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBorderInactive
-        Me.cmdConnectHTTP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.cmdConnectHTTP.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.cmdConnectHTTP.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdConnectHTTP.Location = New System.Drawing.Point(0, 558)
-        Me.cmdConnectHTTP.Name = "cmdConnectHTTP"
-        Me.cmdConnectHTTP.Size = New System.Drawing.Size(226, 46)
-        Me.cmdConnectHTTP.TabIndex = 4
-        Me.cmdConnectHTTP.Text = "Connect"
-        Me.cmdConnectHTTP.UseVisualStyleBackColor = False
-        '
         'PanelTutorial
         '
+        Me.PanelTutorial.AutoSize = True
         Me.PanelTutorial.BackColor = System.Drawing.Color.Transparent
+        Me.PanelTutorial.Controls.Add(Me.LabTutorialText)
         Me.PanelTutorial.Controls.Add(Me.PicCloseTutorial)
-        Me.PanelTutorial.Location = New System.Drawing.Point(12, 465)
+        Me.PanelTutorial.Location = New System.Drawing.Point(243, 43)
         Me.PanelTutorial.Margin = New System.Windows.Forms.Padding(0)
         Me.PanelTutorial.Name = "PanelTutorial"
-        Me.PanelTutorial.Size = New System.Drawing.Size(226, 27)
+        Me.PanelTutorial.Size = New System.Drawing.Size(226, 602)
         Me.PanelTutorial.TabIndex = 13
         Me.PanelTutorial.Tag = "5"
         Me.PanelTutorial.Visible = False
-        '
-        'PicCloseTutorial
-        '
-        Me.PicCloseTutorial.BackColor = System.Drawing.Color.DarkRed
-        Me.PicCloseTutorial.Location = New System.Drawing.Point(207, 11)
-        Me.PicCloseTutorial.Name = "PicCloseTutorial"
-        Me.PicCloseTutorial.Size = New System.Drawing.Size(16, 16)
-        Me.PicCloseTutorial.TabIndex = 0
-        Me.PicCloseTutorial.TabStop = False
         '
         'PicFormHeader
         '
@@ -1231,7 +807,7 @@ Partial Class StartScreen
         Me.LabHTTPAttempts.Size = New System.Drawing.Size(35, 16)
         Me.LabHTTPAttempts.TabIndex = 13
         Me.LabHTTPAttempts.Tag = "0"
-        Me.LabHTTPAttempts.Text = "4"
+        Me.LabHTTPAttempts.Text = "10"
         Me.LabHTTPAttempts.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'LabHTTPAttemptsCaption
@@ -1283,7 +859,7 @@ Partial Class StartScreen
         Me.LabHTTPHolesCaption.Size = New System.Drawing.Size(154, 18)
         Me.LabHTTPHolesCaption.TabIndex = 9
         Me.LabHTTPHolesCaption.Tag = "0"
-        Me.LabHTTPHolesCaption.Text = "Number of holes"
+        Me.LabHTTPHolesCaption.Text = "Number of holes (WIP)"
         Me.LabHTTPHolesCaption.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'PicHTTPHoles
@@ -1531,6 +1107,34 @@ Partial Class StartScreen
         '
         Me.LoadingSpinTimer.Interval = 20
         '
+        'PicCloseTutorial
+        '
+        Me.PicCloseTutorial.BackColor = System.Drawing.Color.Transparent
+        Me.PicCloseTutorial.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBackActive1
+        Me.PicCloseTutorial.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.PicCloseTutorial.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PicCloseTutorial.Location = New System.Drawing.Point(0, 0)
+        Me.PicCloseTutorial.Name = "PicCloseTutorial"
+        Me.PicCloseTutorial.Size = New System.Drawing.Size(226, 40)
+        Me.PicCloseTutorial.TabIndex = 2
+        Me.PicCloseTutorial.TabStop = False
+        Me.PicCloseTutorial.Tag = "0"
+        '
+        'LabTutorialText
+        '
+        Me.LabTutorialText.BackColor = System.Drawing.Color.Transparent
+        Me.LabTutorialText.Dock = System.Windows.Forms.DockStyle.Top
+        Me.LabTutorialText.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabTutorialText.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.LabTutorialText.Location = New System.Drawing.Point(0, 40)
+        Me.LabTutorialText.Name = "LabTutorialText"
+        Me.LabTutorialText.Padding = New System.Windows.Forms.Padding(5)
+        Me.LabTutorialText.Size = New System.Drawing.Size(226, 562)
+        Me.LabTutorialText.TabIndex = 6
+        Me.LabTutorialText.Tag = "5"
+        Me.LabTutorialText.Text = resources.GetString("LabTutorialText.Text")
+        Me.LabTutorialText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'StartScreen
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1546,19 +1150,13 @@ Partial Class StartScreen
         Me.Controls.Add(Me.PanelPvP2)
         Me.Controls.Add(Me.HeaderTransparencyLeft)
         Me.Controls.Add(Me.HeaderTransparencyRight)
-        Me.Controls.Add(Me.cmdConnectHTTP)
-        Me.Controls.Add(Me.cmdNewPublicGame)
         Me.Controls.Add(Me.PictureBox2)
-        Me.Controls.Add(Me.cmdNewPrivateGame)
         Me.Controls.Add(Me.PicCloseForm)
         Me.Controls.Add(Me.PicMinimizeForm)
         Me.Controls.Add(Me.ButtonsPanel)
         Me.Controls.Add(Me.PicFormHeader)
         Me.Controls.Add(Me.PanelTutorial)
-        Me.Controls.Add(Me.PanelPvPHTTP)
-        Me.Controls.Add(Me.PanelPvPLan)
         Me.Controls.Add(Me.PanelPvE)
-        Me.Controls.Add(Me.PanelSettings)
         Me.DoubleBuffered = True
         Me.ForeColor = System.Drawing.Color.White
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
@@ -1573,19 +1171,6 @@ Partial Class StartScreen
         CType(Me.PicStartButton_PvPLan, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicStartButton_PvPHTTP, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicStartButton_Tutorial, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.PanelSettings.ResumeLayout(False)
-        Me.PanelSound.ResumeLayout(False)
-        CType(Me.PicSound3, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PicSound2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PicSound1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PicSettingSound, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.PanelTheme.ResumeLayout(False)
-        CType(Me.PicTheme3, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PicTheme2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PicTheme1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PicSettingsTheme, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PicCloseSettings, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelPvE.ResumeLayout(False)
         CType(Me.PicPvEStartGame, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicPvEChooseAttempts, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1605,14 +1190,7 @@ Partial Class StartScreen
         CType(Me.PicDifficulty3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicDifficulty1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicClosePvE, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.PanelPvPLan.ResumeLayout(False)
-        CType(Me.PicClosePvPLAN, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.PanelPvPHTTP.ResumeLayout(False)
-        CType(Me.PicClosePvPHTTP, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
         Me.PanelTutorial.ResumeLayout(False)
-        CType(Me.PicCloseTutorial, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ButtonsPanel.ResumeLayout(False)
         CType(Me.PicMinimizeForm, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1637,6 +1215,7 @@ Partial Class StartScreen
         Me.HTTPJoinPanel.ResumeLayout(False)
         CType(Me.PicHTTPClose, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicLoading, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicCloseTutorial, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1652,25 +1231,17 @@ Partial Class StartScreen
     Friend WithEvents PicStartButton_PvPHTTP As PictureBox
     Friend WithEvents LabTutorial As Label
     Friend WithEvents PicStartButton_Tutorial As PictureBox
-    Friend WithEvents PanelSettings As Panel
     Friend WithEvents PanelPvE As Panel
     Friend WithEvents PicClosePvE As PictureBox
-    Friend WithEvents PanelPvPLan As Panel
-    Friend WithEvents PicClosePvPLAN As PictureBox
-    Friend WithEvents PanelPvPHTTP As Panel
     Friend WithEvents PanelTutorial As Panel
-    Friend WithEvents PicCloseTutorial As PictureBox
     Friend WithEvents PicFormHeader As PictureBox
     Friend WithEvents ButtonsPanel As Panel
     Friend WithEvents PicMinimizeForm As PictureBox
     Friend WithEvents PicCloseForm As PictureBox
     Friend WithEvents GUITimer As Timer
-    Friend WithEvents PicCloseSettings As PictureBox
     Friend WithEvents PvEDifficultyPanel As Panel
     Friend WithEvents PicDifficulty3 As PictureBox
     Friend WithEvents PicDifficulty1 As PictureBox
-    Friend WithEvents PicSettingsTheme As PictureBox
-    Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents PicPvEChooseHoles As PictureBox
     Friend WithEvents PanelPvEColors As Panel
     Friend WithEvents PicPvEColor8 As PictureBox
@@ -1690,30 +1261,12 @@ Partial Class StartScreen
     Friend WithEvents LabPvEColors As Label
     Friend WithEvents LabPvEImpossible As Label
     Friend WithEvents LabPvEEasy As Label
-    Friend WithEvents LabSettingsTheme As Label
-    Friend WithEvents PanelTheme As Panel
-    Friend WithEvents PicTheme3 As PictureBox
-    Friend WithEvents PicTheme2 As PictureBox
-    Friend WithEvents PicTheme1 As PictureBox
-    Friend WithEvents LabSettingsSound As Label
-    Friend WithEvents PicSettingSound As PictureBox
-    Friend WithEvents PanelSound As Panel
-    Friend WithEvents PicSound3 As PictureBox
-    Friend WithEvents PicSound2 As PictureBox
-    Friend WithEvents PicSound1 As PictureBox
     Friend WithEvents LabPvEHard As Label
     Friend WithEvents PicDifficulty2 As PictureBox
     Friend WithEvents LabPvEStart As Label
     Friend WithEvents PicPvEStartGame As PictureBox
     Friend WithEvents PictureBox2 As PictureBox
-    Friend WithEvents cmdTestTheme As Button
-    Friend WithEvents ThemeComboBox As ComboBox
-    Friend WithEvents cmdConnectHTTP As Button
-    Friend WithEvents txtCode As TextBox
     Friend WithEvents HTTPBackgroundWorker As System.ComponentModel.BackgroundWorker
-    Friend WithEvents LabCode As Label
-    Friend WithEvents cmdNewPublicGame As Button
-    Friend WithEvents cmdNewPrivateGame As Button
     Friend WithEvents HeaderTransparencyLeft As PictureBox
     Friend WithEvents HeaderTransparencyRight As PictureBox
 
@@ -1727,11 +1280,6 @@ Partial Class StartScreen
     End Sub
 
     Friend WithEvents JoinBackgroundWorker As System.ComponentModel.BackgroundWorker
-    Friend WithEvents PicClosePvPHTTP As PictureBox
-    Friend WithEvents LabHTTPCreate As Label
-    Friend WithEvents LabHTTPJoin As Label
-    Friend WithEvents Panel1 As Panel
-    Friend WithEvents LabHTTPConnect As Label
     Friend WithEvents PanelPvP2 As Panel
     Friend WithEvents HTTPCreateGamePanel As Panel
     Friend WithEvents LabHTTPCreate2 As Label
@@ -1760,4 +1308,6 @@ Partial Class StartScreen
     Friend WithEvents PicLoading As PictureBox
     Friend WithEvents LoadingSpinTimer As Timer
     Friend WithEvents LabStatusTitle As Label
+    Friend WithEvents LabTutorialText As Label
+    Friend WithEvents PicCloseTutorial As PictureBox
 End Class

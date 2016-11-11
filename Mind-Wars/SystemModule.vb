@@ -6,6 +6,7 @@ Imports System.IO
 Imports System.Xml.Serialization
 
 Module SystemModule
+    Public AttemptCountList, UserAttemptCountList As New List(Of Integer)(1000)
     Public holes, colours, tries, Solution(), guess(), CurrentBW(1) As Integer
     Public TestGuess, ChosenCodeList, GuessList, BWCountList As New List(Of Integer)
     Public GameFinished As Boolean = False
@@ -32,7 +33,7 @@ Module SystemModule
         '    g(i) = CInt(TestGuess(i))
         'Next
         TestGuess.Clear()
-        Dim verifiedguess() As Integer = verify(solution, g)
+        Dim verifiedguess() As Integer = verify(Solution, g)
         BlackCount = verifiedguess(0)
         For i As Integer = 0 To holes - 1
             If verifiedguess(0) > 0 Then

@@ -178,7 +178,6 @@ Module DrawingModule
                 End If
                 ChooseCodeList.Add(ChooseCode)
             End With
-
         Next
         For j As Integer = 0 To holes - 1
             Dim ChooseCodeHole As New PictureBox
@@ -202,6 +201,8 @@ Module DrawingModule
                 PvEGame.SelectedColorTimer.Enabled = True
             Case 2 ' PvP HTTP
                 PvPHTTP.SelectedColorTimer.Enabled = True
+            Case 3
+                Singleplayer.SelectedColorTimer.Enabled = True
         End Select
 
         Testrect1.Location = ChoiceList.Item(0).ClientRectangle.Location
@@ -296,6 +297,8 @@ Module DrawingModule
                 PvEGame.ColorTimer.Enabled = True
             Case 2
                 PvPHTTP.ColorTimer.Enabled = True
+            Case 3
+                Singleplayer.ColorTimer.Enabled = True
         End Select
         SenderChoosePanel.BringToFront()
     End Sub
@@ -313,8 +316,8 @@ Module DrawingModule
         e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
         HoleRectangle = sender.ClientRectangle
         HoleRectangle.Inflate(-2, -2)
-        If PvEGame.VerifyRowTimer.Enabled = False AndAlso PvPHTTP.VerifyRowTimer.Enabled = False Then
-            If CInt(sender.Tag) = GuessList.Count AndAlso UsersTurn = True AndAlso (PvEGame.HoleGraphicsTimer.Enabled = True OrElse PvPHTTP.HoleGraphicsTimer.Enabled = True) Then
+        If PvEGame.VerifyRowTimer.Enabled = False AndAlso PvPHTTP.VerifyRowTimer.Enabled = False AndAlso Singleplayer.VerifyRowTimer.Enabled = False Then
+            If CInt(sender.Tag) = GuessList.Count AndAlso UsersTurn = True AndAlso (PvEGame.HoleGraphicsTimer.Enabled = True OrElse PvPHTTP.HoleGraphicsTimer.Enabled = True OrElse Singleplayer.HoleGraphicsTimer.Enabled = True) Then
                 e.Graphics.DrawEllipse(FocusedHolePen, HoleRectangle)
             Else
                 e.Graphics.DrawEllipse(Pens.AliceBlue, HoleRectangle)

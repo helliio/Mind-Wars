@@ -43,8 +43,9 @@ Module GraphicalThemesModule
             HTTPLab.Image = ImageList(6)
             HTTPLab.ForeColor = DefaultLabelColor
         Next
+        StartScreen.LabHTTPHolesCaption.ForeColor = Color.Gray
         StartScreen.LabHTTPAttempts.ForeColor = DefaultLabelColor
-        StartScreen.LabHTTPHoles.ForeColor = DefaultLabelColor
+        StartScreen.LabHTTPHoles.ForeColor = Color.Gray
         StartScreen.PicHTTPHoles.Image = ImageList(7)
         StartScreen.PicHTTPAttempts.Image = ImageList(7)
     End Sub

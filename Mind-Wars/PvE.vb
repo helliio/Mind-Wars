@@ -642,26 +642,49 @@ Public Class PvEGame
                 Attempt += 1
                 UserAttemptCountList.Add(Attempt)
                 Debug.Print("You won")
-                If HoleGraphicsTimer.Enabled = True Then
-                    Debug.Print("Enabled")
-                End If
-                Call SwitchSides()
+                AIAttempts = 0
+                UserAttemptCountList.Add(Attempt)
+                Attempt = 0
+                LabInfo.Text = "You broke the code." & vbNewLine & "Press [space] to continue."
+                InfoPanel.Show()
+                GameFinished = True
+                InvalidatedSteps = 1
+                Button4.Enabled = True
+                AITimer.Enabled = False
+                'Call SwitchSides()
             Else
                 If Attempt = tries - 1 Then
                     AIAttempts = 0
+                    UserAttemptCountList.Add(Attempt)
                     Attempt = 0
-
-                    Dim UserWins As Integer = 0
-                    Dim AIWins As Integer = 0
-                    For i As Integer = 0 To AttemptCountList.Count - 1
-                        If AttemptCountList(i) < UserAttemptCountList(i) Then
-                            AIWins += 1
-                        ElseIf AttemptCountList(i) > UserAttemptCountList(i) Then
-                            UserWins += 1
+                    LabInfo.Text = "The code was "
+                    For i As Integer = 0 To holes - 1
+                        Dim AndString As String = ""
+                        Dim ColorInt As Integer = Solution(i)
+                        Select Case ColorInt
+                            Case 0
+                                AndString = "red"
+                            Case 1
+                                AndString = "green"
+                            Case 2
+                                AndString = "yellow"
+                            Case 3
+                                AndString = "blue"
+                            Case 4
+                                AndString = "cyan"
+                            Case 5
+                                AndString = "orange"
+                            Case 6
+                                AndString = "pink"
+                            Case 7
+                                AndString = "purple"
+                        End Select
+                        LabInfo.Text &= AndString
+                        If i < holes - 1 Then
+                            LabInfo.Text &= ", "
                         End If
                     Next
-
-                    LabInfo.Text = "You: " & UserWins & ", AI: " & AIWins & vbNewLine & "Press [space] to continue playing."
+                    LabInfo.Text = LabInfo.Text & "." & vbNewLine & "Press [space] To Continue."
                     InfoPanel.Show()
                     GameFinished = True
                     InvalidatedSteps = 1
@@ -701,7 +724,7 @@ Public Class PvEGame
             InfoPanel.Hide()
             UsersTurn = True
             solution = GenerateSolution()
-            Debug.Print("Solution is " & ArrayToString(solution))
+            Debug.Print("Solution Is " & ArrayToString(solution))
         End If
     End Sub
     Private Sub PicMinimizeForm_Click(sender As Object, e As EventArgs) Handles PicMinimizeForm.Click
@@ -713,7 +736,7 @@ Public Class PvEGame
             AIBackgroundWorkerEasy.RunWorkerAsync()
         ElseIf CurrentlyPossibleSolutions.Count = 1 Then
             AIAttempts += 1
-            Debug.Print("FINISHED IN " & AIAttempts & " MOVES")
+            Debug.Print("FINISHED In " & AIAttempts & " MOVES")
             Debug.Print("AI's solution: " & ArrayToInt(CurrentlyPossibleSolutions.Item(0)) & ", real solution: " & ArrayToInt(solution))
             AIAttempts = 0
             Button2.Enabled = True

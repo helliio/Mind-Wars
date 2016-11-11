@@ -13,8 +13,6 @@ Public Class PvPHTTP
         '''' Move to SetupGame sub ''''
         Me.Visible = False
         holes = 4
-        tries = 10
-        colours = 8
 
         ' Move to SetupGame sub:
         ChosenCodeList.Capacity = holes
@@ -126,7 +124,7 @@ Public Class PvPHTTP
         GameCodePanel.Hide()
         GuessList.Clear()
         AIGuessList.Clear()
-        solution = GenerateSolution()
+        Solution = GenerateSolution()
         BWPanel.Show()
         UsersTurn = True
         If IsGameStarter = 2 Then
@@ -244,71 +242,73 @@ Public Class PvPHTTP
                     End If
                 Case Keys.Space, Keys.Enter
                     If GameFinished = False Then
-                        If VerifyRowTimer.Enabled = False Then
-                            If ChooseCodePanel.Visible = False Then
-                                If GuessList.Count < holes * tries AndAlso HoleGraphicsTimer.Enabled = True Then
-                                    GuessList.Add(SelectedColor)
-                                    TestGuess.Add(SelectedColor)
-                                    HolesList.Item(GuessList.Count - 1).Invalidate()
-                                    Debug.Print("GuessList count: " & GuessList.Count & ", TestGuess count: " & TestGuess.Count & ", HolesList count: " & HolesList.Count)
-                                End If
+                        If FillBWTimer.Enabled = False Then
+                            If VerifyRowTimer.Enabled = False Then
+                                If ChooseCodePanel.Visible = False Then
+                                    If GuessList.Count < holes * tries AndAlso HoleGraphicsTimer.Enabled = True Then
+                                        GuessList.Add(SelectedColor)
+                                        TestGuess.Add(SelectedColor)
+                                        HolesList.Item(GuessList.Count - 1).Invalidate()
+                                        Debug.Print("GuessList count: " & GuessList.Count & ", TestGuess count: " & TestGuess.Count & ", HolesList count: " & HolesList.Count)
+                                    End If
 
-                                If GuessList.Count = (Attempt + 1) * holes AndAlso UsersTurn = True Then
-                                    VerifyRowTimer.Enabled = True
-                                    HoleGraphicsTimer.Enabled = False
-                                    LabInfo.Text = "[enter] to guess, [backspace] to modify."
-                                    InfoPanel.Show()
-                                ElseIf HoleGraphicsTimer.Enabled = True Then
-                                    HolesList.Item(GuessList.Count).Invalidate()
-                                End If
-                            Else
-                                If ChosenCodeList.Count < holes Then
-                                    ChosenCodeList.Add(SelectedChooseCodeColor)
-                                    ChooseCodeHolesList.Item(ChosenCodeList.Count - 1).Invalidate()
-                                End If
-
-                                If ChosenCodeList.Count = holes Then
-                                    VerifyRowTimer.Enabled = True
-                                    HoleGraphicsTimer.Enabled = False
-                                ElseIf HoleGraphicsTimer.Enabled = True Then
-                                    ChooseCodeHolesList.Item(ChosenCodeList.Count).Invalidate()
-                                End If
-                            End If
-                        Else
-                            If ChooseCodePanel.Visible = False Then
-                                VerifyRowTimer.Enabled = False
-                                For i As Integer = 0 To holes - 1
-                                    HolesList.Item(i + Attempt * holes).Invalidate()
-                                Next
-                                If GuessList.Count < tries * holes Then
-                                    HoleGraphicsTimer.Enabled = True
-                                    If GuessList.Count - Attempt * holes = holes Then
+                                    If GuessList.Count = (Attempt + 1) * holes AndAlso UsersTurn = True Then
+                                        VerifyRowTimer.Enabled = True
                                         HoleGraphicsTimer.Enabled = False
-                                        Dim UpdateGame As New UpdateGameClass
-                                        Dim UpdateGameString As New System.Threading.Thread(AddressOf UpdateGame.UpdateGuess)
-                                        UpdateGameString.IsBackground = True
-                                        UpdateGameString.Start()
-                                        Call verify_guess()
-                                        FillBWTimer.Enabled = True
+                                        LabInfo.Text = "[enter] to guess, [backspace] to modify."
+                                        InfoPanel.Show()
+                                    ElseIf HoleGraphicsTimer.Enabled = True Then
+                                        HolesList.Item(GuessList.Count).Invalidate()
+                                    End If
+                                Else
+                                    If ChosenCodeList.Count < holes Then
+                                        ChosenCodeList.Add(SelectedChooseCodeColor)
+                                        ChooseCodeHolesList.Item(ChosenCodeList.Count - 1).Invalidate()
+                                    End If
+
+                                    If ChosenCodeList.Count = holes Then
+                                        VerifyRowTimer.Enabled = True
+                                        HoleGraphicsTimer.Enabled = False
+                                    ElseIf HoleGraphicsTimer.Enabled = True Then
+                                        ChooseCodeHolesList.Item(ChosenCodeList.Count).Invalidate()
                                     End If
                                 End If
-                                InfoPanel.Hide()
                             Else
-                                VerifyRowTimer.Enabled = False
-                                For i As Integer = 0 To holes - 1
-                                    Solution(i) = ChosenCodeList.Item(i)
-                                Next
-                                ChosenCodeList.Clear()
-                                Call ShowHideChooseCodePanel(BWPanel, ChooseCodePanel)
-                                InfoPanel.Show()
-                                ShowHolesTimer.Enabled = True
-                                Dim UpdateSolutionString As String = ArrayToString(Solution)
-                                Dim UpdateGame As New UpdateGameClass
-                                UpdateGame.ParametersString = "?code=" & HTTPGameCode & "&action=setsolution&solution=" & UpdateSolutionString
-                                Dim UpdateGameString As New System.Threading.Thread(AddressOf UpdateGame.Update)
-                                UpdateGameString.IsBackground = True
-                                UpdateGameString.Start()
-                                Debug.Print("SOLUTION IS " & ArrayToInt(Solution))
+                                If ChooseCodePanel.Visible = False Then
+                                    VerifyRowTimer.Enabled = False
+                                    For i As Integer = 0 To holes - 1
+                                        HolesList.Item(i + Attempt * holes).Invalidate()
+                                    Next
+                                    If GuessList.Count < tries * holes Then
+                                        HoleGraphicsTimer.Enabled = True
+                                        If GuessList.Count - Attempt * holes = holes Then
+                                            HoleGraphicsTimer.Enabled = False
+                                            Dim UpdateGame As New UpdateGameClass
+                                            Dim UpdateGameString As New System.Threading.Thread(AddressOf UpdateGame.UpdateGuess)
+                                            UpdateGameString.IsBackground = True
+                                            UpdateGameString.Start()
+                                            Call verify_guess()
+                                            FillBWTimer.Enabled = True
+                                        End If
+                                    End If
+                                    InfoPanel.Hide()
+                                Else
+                                    VerifyRowTimer.Enabled = False
+                                    For i As Integer = 0 To holes - 1
+                                        Solution(i) = ChosenCodeList.Item(i)
+                                    Next
+                                    ChosenCodeList.Clear()
+                                    Call ShowHideChooseCodePanel(BWPanel, ChooseCodePanel)
+                                    InfoPanel.Show()
+                                    ShowHolesTimer.Enabled = True
+                                    Dim UpdateSolutionString As String = ArrayToString(Solution)
+                                    Dim UpdateGame As New UpdateGameClass
+                                    UpdateGame.ParametersString = "?code=" & HTTPGameCode & "&action=setsolution&solution=" & UpdateSolutionString
+                                    Dim UpdateGameString As New System.Threading.Thread(AddressOf UpdateGame.Update)
+                                    UpdateGameString.IsBackground = True
+                                    UpdateGameString.Start()
+                                    Debug.Print("SOLUTION IS " & ArrayToInt(Solution))
+                                End If
                             End If
                         End If
                     Else
@@ -466,8 +466,8 @@ Public Class PvPHTTP
         AIBWList.Clear()
         AIGuessList.Clear()
         AIStep = 0
-        GameFinished = False
-        DrawingModule.InvalidatedSteps = 1
+        InvalidatedSteps = 1
+        'GameFinished = False
         BWCountList.Clear()
         GuessList.Clear()
         InfoPanel.Hide()
