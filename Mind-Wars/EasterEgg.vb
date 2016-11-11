@@ -36,7 +36,6 @@ Public Class EasterEgg
         If egg < counter Then
             egg += 1
         Else
-            MsgBox("Your IP Address is " & strIPAddress & " CSI: New York has been notified.", , "You are the killer")
             Clear()
         End If
     End Sub

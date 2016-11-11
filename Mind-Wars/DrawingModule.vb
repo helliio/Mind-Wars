@@ -98,7 +98,6 @@ Module DrawingModule
                             .Visible = False
                             .Width = PegWidth
                             .Height = PegWidth
-                            '.Name = "BWHole_" & m * holes + n
                             .Tag = m * holes + n
                             If n < CInt(holes / 2) Then
                                 .Top = (38 * tries) - (38 * m)
@@ -327,7 +326,6 @@ Module DrawingModule
                     End If
                 Else
                     Dim InversePosition As Integer = (holes * tries) - ((holes + CInt(sender.Tag)) - ((holes + CInt(sender.Tag)) Mod holes)) + (CInt(sender.Tag) Mod holes)
-                    '16-((4+8)-((4+8) mod 4))+(8 mod 4)
                     If InversePosition <= (AIAttempts - 1) * holes + AIStep Then
                         GuessBrush.Color = ColorCodes(AIGuessList.Item(InversePosition) + 1)
                         e.Graphics.FillEllipse(GuessBrush, HoleRectangle)
@@ -394,7 +392,6 @@ Module DrawingModule
         Else
             e.Graphics.FillEllipse(DisabledColorBrush, ChoiceRectangleList.Item(CInt(sender.Tag)))
         End If
-        'Debug.Print("Selected spinnning: " & SelectedSpinning)
         If CInt(sender.Tag) = SelectedColor AndAlso SelectedSpinning = True Then
             e.Graphics.DrawArc(SelectedColorPen, ChoiceRectangle, SelectedArcRotation, 45)
             e.Graphics.DrawArc(SelectedColorPen, ChoiceRectangle, SelectedArcRotation + 90, 45)
@@ -439,7 +436,7 @@ Module DrawingModule
                     e.Graphics.FillEllipse(GuessBrush, HoleRectangle)
                 End If
             End If
-        Else 'If sender.Tag >= Attempt * holes AndAlso sender.Tag < (Attempt + 1) * holes AndAlso UsersTurn = True Then
+        Else
             e.Graphics.DrawEllipse(VerifyRowPen, HoleRectangle)
             HoleRectangle.Inflate(-6, -6)
             GuessBrush.Color = ColorCodes(ChosenCodeList.Item(CInt(sender.Tag)) + 1)

@@ -12,7 +12,7 @@ Public Class CreateHTTPGameClass
                     HTTPGameCode = CInt(ResultString)
                     CreateGameSuccess = True
                 Else
-                    MsgBox(ResultString)
+                    Debug.Print(ResultString)
                 End If
         End Select
     End Sub

@@ -29,7 +29,6 @@ Public Class PvPHTTP
         BWPanel.Hide()
         Me.Width = 60 + 32 * holes
         Me.Height = 38 * (tries + 1) + 74
-        'Call GenerateBoard(2, GamePanel, BWPanel, ChooseCodePanel)
         InfoPanel.Visible = False
         With ChooseCodePanel
             .Visible = False
@@ -131,7 +130,6 @@ Public Class PvPHTTP
         BWPanel.Show()
         UsersTurn = True
         If IsGameStarter = 2 Then
-            ' 0 = not set, 1 = false, 2 = true
             Debug.Print("IS GAME STARTER. STARTER CHOOSES CODE.")
             Call SwitchSides()
         Else
@@ -264,7 +262,7 @@ Public Class PvPHTTP
                                     HolesList.Item(GuessList.Count).Invalidate()
                                 End If
                             Else
-                                If ChosenCodeList.Count < holes Then 'AndAlso HoleGraphicsTimer.Enabled = True
+                                If ChosenCodeList.Count < holes Then
                                     ChosenCodeList.Add(SelectedChooseCodeColor)
                                     ChooseCodeHolesList.Item(ChosenCodeList.Count - 1).Invalidate()
                                 End If
@@ -284,7 +282,6 @@ Public Class PvPHTTP
                                 Next
                                 If GuessList.Count < tries * holes Then
                                     HoleGraphicsTimer.Enabled = True
-                                    'HolesList.Item(GuessList.Count).Invalidate()
                                     If GuessList.Count - Attempt * holes = holes Then
                                         HoleGraphicsTimer.Enabled = False
                                         Dim UpdateGame As New UpdateGameClass
@@ -496,7 +493,6 @@ Public Class PvPHTTP
                 FillBWTimer.Enabled = False
                 BWStep = 0
                 If BlackCount = holes Then
-                    'MsgBox("You won")
                     Dim UserWins As Integer = 0
                     Dim AIWins As Integer = 0
                     For i As Integer = 0 To AttemptCountList.Count - 1
@@ -529,9 +525,8 @@ Public Class PvPHTTP
                     SolutionSet = False
                     InfoPanel.Show()
                     If HoleGraphicsTimer.Enabled = True Then
-                        MsgBox("Enabled")
+                        Debug.Print("Enabled")
                     End If
-                    'Call SwitchSides()
                 Else
                     HoleGraphicsTimer.Enabled = True
                     Attempt += 1
@@ -597,7 +592,7 @@ Public Class PvPHTTP
                     Solution = SolutionIntToArray(CInt(ResultString))
                     Debug.Print("SOLUTION VERIFICATION: " & ArrayToString(Solution))
                 Else
-                    MsgBox(ResultString & " !!!! Length: " & CStr(ResultString.Length))
+                    Debug.Print(ResultString & " !!!! Length: " & CStr(ResultString.Length))
                 End If
         End Select
         If SolutionSet = False Then
@@ -689,11 +684,6 @@ Public Class PvPHTTP
                 ChooseCodePanel.Hide()
                 PanelInvalidated = False
             End If
-            'ElseIf BWPanel.Visible = True Then
-            '    BWPanel.Hide()
-            '    For Each pic As PictureBox In HolesList
-            '        pic.Hide()
-            '    Next
         End If
     End Sub
     Private Sub PicMinimizeForm_Click(sender As Object, e As EventArgs) Handles PicMinimizeForm.Click
@@ -770,7 +760,6 @@ Public Class PvPHTTP
             Else
                 InvalidatedSteps += 1
                 ShowOpponentGuessTimer.Enabled = False
-                'NewAIBackgroundWorker.RunWorkerAsync()
             End If
         End If
     End Sub

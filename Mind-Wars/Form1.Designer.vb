@@ -125,13 +125,13 @@ Partial Class StartScreen
         Me.LabHTTPColors2 = New System.Windows.Forms.Label()
         Me.LabHTTPNewGame = New System.Windows.Forms.Label()
         Me.HTTPJoinPanel = New System.Windows.Forms.Panel()
+        Me.LabStatusTitle = New System.Windows.Forms.Label()
         Me.LabHTTPConnect2 = New System.Windows.Forms.Label()
         Me.LabCode2 = New System.Windows.Forms.Label()
         Me.LabHTTPJoin2 = New System.Windows.Forms.Label()
         Me.PicHTTPClose = New System.Windows.Forms.PictureBox()
         Me.PicLoading = New System.Windows.Forms.PictureBox()
         Me.LoadingSpinTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.LabStatusTitle = New System.Windows.Forms.Label()
         CType(Me.PicStartButton_Settings, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvE, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvPLan, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -223,7 +223,7 @@ Partial Class StartScreen
         Me.LabSettings.Name = "LabSettings"
         Me.LabSettings.Size = New System.Drawing.Size(222, 28)
         Me.LabSettings.TabIndex = 0
-        Me.LabSettings.Text = "Settings..."
+        Me.LabSettings.Text = "Singleplayer"
         Me.LabSettings.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'LabPvE
@@ -1451,6 +1451,15 @@ Partial Class StartScreen
         Me.HTTPJoinPanel.TabIndex = 28
         Me.HTTPJoinPanel.Visible = False
         '
+        'LabStatusTitle
+        '
+        Me.LabStatusTitle.Location = New System.Drawing.Point(99, 33)
+        Me.LabStatusTitle.Name = "LabStatusTitle"
+        Me.LabStatusTitle.Size = New System.Drawing.Size(100, 23)
+        Me.LabStatusTitle.TabIndex = 30
+        Me.LabStatusTitle.Text = "Loading..."
+        Me.LabStatusTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'LabHTTPConnect2
         '
         Me.LabHTTPConnect2.BackColor = System.Drawing.Color.Transparent
@@ -1521,15 +1530,6 @@ Partial Class StartScreen
         'LoadingSpinTimer
         '
         Me.LoadingSpinTimer.Interval = 20
-        '
-        'LabStatusTitle
-        '
-        Me.LabStatusTitle.Location = New System.Drawing.Point(99, 33)
-        Me.LabStatusTitle.Name = "LabStatusTitle"
-        Me.LabStatusTitle.Size = New System.Drawing.Size(100, 23)
-        Me.LabStatusTitle.TabIndex = 30
-        Me.LabStatusTitle.Text = "Loading..."
-        Me.LabStatusTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'StartScreen
         '

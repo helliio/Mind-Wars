@@ -78,7 +78,7 @@ Module WebModule
             If PvPHTTP.ConnectionBackgroundWorker.IsBusy = False Then
                 PvPHTTP.ConnectionBackgroundWorker.RunWorkerAsync()
             Else
-                MsgBox("CBW Busy")
+                Debug.Print("CBW Busy")
             End If
         Else
         End If

@@ -90,7 +90,6 @@
     </Compile>
     <Compile Include="GraphicalThemesModule.vb" />
     <Compile Include="ListPopulate.vb" />
-    <Compile Include="Minimax.vb" />
     <Compile Include="MinimaxFunctions.vb" />
     <Compile Include="MinimaxLight.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -112,6 +111,12 @@
       <DependentUpon>PvPHTTP.vb</DependentUpon>
     </Compile>
     <Compile Include="PvPHTTP.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Singleplayer.Designer.vb">
+      <DependentUpon>Singleplayer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Singleplayer.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SystemModule.vb" />
@@ -142,6 +147,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PvPHTTP.resx">
       <DependentUpon>PvPHTTP.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Singleplayer.resx">
+      <DependentUpon>Singleplayer.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

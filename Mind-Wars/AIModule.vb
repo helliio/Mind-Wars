@@ -31,13 +31,6 @@ Module AIModule
         For i As Integer = 0 To holes - 1
             AIGuessList.Add(code(i))
 
-            'Dim forkortelse As Integer = antallforsøk * antallhull - antallhull * (AIturn + 1) + 1
-
-            'Do
-            '    AIpeg = testcollection.Item(forkortelse + AIFargeIndex)
-            '    AIpeg.BackColor = fargekoder(NyesteForsøk(AIFargeIndex))
-            '    AIFargeIndex += 1
-            'Loop Until AIFargeIndex = antallhull
 
             If i < BW(0) Then
                 AIBWList.Add(2)
@@ -118,13 +111,13 @@ Module AIModule
 
             If Not CheckBW(1) = RealBW(1) OrElse Not CheckBW(0) = RealBW(0) Then
                 If ArrayToInt(CurrentlyPossibleSolutions.Item(q)) = ArrayToInt(solution) Then
-                    MsgBox("About to remove the actual solution. Solution: " & ArrayToString(solution) & ", CheckBW = " & ArrayToString(CheckBW) & ", RealBW = " & ArrayToString(RealBW) & ", GetBW(" & ArrayToString(CurrentlyPossibleSolutions.Item(q)) & ", " & ArrayToString(RealGuess) & ") returns CheckBW")
+                    Debug.Print("About to remove the actual solution. Solution: " & ArrayToString(Solution) & ", CheckBW = " & ArrayToString(CheckBW) & ", RealBW = " & ArrayToString(RealBW) & ", GetBW(" & ArrayToString(CurrentlyPossibleSolutions.Item(q)) & ", " & ArrayToString(RealGuess) & ") returns CheckBW")
                 End If
                 CurrentlyPossibleSolutions.RemoveAt(q)
             End If
             q -= 1
         Loop
-        'Debug.Print("Trimmed list of possible solutions: " & InitiallyPossibleSolutions.Count.ToString & " / " & CurrentlyPossibleSolutions.Count.ToString)
+
     End Sub
 
     Function CalculateEliminated(ByVal B As Integer, ByVal W As Integer, ByVal HypotheticalGuess() As Integer) As Integer

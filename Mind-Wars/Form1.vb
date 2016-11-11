@@ -84,7 +84,6 @@ Public Class StartScreen
             .Add(LabSettingsTheme)
         End With
         Call InitializeGUI()
-        Call PlayLoopingBackgroundSoundFile(1)
     End Sub
 
     Private Sub InitializeGUI()
@@ -811,7 +810,11 @@ Public Class StartScreen
     Sub EnterSelected()
         Select Case VisiblePanel
             Case 0
-                TogglePanels(PanelList(SelectedButtonListIndex))
+                If Not SelectedButtonListIndex = 0 Then
+                    TogglePanels(PanelList(SelectedButtonListIndex))
+                Else
+                    Singleplayer.Show()
+                End If
                 Debug.Print("TOGGLING " & CStr(SelectedButtonListIndex))
                 Debug.Print("VisiblePanel = " & VisiblePanel)
             Case 1
@@ -1217,7 +1220,7 @@ Public Class StartScreen
                 ConnectionEstablished = True
                 IsGameStarter = 1
             Case Else
-                MsgBox(ResultString & " !!! Form1")
+                Debug.Print(ResultString & " !!! Form1")
         End Select
 
     End Sub

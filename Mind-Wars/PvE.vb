@@ -8,10 +8,7 @@ Imports System.Threading
 Public Class PvEGame
     Dim CursorX As Integer, CursorY As Integer
     Dim DragForm As Boolean = False
-    Dim ShowHolesCounter As Integer = 0
-
-    Dim AttemptSum As Integer = 0
-    Dim Runs As Integer = 0
+    Dim ShowHolesCounter As Integer = 0, AttemptSum As Integer = 0, Runs As Integer = 0
 
     Private Sub PvE_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ChosenCodeList.Capacity = holes
@@ -225,10 +222,10 @@ Public Class PvEGame
                 Debug.Print("Starting BackgroundWorker.")
                 AIBackgroundWorker.RunWorkerAsync()
             Else
-                MsgBox("Maximum " & colours)
+                Debug.Print("Maximum " & colours)
             End If
         Else
-            MsgBox(holes & " holes")
+            Debug.Print(holes & " holes")
         End If
     End Sub
     Private Sub AverageTest()
@@ -330,10 +327,10 @@ Public Class PvEGame
                 Button2.Enabled = False
                 AIBackgroundWorkerEasy.RunWorkerAsync()
             Else
-                MsgBox("Maximum " & colours - 1)
+                Debug.Print("Maximum " & colours - 1)
             End If
         Else
-            MsgBox(holes & " holes")
+            Debug.Print(holes & " holes")
         End If
     End Sub
     Private Sub AIBackgroundWorkerEasy_DoWork(sender As Object, e As DoWorkEventArgs) Handles AIBackgroundWorkerEasy.DoWork
@@ -644,9 +641,9 @@ Public Class PvEGame
             If BlackCount = holes Then
                 Attempt += 1
                 UserAttemptCountList.Add(Attempt)
-                MsgBox("You won")
+                Debug.Print("You won")
                 If HoleGraphicsTimer.Enabled = True Then
-                    MsgBox("Enabled")
+                    Debug.Print("Enabled")
                 End If
                 Call SwitchSides()
             Else
@@ -794,10 +791,10 @@ Public Class PvEGame
                 Debug.Print("Starting NewAIBackgroundWorker.")
                 NewAIBackgroundWorker.RunWorkerAsync()
             Else
-                MsgBox("Maximum " & colours)
+                Debug.Print("Maximum " & colours)
             End If
         Else
-            MsgBox(holes & " holes")
+            Debug.Print(holes & " holes")
         End If
 
 
@@ -916,7 +913,7 @@ Public Class PvEGame
                 Dim heh As New ListPopulate
                 heh.PopulateLists()
             ElseIf CurrentlyPossibleSolutions.Count = 0 Then
-                MsgBox("error")
+                Debug.Print("error")
             End If
         End If
     End Sub
@@ -967,6 +964,10 @@ Public Class PvEGame
             '        pic.Hide()
             '    Next
         End If
+    End Sub
+
+    Private Sub PicFormHeader_Click(sender As Object, e As EventArgs) Handles PicFormHeader.Click
+
     End Sub
 
     Private Sub ChooseCodePanel_VisibleChanged(sender As Object, e As EventArgs) Handles ChooseCodePanel.VisibleChanged
