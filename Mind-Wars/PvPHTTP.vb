@@ -558,6 +558,12 @@ Public Class PvPHTTP
                     Next
                     AIAttempts = 0
                     Attempt = 0
+                    GameFinished = True
+                    ShowOpponentGuessTimer.Enabled = False
+                    LoadGuessTimer.Enabled = False
+                    ControlTimer.Enabled = False
+                    AIBWList.Clear()
+                    AIGuessList.Clear()
 
                     Dim ResetGame As New UpdateGameClass
                     ResetGame.ParametersString = "?code=" & HTTPGameCode & "&action=resetgame"

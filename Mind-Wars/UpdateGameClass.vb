@@ -18,7 +18,9 @@ Public Class UpdateGameClass
             MsgBox(ResultString & " in Update()")
         End If
         SolutionSet = True
-        PvPHTTP.LoadGuessTimer.Enabled = True
+        If GameFinished = False Then
+            PvPHTTP.LoadGuessTimer.Enabled = True
+        End If
     End Sub
 
     Public Sub UpdateGuess()
