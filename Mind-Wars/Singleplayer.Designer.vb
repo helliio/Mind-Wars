@@ -24,9 +24,6 @@ Partial Class Singleplayer
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.ChooseCodePanel = New System.Windows.Forms.PictureBox()
-        Me.NewAIBackgroundWorker = New System.ComponentModel.BackgroundWorker()
-        Me.StealthyPopulateBackgroundWorker = New System.ComponentModel.BackgroundWorker()
-        Me.DebugTimer = New System.Windows.Forms.Timer(Me.components)
         Me.FillBWTimer = New System.Windows.Forms.Timer(Me.components)
         Me.VerifyRowTimer = New System.Windows.Forms.Timer(Me.components)
         Me.HoleGraphicsTimer = New System.Windows.Forms.Timer(Me.components)
@@ -34,9 +31,7 @@ Partial Class Singleplayer
         Me.SelectedColorTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ShowHolesTimer = New System.Windows.Forms.Timer(Me.components)
         Me.HeaderTransparencyRight = New System.Windows.Forms.PictureBox()
-        Me.InitializeBackgroundWorker = New System.ComponentModel.BackgroundWorker()
         Me.PicInitialLoadProgress = New System.Windows.Forms.PictureBox()
-        Me.LoadCompleteTimer = New System.Windows.Forms.Timer(Me.components)
         Me.HeaderTransparencyLeft = New System.Windows.Forms.PictureBox()
         Me.BWPanel = New System.Windows.Forms.Panel()
         Me.InfoPanel = New System.Windows.Forms.Panel()
@@ -69,11 +64,6 @@ Partial Class Singleplayer
         Me.ChooseCodePanel.TabIndex = 25
         Me.ChooseCodePanel.TabStop = False
         Me.ChooseCodePanel.Visible = False
-        '
-        'DebugTimer
-        '
-        Me.DebugTimer.Enabled = True
-        Me.DebugTimer.Interval = 5000
         '
         'FillBWTimer
         '
@@ -109,10 +99,6 @@ Partial Class Singleplayer
         Me.HeaderTransparencyRight.TabIndex = 32
         Me.HeaderTransparencyRight.TabStop = False
         '
-        'InitializeBackgroundWorker
-        '
-        Me.InitializeBackgroundWorker.WorkerReportsProgress = True
-        '
         'PicInitialLoadProgress
         '
         Me.PicInitialLoadProgress.BackColor = System.Drawing.Color.Transparent
@@ -121,10 +107,6 @@ Partial Class Singleplayer
         Me.PicInitialLoadProgress.Size = New System.Drawing.Size(80, 80)
         Me.PicInitialLoadProgress.TabIndex = 27
         Me.PicInitialLoadProgress.TabStop = False
-        '
-        'LoadCompleteTimer
-        '
-        Me.LoadCompleteTimer.Interval = 30
         '
         'HeaderTransparencyLeft
         '
@@ -237,6 +219,7 @@ Partial Class Singleplayer
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.StartScreenBG1
         Me.ClientSize = New System.Drawing.Size(251, 712)
+        Me.ControlBox = False
         Me.Controls.Add(Me.PicCloseForm)
         Me.Controls.Add(Me.PicMinimizeForm)
         Me.Controls.Add(Me.PicFormHeader)
@@ -246,9 +229,12 @@ Partial Class Singleplayer
         Me.Controls.Add(Me.PicInitialLoadProgress)
         Me.Controls.Add(Me.HeaderTransparencyLeft)
         Me.Controls.Add(Me.BWPanel)
+        Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Singleplayer"
-        Me.Text = "Singleplayer"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "Mind Wars"
+        Me.TransparencyKey = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(1, Byte), Integer), CType(CType(2, Byte), Integer))
         CType(Me.ChooseCodePanel, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.HeaderTransparencyRight, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicInitialLoadProgress, System.ComponentModel.ISupportInitialize).EndInit()
@@ -265,9 +251,6 @@ Partial Class Singleplayer
     End Sub
 
     Friend WithEvents ChooseCodePanel As PictureBox
-    Friend WithEvents NewAIBackgroundWorker As System.ComponentModel.BackgroundWorker
-    Friend WithEvents StealthyPopulateBackgroundWorker As System.ComponentModel.BackgroundWorker
-    Friend WithEvents DebugTimer As Timer
     Friend WithEvents FillBWTimer As Timer
     Friend WithEvents VerifyRowTimer As Timer
     Friend WithEvents HoleGraphicsTimer As Timer
@@ -275,9 +258,7 @@ Partial Class Singleplayer
     Public WithEvents SelectedColorTimer As Timer
     Friend WithEvents ShowHolesTimer As Timer
     Friend WithEvents HeaderTransparencyRight As PictureBox
-    Public WithEvents InitializeBackgroundWorker As System.ComponentModel.BackgroundWorker
     Public WithEvents PicInitialLoadProgress As PictureBox
-    Friend WithEvents LoadCompleteTimer As Timer
     Friend WithEvents HeaderTransparencyLeft As PictureBox
     Friend WithEvents BWPanel As Panel
     Friend WithEvents InfoPanel As Panel

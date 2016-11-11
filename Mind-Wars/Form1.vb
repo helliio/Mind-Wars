@@ -10,7 +10,7 @@ Public Class StartScreen
     Dim PanelList As New List(Of Panel)
 
     Dim PvEHoles As Integer = 4, PvEColors As Integer = 6, PvEAttempts As Integer = 10, FocusedPvEColorListIndex As Integer = 5, SelectedPvEDifficulty As Integer = 1
-    Dim SelectedButtonListIndex, SelectedSettingsListIndex, VisiblePanel, CursorX, CursorY, FocusedLabelAddColor, PvEFocusedCategory, HTTPFocusedCategory, HTTPFocusedSubCategory, HTTPSelectedMode, SelectedHTTPListIndex, SelectedPvEListIndex As Integer
+    Dim SelectedButtonListIndex, VisiblePanel, CursorX, CursorY, FocusedLabelAddColor, PvEFocusedCategory, HTTPFocusedCategory, HTTPFocusedSubCategory, HTTPSelectedMode, SelectedHTTPListIndex, SelectedPvEListIndex As Integer
 
     Dim DragForm As Boolean = False, FocusedLabelColorIncreasing As Boolean = True
     Dim FocusedLabel As Label
@@ -20,10 +20,8 @@ Public Class StartScreen
         Me.Hide()
         Call PopulateImageList(0)
         With PanelList
-            .Add(PanelSettings)
             .Add(PanelPvE)
             .Add(PanelPvP2)
-            .Add(PanelPvPHTTP)
             .Add(PanelTutorial)
         End With
         With PvEColorList
@@ -76,13 +74,6 @@ Public Class StartScreen
             .Add(LabPvEHard)
             .Add(LabPvEImpossible)
         End With
-        With ButtonSettingsList
-            .Add(PicCloseSettings)
-        End With
-        With SettingsLabList
-            .Add(LabSettingsSound)
-            .Add(LabSettingsTheme)
-        End With
         Call InitializeGUI()
     End Sub
 
@@ -95,8 +86,6 @@ Public Class StartScreen
         LabPvPLan.Parent = PicStartButton_PvPLan
         LabPvPHTTP.Parent = PicStartButton_PvPHTTP
         LabTutorial.Parent = PicStartButton_Tutorial
-        LabSettingsTheme.Parent = PicSettingsTheme
-        LabSettingsSound.Parent = PicSettingSound
         With LabStatusTitle
             .ForeColor = Color.LimeGreen
             .Hide()
@@ -236,34 +225,7 @@ Public Class StartScreen
             .Dock = DockStyle.Fill
         End With
 
-        With LabCode
-            .Parent = PanelPvPHTTP
-            .Width = .Parent.ClientRectangle.Width
-            .Height = My.Resources.SettingsButtonActive.Height
-            .Top = 10
-            .Left = 0
-        End With
-        With cmdConnectHTTP
-            .Parent = PanelPvPHTTP
-            .Width = .Parent.ClientRectangle.Width
-            .Height = My.Resources.ButtonBorderInactive.Height
-            .Top = LabCode.Height + LabCode.Top + 10
-            .Left = 0
-        End With
-        With cmdNewPrivateGame
-            .Parent = PanelPvPHTTP
-            .Width = .Parent.ClientRectangle.Width
-            .Height = My.Resources.ButtonBorderInactive.Height
-            .Top = cmdConnectHTTP.Height + cmdConnectHTTP.Top + 10
-            .Left = 0
-        End With
-        With cmdNewPublicGame
-            .Parent = PanelPvPHTTP
-            .Width = .Parent.ClientRectangle.Width
-            .Height = My.Resources.ButtonBorderInactive.Height
-            .Top = cmdNewPrivateGame.Height + cmdNewPrivateGame.Top + 10
-            .Left = 0
-        End With
+
         With HeaderTransparencyLeft
             .Parent = PicFormHeader
             .Left = 0
@@ -304,30 +266,6 @@ Public Class StartScreen
                     With Selection
                         ParentPic.Image = ImageList(1)
                         .ForeColor = DefaultSelectedLabelColor
-                    End With
-                End If
-                'Selection.Invalidate()
-            Case 1
-                ChangeIndex = SelectedSettingsListIndex
-
-
-                Dim Selection As PictureBox = ButtonSettingsList.Item(ChangeIndex)
-                If deselect = True Then
-                    With Selection
-                        If ChangeIndex = 0 Then
-                            .Image = ImageList(4)
-                        Else
-                            .Image = ImageList(3)
-                            .ForeColor = DefaultLabelColor
-                        End If
-                    End With
-                Else
-                    With Selection
-                        If ChangeIndex = 0 Then
-                            .Image = ImageList(1)
-                        Else
-                            .ForeColor = DefaultSelectedLabelColor
-                        End If
                     End With
                 End If
             Case 2
@@ -454,13 +392,16 @@ Public Class StartScreen
 
     Private Sub StartScreen_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If e.KeyCode = Keys.Escape Then
-            If Not VisiblePanel = 0 Then
-                TogglePanels(PanelList(VisiblePanel))
-                VisiblePanel = 0
-                e.Handled = True
-            Else
-                Close()
-            End If
+            Select Case VisiblePanel
+                Case 0
+                    Close()
+                Case 2
+                    Call TogglePanels(PanelPvE)
+                Case 4
+                    Call TogglePanels(PanelPvP2)
+                Case 5
+                    Call TogglePanels(PanelTutorial)
+            End Select
         End If
 
         Select Case VisiblePanel
@@ -489,7 +430,6 @@ Public Class StartScreen
                     Case Keys.Space, Keys.Enter
                         Call EnterSelected()
                 End Select
-            Case 1
             Case 2
                 Select Case e.KeyCode
                     Case Keys.Down
@@ -790,6 +730,10 @@ Public Class StartScreen
                             End Select
                         End If
                 End Select
+            Case 5
+                If e.KeyCode = Keys.Space OrElse e.KeyCode = Keys.Enter Then
+                    Call TogglePanels(PanelTutorial)
+                End If
         End Select
     End Sub
 
@@ -810,19 +754,13 @@ Public Class StartScreen
     Sub EnterSelected()
         Select Case VisiblePanel
             Case 0
-                If Not SelectedButtonListIndex = 0 Then
+                If Not SelectedButtonListIndex = 0 AndAlso Not SelectedButtonListIndex = 4 Then
                     TogglePanels(PanelList(SelectedButtonListIndex))
-                Else
+                ElseIf SelectedButtonListIndex = 0 Then
                     Singleplayer.Show()
                 End If
                 Debug.Print("TOGGLING " & CStr(SelectedButtonListIndex))
                 Debug.Print("VisiblePanel = " & VisiblePanel)
-            Case 1
-                Select Case SelectedSettingsListIndex
-                    Case 0
-                        PanelSettings.Hide()
-                        VisiblePanel = 0
-                End Select
             Case 2
                 Select Case SelectedPvEListIndex
                     Case 0
@@ -927,13 +865,9 @@ Public Class StartScreen
                         If Not HTTPFocusedSubCategory = 2 Then
                             HTTPFocusedSubCategory = 2
                             PicHTTPHoles.Image = ImageList(9)
-                            LabHTTPHolesCaption.ForeColor = Color.LightSkyBlue
-                            LabHTTPHoles.ForeColor = DefaultSelectedLabelColor
                         Else
                             HTTPFocusedSubCategory = 0
                             PicHTTPHoles.Image = ImageList(8)
-                            LabHTTPHolesCaption.ForeColor = DefaultLabelColor
-                            LabHTTPHoles.ForeColor = Color.LightSkyBlue
                         End If
                     Case 7
                         If Not HTTPFocusedSubCategory = 3 Then
@@ -949,9 +883,11 @@ Public Class StartScreen
                         End If
                     Case 8
                         PvEAttempts = CInt(LabPvENumberOfAttempts.Text)
-                        holes = PvEHoles
+                        'holes = PvEHoles
                         colours = PvEColors
                         tries = PvEAttempts
+                        holes = 4
+                        Debug.Print("STARTING GAME")
                         If HTTPBackgroundWorker.IsBusy = False Then
                             HTTPBackgroundWorker.RunWorkerAsync()
                         End If
@@ -983,13 +919,13 @@ Public Class StartScreen
         Call EnterSelected()
     End Sub
 
-    Private Sub ClosePanel(senderX As Object, e As EventArgs) Handles PicClosePvE.Click, PicClosePvPLAN.Click, PicCloseTutorial.Click, PicClosePvPHTTP.Click
+    Private Sub ClosePanel(senderX As Object, e As EventArgs) Handles PicClosePvE.Click
         Call TogglePanels(PanelList(VisiblePanel))
         'sender.Parent.Hide()
     End Sub
 
     Dim PanelInvalidated As Boolean = False, PanelControlsVisible As Boolean = True
-    Private Sub ShowMainOnPaint(senderX As Object, e As PaintEventArgs) Handles PanelPvE.Paint, PanelPvPHTTP.Paint, PanelSettings.Paint, PanelTutorial.Paint, PanelPvPLan.Paint, PanelPvP2.Paint
+    Private Sub ShowMainOnPaint(senderX As Object, e As PaintEventArgs) Handles PanelPvE.Paint, PanelTutorial.Paint, PanelPvP2.Paint
         If PanelControlsVisible = False Then
             Dim sender As Panel = DirectCast(senderX, Panel)
             If PanelInvalidated = False Then
@@ -1119,31 +1055,6 @@ Public Class StartScreen
 
     End Sub
 
-    Private Sub PicTheme_Paint(sender As Object, e As PaintEventArgs) Handles PicTheme1.Paint, PicTheme2.Paint, PicTheme3.Paint
-        Dim SenderPic As PictureBox = DirectCast(sender, PictureBox)
-        e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
-        ThemeDrawRect = SenderPic.DisplayRectangle
-        ThemeDrawRect.Inflate(-1, -1)
-        If CStr(SenderPic.Tag) = "test" Then
-            e.Graphics.DrawEllipse(Pens.Red, ThemeDrawRect)
-        Else
-            e.Graphics.DrawEllipse(Pens.LightCyan, ThemeDrawRect)
-        End If
-    End Sub
-
-    Private Sub PicFormHeader_Click(sender As Object, e As EventArgs) Handles PicFormHeader.Click
-        If HTTPBackgroundWorker.IsBusy = False Then
-            HTTPBackgroundWorker.RunWorkerAsync()
-        End If
-    End Sub
-
-    Private Sub cmdConnectHTTP_Click(sender As Object, e As EventArgs) Handles cmdConnectHTTP.Click
-        ' SHOW "STAND BY" MESSAGE
-        If IsNumeric(txtCode.Text) AndAlso txtCode.Text.Length = 4 AndAlso Not JoinBackgroundWorker.IsBusy Then
-            ConnectionCode = txtCode.Text
-            JoinBackgroundWorker.RunWorkerAsync()
-        End If
-    End Sub
 
     Sub JoinGame()
         If IsNumeric(LabCode2.Text) AndAlso LabCode2.Text.Length = 4 AndAlso Not JoinBackgroundWorker.IsBusy Then
@@ -1182,6 +1093,7 @@ Public Class StartScreen
         End If
     End Sub
 
+
     Private Sub HTTPBackgroundWorker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles HTTPBackgroundWorker.DoWork
         Dim NewGame As New CreateHTTPGameClass
         Dim NewGameThread As New System.Threading.Thread(AddressOf NewGame.Create)
@@ -1196,10 +1108,6 @@ Public Class StartScreen
         If LoadingSpinRotation > 360 Then
             LoadingSpinRotation -= 360
         End If
-    End Sub
-
-    Private Sub PicLoading_Click(sender As Object, e As EventArgs) Handles PicLoading.Click
-
     End Sub
 
     Private Sub JoinBackgroundWorker_DoWork(sender As Object, e As DoWorkEventArgs) Handles JoinBackgroundWorker.DoWork
@@ -1225,29 +1133,8 @@ Public Class StartScreen
 
     End Sub
 
-    Private Sub PicSound_Paint(senderX As Object, e As PaintEventArgs) Handles PicSound1.Paint, PicSound2.Paint, PicSound3.Paint
-        Dim sender As PictureBox = DirectCast(senderX, PictureBox)
-        e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
-        SoundDrawRect = sender.DisplayRectangle
-        SoundDrawRect.Inflate(-1, -1)
-        If CStr(sender.Tag) = "test" Then
-            e.Graphics.DrawEllipse(Pens.Red, SoundDrawRect)
-        Else
-            e.Graphics.DrawEllipse(Pens.LightCyan, SoundDrawRect)
-        End If
-    End Sub
-
-    Private Sub PicClosePvPHTTP_Click(sender As Object, e As EventArgs) Handles PicClosePvPHTTP.Click
-
-    End Sub
-
     Private Sub PicMinimizeForm_Click(sender As Object, e As EventArgs) Handles PicMinimizeForm.Click
         Me.WindowState = FormWindowState.Minimized
-    End Sub
-
-    Private Sub cmdTestTheme_Click(sender As Object, e As EventArgs) Handles cmdTestTheme.Click
-        Dim themeint As Integer = CInt(ThemeComboBox.SelectedValue)
-        'Call ChangeTheme(0)
     End Sub
 
     Private Sub LabCode2_Click(sender As Object, e As EventArgs) Handles LabCode2.Click
@@ -1256,9 +1143,6 @@ Public Class StartScreen
         Call SelectButton(True)
         SelectedHTTPListIndex = 2
         Call SelectButton(False)
-    End Sub
-    Private Sub txtCode_TextChanged(sender As Object, e As EventArgs) Handles txtCode.TextChanged
-        LabCode.Text = txtCode.Text
     End Sub
 
     Private Sub PicPvEColorPalette_Paint(sender As Object, e As PaintEventArgs) Handles PicPvEColor1.Paint, PicPvEColor2.Paint, PicPvEColor3.Paint, PicPvEColor4.Paint, PicPvEColor5.Paint, PicPvEColor6.Paint, PicPvEColor7.Paint, PicPvEColor8.Paint
