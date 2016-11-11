@@ -315,8 +315,13 @@ Public Class PvPHTTP
                             End If
                         End If
                     Else
-                        Call SwitchSides()
-
+                        SolutionSet = False
+                        If UsersTurn = False Then
+                            LabInfo.Text = "Your opponent is choosing the secret code."
+                            CheckStatusBackgroundWorker.RunWorkerAsync()
+                        Else
+                            Call SwitchSides()
+                        End If
                     End If
                 Case Keys.Back
                     If VerifyRowTimer.Enabled = True Then
@@ -462,6 +467,7 @@ Public Class PvPHTTP
         AIAttempts = 0
         AIBWList.Clear()
         AIGuessList.Clear()
+        AIStep = 0
         GameFinished = False
         DrawingModule.InvalidatedSteps = 1
         BWCountList.Clear()
@@ -500,9 +506,16 @@ Public Class PvPHTTP
                     Next
                     AIAttempts = 0
                     Attempt = 0
-                    LabInfo.Text = "You: " & UserWins & " | Opponent: " & AIWins & vbNewLine & "Press [space] to continue playing."
-                    InfoPanel.Show()
                     GameFinished = True
+                    LabInfo.Text = "You: " & UserWins & " | Opponent: " & AIWins & vbNewLine & "Press [space] to continue playing."
+                    Dim UpdateSolutionString As String = ArrayToString(Solution)
+                    Dim UpdateGame As New UpdateGameClass
+                    UpdateGame.ParametersString = "?code=" & HTTPGameCode & "&action=setsolution&solution=NotSet"
+                    Dim UpdateGameString As New System.Threading.Thread(AddressOf UpdateGame.Update)
+                    UpdateGameString.IsBackground = True
+                    UpdateGameString.Start()
+                    Debug.Print("SOLUTION IS " & ArrayToInt(Solution))
+                    InfoPanel.Show()
                     If HoleGraphicsTimer.Enabled = True Then
                         MsgBox("Enabled")
                     End If
