@@ -3,18 +3,6 @@ Option Explicit On
 Option Infer Off
 Public Class MinimaxFunctions
 
-    'Function MiniCalculateEliminated(ByVal B As Integer, ByVal W As Integer, ByVal HypotheticalGuess() As Integer, ByRef L As Integer()()) As Integer
-    '    Dim SolutionsEliminated As Integer = 0
-    '    Dim ListCount As Integer = L.Count - 1
-    '    For q = 0 To ListCount
-    '        Dim Check() As Integer = MiniGetBW(L(q), HypotheticalGuess)
-    '        If Not Check(0) = B OrElse Not Check(1) = W Then
-    '            SolutionsEliminated += 1
-    '        End If
-    '    Next
-    '    Return SolutionsEliminated
-    'End Function
-
     Function NewCalculateEliminated(ByVal B As Integer, ByVal W As Integer, ByVal HypotheticalGuess() As Integer, ByRef CLi As Integer()()) As Integer
         ' BTW
         ' We can check if the returned amount of eliminated is less than the current maximum, and skip a lot of work.
@@ -68,7 +56,6 @@ Public Class MinimaxFunctions
         Return int
     End Function
 
-    'Public Function MiniGetBW(ByVal ail() As Integer, ByVal g() As Integer) As Integer()
     Function MiniGetBW(ByVal verifysolution() As Integer, ByVal verifyguess() As Integer) As Integer()
         Dim bw(1) As Integer
         bw = {0, 0}
@@ -84,7 +71,6 @@ Public Class MinimaxFunctions
         Next
         For i As Integer = 0 To holes - 1
             For j As Integer = 0 To holes - 1
-                'If g(j) = s(i) AndAlso g(i) <> s(i) AndAlso s(i) <> -1 Then
                 If g(j) = s(i) AndAlso s(i) <> -1 Then
                     bw(1) += 1
                     g(j) = -1

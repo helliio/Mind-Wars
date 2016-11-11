@@ -18,10 +18,10 @@ Public Class DeleteGameClass
                 Case "deleted"
                     Debug.Print("Deleted game " & DeleteGameCode)
                 Case Else
-                    MsgBox(ResultString)
+                    Debug.Print(ResultString)
             End Select
         Catch ex As Exception
-            MsgBox(ex.Message)
+            Debug.Print(ex.Message)
         Finally
             HTTPDeleteClient.Dispose()
             Threading.Thread.CurrentThread.Abort()

@@ -7,7 +7,6 @@ Class MinimaxLight
     Sub New(ByVal PossibleList As Integer()())
 
         LocalPossibleList = PossibleList
-        'LocalPossibleList = PossibleList.GetRange(0, InitialList.Count)
     End Sub
 
     Public Sub FindBestMove()
@@ -60,18 +59,5 @@ Class MinimaxLight
 
 
 
-
-    'Private Function MiniCalculateEliminated(ByVal B As Integer, ByVal W As Integer, ByVal HypotheticalGuess() As Integer) As Integer
-    '    Dim SolutionsEliminated As Integer = 0
-    '    Dim ListCount As Integer = LocalPossibleList.Count - 1
-    '    Dim Check() As Integer
-    '    For q = 0 To ListCount
-    '        Check = MiniGetBW(LocalPossibleList(q), HypotheticalGuess)
-    '        If Not Check(0) = B OrElse Not Check(1) = W Then
-    '            SolutionsEliminated += 1
-    '        End If
-    '    Next
-    '    Return SolutionsEliminated
-    'End Function
 
 End Class
