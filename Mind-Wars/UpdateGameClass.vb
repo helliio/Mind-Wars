@@ -52,13 +52,13 @@ Public Class UpdateGameClass
         If Not ResultString = LatestSeriesString AndAlso ResultString.Length > 0 Then
             LatestSeriesString = ResultString
             Debug.Print("Previous: " & LatestSeriesString & vbNewLine & "New: " & ResultString)
-            AIGuessList.Clear()
-            Dim GuessArray() As Char = ResultString.ToCharArray
-            For i As Integer = 0 To GuessArray.GetUpperBound(0)
-                AIGuessList.Add(CInt(GuessArray(i).ToString))
-            Next
             Debug.Print("AIGuessList.Count = " & CStr(AIGuessList.Count))
+        Else
+            Debug.Print("LatestSeriesString: " & LatestSeriesString & ", ResultString.Length = " & ResultString.Length)
         End If
-        PvPHTTP.ShowOpponentGuessTimer.Enabled = True
+        'Debug.Print("<Starting SOG>")
+        'PvPHTTP.ShowOpponentGuessTimer.Enabled = True
+        Debug.Print("Finished loading")
+        IsLoading = False
     End Sub
 End Class

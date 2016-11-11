@@ -274,7 +274,6 @@ Partial Class PvPHTTP
         '
         'LoadGuessTimer
         '
-        Me.LoadGuessTimer.Interval = 2000
         '
         'ShowOpponentGuessTimer
         '
@@ -282,7 +281,7 @@ Partial Class PvPHTTP
         '
         'ControlTimer
         '
-        Me.ControlTimer.Interval = 2000
+        Me.ControlTimer.Interval = 500
         '
         'PvPHTTP
         '
@@ -347,6 +346,6 @@ Partial Class PvPHTTP
     Friend WithEvents PicCloseForm As PictureBox
     Friend WithEvents PicMinimizeForm As PictureBox
     Friend WithEvents LoadGuessTimer As Timer
-    Friend WithEvents ShowOpponentGuessTimer As Timer
     Friend WithEvents ControlTimer As Timer
+    Public WithEvents ShowOpponentGuessTimer As Timer
 End Class
