@@ -454,7 +454,7 @@ Public Class PvPHTTP
     End Sub
     Private Sub SwitchSides()
         Attempt = 0
-        DrawingModule.InvalidatedSteps = 0
+        DrawingModule.InvalidatedSteps = 1
         BWCountList.Clear()
         GuessList.Clear()
         InfoPanel.Hide()
@@ -646,8 +646,8 @@ Public Class PvPHTTP
 
     Private Sub LoadGuessTimer_Tick(sender As Object, e As EventArgs) Handles LoadGuessTimer.Tick
         Debug.Print("LOADING...")
-        If ShowHolesTimer.Enabled = False Then
-            LoadGuessTimer.Enabled = False
+        If ShowHolesTimer.Enabled = False AndAlso IsLoading = False Then
+            IsLoading = True
             Dim UpdateGame As New UpdateGameClass
             Dim UpdateGameString As New System.Threading.Thread(AddressOf UpdateGame.LoadGuess)
             UpdateGameString.IsBackground = True
@@ -656,75 +656,82 @@ Public Class PvPHTTP
     End Sub
 
     Private Sub ShowOpponentGuessTimer_Tick(sender As Object, e As EventArgs) Handles ShowOpponentGuessTimer.Tick
-        Debug.Print("SOG TIMER TICK")
-        If AIGuessList.Count >= InvalidatedSteps * holes Then
-            Debug.Print("SOG TIMER TICK GREATER")
-            Dim ArrBW() As Integer = {0, 0}
-            Dim InvalidateRow As Integer = holes * tries - InvalidatedSteps * holes
-            If AIStep < holes Then
-                HolesList(InvalidateRow + AIStep).Invalidate()
-                AIStep += 1
-            ElseIf AIStep < holes * 2 Then
-                If AIStep = holes Then
-                    Dim CheckBWArr(holes - 1) As Integer
-                    For i As Integer = 0 To holes - 1
-                        CheckBWArr(i) = AIGuessList(holes * (InvalidatedSteps - 1) + i)
-                    Next
-                    ArrBW = verify(Solution, CheckBWArr)
-                    For n As Integer = 0 To holes - 1
-                        If n < ArrBW(0) Then
-                            AIBWList.Add(2)
-                        ElseIf n - ArrBW(0) < ArrBW(1) Then
-                            AIBWList.Add(1)
-                        Else
-                            AIBWList.Add(0)
-                        End If
-                    Next
-                End If
-                BWHolesList.Item(InvalidateRow + AIStep - holes).Invalidate()
-                AIStep += 1
-            Else
-                AIStep = 0
-                If ArrBW(0) = holes Then
-                    Debug.Print("Opponent won")
-
-                    AttemptCountList.Add(CInt(AIGuessList.Count / holes))
-                    Dim UserWins As Integer = 0
-                    Dim OpponentWins As Integer = 0
-                    For i As Integer = 0 To AttemptCountList.Count - 1
-                        If AttemptCountList(i) < UserAttemptCountList(i) Then
-                            OpponentWins += 1
-                        ElseIf AttemptCountList(i) > UserAttemptCountList(i) Then
-                            UserWins += 1
-                        End If
-                    Next
-                    Attempt = 0
-                    LabInfo.Text = "You: " & UserWins & ", Opponent: " & OpponentWins & vbNewLine & "Press [space] to continue playing."
-                    InfoPanel.Show()
-                    GameFinished = True
-                    InvalidatedSteps = 1
-                    ShowOpponentGuessTimer.Enabled = False
-                ElseIf DrawingModule.InvalidatedSteps * holes < AIGuessList.Count Then
-                    InvalidatedSteps += 1
-                Else
-                    InvalidatedSteps += 1
-                    LoadGuessTimer.Enabled = True
-                    ShowOpponentGuessTimer.Enabled = False
-                End If
-            End If
+        Debug.Print("SOG TIMER TICK!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        Debug.Print("Holes*Tries = " & CStr(holes * tries) & ", invalidatedsteps = " & InvalidatedSteps & ", holes = " & holes & "holes*tries - invalidatedsteps*holes = " & CStr(holes * tries - InvalidatedSteps * holes))
+        Dim InvalidateRow As Integer = holes * tries - InvalidatedSteps * holes
+        If AIStep < holes Then
+            HolesList(InvalidateRow + AIStep).Invalidate()
+            AIStep += 1
+        ElseIf AIStep < holes * 2 Then
+            BWHolesList.Item(InvalidateRow + AIStep - holes).Invalidate()
+            AIStep += 1
         Else
-            Debug.Print("SOG TIMER TICK ELSE")
-            LoadGuessTimer.Enabled = True
-            ShowOpponentGuessTimer.Enabled = False
+            AIStep = 0
+            Dim BWSum As Integer = 0
+            For i As Integer = 0 To holes - 1
+                BWSum += AIBWList(holes * (InvalidatedSteps - 1) + i)
+            Next
+            If BWSum = 2 * holes Then
+                Debug.Print("AI won")
+
+                Dim UserWins As Integer = 0
+                Dim AIWins As Integer = 0
+                For i As Integer = 0 To AttemptCountList.Count - 1
+                    If AttemptCountList(i) < UserAttemptCountList(i) Then
+                        AIWins += 1
+                    ElseIf AttemptCountList(i) > UserAttemptCountList(i) Then
+                        UserWins += 1
+                    End If
+                Next
+                AIAttempts = 0
+                Attempt = 0
+                LabInfo.Text = "You: " & UserWins & ", AI: " & AIWins & vbNewLine & "Press [space] to continue playing."
+                InfoPanel.Show()
+                GameFinished = True
+                InvalidatedSteps = 1
+                ShowOpponentGuessTimer.Enabled = False
+            ElseIf InvalidatedSteps * holes < AIGuessList.Count Then
+                InvalidatedSteps += 1
+            Else
+                InvalidatedSteps += 1
+                ShowOpponentGuessTimer.Enabled = False
+                'NewAIBackgroundWorker.RunWorkerAsync()
+            End If
         End If
     End Sub
 
     Private Sub ControlTimer_Tick(sender As Object, e As EventArgs) Handles ControlTimer.Tick
         If SolutionSet = True AndAlso UsersTurn = False AndAlso ShowHolesTimer.Enabled = False Then
-            LoadGuessTimer.Enabled = True
+            If IsLoading = False Then
+                LoadGuessTimer.Enabled = True
+            End If
+
+            If LatestSeriesString.Length > AIGuessList.Count Then
+                AIAttempts += 1
+                AIGuessList.Clear()
+                Dim GuessArray() As Char = LatestSeriesString.ToCharArray
+                For i As Integer = 0 To GuessArray.GetUpperBound(0)
+                    AIGuessList.Add(CInt(GuessArray(i).ToString))
+                Next
+                Dim VerifyNew(holes - 1) As Integer
+                For i As Integer = 0 To holes - 1
+                    VerifyNew(i) = AIGuessList(AIGuessList.Count - holes + i)
+                Next
+                Dim NewBW() As Integer = verify(Solution, VerifyNew)
+                For n As Integer = 0 To holes - 1
+                    If n < NewBW(0) Then
+                        AIBWList.Add(2)
+                    ElseIf n - NewBW(0) < NewBW(1) Then
+                        AIBWList.Add(1)
+                    Else
+                        AIBWList.Add(0)
+                    End If
+                Next
+                ShowOpponentGuessTimer.Enabled = True
+            End If
             Debug.Print("ControlTimer True")
-        Else
-            If SolutionSet = False Then
+            Else
+                If SolutionSet = False Then
                 Debug.Print("Solution False")
             End If
             If UsersTurn = True Then

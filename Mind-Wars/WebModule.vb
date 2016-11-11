@@ -12,9 +12,10 @@ Module WebModule
     Public IsGameStarter, HTTPGameCode, ConnectionFailureCounter As Integer
 
     Public HTTPClient, HTTPConnectClient, HTTPCheckStatusClient As New WebClient
-    Public ConnectionEstablished, SolutionSet, CreateGameSuccess As Boolean
+    Public ConnectionEstablished, SolutionSet, CreateGameSuccess, IsLoading As Boolean
 
-    Public ConnectionErrorString As String = "", ConnectionErrorDescription As String = "", LatestSeriesString As String
+
+    Public ConnectionErrorString As String = "", ConnectionErrorDescription As String = "", LatestSeriesString As String = ""
 
 
 
