@@ -9,20 +9,13 @@ Imports System.IO
 Module WebModule
     Public ServerBaseURI As String = "http://www.mindwars.no/"
     Private TestDirectory As String = "/test.php"
-    Public IsGameStarter As Integer = 0
-    Public CreateGameSuccess As Boolean = False
-    Public HTTPGameCode As Integer
+    Public IsGameStarter, HTTPGameCode, ConnectionFailureCounter As Integer
 
     Public HTTPClient, HTTPConnectClient, HTTPCheckStatusClient As New WebClient
-    Public ConnectionEstablished As Boolean = False
+    Public ConnectionEstablished, SolutionSet, CreateGameSuccess As Boolean
 
-    Public SolutionSet As Boolean = False
+    Public ConnectionErrorString As String = "", ConnectionErrorDescription As String = "", LatestSeriesString As String
 
-    Public ConnectionErrorString As String = ""
-    Public ConnectionErrorDescription As String = ""
-    Public ConnectionFailureCounter As Integer = 0
-
-    Public LatestSeriesString As String
 
 
     Public Function CheckOpponentConnection(ByVal code As Integer) As Integer
