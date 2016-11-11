@@ -507,14 +507,18 @@ Public Class PvPHTTP
                     AIAttempts = 0
                     Attempt = 0
                     GameFinished = True
+
                     LabInfo.Text = "You: " & UserWins & " | Opponent: " & AIWins & vbNewLine & "Press [space] to continue playing."
-                    Dim UpdateSolutionString As String = ArrayToString(Solution)
-                    Dim UpdateGame As New UpdateGameClass
-                    UpdateGame.ParametersString = "?code=" & HTTPGameCode & "&action=setsolution&solution=NotSet"
-                    Dim UpdateGameString As New System.Threading.Thread(AddressOf UpdateGame.Update)
+
+                    AIGuessList.Clear()
+                    AIBWList.Clear()
+
+                    SolutionSet = False
+                    Dim ResetGame As New UpdateGameClass
+                    ResetGame.ParametersString = "?code=" & HTTPGameCode & "&action=resetgame"
+                    Dim UpdateGameString As New System.Threading.Thread(AddressOf ResetGame.Update)
                     UpdateGameString.IsBackground = True
                     UpdateGameString.Start()
-                    Debug.Print("SOLUTION IS " & ArrayToInt(Solution))
                     InfoPanel.Show()
                     If HoleGraphicsTimer.Enabled = True Then
                         MsgBox("Enabled")
@@ -734,6 +738,7 @@ Public Class PvPHTTP
                 Next
                 AIAttempts = 0
                 Attempt = 0
+
                 LabInfo.Text = "You: " & UserWins & " | Opponent: " & AIWins & vbNewLine & "Press [space] to continue playing."
                 InfoPanel.Show()
                 GameFinished = True
