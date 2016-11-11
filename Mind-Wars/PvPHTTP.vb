@@ -477,6 +477,7 @@ Public Class PvPHTTP
         VerifyRowTimer.Enabled = False
         If UsersTurn = True Then
             HoleGraphicsTimer.Enabled = False
+
             Call ShowHideChooseCodePanel(BWPanel, ChooseCodePanel)
             UsersTurn = False
         Else
@@ -513,17 +514,19 @@ Public Class PvPHTTP
                     ControlTimer.Enabled = False
                     AIBWList.Clear()
                     AIGuessList.Clear()
+
+                    Dim ResetGame As New UpdateGameClass
+                    ResetGame.ParametersString = "?code=" & HTTPGameCode & "&action=resetgame"
+                    Dim UpdateGameString As New System.Threading.Thread(AddressOf ResetGame.Update)
+                    UpdateGameString.IsBackground = True
+                    UpdateGameString.Start()
+
                     LabInfo.Text = "You: " & UserWins & " | Opponent: " & AIWins & vbNewLine & "Press [space] to continue playing."
 
                     AIGuessList.Clear()
                     AIBWList.Clear()
 
                     SolutionSet = False
-                    Dim ResetGame As New UpdateGameClass
-                    ResetGame.ParametersString = "?code=" & HTTPGameCode & "&action=resetgame"
-                    Dim UpdateGameString As New System.Threading.Thread(AddressOf ResetGame.Update)
-                    UpdateGameString.IsBackground = True
-                    UpdateGameString.Start()
                     InfoPanel.Show()
                     If HoleGraphicsTimer.Enabled = True Then
                         MsgBox("Enabled")
@@ -555,6 +558,13 @@ Public Class PvPHTTP
                     Next
                     AIAttempts = 0
                     Attempt = 0
+
+                    Dim ResetGame As New UpdateGameClass
+                    ResetGame.ParametersString = "?code=" & HTTPGameCode & "&action=resetgame"
+                    Dim UpdateGameString As New System.Threading.Thread(AddressOf ResetGame.Update)
+                    UpdateGameString.IsBackground = True
+                    UpdateGameString.Start()
+
                     LabInfo.Text = "You: " & UserWins & " | Opponent: " & AIWins & vbNewLine & "Press [space] to continue playing."
                     InfoPanel.Show()
                     GameFinished = True
