@@ -316,6 +316,7 @@ Public Class PvPHTTP
                         End If
                     Else
                         SolutionSet = False
+                        Debug.Print("!!!!!" & UsersTurn.ToString)
                         If UsersTurn = False Then
                             LabInfo.Text = "Your opponent is choosing the secret code."
                             CheckStatusBackgroundWorker.RunWorkerAsync()
@@ -507,7 +508,11 @@ Public Class PvPHTTP
                     AIAttempts = 0
                     Attempt = 0
                     GameFinished = True
-
+                    ShowOpponentGuessTimer.Enabled = False
+                    LoadGuessTimer.Enabled = False
+                    ControlTimer.Enabled = False
+                    AIBWList.Clear()
+                    AIGuessList.Clear()
                     LabInfo.Text = "You: " & UserWins & " | Opponent: " & AIWins & vbNewLine & "Press [space] to continue playing."
 
                     AIGuessList.Clear()
