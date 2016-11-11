@@ -777,7 +777,7 @@ Public Class PvPHTTP
 
     Private Sub ControlTimer_Tick(sender As Object, e As EventArgs) Handles ControlTimer.Tick
         If SolutionSet = True AndAlso UsersTurn = False AndAlso ShowHolesTimer.Enabled = False Then
-            If IsLoading = False Then
+            If IsLoading = False AndAlso GameFinished = False Then
                 LoadGuessTimer.Enabled = True
             End If
 
@@ -805,8 +805,8 @@ Public Class PvPHTTP
                 ShowOpponentGuessTimer.Enabled = True
             End If
             Debug.Print("ControlTimer True")
-            Else
-                If SolutionSet = False Then
+        Else
+            If SolutionSet = False Then
                 Debug.Print("Solution False")
             End If
             If UsersTurn = True Then
@@ -816,6 +816,11 @@ Public Class PvPHTTP
                 Debug.Print("SHT True")
             End If
             Debug.Print("ControlTimer False")
+        End If
+        If GameFinished = True Then
+            ControlTimer.Enabled = False
+            ShowOpponentGuessTimer.Enabled = False
+            LoadGuessTimer.Enabled = False
         End If
     End Sub
 
