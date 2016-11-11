@@ -6,22 +6,17 @@ Imports System.IO
 Imports System.Xml.Serialization
 
 Module SystemModule
-    Public holes, colours, tries As Integer
-    Public solution(), guess() As Integer
-    Public CurrentBW(1) As Integer
+    Public holes, colours, tries, Solution(), guess(), CurrentBW(1) As Integer
     Public TestGuess, ChosenCodeList, GuessList, BWCountList As New List(Of Integer)
     Public GameFinished As Boolean = False
 
-    Public SelectedColor As Integer = 0
-    Public SelectedChooseCodeColor As Integer = 0
+    Public SelectedColor As Integer = 0, SelectedChooseCodeColor As Integer = 0, Attempt As Integer = 0, BlackCount As Integer
 
 
     Public HolesList, BWHolesList, ChoiceList, ChooseCodeList, ChooseCodeHolesList As New List(Of PictureBox)
 
     Public ChoiceRectangleList, ChooseCodeRectangleList As New List(Of Rectangle)
 
-    Public Attempt As Integer = 0
-    Public BlackCount As Integer
     Public UsersTurn As Boolean = True
 
     Public Sub GameSetup(ByVal h As Integer, ByVal c As Integer, ByVal t As Integer)

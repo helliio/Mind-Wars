@@ -1,4 +1,8 @@
-﻿'Copyright (c) 2016 Liang Zhu
+﻿Option Strict On
+Option Explicit On
+Option Infer Off
+
+'Copyright (c) 2016 Liang Zhu
 
 'Permission is hereby granted, free of charge, to any person obtaining
 'a copy of this software and associated documentation files (the
@@ -21,9 +25,8 @@
 
 'imdb.com/title/tt1212027/goofs?item=gf1175507
 Public Class EasterEgg
-    Private egg As Integer = 1
+    Private egg As Integer = 1, counter As Integer
     Private strHostName, strIPAddress As String
-    Private counter As Integer
     Sub New(Optional n As Integer = 0)
         counter = n
         strHostName = System.Net.Dns.GetHostName()

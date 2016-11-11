@@ -1,6 +1,11 @@
-﻿Imports System
+﻿Option Strict On
+Option Explicit On
+Option Infer Off
+Imports System
 Imports System.Net
 Imports System.IO
+
+
 
 Public Class DeleteGameClass
     Public DeleteGameCode As Integer = 0

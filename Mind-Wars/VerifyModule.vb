@@ -1,4 +1,7 @@
 ﻿Option Strict On
+Option Explicit On
+Option Infer Off
+
 Module VerifyModule
     Function verify(ByVal verifysolution() As Integer, ByVal verifyguess() As Integer) As Integer()
         Dim bw(1) As Integer

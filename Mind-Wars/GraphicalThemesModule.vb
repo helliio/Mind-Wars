@@ -1,4 +1,7 @@
-﻿Module GraphicalThemesModule
+﻿Option Strict On
+Option Explicit On
+Option Infer Off
+Module GraphicalThemesModule
 
     Public ButtonPvEList, PvEColorList, ButtonSettingsList, PvPColorList As New List(Of PictureBox)
     Public PvEDifficultyList, ButtonLabList, SettingsLabList, PvPLabList As New List(Of Label)

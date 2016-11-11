@@ -1,27 +1,22 @@
 ﻿Option Strict On
+Option Explicit On
+Option Infer Off
 Module AIModule
     Public InitiallyPossibleSolutions, CurrentlyPossibleSolutions As New List(Of Integer())
     Public AIGuessList, AIBWList As New List(Of Integer)
-    Public UseLightMinimax As Boolean = False
+    Public UseLightMinimax, AISolvedCode As Boolean
 
-    Public AI_BW_Check(1) As Integer
-    Public FourBestScores(3), FourBestIndices(3) As Integer
-    Public AIAttempts As Integer = 0
-    Public AINewestGuess() As Integer
+    Public AI_BW_Check(1), AINewestGuess() As Integer, FourBestScores(3) As Integer, FourBestIndices(3) As Integer
+    Public AIAttempts As Integer
 
     Dim rdm As New Random()
-
-    Public AISolvedCode As Boolean = False
-
 
     Dim AlreadyUsedIndices As New List(Of Integer)
 
     '' FOR TESTING PURPOSES ''
     Public BWForGList As New List(Of Integer())(InitiallyPossibleSolutions.Count)
 
-    Public TestAttempts As Integer = 0
-    Public TestRuns As Integer = 0
-    Public TestSum As Integer = 0
+    Public TestAttempts, TestRuns, TestSum As Integer
 
     'Returns an array of random integers of colours for each hole(array element)
     Function GenerateSolution() As Integer()
@@ -57,9 +52,7 @@ Module AIModule
     End Sub
 
     Public Function AIBestFirstGuess() As Integer()
-        Dim counter As Integer = 0
-        Dim FirstColor As Integer = rdm.Next(0, colours - 1)
-        Dim SecondColor As Integer
+        Dim counter As Integer = 0, FirstColor As Integer = rdm.Next(0, colours - 1), SecondColor As Integer
         Do Until SecondColor <> FirstColor
             SecondColor = rdm.Next(0, colours - 1)
         Loop
@@ -88,16 +81,11 @@ Module AIModule
             InitiallyPossibleSolutions.Capacity = ExpectedCount + 1
             CurrentlyPossibleSolutions.Capacity = ExpectedCount + 1
 
-            Dim LowestListValue As Integer = 0
-
-            Dim q(holes - 1) As Integer
+            Dim LowestListValue As Integer = 0, q(holes - 1) As Integer
             For i As Integer = 0 To holes - 1
                 q(i) = colours - 1
             Next
-            Dim HighestListValue As Integer = ArrayToInt(q)
-            Dim ReportProgressCounter As Integer = 0
-
-            Dim ReportAt As Integer = CInt(HighestListValue / 100) - 1
+            Dim HighestListValue As Integer = ArrayToInt(q), ReportProgressCounter As Integer = 0, ReportAt As Integer = CInt(HighestListValue / 100) - 1
 
             For i As Integer = LowestListValue To HighestListValue
                 If ReportProgressCounter = ReportAt Then
@@ -140,9 +128,8 @@ Module AIModule
     End Sub
 
     Function CalculateEliminated(ByVal B As Integer, ByVal W As Integer, ByVal HypotheticalGuess() As Integer) As Integer
-        Dim SolutionsEliminated As Integer = 0
-        Dim ListCount As Integer = CurrentlyPossibleSolutions.Count - 1
-        For q = 0 To ListCount
+        Dim SolutionsEliminated As Integer = 0, ListCount As Integer = CurrentlyPossibleSolutions.Count - 1
+        For q As Integer = 0 To ListCount
             AI_BW_Check = verify(CurrentlyPossibleSolutions.Item(q), HypotheticalGuess)
             If Not AI_BW_Check(0) = B OrElse Not AI_BW_Check(1) = W Then
                 SolutionsEliminated += 1
@@ -157,9 +144,7 @@ Module AIModule
 
         ' RE-IMPLEMENT "LACKSCORE" BUT OPPOSITE; COUNT PARTITIONS
 
-        Dim IndexOfLowestMaximum As Integer = 0
-        Dim LowestMaximum As Integer = Integer.MaxValue
-        Dim AverageForLowest As Double = 0
+        Dim IndexOfLowestMaximum As Integer = 0, LowestMaximum As Integer = Integer.MaxValue, AverageForLowest As Double = 0
         BWForGList.Clear()
 
         For i As Integer = 0 To InitiallyPossibleSolutions.Count - 1

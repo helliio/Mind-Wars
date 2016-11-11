@@ -1,4 +1,6 @@
 ﻿Option Strict On
+Option Explicit On
+Option Infer Off
 Public Class MinimaxFunctions
 
     'Function MiniCalculateEliminated(ByVal B As Integer, ByVal W As Integer, ByVal HypotheticalGuess() As Integer, ByRef L As Integer()()) As Integer
@@ -18,10 +20,7 @@ Public Class MinimaxFunctions
         ' We can check if the returned amount of eliminated is less than the current maximum, and skip a lot of work.
 
 
-        Dim SolutionsEliminated As Integer = 0
-        Dim HolesLocal As Integer = holes
-        Dim ListCount As Integer = CLi.Count
-        Dim CLiArray()() As Integer = CLi
+        Dim SolutionsEliminated As Integer = 0, HolesLocal As Integer = holes, ListCount As Integer = CLi.Count, CLiArray()() As Integer = CLi
 
         Parallel.For(0, ListCount, Sub(q)
                                        Dim bw(1) As Integer
@@ -62,8 +61,7 @@ Public Class MinimaxFunctions
     End Function
 
     Function MiniArrayToInt(ByVal array() As Integer) As Integer
-        Dim int As Integer
-        Dim l As Integer = array.Length - 1
+        Dim int As Integer, l As Integer = array.Length - 1
         For i As Integer = 0 To l
             int += CInt(array(i) * 10 ^ (l - i))
         Next

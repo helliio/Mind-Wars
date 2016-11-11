@@ -1,4 +1,6 @@
-﻿Option Strict Off
+﻿Option Strict On
+Option Explicit On
+Option Infer Off
 Public Class EasyComputer
     Private rdm As New Random()
     Sub EasyGuess()

@@ -1,4 +1,7 @@
-﻿Public Class Eliminator
+﻿Option Strict On
+Option Explicit On
+Option Infer Off
+Public Class Eliminator
     Inherits MinimaxFunctions
     Public RealGuess(), RealBW() As Integer
 
