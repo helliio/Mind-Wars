@@ -16,8 +16,6 @@ Public Class StartScreen
     Dim FocusedLabel As Label
     Dim ConnectionCode As String
 
-
-
     Private Sub StartScreen_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Hide()
         Call PopulateImageList(0)

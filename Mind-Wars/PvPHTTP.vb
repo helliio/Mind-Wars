@@ -179,44 +179,13 @@ Public Class PvPHTTP
             BWHolesList.Item(ShowHolesCounter + 3 - HolesList.Count).Visible = True
             ShowHolesCounter += 4
         Else
-            'With InfoPanel
-            '    .Parent = Me
-            '    .BackColor = Color.Transparent
-            '    .BringToFront()
-            '    .Width = 32 * holes
-            '    .Height = PicInfoLeft.BackgroundImage.Height + 12
-            '    .Left = HolesList.Item(0).Left
-            '    .Top = HolesList.Item(0).Top + 42
-            'End With
-            'With PicInfoLeft
-            '    .Parent = InfoPanel
-            '    .Size = .BackgroundImage.Size
-            '    .Left = 0
-            '    .Top = 0
-            'End With
-            'With PicInfoMiddle
-            '    .Parent = InfoPanel
-            '    .Height = .BackgroundImage.Height
-            '    .Width = .Parent.Width - PicInfoLeft.Width * 2
-            '    .Left = PicInfoLeft.Width
-            '    .Top = 0
-            'End With
-            'With PicInfoRight
-            '    .Parent = InfoPanel
-            '    .Size = .BackgroundImage.Size
-            '    .Left = PicInfoLeft.Width + PicInfoMiddle.Width
-            '    .Top = 0
-            'End With
-            'With LabInfo
-            '    .Parent = PicInfoMiddle
-            '    .Size = .Parent.Size
-            '    .Left = 0
-            '    .Top = 0
-            'End With
             ShowHolesTimer.Enabled = False
             ShowHolesCounter = 0
             If SolutionSet = True AndAlso UsersTurn = True Then
                 HoleGraphicsTimer.Enabled = True
+            ElseIf UsersTurn = False Then
+                LoadGuessTimer.Enabled = True
+                ControlTimer.Enabled = True
             End If
         End If
     End Sub
@@ -329,19 +298,19 @@ Public Class PvPHTTP
                         Else
                             VerifyRowTimer.Enabled = False
                             For i As Integer = 0 To holes - 1
-                                solution(i) = ChosenCodeList.Item(i)
+                                Solution(i) = ChosenCodeList.Item(i)
                             Next
                             ChosenCodeList.Clear()
                             Call ShowHideChooseCodePanel(BWPanel, ChooseCodePanel)
                             InfoPanel.Show()
                             ShowHolesTimer.Enabled = True
-                            Dim UpdateSolutionString As String = ArrayToString(solution)
+                            Dim UpdateSolutionString As String = ArrayToString(Solution)
                             Dim UpdateGame As New UpdateGameClass
                             UpdateGame.ParametersString = "?code=" & HTTPGameCode & "&action=setsolution&solution=" & UpdateSolutionString
                             Dim UpdateGameString As New System.Threading.Thread(AddressOf UpdateGame.Update)
                             UpdateGameString.IsBackground = True
                             UpdateGameString.Start()
-                            Debug.Print("SOLUTION IS " & ArrayToInt(solution))
+                            Debug.Print("SOLUTION IS " & ArrayToInt(Solution))
                         End If
                     End If
                 Case Keys.Back
@@ -551,8 +520,8 @@ Public Class PvPHTTP
                 If IsNumeric(ResultString) AndAlso ResultString.Length = holes Then
                     SolutionSet = True
                     Debug.Print("SOLUTION FOUND: " & ResultString)
-                    solution = SolutionIntToArray(CInt(ResultString))
-                    Debug.Print("SOLUTION VERIFICATION: " & ArrayToString(solution))
+                    Solution = SolutionIntToArray(CInt(ResultString))
+                    Debug.Print("SOLUTION VERIFICATION: " & ArrayToString(Solution))
                 Else
                     MsgBox(ResultString & " !!!! Length: " & CStr(ResultString.Length))
                 End If
@@ -620,6 +589,7 @@ Public Class PvPHTTP
             UsersTurn = False
             Call SwitchSides()
         Else
+            Debug.Print("Not found")
             CheckStatusBackgroundWorker.RunWorkerAsync()
         End If
     End Sub
@@ -675,6 +645,7 @@ Public Class PvPHTTP
     End Sub
 
     Private Sub LoadGuessTimer_Tick(sender As Object, e As EventArgs) Handles LoadGuessTimer.Tick
+        Debug.Print("LOADING...")
         If ShowHolesTimer.Enabled = False Then
             LoadGuessTimer.Enabled = False
             Dim UpdateGame As New UpdateGameClass
@@ -685,7 +656,9 @@ Public Class PvPHTTP
     End Sub
 
     Private Sub ShowOpponentGuessTimer_Tick(sender As Object, e As EventArgs) Handles ShowOpponentGuessTimer.Tick
+        Debug.Print("SOG TIMER TICK")
         If AIGuessList.Count >= InvalidatedSteps * holes Then
+            Debug.Print("SOG TIMER TICK GREATER")
             Dim ArrBW() As Integer = {0, 0}
             Dim InvalidateRow As Integer = holes * tries - InvalidatedSteps * holes
             If AIStep < holes Then
@@ -697,7 +670,7 @@ Public Class PvPHTTP
                     For i As Integer = 0 To holes - 1
                         CheckBWArr(i) = AIGuessList(holes * (InvalidatedSteps - 1) + i)
                     Next
-                    ArrBW = verify(solution, CheckBWArr)
+                    ArrBW = verify(Solution, CheckBWArr)
                     For n As Integer = 0 To holes - 1
                         If n < ArrBW(0) Then
                             AIBWList.Add(2)
@@ -740,8 +713,27 @@ Public Class PvPHTTP
                 End If
             End If
         Else
+            Debug.Print("SOG TIMER TICK ELSE")
             LoadGuessTimer.Enabled = True
             ShowOpponentGuessTimer.Enabled = False
+        End If
+    End Sub
+
+    Private Sub ControlTimer_Tick(sender As Object, e As EventArgs) Handles ControlTimer.Tick
+        If SolutionSet = True AndAlso UsersTurn = False AndAlso ShowHolesTimer.Enabled = False Then
+            LoadGuessTimer.Enabled = True
+            Debug.Print("ControlTimer True")
+        Else
+            If SolutionSet = False Then
+                Debug.Print("Solution False")
+            End If
+            If UsersTurn = True Then
+                Debug.Print("Solution True")
+            End If
+            If ShowHolesTimer.Enabled = True Then
+                Debug.Print("SHT True")
+            End If
+            Debug.Print("ControlTimer False")
         End If
     End Sub
 

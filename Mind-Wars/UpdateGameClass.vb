@@ -17,6 +17,7 @@ Public Class UpdateGameClass
         If Not ResultString = ArrayToString(solution) Then
             MsgBox(ResultString & " in Update()")
         End If
+        SolutionSet = True
         PvPHTTP.LoadGuessTimer.Enabled = True
     End Sub
 
@@ -30,7 +31,7 @@ Public Class UpdateGameClass
             Dim UpdateClient As New WebClient
             Dim ResultString As String
             Try
-                ResultString = UpdateClient.DownloadString(ServerBaseURI & "/updategame.php" & "?code=" & HTTPGameCode & "&action=udpateguess&guesslist=" & SeriesString)
+                ResultString = UpdateClient.DownloadString(ServerBaseURI & "updategame.php" & "?code=" & HTTPGameCode & "&action=updateguess&guesslist=" & SeriesString)
                 LatestSeriesString = SeriesString
             Catch
                 Debug.Print("Time out")
@@ -43,9 +44,11 @@ Public Class UpdateGameClass
     End Sub
 
     Public Sub LoadGuess()
+        Debug.Print("LoadGuess running")
         Dim GetSeriesClient As New WebClient
         Dim ResultString As String = GetSeriesClient.DownloadString(ServerBaseURI & "/getseries.php?code=" & CStr(HTTPGameCode))
         GetSeriesClient.Dispose()
+        Debug.Print("RESULTSTRING: " & ResultString)
         If Not ResultString = LatestSeriesString AndAlso ResultString.Length > 0 Then
             LatestSeriesString = ResultString
             Debug.Print("Previous: " & LatestSeriesString & vbNewLine & "New: " & ResultString)
@@ -54,7 +57,7 @@ Public Class UpdateGameClass
             For i As Integer = 0 To GuessArray.GetUpperBound(0)
                 AIGuessList.Add(CInt(GuessArray(i).ToString))
             Next
-            Debug.Print("Starting SOG timer...")
+            Debug.Print("AIGuessList.Count = " & CStr(AIGuessList.Count))
         End If
         PvPHTTP.ShowOpponentGuessTimer.Enabled = True
     End Sub
