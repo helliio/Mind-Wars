@@ -1,4 +1,7 @@
 ﻿Option Strict On
+Option Explicit On
+Option Infer Off
+
 Class MinimaxLight
     Private LocalPossibleList As Integer()()
     Sub New(ByVal PossibleList As Integer()())

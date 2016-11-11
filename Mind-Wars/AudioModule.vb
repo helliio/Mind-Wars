@@ -1,4 +1,7 @@
-﻿Module AudioModule
+﻿Option Strict On
+Option Explicit On
+Option Infer Off
+Module AudioModule
     Public AudioStarted As Boolean = False
     Sub PlayLoopingBackgroundSoundFile(ByVal songnumber As Integer)
         Select Case songnumber

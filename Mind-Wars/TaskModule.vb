@@ -5,8 +5,7 @@ Module TaskModule
     Public TESTBestIndex As Integer
 
     Public Sub RunMinimaxTask()
-        Dim highestscore As Integer = -1
-        Dim highestindex As Integer = -1
+        Dim highestscore As Integer = -1, highestindex As Integer = -1
 
         'If CurrentlyPossibleSolutions.Count > 40 Then   UNCOMMENT!!!! COMPARE SPEEDS
         If CurrentlyPossibleSolutions.Count = 0 Then
@@ -52,8 +51,7 @@ Module TaskModule
 
     Public Sub RunMinimaxWithAverage()
         Debug.Print("WITH AVERAGE")
-        Dim highestscore As Integer = -1
-        Dim highestindex As Integer = -1
+        Dim highestscore As Integer = -1, highestindex As Integer = -1
 
         Dim singleTask As Task(Of Integer()) = Task(Of Integer()).Factory.StartNew(Function() MinimaxSelectBestAverage(holes, InitiallyPossibleSolutions, CurrentlyPossibleSolutions, 0))
         Dim result() As Integer = singleTask.Result

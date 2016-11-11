@@ -1,7 +1,6 @@
 ﻿Option Strict On
 Option Infer Off
 Option Explicit On
-
 Module GraphicalThemesModule
 
     Public ButtonPvEList, PvEColorList, ButtonSettingsList, PvPColorList As New List(Of PictureBox)

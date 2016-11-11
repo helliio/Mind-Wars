@@ -1,4 +1,7 @@
-﻿Public Class CreateHTTPGameClass
+﻿Option Strict On
+Option Explicit On
+Option Infer Off
+Public Class CreateHTTPGameClass
     Public Sub Create()
         Dim ResultString As String = HTTPClient.DownloadString(ServerBaseURI & "/creategame.php")
         Select Case ResultString

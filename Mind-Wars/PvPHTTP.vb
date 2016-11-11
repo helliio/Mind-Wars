@@ -298,19 +298,19 @@ Public Class PvPHTTP
                         Else
                             VerifyRowTimer.Enabled = False
                             For i As Integer = 0 To holes - 1
-                                solution(i) = ChosenCodeList.Item(i)
+                                Solution(i) = ChosenCodeList.Item(i)
                             Next
                             ChosenCodeList.Clear()
                             Call ShowHideChooseCodePanel(BWPanel, ChooseCodePanel)
                             InfoPanel.Show()
                             ShowHolesTimer.Enabled = True
-                            Dim UpdateSolutionString As String = ArrayToString(solution)
+                            Dim UpdateSolutionString As String = ArrayToString(Solution)
                             Dim UpdateGame As New UpdateGameClass
                             UpdateGame.ParametersString = "?code=" & HTTPGameCode & "&action=setsolution&solution=" & UpdateSolutionString
                             Dim UpdateGameString As New System.Threading.Thread(AddressOf UpdateGame.Update)
                             UpdateGameString.IsBackground = True
                             UpdateGameString.Start()
-                            Debug.Print("SOLUTION IS " & ArrayToInt(solution))
+                            Debug.Print("SOLUTION IS " & ArrayToInt(Solution))
                         End If
                     End If
                 Case Keys.Back
@@ -520,8 +520,8 @@ Public Class PvPHTTP
                 If IsNumeric(ResultString) AndAlso ResultString.Length = holes Then
                     SolutionSet = True
                     Debug.Print("SOLUTION FOUND: " & ResultString)
-                    solution = SolutionIntToArray(CInt(ResultString))
-                    Debug.Print("SOLUTION VERIFICATION: " & ArrayToString(solution))
+                    Solution = SolutionIntToArray(CInt(ResultString))
+                    Debug.Print("SOLUTION VERIFICATION: " & ArrayToString(Solution))
                 Else
                     MsgBox(ResultString & " !!!! Length: " & CStr(ResultString.Length))
                 End If
@@ -670,7 +670,7 @@ Public Class PvPHTTP
                     For i As Integer = 0 To holes - 1
                         CheckBWArr(i) = AIGuessList(holes * (InvalidatedSteps - 1) + i)
                     Next
-                    ArrBW = verify(solution, CheckBWArr)
+                    ArrBW = verify(Solution, CheckBWArr)
                     For n As Integer = 0 To holes - 1
                         If n < ArrBW(0) Then
                             AIBWList.Add(2)
