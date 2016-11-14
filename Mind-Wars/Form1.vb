@@ -754,11 +754,21 @@ Public Class StartScreen
     Sub EnterSelected()
         Select Case VisiblePanel
             Case 0
-                If Not SelectedButtonListIndex = 0 AndAlso Not SelectedButtonListIndex = 4 Then
-                    TogglePanels(PanelList(SelectedButtonListIndex))
-                ElseIf SelectedButtonListIndex = 0 Then
-                    Singleplayer.Show()
-                End If
+                Select Case SelectedButtonListIndex
+                    Case 0
+                        Singleplayer.Show()
+                    Case 1
+                        TogglePanels(PanelPvE)
+                    Case 2
+                        TogglePanels(PanelPvP2)
+                    Case 3
+                        TogglePanels(PanelTutorial)
+                End Select
+                'If Not SelectedButtonListIndex = 0 AndAlso Not SelectedButtonListIndex = 4 Then
+                '    TogglePanels(PanelList(SelectedButtonListIndex))
+                'ElseIf SelectedButtonListIndex = 0 Then
+                '    Singleplayer.Show()
+                'End If
                 Debug.Print("TOGGLING " & CStr(SelectedButtonListIndex))
                 Debug.Print("VisiblePanel = " & VisiblePanel)
             Case 2
