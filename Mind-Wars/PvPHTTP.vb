@@ -13,7 +13,8 @@ Public Class PvPHTTP
         '''' Move to SetupGame sub ''''
         Me.Visible = False
         holes = 4
-
+        tries = 10
+        colours = 8
         ' Move to SetupGame sub:
         ChosenCodeList.Capacity = holes
         GuessList.Capacity = holes * tries
@@ -466,6 +467,7 @@ Public Class PvPHTTP
         AIBWList.Clear()
         AIGuessList.Clear()
         AIStep = 0
+        ChosenCodeList.Clear()
         InvalidatedSteps = 1
         'GameFinished = False
         BWCountList.Clear()

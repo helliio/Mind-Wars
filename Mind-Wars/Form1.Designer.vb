@@ -63,6 +63,8 @@ Partial Class StartScreen
         Me.LabPvEImpossible = New System.Windows.Forms.Label()
         Me.PicClosePvE = New System.Windows.Forms.PictureBox()
         Me.PanelTutorial = New System.Windows.Forms.Panel()
+        Me.LabTutorialText = New System.Windows.Forms.Label()
+        Me.PicCloseTutorial = New System.Windows.Forms.PictureBox()
         Me.PicFormHeader = New System.Windows.Forms.PictureBox()
         Me.ButtonsPanel = New System.Windows.Forms.Panel()
         Me.PicMinimizeForm = New System.Windows.Forms.PictureBox()
@@ -101,8 +103,6 @@ Partial Class StartScreen
         Me.PicHTTPClose = New System.Windows.Forms.PictureBox()
         Me.PicLoading = New System.Windows.Forms.PictureBox()
         Me.LoadingSpinTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.PicCloseTutorial = New System.Windows.Forms.PictureBox()
-        Me.LabTutorialText = New System.Windows.Forms.Label()
         CType(Me.PicStartButton_Settings, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvE, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStartButton_PvPLan, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -128,6 +128,7 @@ Partial Class StartScreen
         CType(Me.PicDifficulty1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicClosePvE, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelTutorial.SuspendLayout()
+        CType(Me.PicCloseTutorial, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ButtonsPanel.SuspendLayout()
         CType(Me.PicMinimizeForm, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -151,7 +152,6 @@ Partial Class StartScreen
         Me.HTTPJoinPanel.SuspendLayout()
         CType(Me.PicHTTPClose, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicLoading, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PicCloseTutorial, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PicStartButton_Settings
@@ -176,7 +176,7 @@ Partial Class StartScreen
         Me.LabSettings.Name = "LabSettings"
         Me.LabSettings.Size = New System.Drawing.Size(222, 28)
         Me.LabSettings.TabIndex = 0
-        Me.LabSettings.Text = "Singleplayer"
+        Me.LabSettings.Text = "Single Player"
         Me.LabSettings.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'LabPvE
@@ -650,6 +650,34 @@ Partial Class StartScreen
         Me.PanelTutorial.Tag = "5"
         Me.PanelTutorial.Visible = False
         '
+        'LabTutorialText
+        '
+        Me.LabTutorialText.BackColor = System.Drawing.Color.Transparent
+        Me.LabTutorialText.Dock = System.Windows.Forms.DockStyle.Top
+        Me.LabTutorialText.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabTutorialText.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.LabTutorialText.Location = New System.Drawing.Point(0, 40)
+        Me.LabTutorialText.Name = "LabTutorialText"
+        Me.LabTutorialText.Padding = New System.Windows.Forms.Padding(5)
+        Me.LabTutorialText.Size = New System.Drawing.Size(226, 562)
+        Me.LabTutorialText.TabIndex = 6
+        Me.LabTutorialText.Tag = "5"
+        Me.LabTutorialText.Text = resources.GetString("LabTutorialText.Text")
+        Me.LabTutorialText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'PicCloseTutorial
+        '
+        Me.PicCloseTutorial.BackColor = System.Drawing.Color.Transparent
+        Me.PicCloseTutorial.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBackActive1
+        Me.PicCloseTutorial.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.PicCloseTutorial.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PicCloseTutorial.Location = New System.Drawing.Point(0, 0)
+        Me.PicCloseTutorial.Name = "PicCloseTutorial"
+        Me.PicCloseTutorial.Size = New System.Drawing.Size(226, 40)
+        Me.PicCloseTutorial.TabIndex = 2
+        Me.PicCloseTutorial.TabStop = False
+        Me.PicCloseTutorial.Tag = "0"
+        '
         'PicFormHeader
         '
         Me.PicFormHeader.BackColor = System.Drawing.Color.Transparent
@@ -1107,34 +1135,6 @@ Partial Class StartScreen
         '
         Me.LoadingSpinTimer.Interval = 20
         '
-        'PicCloseTutorial
-        '
-        Me.PicCloseTutorial.BackColor = System.Drawing.Color.Transparent
-        Me.PicCloseTutorial.BackgroundImage = Global.Mind_Wars.My.Resources.Resources.ButtonBackActive1
-        Me.PicCloseTutorial.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.PicCloseTutorial.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PicCloseTutorial.Location = New System.Drawing.Point(0, 0)
-        Me.PicCloseTutorial.Name = "PicCloseTutorial"
-        Me.PicCloseTutorial.Size = New System.Drawing.Size(226, 40)
-        Me.PicCloseTutorial.TabIndex = 2
-        Me.PicCloseTutorial.TabStop = False
-        Me.PicCloseTutorial.Tag = "0"
-        '
-        'LabTutorialText
-        '
-        Me.LabTutorialText.BackColor = System.Drawing.Color.Transparent
-        Me.LabTutorialText.Dock = System.Windows.Forms.DockStyle.Top
-        Me.LabTutorialText.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabTutorialText.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.LabTutorialText.Location = New System.Drawing.Point(0, 40)
-        Me.LabTutorialText.Name = "LabTutorialText"
-        Me.LabTutorialText.Padding = New System.Windows.Forms.Padding(5)
-        Me.LabTutorialText.Size = New System.Drawing.Size(226, 562)
-        Me.LabTutorialText.TabIndex = 6
-        Me.LabTutorialText.Tag = "5"
-        Me.LabTutorialText.Text = resources.GetString("LabTutorialText.Text")
-        Me.LabTutorialText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
         'StartScreen
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1191,6 +1191,7 @@ Partial Class StartScreen
         CType(Me.PicDifficulty1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicClosePvE, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelTutorial.ResumeLayout(False)
+        CType(Me.PicCloseTutorial, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicFormHeader, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ButtonsPanel.ResumeLayout(False)
         CType(Me.PicMinimizeForm, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1215,7 +1216,6 @@ Partial Class StartScreen
         Me.HTTPJoinPanel.ResumeLayout(False)
         CType(Me.PicHTTPClose, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicLoading, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PicCloseTutorial, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
